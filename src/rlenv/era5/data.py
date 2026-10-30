@@ -73,7 +73,8 @@ def load(path: Path = SUBSET) -> dict[str, np.ndarray]:
     return arrays
 
 
-def _open(store: str):
+def open_store(store: str):
+    """A read-only zarr group for one pinned store, after checking its metadata hash."""
     import zarr  # build-time only
     from zarr.storage import FsspecStore
 
@@ -86,30 +87,38 @@ def _open(store: str):
     return zarr.open_group(store=store, mode="r", zarr_format=2, use_consolidated=True)
 
 
+def store_hours(group, when: list[datetime]) -> list[int]:
+    """Times as the store's own 'hours since' integers."""
+    origin = epoch(group["time"].attrs["units"])
+    return [int((t - origin) / timedelta(hours=1)) for t in when]
+
+
+def grid(*groups) -> tuple[np.ndarray, np.ndarray]:
+    """The latitude and longitude every group shares; latitude must increase."""
+    latitude, longitude = groups[0]["latitude"][:], groups[0]["longitude"][:]
+    same = all(
+        np.array_equal(latitude, g["latitude"][:]) and np.array_equal(longitude, g["longitude"][:])
+        for g in groups[1:]
+    )
+    if not same or not (np.diff(latitude) > 0).all():
+        raise ValueError("the stores disagree on the grid, or latitude does not increase")
+    return latitude, longitude
+
+
 def build() -> dict[str, np.ndarray]:
     """Read the subset from the three stores; about 19 MB of chunks."""
-    era5, hres, clim = _open(ERA5), _open(HRES), _open(CLIMATOLOGY)
+    era5, hres, clim = open_store(ERA5), open_store(HRES), open_store(CLIMATOLOGY)
     inits = [FIRST_INIT + timedelta(hours=12 * k) for k in range(INITS)]
     valid = [t + timedelta(hours=LEAD_HOURS) for t in inits]
-
-    def hours(group, when):
-        return [int((t - epoch(group["time"].attrs["units"])) / timedelta(hours=1)) for t in when]
-
-    h = positions(hres["time"][:], hours(hres, inits))
-    e = positions(era5["time"][:], hours(era5, valid))
+    h = positions(hres["time"][:], store_hours(hres, inits))
+    e = positions(era5["time"][:], store_hours(era5, valid))
     k = positions(hres["prediction_timedelta"][:], [LEAD_HOURS])[0]
     if not (np.diff(h) == 1).all():
         raise ValueError("HRES inits are not consecutive in the store")
     forecast = hres[VARIABLE][h[0] : h[-1] + 1, k]  # (init, longitude, latitude)
     truth = era5[VARIABLE][e[0] : e[-1] + 1][e - e[0]]  # contiguous read, then the valid times
     normals = align(clim[VARIABLE][:], clim["hour"][:], clim["dayofyear"][:], valid)
-    latitude, longitude = hres["latitude"][:], hres["longitude"][:]
-    same = all(
-        np.array_equal(latitude, g["latitude"][:]) and np.array_equal(longitude, g["longitude"][:])
-        for g in (era5, clim)
-    )
-    if not same or not (np.diff(latitude) > 0).all():
-        raise ValueError("the stores disagree on the grid, or latitude does not increase")
+    latitude, longitude = grid(hres, era5, clim)
     return {
         "forecast": np.transpose(forecast, (0, 2, 1)),
         "truth": np.transpose(truth, (0, 2, 1)),
