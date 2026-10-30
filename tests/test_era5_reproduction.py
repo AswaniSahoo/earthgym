@@ -14,3 +14,10 @@ def test_mslp_rmse_at_72_hours_matches_the_published_wb2_score():
     subset = data.load()
     rmse = scores.rmse(subset["forecast"], subset["truth"], subset["latitude"])
     assert rmse == pytest.approx(133.890547, abs=5e-7)
+
+
+def test_mslp_acc_at_72_hours_matches_the_published_wb2_score():
+    # same file: acc, global, 72 h, against the ERA5 1990 to 2019 climatology
+    s = data.load()
+    acc = scores.acc(s["forecast"], s["truth"], s["climatology"], s["latitude"])
+    assert acc == pytest.approx(0.981878, abs=5e-7)
