@@ -33,7 +33,9 @@ def summarize(log: EvalLog) -> dict:
         "accuracy": metrics["accuracy"].value,
         "stderr": metrics["stderr"].value,
         "format_failures": format_failures,
-        "by_complexity": {k: sum(v) / len(v) for k, v in sorted(by_level.items())},
+        "by_complexity": {
+            k: {"n": len(v), "accuracy": sum(v) / len(v)} for k, v in sorted(by_level.items())
+        },
         "inspect_ai": log.eval.packages.get("inspect_ai", ""),
         "commit": f"{rev.commit}{' (dirty)' if rev.dirty else ''}" if rev else "unknown",
         "generate_config": ", ".join(f"{k} {v}" for k, v in config.items()) or "provider defaults",
@@ -64,11 +66,14 @@ def render(summaries: list[dict], set_sha256: str) -> str:
         "",
         "## Accuracy by complexity",
         "",
-        "| task | complexity | accuracy |",
-        "|---|---|---|",
+        "| task | complexity | n | accuracy |",
+        "|---|---|---|---|",
     ]
     for s in summaries:
-        lines += [f"| {s['task']} | {k} | {v:.3f} |" for k, v in s["by_complexity"].items()]
+        lines += [
+            f"| {s['task']} | {k} | {v['n']} | {v['accuracy']:.3f} |"
+            for k, v in s["by_complexity"].items()
+        ]
     lines += [
         "",
         "## Run config",

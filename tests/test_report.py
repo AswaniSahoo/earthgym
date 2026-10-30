@@ -39,13 +39,22 @@ def run(tmp_path, reply, model_config=None, **config):
 def test_summary_counts_accuracy_complexity_and_format_failures(tmp_path):
     summary = report.summarize(run(tmp_path, "ANSWER: B"))
     assert (summary["n"], summary["accuracy"], summary["format_failures"]) == (2, 0.5, 0)
-    assert summary["by_complexity"] == {"BASE": 1.0, "REASONING": 0.0}
+    assert summary["by_complexity"] == {
+        "BASE": {"n": 1, "accuracy": 1.0},
+        "REASONING": {"n": 1, "accuracy": 0.0},
+    }
     assert report.summarize(run(tmp_path, "B"))["format_failures"] == 2
 
 
 def test_render_lists_each_task_with_its_model_and_the_set_checksum(tmp_path):
     text = report.render([report.summarize(run(tmp_path, "ANSWER: B"))], set_sha256="abc123")
     assert "| climaqa_mcq | mockllm/model | 2 | 0.500 |" in text and "abc123" in text
+
+
+def test_render_gives_n_and_accuracy_per_complexity_level(tmp_path):
+    text = report.render([report.summarize(run(tmp_path, "ANSWER: B"))], set_sha256="abc123")
+    assert "| climaqa_mcq | BASE | 1 | 1.000 |" in text
+    assert "| climaqa_mcq | REASONING | 1 | 0.000 |" in text
 
 
 def test_summary_records_the_run_config(tmp_path):

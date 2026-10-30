@@ -8,7 +8,10 @@
   "stderr": 0.038815657085642094,
   "format_failures": 0,
   "by_complexity": {
-   "none": 0.7421875
+   "none": {
+    "n": 128,
+    "accuracy": 0.7421875
+   }
   },
   "inspect_ai": "0.3.286",
   "commit": "3c70706 (dirty)",
@@ -29,9 +32,18 @@
   "stderr": 0.022332161986243763,
   "format_failures": 0,
   "by_complexity": {
-   "BASE": 0.9065420560747663,
-   "HYPOTHETICAL": 0.8478260869565217,
-   "REASONING": 0.8405797101449275
+   "BASE": {
+    "n": 107,
+    "accuracy": 0.9065420560747663
+   },
+   "HYPOTHETICAL": {
+    "n": 46,
+    "accuracy": 0.8478260869565217
+   },
+   "REASONING": {
+    "n": 69,
+    "accuracy": 0.8405797101449275
+   }
   },
   "inspect_ai": "0.3.286",
   "commit": "3c70706 (dirty)",
