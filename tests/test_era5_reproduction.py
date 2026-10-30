@@ -21,3 +21,10 @@ def test_mslp_acc_at_72_hours_matches_the_published_wb2_score():
     s = data.load()
     acc = scores.acc(s["forecast"], s["truth"], s["climatology"], s["latitude"])
     assert acc == pytest.approx(0.981878, abs=5e-7)
+
+
+def test_mslp_bias_at_72_hours_matches_the_published_wb2_score():
+    # same file: bias, global, 72 h (-0.40657755779113947 Pa, read 2026-10-30)
+    s = data.load()
+    bias = scores.bias(s["forecast"], s["truth"], s["latitude"])
+    assert bias == pytest.approx(-0.406578, abs=5e-7)
