@@ -29,8 +29,13 @@ def _mean(x: np.ndarray, latitude: np.ndarray) -> float:
     return float(np.average(x, weights=weights))
 
 
+def _error(forecast: np.ndarray, truth: np.ndarray) -> np.ndarray:
+    """Forecast minus truth in float64, so float32 fields square without rounding loss."""
+    return np.asarray(forecast, dtype=float) - np.asarray(truth, dtype=float)
+
+
 def mse(forecast: np.ndarray, truth: np.ndarray, latitude: np.ndarray) -> float:
-    return _mean((forecast - truth) ** 2, latitude)
+    return _mean(_error(forecast, truth) ** 2, latitude)
 
 
 def rmse(forecast: np.ndarray, truth: np.ndarray, latitude: np.ndarray) -> float:
@@ -39,4 +44,4 @@ def rmse(forecast: np.ndarray, truth: np.ndarray, latitude: np.ndarray) -> float
 
 
 def bias(forecast: np.ndarray, truth: np.ndarray, latitude: np.ndarray) -> float:
-    return _mean(forecast - truth, latitude)
+    return _mean(_error(forecast, truth), latitude)

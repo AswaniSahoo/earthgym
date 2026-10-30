@@ -44,3 +44,11 @@ def test_bias_is_the_area_weighted_mean_of_forecast_minus_truth():
     forecast = truth.copy()
     forecast[0, 0, 0], forecast[1, 1, 0] = 1.0, -2.0
     assert scores.bias(forecast, truth, LAT) == pytest.approx(-0.375)
+
+
+def test_scores_compute_in_float64_whatever_the_input_dtype():
+    rng = np.random.default_rng(0)
+    forecast, truth = (1e5 + rng.normal(0, 100, (2, 3, 4, 5))).astype("f4")  # pressures in Pa
+    lat = np.array([-60.0, -20.0, 20.0, 60.0])
+    wide = scores.mse(forecast.astype("f8"), truth.astype("f8"), lat)
+    assert scores.mse(forecast, truth, lat) == wide
