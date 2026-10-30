@@ -18,3 +18,8 @@ jobs:
       - run: uv run ruff check .
       - run: uv run ruff format --check .
       - run: uv run pytest -q
+      - run: uv run vf-validate era5-forecast-v1 --only-noop --runtime.type subprocess
+      - run: >-
+          uv run inspect eval src/rlenv/era5/tasks.py@era5_forecast --model mockllm/model
+          --limit 3 --log-dir "$RUNNER_TEMP/inspect" --display none
+      - run: uv build environments/era5_forecast_v1 --out-dir "$RUNNER_TEMP/wheels"
