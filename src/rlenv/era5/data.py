@@ -42,6 +42,16 @@ def positions(times: np.ndarray, wanted: list[int]) -> np.ndarray:
     return np.array([index[w] for w in wanted])
 
 
+def align(
+    climatology: np.ndarray, hours: np.ndarray, days: np.ndarray, valid_times: list[datetime]
+) -> np.ndarray:
+    """The climatology (hour, dayofyear, ...) at each valid time's hour and day of year, as
+    WeatherBench-X selects it (metrics/base.py, PerVariableStatisticWithClimatology)."""
+    h = positions(hours, [t.hour for t in valid_times])
+    d = positions(days, [t.timetuple().tm_yday for t in valid_times])
+    return climatology[h, d]
+
+
 def content_sha256(arrays: dict[str, np.ndarray]) -> str:
     """Hash of names, dtypes, shapes and values, independent of the file container."""
     digest = hashlib.sha256()

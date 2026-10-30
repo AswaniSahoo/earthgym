@@ -45,3 +45,15 @@ def rmse(forecast: np.ndarray, truth: np.ndarray, latitude: np.ndarray) -> float
 
 def bias(forecast: np.ndarray, truth: np.ndarray, latitude: np.ndarray) -> float:
     return _mean(_error(forecast, truth), latitude)
+
+
+def acc(
+    forecast: np.ndarray, truth: np.ndarray, climatology: np.ndarray, latitude: np.ndarray
+) -> float:
+    """Anomaly correlation as WeatherBench-X reports it: the area-weighted means of the anomaly
+    products over init time and grid come first and the ratio last (metrics/deterministic.py,
+    ACC), not the mean of per-init correlations in the WB2 paper (eq. 5). The climatology is
+    already aligned to each valid time."""
+    f, t = _error(forecast, climatology), _error(truth, climatology)
+    spread = np.sqrt(_mean(f * f, latitude) * _mean(t * t, latitude))
+    return float(_mean(f * t, latitude) / spread)

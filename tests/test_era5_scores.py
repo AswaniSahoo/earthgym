@@ -52,3 +52,18 @@ def test_scores_compute_in_float64_whatever_the_input_dtype():
     lat = np.array([-60.0, -20.0, 20.0, 60.0])
     wide = scores.mse(forecast.astype("f8"), truth.astype("f8"), lat)
     assert scores.mse(forecast, truth, lat) == wide
+
+
+def test_acc_is_one_when_forecast_anomalies_scale_the_truth_anomalies():
+    clim = np.full((2, 3, 1), 10.0)
+    truth = clim + np.array([1.0, -2.0, 0.5])[None, :, None]
+    forecast = clim + 3 * (truth - clim)
+    assert scores.acc(forecast, truth, clim, LAT) == pytest.approx(1.0)
+
+
+def test_acc_pools_anomaly_statistics_over_init_times_before_the_ratio():
+    # WeatherBench-X: per-init correlations here are 1 and -1 (mean 0), pooled gives -0.6
+    clim = np.zeros((2, 3, 1))
+    truth = np.stack([np.full((3, 1), 1.0), np.full((3, 1), 2.0)])
+    forecast = np.stack([np.full((3, 1), 1.0), np.full((3, 1), -2.0)])
+    assert scores.acc(forecast, truth, clim, LAT) == pytest.approx(-0.6)

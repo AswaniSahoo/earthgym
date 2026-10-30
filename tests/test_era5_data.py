@@ -17,6 +17,13 @@ def test_epoch_reads_cf_hours_since_units():
     assert data.epoch("hours since 1959-01-01") == datetime(1959, 1, 1)
 
 
+def test_align_picks_the_climatology_of_each_valid_day_of_year_and_hour():
+    hours, days = np.array([0, 6, 12, 18]), np.arange(1, 367)
+    clim = (100 * np.arange(4)[:, None] + days[None, :])[:, :, None, None]  # hour, day, lat, lon
+    valid = [datetime(2020, 12, 31, 18), datetime(2021, 1, 1, 6)]  # day 366 of a leap year
+    assert data.align(clim, hours, days, valid)[:, 0, 0].tolist() == [666, 101]
+
+
 def test_load_accepts_only_the_pinned_subset(tmp_path, monkeypatch):
     path = tmp_path / "subset.npz"
     arrays = {"forecast": np.arange(4, dtype="f4"), "latitude": np.array([-45.0, 45.0])}
