@@ -43,9 +43,9 @@ def record(row: dict, task: str) -> dict:
     }
     if task == "mcq":
         rec["options"] = [text for _, text in checks.parse_options(row["Options"])]
-        rec["answer"] = row["Answer"].strip().lower()
+        rec["answer"] = row["Answer"].strip().upper()  # Inspect keys choices by capital letter
     else:
-        rec["answer"] = row["Answer"].strip()
+        rec["answer"] = row["Answer"].strip().rstrip(".,;:")  # 12 Gold keys end in "," or "."
     return rec
 
 

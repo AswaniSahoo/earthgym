@@ -47,7 +47,16 @@ def test_mcq_record_lists_option_texts_in_order_and_the_key_letter():
         "Still air.",
         "Sinking air.",
     ]
-    assert kept[0]["answer"] == "a" and kept[0]["task"] == "mcq"
+    assert kept[0]["answer"] == "A" and kept[0]["task"] == "mcq"
+
+
+def test_cloze_key_loses_trailing_punctuation_so_exact_match_is_fair():
+    rows = {
+        ("gold", "mcq"): [],
+        ("gold", "cloze"): [{"id": "0", "Question": "<MASK> cools.", "Answer": "evaporation,"}],
+    }
+    kept, _ = clean.clean(rows, {"findings": []})
+    assert kept[0]["answer"] == "evaporation"
 
 
 def test_manifest_counts_kept_and_excluded_by_reason():
