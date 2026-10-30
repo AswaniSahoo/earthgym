@@ -143,6 +143,11 @@ def test_summary_labels_settings_the_log_does_not_record(tmp_path):
     assert (summary["commit"], summary["generate_config"]) == ("unknown", "provider defaults")
 
 
+def test_summary_lets_an_eval_setting_override_the_models_own(tmp_path):
+    log = run(tmp_path, "ANSWER: B", GenerateConfig(temperature=0.5), temperature=0.0)
+    assert report.summarize(log)["generate_config"] == "temperature 0.0"
+
+
 def test_render_prints_the_run_config_of_each_task(tmp_path):
     log = run(tmp_path, "ANSWER: B", temperature=0.0)
     log.eval.revision = EvalRevision(type="git", origin="o", commit="abc1234", dirty=False)
