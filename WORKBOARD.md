@@ -6,7 +6,8 @@ Updated 2026-10-30. Publish after completion. Small commits, one-line messages.
 
 - [ ] Radar check for Phase 2 (scout): Inspect, verifiers, MCQ and cloze scoring practice,
       cheapest model access, recent climate benchmarks
-- [ ] Clean set v0: validated Gold only, exact leaks and defects removed, JSONL with provenance
+- [x] Clean set v0: 377 kept (226 MCQ, 151 cloze), 75 excluded with reasons in
+      reports/climaqa/clean_v0_manifest.json
 - [ ] Deterministic scorers: MCQ letter extraction, cloze exact match
 - [ ] Inspect tasks for MCQ and cloze
 - [ ] Baseline runs on several models, dated report in reports/

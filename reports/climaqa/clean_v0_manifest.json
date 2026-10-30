@@ -1,0 +1,468 @@
+{
+ "dataset": "Rose-STL-Lab/ClimaQA",
+ "revision": "3f084a0202c6260e588fb5b681d2e4ec859a3845",
+ "version": "v0",
+ "kept": {
+  "cloze": 151,
+  "mcq": 226
+ },
+ "excluded_by_reason": {
+  "leak.gold_in_other_silver_task": 2,
+  "leak.gold_in_silver": 26,
+  "mcq.duplicate_options": 1,
+  "rejected by experts": 47
+ },
+ "excluded": [
+  {
+   "id": "gold/mcq/2",
+   "reasons": [
+    "leak.gold_in_other_silver_task",
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/3",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/5",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/15",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/17",
+   "reasons": [
+    "leak.gold_in_other_silver_task"
+   ]
+  },
+  {
+   "id": "gold/mcq/18",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/22",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/26",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/40",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/42",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/46",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/47",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/61",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/64",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/70",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/84",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/85",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/93",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/95",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/100",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/108",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/112",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/121",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/131",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/137",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/139",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/140",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/153",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/154",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/155",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/158",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/159",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/163",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/165",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/166",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/171",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/176",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/191",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/197",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/201",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/206",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/214",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/218",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/219",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/220",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/223",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/224",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/225",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/226",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/227",
+   "reasons": [
+    "mcq.duplicate_options"
+   ]
+  },
+  {
+   "id": "gold/mcq/228",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/235",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/240",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/242",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/243",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/245",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/246",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/248",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/252",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/259",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/265",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/273",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/283",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/287",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/mcq/288",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/291",
+   "reasons": [
+    "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/cloze/0",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/cloze/6",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/cloze/44",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/cloze/50",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/cloze/78",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/cloze/94",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/cloze/104",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/cloze/119",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/cloze/123",
+   "reasons": [
+    "leak.gold_in_silver"
+   ]
+  }
+ ]
+}

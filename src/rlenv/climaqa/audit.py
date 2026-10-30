@@ -68,7 +68,7 @@ def audit(rows: dict[tuple[str, str], list[dict]]) -> dict:
 
 
 def run(cache: Path, out: Path) -> dict:
-    rows = {key: data.load(path) for key, path in data.fetch(cache).items()}
+    rows = data.load_all(cache)
     report = audit(rows)
     out.mkdir(parents=True, exist_ok=True)
     (out / "findings.json").write_text(json.dumps(report, indent=1, ensure_ascii=False), "utf-8")

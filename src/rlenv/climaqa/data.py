@@ -60,6 +60,10 @@ def download(rel: str) -> bytes:
         return resp.read()
 
 
+def load_all(cache_dir: Path) -> dict[tuple[str, str], list[dict[str, str]]]:
+    return {key: load(path) for key, path in fetch(cache_dir).items()}
+
+
 def load(path: Path) -> list[dict[str, str]]:
     """Read one benchmark CSV; the unnamed index column becomes 'id'."""
     with path.open(newline="", encoding="utf-8") as fh:
