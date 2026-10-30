@@ -22,9 +22,8 @@ BASELINES = {
 
 
 def reward(item: dict, forecast: float | None) -> float:
-    floor = contract.VARIABLES[item["variable"]][2]
     persistence, climatology = item["history"][-1], item["climatology"]
-    return contract.reward(forecast, item["truth"], persistence, climatology, floor)
+    return contract.reward(forecast, item["truth"], persistence, climatology, item["floor"])
 
 
 def rows(records: list[dict]) -> list[dict]:
@@ -53,7 +52,7 @@ def rows(records: list[dict]) -> list[dict]:
     return out
 
 
-def render(table: list[dict]) -> str:
+def render(table: list[dict], records: list[dict] | None = None) -> str:
     lines = [
         "# era5-forecast-v1 baseline rows",
         "",
@@ -68,12 +67,26 @@ def render(table: list[dict]) -> str:
             f"| {r['variable']} | {r['lead']} | {r['baseline']} | {r['n']} | "
             f"{r['rmse']:.3f} | {acc} | {r['reward']:.3f} |"
         )
+    if records:
+        lines += [
+            "",
+            "Reward floor per variable: the 10th percentile of the better-baseline error (0007);",
+            "it binds where that error is below the floor.",
+            "",
+            "| variable | floor | binds |",
+            "|---|---|---|",
+        ]
+        for variable in items.VARIABLES:
+            group = [r for r in records if r["variable"] == variable]
+            if group:
+                binds = sum(items.better_baseline_error(r) < r["floor"] for r in group)
+                lines.append(f"| {variable} | {group[0]['floor']:.3f} | {binds} of {len(group)} |")
     return "\n".join([*lines, ""])
 
 
 def main() -> None:
     records = [json.loads(line) for line in items.OUT.read_text("utf-8").splitlines()]
-    REPORT.write_text(render(rows(records)), "utf-8")
+    REPORT.write_text(render(rows(records), records), "utf-8")
     print(f"{len(records)} items scored, written to {REPORT}")
 
 

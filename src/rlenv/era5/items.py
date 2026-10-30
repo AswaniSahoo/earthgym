@@ -23,6 +23,36 @@ VARIABLES = ["mean_sea_level_pressure", "2m_temperature"]
 LEADS = [24, 48, 72]
 DECIMALS = {"mean_sea_level_pressure": 1, "2m_temperature": 2}  # Pa and K as shown
 HISTORY_STEPS = 13  # every 6 h over the 72 h up to and including the init
+FLOOR_PERCENTILE = 10  # the floor only guards a near-zero baseline error, so it binds rarely
+
+
+def better_baseline_error(row: dict) -> float:
+    """|truth - b| for the better of persistence (the value at the init) and climatology."""
+    truth = row["truth"]
+    return min(abs(row["history"][-1] - truth), abs(row["climatology"] - truth))
+
+
+def floors(rows: list[dict]) -> dict[str, float]:
+    """Each variable's reward floor: the 10th percentile (numpy's linear rule) of the
+    better-baseline error over the items. Baseline data only, no model information."""
+    by_variable = {
+        v: [better_baseline_error(r) for r in rows if r["variable"] == v] for v in VARIABLES
+    }
+    return {v: float(np.percentile(e, FLOOR_PERCENTILE)) for v, e in by_variable.items() if e}
+
+
+def with_floors(rows: list[dict]) -> list[dict]:
+    """The rows with their variable's floor, so each item carries what its reward needs."""
+    floor = floors(rows)
+    return [row | {"floor": floor[row["variable"]]} for row in rows]
+
+
+def floor_binds(rows: list[dict]) -> dict[str, int]:
+    """How many items per variable have a better-baseline error below their floor."""
+    return {
+        v: sum(better_baseline_error(r) < r["floor"] for r in rows if r["variable"] == v)
+        for v in VARIABLES
+    }
 
 
 def plan(seed: int, per_group: int, inits: int, lats: int, lons: int) -> list[tuple]:
@@ -93,15 +123,16 @@ def read_fields() -> dict:
     return fields
 
 
-def write(rows: list[dict], out: Path = OUT, manifest: Path = MANIFEST) -> str:
-    """One JSON object per line, and a manifest with the file's sha256 and how it was made."""
+def write(rows: list[dict], out: Path = OUT, manifest: Path = MANIFEST, **extra) -> str:
+    """One JSON object per line, and a manifest with the file's sha256, how it was made and
+    any extra fields."""
     text = "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(text, "utf-8")
     digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
     meta = {"version": "v1", "items": len(rows), "sha256": digest, "seed": SEED}
     meta |= {"per_group": PER_GROUP, "variables": VARIABLES, "leads": LEADS}
-    meta |= {"history_steps": HISTORY_STEPS, "stores": data.METADATA_SHA256}
+    meta |= {"history_steps": HISTORY_STEPS, "stores": data.METADATA_SHA256} | extra
     manifest.parent.mkdir(parents=True, exist_ok=True)
     manifest.write_text(json.dumps(meta, indent=1) + "\n", "utf-8")
     return digest
@@ -111,8 +142,9 @@ def main() -> None:
     argparse.ArgumentParser(description="Build the era5-forecast-v1 items.").parse_args()
     fields = read_fields()
     shape = (data.INITS, len(fields["latitude"]), len(fields["longitude"]))
-    rows = [make_item(*pick, fields) for pick in plan(SEED, PER_GROUP, *shape)]
-    print(f"{len(rows)} items, sha256 {write(rows)}")
+    rows = with_floors([make_item(*pick, fields) for pick in plan(SEED, PER_GROUP, *shape)])
+    digest = write(rows, floors=floors(rows), floor_binds=floor_binds(rows))
+    print(f"{len(rows)} items, sha256 {digest}")
 
 
 if __name__ == "__main__":

@@ -53,6 +53,7 @@ ROW = {
     "truth": 290.0,
     "hres": 290.4,
     "area_weight": 1.0,
+    "floor": 2.0,  # above the better-baseline error, so the item's own floor decides the pay
 }
 
 
@@ -64,5 +65,5 @@ def test_inspect_task_scores_replies_with_the_contract_reward(tmp_path):
     log = eval(
         tasks.era5_forecast(path=str(path)), model=model, log_dir=str(tmp_path), display="none"
     )[0]
-    # better baseline errs by 1 (climatology), the reply by 0.5: reward 0.5
-    assert log.results.scores[0].metrics["mean"].value == pytest.approx(0.5)
+    # better baseline errs by 1 (climatology), the reply by 0.5, floor 2: (1 - 0.5) / 2
+    assert log.results.scores[0].metrics["mean"].value == pytest.approx(0.25)

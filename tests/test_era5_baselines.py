@@ -14,6 +14,7 @@ def item(truth, persistence, climatology, hres):
         "climatology": climatology,
         "hres": hres,
         "area_weight": 1.0,
+        "floor": 0.5,
     }
 
 
@@ -37,3 +38,9 @@ def test_render_gives_one_table_row_per_baseline():
     text = baselines.render(baselines.rows(ITEMS))
     assert "| 2m_temperature | 24 | IFS HRES | 2 | 0.354 | " in text
     assert "| 2m_temperature | 24 | climatology | 2 | " in text and "n/a" in text
+
+
+def test_render_reports_each_floor_and_how_often_it_binds():
+    near = item(280.0, 280.2, 283.0, 280.0)  # better-baseline error 0.2, under the 0.5 floor
+    text = baselines.render(baselines.rows([*ITEMS, near]), [*ITEMS, near])
+    assert "| 2m_temperature | 0.500 | 1 of 3 |" in text

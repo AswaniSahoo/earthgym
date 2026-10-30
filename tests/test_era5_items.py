@@ -66,3 +66,23 @@ def test_bundled_items_match_their_manifest():
     meta = json.loads(items.MANIFEST.read_text())
     assert hashlib.sha256(items.OUT.read_bytes()).hexdigest() == meta["sha256"]
     assert len(items.OUT.read_text().splitlines()) == meta["items"] == 720
+
+
+def floor_row(variable, error):
+    """An item whose better-baseline error is `error` (persistence), climatology far off."""
+    return {"variable": variable, "truth": 0.0, "history": [0.0, error], "climatology": 99.0}
+
+
+def test_floors_are_the_tenth_percentile_of_the_better_baseline_error():
+    rows = [floor_row(T2M, 0.1 * k) for k in range(1, 11)]  # errors 0.1 to 1.0
+    rows += [floor_row("mean_sea_level_pressure", e) for e in (10.0, 20.0, 30.0, 40.0, 50.0)]
+    floors = items.floors(rows)  # numpy's linear percentile: 0.1 + 0.9 * 0.1, 10 + 0.4 * 10
+    assert floors == pytest.approx({T2M: 0.19, "mean_sea_level_pressure": 14.0})
+    assert {r["floor"] for r in items.with_floors(rows) if r["variable"] == T2M} == {floors[T2M]}
+
+
+def test_bundled_floors_follow_the_rule_and_the_manifest_records_them():
+    rows = [json.loads(line) for line in items.OUT.read_text().splitlines()]
+    floors = items.floors(rows)
+    assert all(r["floor"] == floors[r["variable"]] for r in rows)
+    assert json.loads(items.MANIFEST.read_text())["floors"] == floors

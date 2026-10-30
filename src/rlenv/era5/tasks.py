@@ -13,7 +13,7 @@ from inspect_ai.dataset import MemoryDataset, Sample
 from inspect_ai.scorer import Score, Target, mean, scorer, stderr
 from inspect_ai.solver import TaskState, generate
 
-HIDDEN = ("variable", "truth", "climatology", "hres", "area_weight", "lead_hours")
+HIDDEN = ("variable", "truth", "climatology", "floor", "hres", "area_weight", "lead_hours")
 
 
 def samples(path: str | None) -> MemoryDataset:
@@ -34,8 +34,9 @@ def forecast_scorer():
     async def score(state: TaskState, target: Target) -> Score:
         m = state.metadata
         forecast = contract.answer(state.output.completion)
-        floor = contract.VARIABLES[m["variable"]][2]
-        value = contract.reward(forecast, m["truth"], m["persistence"], m["climatology"], floor)
+        value = contract.reward(
+            forecast, m["truth"], m["persistence"], m["climatology"], m["floor"]
+        )
         return Score(value=value, answer="" if forecast is None else str(forecast))
 
     return score

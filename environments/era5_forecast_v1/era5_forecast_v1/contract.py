@@ -6,9 +6,9 @@ replies and pay the same reward.
 
 import re
 
-VARIABLES = {  # WB2 name: (name in the prompt, unit, reward floor from decision 0007)
-    "mean_sea_level_pressure": ("mean sea level pressure", "Pa", 50.0),
-    "2m_temperature": ("2 m temperature", "K", 0.5),
+VARIABLES = {  # WB2 name: (name in the prompt, unit); each item carries its reward floor
+    "mean_sea_level_pressure": ("mean sea level pressure", "Pa"),
+    "2m_temperature": ("2 m temperature", "K"),
 }
 PROMPT = (
     "Forecast {name} at one cell of the 64x32 ERA5 grid, centred at latitude {latitude:.4f} "
@@ -27,7 +27,7 @@ ANSWER_LINE = re.compile(
 def prompt(item: dict) -> str:
     """The task text: the cell, the times, the ERA5 history and the climatology; never the
     truth or the HRES forecast."""
-    name, unit, _ = VARIABLES[item["variable"]]
+    name, unit = VARIABLES[item["variable"]]
     pairs = zip(item["history_times"], item["history"], strict=True)
     lines = "\n".join(f"{time} UTC: {value}" for time, value in pairs)
     return PROMPT.format(**{**item, "name": name, "unit": unit, "lines": lines})
@@ -46,7 +46,8 @@ def reward(
     """Skill over the better of persistence and climatology for this item, clipped to [0, 1].
 
     Copying either baseline gives an error no smaller than the better one, so it earns 0; the
-    floor keeps a near-zero baseline error from inflating the reward."""
+    floor (each item's, set by the rule in decision 0007) only stops a near-zero baseline error
+    from inflating the reward."""
     if forecast is None:
         return 0.0
     baseline = min(abs(persistence - truth), abs(climatology - truth))

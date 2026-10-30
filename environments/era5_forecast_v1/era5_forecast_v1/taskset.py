@@ -21,6 +21,7 @@ class ForecastData(vf.TaskData):
     truth: float
     persistence: float
     climatology: float
+    floor: float
 
 
 class ForecastTask(vf.Task[ForecastData]):
@@ -28,8 +29,7 @@ class ForecastTask(vf.Task[ForecastData]):
     async def skill(self, trace: vf.Trace) -> float:
         d = self.data
         forecast = contract.answer(trace.last_reply)
-        floor = contract.VARIABLES[d.variable][2]
-        return contract.reward(forecast, d.truth, d.persistence, d.climatology, floor)
+        return contract.reward(forecast, d.truth, d.persistence, d.climatology, d.floor)
 
 
 class ForecastConfig(vf.TasksetConfig):
@@ -53,4 +53,5 @@ def to_data(row: dict) -> ForecastData:
         truth=row["truth"],
         persistence=row["history"][-1],
         climatology=row["climatology"],
+        floor=row["floor"],
     )
