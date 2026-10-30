@@ -252,3 +252,23 @@ in the test.
 - Any statement that the task is learnable or that the contract works with a real model. No
   model has run; three items cannot be won at all.
 - The environment wheel without a license field and the repo without a LICENSE.
+
+## Author response (2026-10-30)
+
+Code fixes landed test-first. The two tests that check existing behaviour (the subset oracle
+and the MCQ sheet row) were each shown to fail on broken input: the subset test on a copy of
+the items with one history value moved by 0.1 Pa.
+
+| Issue | Fix | Commit |
+|---|---|---|
+| M1 floor rule and its consequence | 0007 now records who did what: the coordinating session suggested the floor; the build session guessed 50 Pa and 0.5 K (1711c1d, worded as if they were Aswani's); the coordinating session set the 10th-percentile rule on 2026-10-30 as decided, without waiting on Aswani, so it stays closed. The Limits block of the baselines report gives HRES's reward per quarter of b (temperature quarter 1: 0.086, 0 on 74 of 90) and the 3 items no reply can win; the README says the baseline is picked with the truth known | cbdafb0, 5ef3497, c4821ea |
+| M2 no test ties items to source data | subset-backed test: 360 truths, 360 climatologies, 2,495 history values, 120 HRES values, skipped without the subset | 3c52cc6 |
+| M3 a zero floor divides by zero | the floor never drops below the smallest shown unit, and the reward returns 0 when its scale is 0 | f736fdd |
+| L1 parser and 0004 | a trailing full stop and the Unicode minus are read; the number must sit on the answer line; the last answer line still counts, as in 0004 | a95e10f, 94adf2e |
+| L2 sheet row for cloze 37 | the note's reply cell holds the reply and its remark moved to the note; the sheet shows the logged reply verbatim; the unfilled sheet was regenerated (one row changed) | 37e6636 |
+| L3 report and record drift | the published file read at its root (sha256 eec4fab6...): bias matches to 1.2e-15 Pa and is now a reproduction test; the commit line and the subset size fixed | 04a516b, 55fad15, c4821ea |
+| L4 CI smoke | vf-validate, the documented inspect eval on mockllm and the wheel build run in CI | b35f148 |
+| L5 float equality on the floor | floors stored rounded to one decimal more than shown (28.75 Pa, 0.069 K), tests use approx | f736fdd |
+
+Open: a first real model run (needs Aswani's yes), LICENSE and the package license fields,
+`hatchling` unpinned, the expert's name for the 0005 sheet, and the two hand-check sheets.
