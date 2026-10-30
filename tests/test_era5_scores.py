@@ -67,3 +67,11 @@ def test_acc_pools_anomaly_statistics_over_init_times_before_the_ratio():
     truth = np.stack([np.full((3, 1), 1.0), np.full((3, 1), 2.0)])
     forecast = np.stack([np.full((3, 1), 1.0), np.full((3, 1), -2.0)])
     assert scores.acc(forecast, truth, clim, LAT) == pytest.approx(-0.6)
+
+
+def test_item_scores_weight_each_item_by_its_cell_area():
+    w = np.array([3.0, 1.0])
+    assert scores.item_rmse(np.array([1.0, 3.0]), np.zeros(2), w) == pytest.approx(math.sqrt(3))
+    # anomalies f' = (1, -1), t' = (1, 1): covariance 0.5, both variances 1
+    acc = scores.item_acc(np.array([1.0, -1.0]), np.ones(2), np.zeros(2), w)
+    assert acc == pytest.approx(0.5)

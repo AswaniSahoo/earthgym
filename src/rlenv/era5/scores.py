@@ -23,10 +23,18 @@ def area_weights(latitude: np.ndarray) -> np.ndarray:
     return weights / weights.mean()
 
 
+def _average(x: np.ndarray, weights: np.ndarray) -> float:
+    return float(np.average(x, weights=np.broadcast_to(weights, x.shape)))
+
+
 def _mean(x: np.ndarray, latitude: np.ndarray) -> float:
     """Area-weighted mean over init time, latitude and longitude together."""
-    weights = np.broadcast_to(area_weights(latitude)[:, None], x.shape)
-    return float(np.average(x, weights=weights))
+    return _average(x, area_weights(latitude)[:, None])
+
+
+def _pooled_acc(f: np.ndarray, t: np.ndarray, mean) -> float:
+    """Pooled anomaly covariance over the root of the two pooled anomaly variances."""
+    return float(mean(f * t) / np.sqrt(mean(f * f) * mean(t * t)))
 
 
 def _error(forecast: np.ndarray, truth: np.ndarray) -> np.ndarray:
@@ -55,5 +63,17 @@ def acc(
     ACC), not the mean of per-init correlations in the WB2 paper (eq. 5). The climatology is
     already aligned to each valid time."""
     f, t = _error(forecast, climatology), _error(truth, climatology)
-    spread = np.sqrt(_mean(f * f, latitude) * _mean(t * t, latitude))
-    return float(_mean(f * t, latitude) / spread)
+    return _pooled_acc(f, t, lambda x: _mean(x, latitude))
+
+
+def item_rmse(forecast: np.ndarray, truth: np.ndarray, weights: np.ndarray) -> float:
+    """RMSE over separate items, each weighted by its cell's area weight."""
+    return float(np.sqrt(_average(_error(forecast, truth) ** 2, weights)))
+
+
+def item_acc(
+    forecast: np.ndarray, truth: np.ndarray, climatology: np.ndarray, weights: np.ndarray
+) -> float:
+    """ACC over separate items, pooled as in `acc`, each item weighted by its cell's area."""
+    f, t = _error(forecast, climatology), _error(truth, climatology)
+    return _pooled_acc(f, t, lambda x: _average(x, weights))
