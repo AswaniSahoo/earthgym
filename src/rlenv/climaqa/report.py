@@ -5,22 +5,31 @@ uv run python -m rlenv.climaqa.report <log dir> --out reports/climaqa/runs/<name
 
 import argparse
 import json
-from collections import defaultdict
+import re
+from collections import Counter, defaultdict
+from collections.abc import Sequence
 from pathlib import Path
 
 from inspect_ai.log import EvalLog, list_eval_logs, read_eval_log
 from inspect_ai.scorer import CORRECT
 
+OPTION = re.compile(r"^([A-D])\) (.*)$", re.MULTILINE)  # option lines of contract.mcq_prompt
+
 
 def summarize(log: EvalLog) -> dict:
     by_level: dict[str, list[bool]] = defaultdict(list)
-    format_failures, mcq = 0, False
+    format_failures, key_longest, mcq = 0, 0, False
+    letters: Counter[str] = Counter()
     for sample in log.samples or []:
         score = next(iter(sample.scores.values()))
         by_level[sample.metadata.get("complexity") or "none"].append(score.value == CORRECT)
         if sample.metadata.get("task") == "mcq":
             mcq = True
             format_failures += not score.answer  # no clean 'ANSWER: X' line
+            letters[sample.target] += 1
+            options = dict(OPTION.findall(str(sample.input)))
+            key = options.pop(sample.target, "")
+            key_longest += all(len(key) > len(text) for text in options.values())
     metrics = log.results.scores[0].metrics
     rev = log.eval.revision
     # eval-level settings override the model's own, as in Model._resolve_config
@@ -34,6 +43,8 @@ def summarize(log: EvalLog) -> dict:
         "accuracy": metrics["accuracy"].value,
         "stderr": metrics["stderr"].value,
         "format_failures": format_failures if mcq else None,  # only MCQ has an answer format
+        "letters": {k: letters[k] for k in "ABCD"} if mcq else None,
+        "key_longest": key_longest if mcq else None,
         "by_complexity": {
             k: {"n": len(v), "accuracy": sum(v) / len(v)} for k, v in sorted(by_level.items())
         },
@@ -49,7 +60,7 @@ def summarize(log: EvalLog) -> dict:
     }
 
 
-def render(summaries: list[dict], set_sha256: str) -> str:
+def render(summaries: list[dict], set_sha256: str, notes: Sequence[str] = ()) -> str:
     lines = [
         "# ClimaQA baseline",
         "",
@@ -100,6 +111,20 @@ def render(summaries: list[dict], set_sha256: str) -> str:
             "- Sampling settings were the provider's defaults (no temperature, seed or max "
             "tokens set), so a rerun need not match."
         )
+    lines.append(
+        "- Clean set v1 keeps 21 Gold items that are near matches of Silver "
+        "(leak.near_match in reports/climaqa/findings.json)."
+    )
+    if any(s["task"].endswith("cloze") for s in summaries):
+        lines.append("- Cloze counts exact matches only, ignoring case, punctuation and articles.")
+    for s in summaries:
+        if s["letters"]:
+            counts = ", ".join(f"{k} {v}" for k, v in s["letters"].items())
+            lines.append(
+                f"- {s['task']} keys: {counts}; the key is the strictly longest option in "
+                f"{s['key_longest']} of {s['n']} items."
+            )
+    lines += [f"- Miss analysis: [{note}]({note})" for note in notes]
     runs = ", ".join(f"{s['task']} at {s['created']}" for s in summaries)
     lines += [
         "",
@@ -121,7 +146,8 @@ def main() -> None:
     summaries = [summarize(log) for log in logs if log.status == "success"]
     sha256 = json.loads(args.manifest.read_text())["sha256"]
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(render(summaries, sha256), "utf-8")
+    notes = sorted(p.name for p in args.out.parent.glob(f"{args.out.stem}-*misses.md"))
+    args.out.write_text(render(summaries, sha256, notes), "utf-8")
     args.out.with_suffix(".json").write_text(json.dumps(summaries, indent=1, default=str), "utf-8")
     print(f"{len(summaries)} runs written to {args.out}")
 

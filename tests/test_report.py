@@ -11,7 +11,7 @@ MCQ = [
         "id": "gold/mcq/1",
         "task": "mcq",
         "question": "Q1?",
-        "options": list("wxyz"),
+        "options": ["w", "xx", "y", "z"],
         "answer": "B",
         "complexity": "BASE",
     },
@@ -96,6 +96,20 @@ def test_render_leaves_out_warnings_that_do_not_apply(tmp_path):
     log.eval.revision = EvalRevision(type="git", origin="o", commit="abc1234", dirty=False)
     text = report.render([report.summarize(log)], set_sha256="abc123")
     assert "uncommitted changes" not in text and "provider's defaults" not in text
+
+
+def test_render_gives_key_letters_and_the_longest_option_share(tmp_path):
+    text = report.render([report.summarize(run(tmp_path, "ANSWER: B"))], set_sha256="abc123")
+    assert (
+        "climaqa_mcq keys: A 0, B 1, C 1, D 0; the key is the strictly longest option in 1 of 2"
+        in text
+    )
+
+
+def test_render_links_the_miss_notes_beside_the_report(tmp_path):
+    summary = report.summarize(run(tmp_path, "ANSWER: B"))
+    text = report.render([summary], set_sha256="abc123", notes=["r-cloze-misses.md"])
+    assert "[r-cloze-misses.md](r-cloze-misses.md)" in text
 
 
 def test_summary_records_the_run_config(tmp_path):
