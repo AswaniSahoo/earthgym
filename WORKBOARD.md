@@ -26,7 +26,6 @@ Updated 2026-10-30. Publish after completion. Small commits, one-line messages.
 
 - [ ] reports/climaqa/leak_review.csv: 56 Gold and Silver pairs, same item or not
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
-- [ ] Second model for the inspect_evals Register (needs an account or key)
 - [ ] Decision 0005 (proposed): expert review of the flagged items in both splits,
       accepted-answer lists for cloze, rewards from reviewed items only, no judge model.
       Not implemented until yes
@@ -39,6 +38,8 @@ Updated 2026-10-30. Publish after completion. Small commits, one-line messages.
 ## Later
 
 - Phase 3 ERA5 forecast-score environment
+- Two-model inspect_evals Register run: parked 2026-10-30; Gemini 3.8 Flash is the only
+  baseline for now, and the second model needs Aswani's yes
 - Phase 4 IBTrACS cyclone analytics environment
 - Phase 5 heat-insurance basis-risk environment
 - Before publishing: LICENSE, write-up, blog posts from reports/

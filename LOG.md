@@ -35,7 +35,9 @@ Newest first. One entry per working session: what changed, what we learned, what
   MCQ has a format check); `.serena/` is ignored. Decision 0005 (proposed, revised after the
   MCQ sort): expert item review of both splits, accepted-answer lists for cloze, rewards from
   reviewed items only, no judge model; contract v1 unchanged.
-- Next: the Fable review and blind sort, then Phase 3 (radar check running).
+- Decisions relayed from Aswani: Gemini 3.8 Flash stays the only baseline for now (the
+  two-model Register run is parked), and no v2 work starts until he answers on 0005.
+- Next: Phase 3 once the radar lands; downloads over 100 MB wait for Aswani's yes.
 
 ## 2026-10-30
 
