@@ -4,12 +4,12 @@ Updated 2026-10-30. Publish after completion. Small commits, one-line messages.
 
 ## Now: Phase 2, clean ClimaQA port and multi-model baseline
 
-- [ ] Radar check for Phase 2 (scout): Inspect, verifiers, MCQ and cloze scoring practice,
-      cheapest model access, recent climate benchmarks
+- [x] Radar check for Phase 2 (scout): 20 entries in docs/radar.md
 - [x] Clean set v0: 377 kept (226 MCQ, 151 cloze), 75 excluded with reasons in
       reports/climaqa/clean_v0_manifest.json
-- [ ] Deterministic scorers: MCQ letter extraction, cloze exact match
-- [ ] Inspect tasks for MCQ and cloze
+- [x] Scoring: Inspect's choice() and exact() (no custom code); cloze keys cleaned of
+      trailing punctuation (12 Gold keys)
+- [x] Inspect tasks for MCQ (226) and cloze (151), tested end to end on mockllm
 - [ ] Baseline runs on several models, dated report in reports/
 - [ ] verifiers environment for MCQ and cloze
 - [ ] Phase 2 review (Fable), fixes test-first
