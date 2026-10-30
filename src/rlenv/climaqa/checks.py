@@ -89,8 +89,11 @@ def mcq(rows: list[dict], split: str) -> list[Finding]:
             out.append(Finding("mcq.duplicate_options", split, item, ""))
         if any(ALL_NONE.search(text) for text in normed):
             out.append(Finding("mcq.all_or_none_of_above", split, item, ""))
+        # A leak is the key, and no distractor, appearing in the question at any length.
+        question = f" {words(row['Question'])} "
         key = words(answer_text(row))
-        if len(key.split()) >= 3 and f" {key} " in f" {words(row['Question'])} ":
+        others = [words(text) for label, text in options if label != answer]
+        if key and f" {key} " in question and not any(f" {o} " in question for o in others if o):
             out.append(Finding("mcq.answer_in_question", split, item, key[:80]))
     return out
 

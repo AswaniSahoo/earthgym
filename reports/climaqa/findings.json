@@ -91,6 +91,15 @@
    "rejected": false
   },
   {
+   "check": "mcq.answer_in_question",
+   "split": "gold/mcq",
+   "item": "173",
+   "detail": "organic molecules",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
    "check": "mcq.duplicate_options",
    "split": "gold/mcq",
    "item": "227",
@@ -1216,15 +1225,6 @@
    "rejected": false
   },
   {
-   "check": "mcq.answer_in_question",
-   "split": "silver/mcq",
-   "item": "325",
-   "detail": "sulfur dioxide so2",
-   "refs": [],
-   "kind": "flag",
-   "rejected": false
-  },
-  {
    "check": "mcq.all_or_none_of_above",
    "split": "silver/mcq",
    "item": "348",
@@ -1236,8 +1236,17 @@
   {
    "check": "mcq.answer_in_question",
    "split": "silver/mcq",
-   "item": "443",
-   "detail": "30 w m 2",
+   "item": "385",
+   "detail": "warm occlusion",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.answer_in_question",
+   "split": "silver/mcq",
+   "item": "386",
+   "detail": "warm occlusion",
    "refs": [],
    "kind": "flag",
    "rejected": false
@@ -1283,6 +1292,15 @@
    "split": "silver/mcq",
    "item": "681",
    "detail": "",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.answer_in_question",
+   "split": "silver/mcq",
+   "item": "942",
+   "detail": "contact nucleation",
    "refs": [],
    "kind": "flag",
    "rejected": false

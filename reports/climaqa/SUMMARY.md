@@ -45,8 +45,8 @@ Dataset `Rose-STL-Lab/ClimaQA` at revision `3f084a0202c6260e588fb5b681d2e4ec859a
 | leak.near_match | flag | gold/mcq | 14 | 2 |
 | mcq.all_or_none_of_above | flag | gold/mcq | 2 | 0 |
 | mcq.all_or_none_of_above | flag | silver/mcq | 6 | 0 |
-| mcq.answer_in_question | flag | gold/mcq | 4 | 3 |
-| mcq.answer_in_question | flag | silver/mcq | 4 | 0 |
+| mcq.answer_in_question | flag | gold/mcq | 5 | 3 |
+| mcq.answer_in_question | flag | silver/mcq | 5 | 0 |
 | mcq.duplicate_options | defect | gold/mcq | 1 | 0 |
 | mcq.duplicate_options | defect | silver/mcq | 3 | 0 |
 

@@ -124,6 +124,18 @@ def test_answer_in_question_respects_word_boundaries():
     assert checks.mcq([row], "s") == []
 
 
+def test_a_short_key_that_alone_appears_in_the_question_is_flagged():
+    opts = checks.SEP.join(["a) Amines", "b) Ammonia", "c) H2SO4", "d) Organic molecules"])
+    row = mcq_row(Question="What nucleates highly oxidized organic molecules?", Options=opts)
+    assert [f.check for f in checks.mcq([row | {"Answer": "d"}], "s")] == ["mcq.answer_in_question"]
+
+
+def test_a_key_shared_with_a_distractor_in_the_question_is_not_a_leak():
+    opts = checks.SEP.join(["a) Ozone", "b) Water vapour", "c) Nitrogen", "d) Argon"])
+    row = mcq_row(Question="Is ozone or water vapour the stronger absorber?", Options=opts)
+    assert checks.mcq([row], "s") == []
+
+
 def test_summarize_counts_validation_complexity_and_answers():
     rows = [
         mcq_row(Validation="True", Complexity="BASE"),
