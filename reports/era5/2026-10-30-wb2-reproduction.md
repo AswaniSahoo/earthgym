@@ -1,7 +1,8 @@
 # Reproducing a WeatherBench 2 score: IFS HRES mean sea level pressure, day 3, 2020
 
-Date: 2026-10-30. Code: `src/rlenv/era5/scores.py` and `src/rlenv/era5/data.py` at commit
-2d97668. Test: `tests/test_era5_reproduction.py`.
+Date: 2026-10-30. Code: `src/rlenv/era5/scores.py` and `src/rlenv/era5/data.py`, first
+reproduced at commit 2d97668; the code changed since (3b2a5a7, 3713c87) and the reproduction
+tests still pass at 37e6636. Test: `tests/test_era5_reproduction.py`.
 
 ## Result
 
@@ -9,7 +10,7 @@ Date: 2026-10-30. Code: `src/rlenv/era5/scores.py` and `src/rlenv/era5/data.py` 
 |---|---|---|
 | global RMSE of IFS HRES MSLP against ERA5, 72 h lead, 2020 inits, 64x32 | 133.890547 Pa | 133.890547 Pa |
 | global ACC against the ERA5 1990 to 2019 climatology, same setup | 0.981878 | 0.981878 |
-| global bias, same setup | -0.406578 Pa | not checked (UNKNOWN) |
+| global bias, same setup | -0.406578 Pa | -0.406578 Pa |
 
 Finding: the published ACC pools the anomaly statistics over all inits before the ratio
 (WeatherBench-X `metrics/deterministic.py`, `ACC._values_from_mean_statistics_per_variable`, at
@@ -17,11 +18,15 @@ Finding: the published ACC pools the anomaly statistics over all inits before th
 same data, 0.0004 lower. A grader built from the paper alone would miss the published number in
 the fourth decimal.
 
-The published values are `rmse` and `acc` for region global, lead 72 h, in
-`gs://weatherbench2/benchmark_results/hres_vs_era5_64x32_2020.nc`, as read by the Phase 3 radar
-check (`docs/radar.md`); its metric set is WeatherBench-X `public_benchmark`. This session did not
-open that file itself. A match to all six published decimals is the check that the grader
-follows the WB2 rules on this grid.
+The published values are `rmse`, `acc` and `bias` for region global, lead 72 h, in
+`https://storage.googleapis.com/weatherbench2/benchmark_results/hres_vs_era5_64x32_2020.nc`
+(1,469,120 bytes, sha256 `eec4fab627a3eac87fbada045bcf3507970a41fb3017c3c8dce7882e37e44947`),
+read at its root on 2026-10-30 with `scipy.io.netcdf_file` in a throwaway `uv run --with scipy`
+environment; its metric set is WeatherBench-X `public_benchmark`. Full precision, published
+against ours: RMSE 133.89054684361142 against 133.8905468754412 Pa (difference 3.2e-8), ACC
+0.9818776389291946 against 0.9818776392430146 (3.1e-10), bias -0.40657755779113947 against
+-0.4065775577911383 Pa (1.2e-15). The grader follows the WB2 rules on this grid to float32
+accumulation error.
 
 ## Config
 
