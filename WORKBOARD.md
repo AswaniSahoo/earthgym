@@ -31,17 +31,19 @@ Plan (2026-10-30, from the radar in docs/radar.md):
       equal to the published WB2 value; reports/era5/2026-10-30-wb2-reproduction.md
 - [x] ACC against the 1990 to 2019 climatology: MSLP 0.981878, equal to the published value;
       pooled over inits as WeatherBench-X does (the WB2 paper's per-init mean gives 0.981470)
-- [ ] Stage 2 task design, after Aswani's choice
+- [x] Decision 0007 accepted: forecast-answer tasks, reward clip((b - e) / max(b, floor), 0, 1)
+      over the better of persistence and climatology
+- [ ] Stage 2, test-first: answer contract and reward; item builder (MSLP and 2 m temperature,
+      leads 24, 48, 72 h, under 100 MB); baseline rows; verifiers taskset and Inspect task
+- [ ] Then: the 0005 review sheet of flagged ClimaQA items for the expert (no accepted answers
+      written by the build session)
 
 ## Waiting on Aswani
 
 - [ ] reports/climaqa/leak_review.csv: 56 Gold and Silver pairs, same item or not
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
-- [ ] Decision 0005 (proposed): expert review of the flagged items in both splits,
-      accepted-answer lists for cloze, rewards from reviewed items only, no judge model.
-      Not implemented until yes
-- [ ] Decision 0007 (proposed): Phase 3 stage 2 as forecast-answer tasks, or as
-      score-computation tasks
+- [ ] Name the domain expert for the 0005 review (accepted 2026-10-30); the review sheet
+      follows Phase 3 stage 2
 
 ## Done
 
