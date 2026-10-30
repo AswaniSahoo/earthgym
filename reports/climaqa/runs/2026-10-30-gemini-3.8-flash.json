@@ -3,10 +3,14 @@
   "task": "climaqa_cloze",
   "model": "google/vertex/gemini-3.8-flash",
   "created": "2026-10-30T09:02:52+00:00",
+  "started": "2026-10-30T09:21:32+00:00",
+  "completed": "2026-10-30T09:33:14+00:00",
   "n": 128,
   "accuracy": 0.7421875,
   "stderr": 0.038815657085642094,
   "format_failures": null,
+  "letters": null,
+  "key_longest": null,
   "by_complexity": {
    "none": {
     "n": 128,
@@ -27,10 +31,19 @@
   "task": "climaqa_mcq",
   "model": "google/vertex/gemini-3.8-flash",
   "created": "2026-10-30T09:02:52+00:00",
+  "started": "2026-10-30T09:02:52+00:00",
+  "completed": "2026-10-30T09:21:32+00:00",
   "n": 222,
   "accuracy": 0.8738738738738738,
   "stderr": 0.022332161986243763,
   "format_failures": 0,
+  "letters": {
+   "A": 60,
+   "B": 51,
+   "C": 51,
+   "D": 60
+  },
+  "key_longest": 82,
   "by_complexity": {
    "BASE": {
     "n": 107,
