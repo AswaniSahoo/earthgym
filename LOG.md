@@ -20,7 +20,16 @@ Newest first. One entry per working session: what changed, what we learned, what
   of clip((b - e) / max(b, floor), 0, 1) over the better of persistence and climatology, so
   copying a baseline earns 0; 0005 accepted, with the review sheet after stage 2 and accepted
   answers written only by the expert.
-- Next: stage 2 test-first, starting with the answer contract and the reward.
+- Stage 2 so far: the answer contract and reward (copying a baseline earns 0 exactly), the
+  prompt, and 720 items (MSLP and 2 m temperature, leads 24, 48, 72 h) built from the pinned
+  stores. Baseline rows: persistence, climatology and the always-climatology policy earn
+  0.000; IFS HRES earns 0.57 to 0.66 (MSLP) and 0.28 to 0.45 (2 m temperature). HRES item RMSE
+  at 72 h (139.4 Pa, 0.86 K) sits near the published global values (133.9 Pa, 0.881 K).
+- Finding: the 0.5 K floor binds on 167 of 360 temperature items (median better-baseline error
+  0.53 K), so it caps those rewards; MSLP's 50 Pa binds on 65 of 360. Left for Aswani.
+- Lesson: a piped `pytest | tail` hid a failing test and let a commit through (amended before
+  any push); every commit now runs with `set -o pipefail`.
+- Next: the verifiers taskset and the Inspect task.
 
 ## 2026-10-30, Phase 2 baseline
 

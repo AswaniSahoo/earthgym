@@ -33,8 +33,9 @@ Plan (2026-10-30, from the radar in docs/radar.md):
       pooled over inits as WeatherBench-X does (the WB2 paper's per-init mean gives 0.981470)
 - [x] Decision 0007 accepted: forecast-answer tasks, reward clip((b - e) / max(b, floor), 0, 1)
       over the better of persistence and climatology
-- [ ] Stage 2, test-first: answer contract and reward; item builder (MSLP and 2 m temperature,
-      leads 24, 48, 72 h, under 100 MB); baseline rows; verifiers taskset and Inspect task
+- [x] Stage 2 contract and reward (copying a baseline earns 0), prompt, 720 items from the
+      pinned stores (about 55 MB read), baseline rows: reports/era5/items_v1_baselines.md
+- [ ] Stage 2: verifiers taskset and Inspect task on the 720 items, tested on mockllm
 - [ ] Then: the 0005 review sheet of flagged ClimaQA items for the expert (no accepted answers
       written by the build session)
 
@@ -44,6 +45,8 @@ Plan (2026-10-30, from the radar in docs/radar.md):
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
 - [ ] Name the domain expert for the 0005 review (accepted 2026-10-30); the review sheet
       follows Phase 3 stage 2
+- [ ] The 2 m temperature reward floor: 0.5 K binds on 167 of 360 items (median better-baseline
+      error 0.53 K) and caps their reward; 0.2 K would bind on about a quarter. Keep or lower?
 
 ## Done
 
