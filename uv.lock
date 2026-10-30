@@ -3021,6 +3021,7 @@ env = [
     { name = "verifiers" },
 ]
 eval = [
+    { name = "climaqa-v1" },
     { name = "inspect-ai" },
 ]
 
@@ -3035,7 +3036,10 @@ env = [
     { name = "climaqa-v1", editable = "environments/climaqa_v1" },
     { name = "verifiers", specifier = "==0.4.0" },
 ]
-eval = [{ name = "inspect-ai", specifier = "==0.3.286" }]
+eval = [
+    { name = "climaqa-v1", editable = "environments/climaqa_v1" },
+    { name = "inspect-ai", specifier = "==0.3.286" },
+]
 
 [[package]]
 name = "rpds-py"

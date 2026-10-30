@@ -1,43 +1,56 @@
-"""Inspect tasks for the clean ClimaQA set: multiple choice and cloze.
+"""Inspect tasks for the clean ClimaQA set, scored by the same contract as the verifiers taskset.
 
 uv run inspect eval src/rlenv/climaqa/tasks.py@climaqa_mcq --model <provider/model>
 """
 
+import json
+from pathlib import Path
+
+from climaqa_v1 import contract
+from climaqa_v1.taskset import records
 from inspect_ai import Task, task
-from inspect_ai.dataset import FieldSpec, json_dataset
-from inspect_ai.scorer import accuracy, choice, exact, stderr
-from inspect_ai.solver import generate, multiple_choice, system_message
-
-CLEAN_SET = "data/clean/climaqa_v0.jsonl"
-SEED = 20261030
-CLOZE_PROMPT = (
-    "Fill in the <MASK> in the climate science statement. "
-    "Reply with only the missing word or phrase."
-)
+from inspect_ai.dataset import MemoryDataset, Sample
+from inspect_ai.scorer import CORRECT, INCORRECT, Score, Target, accuracy, scorer, stderr
+from inspect_ai.solver import TaskState, generate
 
 
-def load(path: str, task_name: str, shuffle: bool):
-    fields = FieldSpec(
-        input="question",
-        target="answer",
-        choices="options",
-        id="id",
-        metadata=["task", "complexity"],
+def samples(kind: str, path: str | None) -> MemoryDataset:
+    """Items of one kind; the bundled clean set unless a JSONL path is given (tests)."""
+    rows = (
+        records() if path is None else [json.loads(x) for x in Path(path).read_text().splitlines()]
     )
-    dataset = json_dataset(path, fields, shuffle_choices=SEED if shuffle else None)
-    return dataset.filter(lambda sample: sample.metadata["task"] == task_name)
+    out = []
+    for row in rows:
+        if row["task"] != kind:
+            continue
+        prompt = (
+            contract.mcq_prompt(row["question"], row["options"])
+            if kind == "mcq"
+            else contract.cloze_prompt(row["question"])
+        )
+        meta = {"task": kind, "complexity": row["complexity"]}
+        out.append(Sample(input=prompt, target=row["answer"], id=row["id"], metadata=meta))
+    return MemoryDataset(out, name=f"climaqa_{kind}")
+
+
+@scorer(metrics=[accuracy(), stderr()])
+def contract_scorer():
+    async def score(state: TaskState, target: Target) -> Score:
+        reply = state.output.completion
+        if state.metadata["task"] == "mcq":
+            ok, answer = contract.mcq_correct(reply, target.text), contract.mcq_choice(reply)
+        else:
+            ok, answer = contract.cloze_correct(reply, target.text), contract.normalize(reply)
+        return Score(value=CORRECT if ok else INCORRECT, answer=answer or "")
+
+    return score
 
 
 @task
-def climaqa_mcq(path: str = CLEAN_SET, shuffle: bool = True) -> Task:
-    return Task(dataset=load(path, "mcq", shuffle), solver=multiple_choice(), scorer=choice())
+def climaqa_mcq(path: str | None = None) -> Task:
+    return Task(dataset=samples("mcq", path), solver=generate(), scorer=contract_scorer())
 
 
 @task
-def climaqa_cloze(path: str = CLEAN_SET) -> Task:
-    return Task(
-        dataset=load(path, "cloze", shuffle=False),
-        solver=[system_message(CLOZE_PROMPT), generate()],
-        scorer=exact(),
-        metrics=[accuracy(), stderr()],  # same metric names as the MCQ task
-    )
+def climaqa_cloze(path: str | None = None) -> Task:
+    return Task(dataset=samples("cloze", path), solver=generate(), scorer=contract_scorer())

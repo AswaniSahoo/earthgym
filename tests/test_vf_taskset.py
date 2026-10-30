@@ -1,38 +1,28 @@
-import pytest
+import asyncio
+from types import SimpleNamespace
+
+from climaqa_v1 import contract
 from climaqa_v1 import taskset as ts
 
 
-@pytest.mark.parametrize(
-    ("reply", "key", "expected"),
-    [
-        ("B", "B", 1.0),
-        ("ANSWER: C", "C", 1.0),
-        ("A first, then D", "D", 1.0),
-        ("It is a B", "B", 1.0),
-        ("b", "B", 0.0),
-        ("", "B", 0.0),
-    ],
-)
-def test_mcq_reward_reads_the_last_capital_letter(reply, key, expected):
-    assert ts.mcq_reward(reply, key) == expected
-
-
-def test_cloze_reward_ignores_case_and_punctuation_but_not_meaning():
-    assert ts.cloze_reward("Evaporation.", "evaporation") == 1.0
-    assert ts.cloze_reward("condensation", "evaporation") == 0.0
-    assert ts.cloze_reward("", "") == 0.0
-
-
-def test_taskset_loads_the_bundled_set_and_keys_point_at_their_text():
-    first = ts.ClimaqaTaskset(ts.ClimaqaConfig()).load()
-    again = ts.ClimaqaTaskset(ts.ClimaqaConfig()).load()
-    mcq = [t for t in first if t.data.kind == "mcq"]
-    assert (len(first), len(mcq)) == (350, 222)
-    assert [t.data.prompt for t in first] == [t.data.prompt for t in again]
+def test_taskset_loads_the_bundled_set_with_contract_prompts():
+    tasks = ts.ClimaqaTaskset(ts.ClimaqaConfig()).load()
+    mcq = [t for t in tasks if t.data.kind == "mcq"]
+    assert (len(tasks), len(mcq)) == (350, 222)
     for task in mcq:
         assert f"{task.data.answer}) {task.data.key_text}" in task.data.prompt
+        assert "ANSWER: X" in task.data.prompt
 
 
 def test_config_can_restrict_the_taskset_to_one_kind():
     cloze = ts.ClimaqaTaskset(ts.ClimaqaConfig(kinds=["cloze"])).load()
     assert len(cloze) == 128 and {t.data.kind for t in cloze} == {"cloze"}
+    assert cloze[0].data.prompt == contract.cloze_prompt(cloze[0].data.question)
+
+
+def test_reward_uses_the_contract_on_the_last_reply():
+    task = ts.ClimaqaTaskset(ts.ClimaqaConfig(kinds=["mcq"])).load()[0]
+    right = SimpleNamespace(last_reply=f"Reasoning.\nANSWER: {task.data.answer}")
+    wrong = SimpleNamespace(last_reply=task.data.answer)  # bare letter breaks the format
+    assert asyncio.run(task.correct(right)) == 1.0
+    assert asyncio.run(task.correct(wrong)) == 0.0

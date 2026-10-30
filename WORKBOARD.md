@@ -12,7 +12,8 @@ Updated 2026-10-30. Publish after completion. Small commits, one-line messages.
 - [x] Inspect tasks for MCQ (226) and cloze (151), tested end to end on mockllm
 - [ ] Baseline runs on several models, dated report in reports/
 - [x] verifiers v1 taskset climaqa-v1 (377 tasks, exact rewards, seeded option shuffle)
-- [ ] Phase 2 review (Fable), fixes test-first
+- [ ] Phase 2 review (Fable): rated correctness 6; fixes landing test-first (clean v1, one
+      answer contract, bundled default path done)
 
 ## Waiting on Aswani
 

@@ -1,6 +1,6 @@
 # 0002: Inspect runs the ClimaQA tasks and the baselines
 
-Date: 2026-10-30. Status: accepted.
+Date: 2026-10-30. Status: accepted; scoring superseded by 0004.
 
 Context: Phase 2 needs the clean set run against several models with reproducible logs, and a
 route to the inspect_evals Register, which asks for an Inspect task and logs from two models.

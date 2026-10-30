@@ -22,6 +22,7 @@ env = [
     "verifiers==0.4.0",
 ]
 eval = [
+    "climaqa-v1",
     "inspect-ai==0.3.286",
 ]
 

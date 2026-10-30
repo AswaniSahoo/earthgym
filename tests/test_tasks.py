@@ -10,8 +10,8 @@ RECORDS = [
         "id": "gold/mcq/0",
         "task": "mcq",
         "question": "Why does convection start?",
-        "options": ["Warm air rises.", "Cold air rises.", "Still air.", "Sinking air."],
-        "answer": "A",
+        "options": ["Cold air rises.", "Warm air rises.", "Still air.", "Sinking air."],
+        "answer": "B",
         "complexity": "BASE",
     },
     {
@@ -31,21 +31,25 @@ def write_set(tmp_path):
 
 
 def accuracy(task, reply, tmp_path):
-    model = get_model(
-        "mockllm/model", custom_outputs=[ModelOutput.from_content("mockllm/model", reply)]
-    )
+    output = ModelOutput.from_content("mockllm/model", reply)
+    model = get_model("mockllm/model", custom_outputs=[output])
     log = eval(task, model=model, log_dir=str(tmp_path / "logs"), display="none")[0]
     assert log.status == "success" and len(log.samples) == 1
     return log.results.scores[0].metrics["accuracy"].value
 
 
-def test_mcq_task_scores_the_keyed_letter_and_ignores_cloze_rows(tmp_path):
-    task = tasks.climaqa_mcq(path=write_set(tmp_path), shuffle=False)
-    assert accuracy(task, "ANSWER: A", tmp_path) == 1.0
-    assert accuracy(task, "ANSWER: B", tmp_path) == 0.0
+def test_default_tasks_read_the_bundled_clean_set_from_any_directory(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)  # Inspect changes directory to the task file before loading
+    assert (len(tasks.climaqa_mcq().dataset), len(tasks.climaqa_cloze().dataset)) == (222, 128)
 
 
-def test_cloze_task_needs_the_missing_word_only(tmp_path):
+def test_mcq_task_scores_with_the_shared_contract(tmp_path):
+    task = tasks.climaqa_mcq(path=write_set(tmp_path))
+    assert accuracy(task, "Warm air is lighter.\nANSWER: B", tmp_path) == 1.0
+    assert accuracy(task, "B", tmp_path) == 0.0
+
+
+def test_cloze_task_scores_with_the_shared_contract(tmp_path):
     task = tasks.climaqa_cloze(path=write_set(tmp_path))
-    assert accuracy(task, "evaporation", tmp_path) == 1.0
+    assert accuracy(task, "the evaporation", tmp_path) == 1.0
     assert accuracy(task, "condensation", tmp_path) == 0.0
