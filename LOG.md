@@ -16,8 +16,11 @@ Newest first. One entry per working session: what changed, what we learned, what
   anomaly statistics over all inits before the ratio (WeatherBench-X); the WB2 paper's mean of
   per-init correlations gives 0.981470 on the same data. Read the code that made a number, not
   only the paper that defines it.
-- Next: stage 2 task design waits for Aswani; until then, more reproduction checks (bias,
-  T2M) are possible within the 100 MB limit.
+- Decisions from Aswani, about 19:25 IST: 0007 accepted as forecast-answer tasks with a reward
+  of clip((b - e) / max(b, floor), 0, 1) over the better of persistence and climatology, so
+  copying a baseline earns 0; 0005 accepted, with the review sheet after stage 2 and accepted
+  answers written only by the expert.
+- Next: stage 2 test-first, starting with the answer contract and the reward.
 
 ## 2026-10-30, Phase 2 baseline
 
