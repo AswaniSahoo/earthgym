@@ -36,3 +36,22 @@ it binds where that error is below the floor.
 |---|---|---|
 | mean_sea_level_pressure | 28.750 | 36 of 360 |
 | 2m_temperature | 0.069 | 36 of 360 |
+
+## Limits
+
+The baseline is the better of persistence and climatology for each item, picked with the
+truth known, so where one of them is nearly exact little skill is left to earn. Items
+ranked by that error b and split into quarters:
+
+| variable | quarter | n | median b | IFS HRES mean reward | HRES earns 0 |
+|---|---|---|---|---|---|
+| mean_sea_level_pressure | 1 | 90 | 35.750 | 0.184 | 56 |
+| mean_sea_level_pressure | 2 | 90 | 103.800 | 0.612 | 12 |
+| mean_sea_level_pressure | 3 | 90 | 307.300 | 0.775 | 1 |
+| mean_sea_level_pressure | 4 | 90 | 821.250 | 0.871 | 1 |
+| 2m_temperature | 1 | 90 | 0.075 | 0.086 | 74 |
+| 2m_temperature | 2 | 90 | 0.360 | 0.328 | 37 |
+| 2m_temperature | 3 | 90 | 0.855 | 0.489 | 19 |
+| 2m_temperature | 4 | 90 | 2.645 | 0.676 | 6 |
+
+Items where a baseline is exact, so no reply can earn a reward: mean_sea_level_pressure 0, 2m_temperature 3.

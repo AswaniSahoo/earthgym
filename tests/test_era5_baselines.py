@@ -44,3 +44,17 @@ def test_render_reports_each_floor_and_how_often_it_binds():
     near = item(280.0, 280.2, 283.0, 280.0)  # better-baseline error 0.2, under the 0.5 floor
     text = baselines.render(baselines.rows([*ITEMS, near]), [*ITEMS, near])
     assert "| 2m_temperature | 0.500 | 1 of 3 |" in text
+
+
+def test_limits_show_hres_reward_by_quarter_of_baseline_error_and_the_dead_items():
+    # truth 0, climatology 5: better-baseline errors 0, 1, 2, 3; HRES errs 0, 0, 1, 3
+    ranked = [item(0.0, b, 5.0, h) for b, h in ((0.0, 0.0), (1.0, 0.0), (2.0, 1.0), (3.0, 3.0))]
+    text = baselines.render(baselines.rows(ranked), ranked)
+    for line in [
+        "| 2m_temperature | 1 | 1 | 0.000 | 0.000 | 1 |",  # b = 0: nothing can be won
+        "| 2m_temperature | 2 | 1 | 1.000 | 1.000 | 0 |",
+        "| 2m_temperature | 3 | 1 | 2.000 | 0.500 | 0 |",
+        "| 2m_temperature | 4 | 1 | 3.000 | 0.000 | 1 |",
+        "Items where a baseline is exact, so no reply can earn a reward: 2m_temperature 1.",
+    ]:
+        assert line in text

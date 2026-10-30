@@ -52,6 +52,27 @@ def rows(records: list[dict]) -> list[dict]:
     return out
 
 
+def quarters(records: list[dict]) -> list[dict]:
+    """Per variable, the items ranked by their better-baseline error b and split into four
+    equal parts, with what IFS HRES earns in each."""
+    out = []
+    for variable in items.VARIABLES:
+        group = [r for r in records if r["variable"] == variable]
+        group.sort(key=lambda r: (items.better_baseline_error(r), r.get("id", "")))
+        for quarter, part in enumerate(np.array_split(np.arange(len(group)), 4), start=1):
+            chosen = [group[k] for k in part]
+            if not chosen:
+                continue
+            paid = [reward(r, r["hres"]) for r in chosen]
+            errors = [items.better_baseline_error(r) for r in chosen]
+            out.append(
+                {"variable": variable, "quarter": quarter, "n": len(chosen)}
+                | {"median_b": float(np.median(errors)), "hres_reward": float(np.mean(paid))}
+                | {"hres_zero": sum(p == 0 for p in paid)}
+            )
+    return out
+
+
 def render(table: list[dict], records: list[dict] | None = None) -> str:
     lines = [
         "# era5-forecast-v1 baseline rows",
@@ -67,20 +88,44 @@ def render(table: list[dict], records: list[dict] | None = None) -> str:
             f"| {r['variable']} | {r['lead']} | {r['baseline']} | {r['n']} | "
             f"{r['rmse']:.3f} | {acc} | {r['reward']:.3f} |"
         )
-    if records:
-        lines += [
-            "",
-            "Reward floor per variable: the 10th percentile of the better-baseline error (0007);",
-            "it binds where that error is below the floor.",
-            "",
-            "| variable | floor | binds |",
-            "|---|---|---|",
-        ]
-        for variable in items.VARIABLES:
-            group = [r for r in records if r["variable"] == variable]
-            if group:
-                binds = sum(items.better_baseline_error(r) < r["floor"] for r in group)
-                lines.append(f"| {variable} | {group[0]['floor']:.3f} | {binds} of {len(group)} |")
+    if not records:
+        return "\n".join([*lines, ""])
+    lines += [
+        "",
+        "Reward floor per variable: the 10th percentile of the better-baseline error (0007);",
+        "it binds where that error is below the floor.",
+        "",
+        "| variable | floor | binds |",
+        "|---|---|---|",
+    ]
+    for variable in items.VARIABLES:
+        group = [r for r in records if r["variable"] == variable]
+        if group:
+            binds = sum(items.better_baseline_error(r) < r["floor"] for r in group)
+            lines.append(f"| {variable} | {group[0]['floor']:.3f} | {binds} of {len(group)} |")
+    lines += [
+        "",
+        "## Limits",
+        "",
+        "The baseline is the better of persistence and climatology for each item, picked with the",
+        "truth known, so where one of them is nearly exact little skill is left to earn. Items",
+        "ranked by that error b and split into quarters:",
+        "",
+        "| variable | quarter | n | median b | IFS HRES mean reward | HRES earns 0 |",
+        "|---|---|---|---|---|---|",
+    ]
+    for r in quarters(records):
+        lines.append(
+            f"| {r['variable']} | {r['quarter']} | {r['n']} | {r['median_b']:.3f} | "
+            f"{r['hres_reward']:.3f} | {r['hres_zero']} |"
+        )
+    exact = {
+        v: sum(items.better_baseline_error(r) == 0 for r in records if r["variable"] == v)
+        for v in items.VARIABLES
+        if any(r["variable"] == v for r in records)
+    }
+    named = ", ".join(f"{v} {n}" for v, n in exact.items())
+    lines += ["", f"Items where a baseline is exact, so no reply can earn a reward: {named}."]
     return "\n".join([*lines, ""])
 
 
