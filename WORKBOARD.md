@@ -2,25 +2,33 @@
 
 Updated 2026-10-30. Publish after completion. Small commits, one-line messages.
 
-## Now: Phase 2, clean ClimaQA port and multi-model baseline
+## Now: Phase 3, ERA5 forecast-score environment graded against WeatherBench 2
 
-- [x] Radar check for Phase 2 (scout): 20 entries in docs/radar.md
-- [x] Clean set v1: 350 kept (222 MCQ, 128 cloze), 102 excluded with reasons, one fixed
-      option order, sha256 in reports/climaqa/clean_v1_manifest.json
-- [x] Scoring: one contract (climaqa_v1/contract.py) for both harnesses; 12 cloze keys cleaned
-- [x] Inspect tasks for MCQ (222) and cloze (128) with the contract scorer, tested on mockllm
-- [x] Baseline: Gemini 3.8 Flash on Vertex over clean set v1: MCQ 0.874 (194 of 222, stderr
-      0.022), cloze 0.742 (95 of 128, stderr 0.039), 0 format failures, provider default
-      settings; reports/climaqa/runs/2026-10-30-gemini-3.8-flash.md
-- [x] Cloze misses sorted (33): 8 scorer strictness, 25 other correct words (8 debatable),
-      0 clear model errors; blind second sort matched 31 of 33; contract unchanged;
-      reports/climaqa/runs/2026-10-30-gemini-3.8-flash-cloze-misses.md
-- [x] MCQ misses sorted (28): 7 model errors (3 debatable), 12 ambiguous, 6 flawed, 3 source
-      only; reports/climaqa/runs/2026-10-30-gemini-3.8-flash-mcq-misses.md
-- [x] Fable baseline review: no High, M1 to M4, L1 to L6; reviews/phase-2-climaqa-port.md
-- [ ] Report fixes from that review, test-first: M3 (dirty tree and provider defaults), L1 to L5
-- [x] verifiers v1 taskset climaqa-v1 (350 tasks, shared answer contract)
-- [x] Phase 2 review (Fable): every issue fixed test-first; author response in the review
+Plan (2026-10-30, from the radar in docs/radar.md):
+
+- Goal: an eval and RL environment whose answers are scored against ERA5 by the WeatherBench 2
+  rules, with a grader shown to reproduce a number WB2 publishes.
+- Stage 1, now: `rlenv.era5.scores` ports the WB2 rules (cell-area weights, MSE, RMSE with the
+  root after the time mean, bias; ACC and CRPS after). A build step fetches a pinned subset
+  over anonymous HTTPS (IFS HRES and ERA5 mean sea level pressure, 64x32, 2020 inits, 72 h
+  lead, about 12 MB) and checks its sha256. The first test reproduces WB2's global MSLP RMSE
+  at 72 h, 133.890547 Pa (`benchmark_results/hres_vs_era5_64x32_2020.nc`).
+- Stage 2, proposed for Aswani: forecast-answer tasks. Each prompt gives a grid cell, a
+  variable, a lead time, recent ERA5 history and climatology; the reply is a forecast; the
+  reward is its skill against climatology under the WB2 rules, with HRES as the bar. The
+  alternative is tasks that ask the model to compute the scores. Then a verifiers taskset
+  and an Inspect task, tested on mockllm only.
+- Out: pressure levels (one year of one level is over 100 MB), ARCO-ERA5, GraphCast and Pangu
+  outputs (licence UNKNOWN), IFS ENS (research use only), any paid run.
+- Tests: small inline arrays with hand-computed values; the reproduction test runs when the
+  pinned subset is on disk and is skipped otherwise, so CI stays offline.
+
+- [x] Radar check for Phase 3 (scout): 17 new entries in docs/radar.md
+- [ ] Decision record for the new dependencies (numpy, zarr, numcodecs; no gcsfs, no
+      weatherbench2 package)
+- [ ] `rlenv.era5.scores`: area weights, MSE, RMSE, bias, test-first
+- [ ] Pinned subset build and the 133.890547 Pa reproduction
+- [ ] Stage 2 task design, after Aswani's choice
 
 ## Waiting on Aswani
 
@@ -29,15 +37,18 @@ Updated 2026-10-30. Publish after completion. Small commits, one-line messages.
 - [ ] Decision 0005 (proposed): expert review of the flagged items in both splits,
       accepted-answer lists for cloze, rewards from reviewed items only, no judge model.
       Not implemented until yes
+- [ ] Phase 3 stage 2: forecast-answer tasks (proposed) or score-computation tasks
 
 ## Done
 
+- [x] 2026-10-30 Phase 2 clean ClimaQA port: clean set v1 (350 items), one answer contract,
+      Inspect tasks and verifiers taskset, Gemini 3.8 Flash baseline (MCQ 0.874, cloze 0.742),
+      both miss sorts, two Fable reviews with every fix landed; reports/climaqa/runs/
 - [x] 2026-10-30 Phase 1 ClimaQA audit; Fable review fixes landed test-first; CI green
 - [x] 2026-10-30 CI runner pinned to ubuntu-24.04
 
 ## Later
 
-- Phase 3 ERA5 forecast-score environment
 - Two-model inspect_evals Register run: parked 2026-10-30; Gemini 3.8 Flash is the only
   baseline for now, and the second model needs Aswani's yes
 - Phase 4 IBTrACS cyclone analytics environment
