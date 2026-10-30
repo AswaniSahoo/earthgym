@@ -51,5 +51,7 @@ def reward(
     if forecast is None:
         return 0.0
     baseline = min(abs(persistence - truth), abs(climatology - truth))
-    skill = (baseline - abs(forecast - truth)) / max(baseline, floor)
-    return min(1.0, max(0.0, skill))
+    scale = max(baseline, floor)
+    if scale == 0:
+        return 0.0  # a baseline is exact and there is no floor: no skill left to earn
+    return min(1.0, max(0.0, (baseline - abs(forecast - truth)) / scale))

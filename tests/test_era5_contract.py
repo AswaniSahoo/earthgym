@@ -19,6 +19,10 @@ def test_floor_caps_the_reward_when_both_baselines_are_nearly_right():
     assert contract.reward(100.2, **near) == 0.0  # copying climatology still earns nothing
 
 
+def test_reward_pays_nothing_and_does_not_crash_when_a_baseline_is_exact_and_the_floor_is_zero():
+    assert contract.reward(5.0, 5.0, 5.0, 5.0, 0.0) == 0.0
+
+
 @pytest.mark.parametrize(
     ("reply", "want"),
     [

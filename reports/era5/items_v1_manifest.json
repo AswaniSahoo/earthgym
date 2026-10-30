@@ -1,7 +1,7 @@
 {
  "version": "v1",
  "items": 720,
- "sha256": "163a9fd8f561ba77e5480859d4c93752ec338b7a8455d9a9903a27fde87c63dc",
+ "sha256": "c4a1dd7c96a0a94d3b70843ae0931670e92be7f3edec851807aa2f7b2dfb28e0",
  "seed": 20261030,
  "per_group": 120,
  "variables": [
@@ -20,8 +20,8 @@
   "era5-hourly-climatology/1990-2019_6h_64x32_equiangular_conservative.zarr": "f876a07f4c65d5375abad6bca5bb5af3eb115ff6aedc9c125dfeccc2e187c474"
  },
  "floors": {
-  "mean_sea_level_pressure": 28.749999999989814,
-  "2m_temperature": 0.06899999999999408
+  "mean_sea_level_pressure": 28.75,
+  "2m_temperature": 0.069
  },
  "floor_binds": {
   "mean_sea_level_pressure": 36,

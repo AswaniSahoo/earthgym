@@ -34,11 +34,15 @@ def better_baseline_error(row: dict) -> float:
 
 def floors(rows: list[dict]) -> dict[str, float]:
     """Each variable's reward floor: the 10th percentile (numpy's linear rule) of the
-    better-baseline error over the items. Baseline data only, no model information."""
-    by_variable = {
-        v: [better_baseline_error(r) for r in rows if r["variable"] == v] for v in VARIABLES
-    }
-    return {v: float(np.percentile(e, FLOOR_PERCENTILE)) for v, e in by_variable.items() if e}
+    better-baseline error over the items, never below the smallest shown unit, stored to one
+    decimal more than shown. Baseline data only, no model information."""
+    out = {}
+    for v in VARIABLES:
+        errors = [better_baseline_error(r) for r in rows if r["variable"] == v]
+        if errors:
+            floor = max(float(np.percentile(errors, FLOOR_PERCENTILE)), 10.0 ** -DECIMALS[v])
+            out[v] = round(floor, DECIMALS[v] + 1)
+    return out
 
 
 def with_floors(rows: list[dict]) -> list[dict]:

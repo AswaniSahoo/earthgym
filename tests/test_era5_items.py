@@ -81,8 +81,15 @@ def test_floors_are_the_tenth_percentile_of_the_better_baseline_error():
     assert {r["floor"] for r in items.with_floors(rows) if r["variable"] == T2M} == {floors[T2M]}
 
 
+def test_floors_never_drop_below_the_smallest_shown_unit_and_are_stored_rounded():
+    exact = [floor_row(T2M, 0.0)] * 5 + [floor_row(T2M, 1.0)] * 5  # 10th percentile is 0
+    assert items.floors(exact) == {T2M: 0.01}  # 2 m temperature is shown to 0.01 K
+    uneven = [floor_row(T2M, e) for e in (0.0123, 0.0456, 0.9, 0.9, 0.9)]
+    assert items.floors(uneven) == {T2M: round(0.0123 + 0.4 * (0.0456 - 0.0123), 3)}
+
+
 def test_bundled_floors_follow_the_rule_and_the_manifest_records_them():
     rows = [json.loads(line) for line in items.OUT.read_text().splitlines()]
     floors = items.floors(rows)
-    assert all(r["floor"] == floors[r["variable"]] for r in rows)
-    assert json.loads(items.MANIFEST.read_text())["floors"] == floors
+    assert all(r["floor"] == pytest.approx(floors[r["variable"]]) for r in rows)
+    assert json.loads(items.MANIFEST.read_text())["floors"] == pytest.approx(floors)
