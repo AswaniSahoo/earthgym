@@ -17,15 +17,24 @@ Newest first. One entry per working session: what changed, what we learned, what
 - The report now records commit, generate config, tokens and log file. Lesson: Inspect keeps
   eval-level settings in `plan.config`, not `eval.model_generate_config`; a test caught it.
 - Finding: of the 33 cloze misses, 8 say the same thing in another string (symbols 22 and 105,
-  word order 37, plural 114, synonyms 47, 72, 136, 142), 24 are other words that still make a
-  correct sentence (7 debatable), and 1 is a clear model error (157). Counting the 8 lifts
-  cloze from 0.742 to 0.805. For this model the cloze score mostly measures picking the
-  source's word. One reader's sort; a blind second sort is running.
+  word order 37, plural 114, synonyms 47, 72, 136, 142), 25 are other words that still make a
+  correct sentence (8 debatable), and none is clearly wrong. Counting the 8 lifts cloze from
+  0.742 to 0.805. For this model the cloze score mostly measures picking the source's word.
+  Fable's blind second sort matched 31 of 33; 157 went from "model error" to debatable because
+  no source showed the study's method.
+- Finding: of the 28 MCQ misses, 7 are model errors (3 debatable) and 21 are item problems:
+  6 flawed (keys wrong in 232 and 247), 3 source only, 12 with two defensible options. So the
+  MCQ reward is noisy too; 167 and 207 are the same question.
+- Fable's baseline review: no High; every report number reproduced from the logs. Medium: the
+  157 label, 0005 resting on cloze alone, the report hiding the dirty tree and provider
+  defaults, items that test the source document. Lesson: a label needs the same evidence bar
+  as a number.
 - The contract stays: no single rule recovers more than 1 item, and aliases need a person's
   approval. Decision for Aswani in WORKBOARD.md.
 - Follow-ups: the report shows n per complexity level and n/a for cloze format failures (only
-  MCQ has a format check); `.serena/` is ignored. Decision 0005 proposes MCQ-only rewards in
-  v2, with expert-checked accepted-answer lists to bring cloze back; contract v1 unchanged.
+  MCQ has a format check); `.serena/` is ignored. Decision 0005 (proposed, revised after the
+  MCQ sort): expert item review of both splits, accepted-answer lists for cloze, rewards from
+  reviewed items only, no judge model; contract v1 unchanged.
 - Next: the Fable review and blind sort, then Phase 3 (radar check running).
 
 ## 2026-10-30

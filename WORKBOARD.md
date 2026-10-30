@@ -12,10 +12,13 @@ Updated 2026-10-30. Publish after completion. Small commits, one-line messages.
 - [x] Baseline: Gemini 3.8 Flash on Vertex over clean set v1: MCQ 0.874 (194 of 222, stderr
       0.022), cloze 0.742 (95 of 128, stderr 0.039), 0 format failures, provider default
       settings; reports/climaqa/runs/2026-10-30-gemini-3.8-flash.md
-- [x] Cloze misses sorted (33): 8 scorer strictness, 24 other correct words (7 debatable),
-      1 model error; contract unchanged;
+- [x] Cloze misses sorted (33): 8 scorer strictness, 25 other correct words (8 debatable),
+      0 clear model errors; blind second sort matched 31 of 33; contract unchanged;
       reports/climaqa/runs/2026-10-30-gemini-3.8-flash-cloze-misses.md
-- [ ] Fable review of the baseline and a blind second sort of the 33 cloze misses (running)
+- [x] MCQ misses sorted (28): 7 model errors (3 debatable), 12 ambiguous, 6 flawed, 3 source
+      only; reports/climaqa/runs/2026-10-30-gemini-3.8-flash-mcq-misses.md
+- [x] Fable baseline review: no High, M1 to M4, L1 to L6; reviews/phase-2-climaqa-port.md
+- [ ] Report fixes from that review, test-first: M3 (dirty tree and provider defaults), L1 to L5
 - [x] verifiers v1 taskset climaqa-v1 (350 tasks, shared answer contract)
 - [x] Phase 2 review (Fable): every issue fixed test-first; author response in the review
 
@@ -24,8 +27,9 @@ Updated 2026-10-30. Publish after completion. Small commits, one-line messages.
 - [ ] reports/climaqa/leak_review.csv: 56 Gold and Silver pairs, same item or not
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
 - [ ] Second model for the inspect_evals Register (needs an account or key)
-- [ ] Decision 0005 (proposed): v2 cloze. MCQ-only rewards now; expert-checked accepted-answer
-      lists bring cloze back; no judge model. Not implemented until yes
+- [ ] Decision 0005 (proposed): expert review of the flagged items in both splits,
+      accepted-answer lists for cloze, rewards from reviewed items only, no judge model.
+      Not implemented until yes
 
 ## Done
 
