@@ -1,0 +1,219 @@
+id,task,question,options,key,model_answer,flag,our_note,verdict,accepted_answers,expert_note
+gold/mcq/36,mcq,"In a hypothetical scenario, if a new international collaboration was formed to enhance aerosol ground-based measurements, which program would likely be involved?","A) AERONET
+B) Global Atmosphere Watch (GAW) programme
+C) NOAA ESRL Federated Aerosol Network
+D) Interagency Monitoring of Protected Visual Environments (IMPROVE) network",A) AERONET,B) Global Atmosphere Watch (GAW) programme,ambiguous,AERONET and GAW both run international ground-based aerosol networks; nothing in the question separates them,,,
+gold/mcq/50,mcq,What is the significance of the radar bright band in stratiform precipitation events?,"A) It marks the layer of high reflectivity associated with stratiform precipitation.
+B) It signifies the transition from ice crystals to liquid particles in the cloud.
+C) It shows a narrow horizontal band of varying strength at a specific altitude above ground.
+D) It indicates the presence of convective cells within the precipitation event.",A) It marks the layer of high reflectivity associated with stratiform precipitation.,B) It signifies the transition from ice crystals to liquid particles in the cloud.,ambiguous,"A describes the band, B gives its meaning (the melting layer); B fits ""significance"" at least as well",,,
+gold/mcq/74,mcq,What additional capability could be achieved by the AIRS instrument suite if it were to be used near major aerosol sources such as wildfire smoke and volcanic plumes?,"A) Provide data on aerosol plume contrast features
+B) Track horizontal and vertical aerosol movements
+C) Measure temperature and water vapor vertical atmospheric profiles
+D) Characterize tropospheric aerosols over the oceans",A) Provide data on aerosol plume contrast features,B) Track horizontal and vertical aerosol movements,"ambiguous, debatable",an infrared sounder can also follow plume height and transport; the key's wording looks taken from the source,,,
+gold/mcq/97,mcq,What is one of the challenges faced in simulating the interaction of aerosol with clouds in large-scale models?,"A) Parameterizing the activation process
+B) Ignoring the effect of aerosols on cloud formation
+C) Resolving subgrid vertical velocities accurately
+D) Explicitly calculating aerosol activation for each cloud droplet",A) Parameterizing the activation process,C) Resolving subgrid vertical velocities accurately,ambiguous,both A and C are real challenges; subgrid vertical velocity is part of the activation problem,,,
+gold/mcq/102,mcq,"In a hypothetical scenario where CCN concentrations were found to vary significantly based on latitudinal and seasonal factors, how would this impact the understanding of cloud formation?","A) It would imply that other factors play a more significant role in cloud formation than CCN concentrations.
+B) It would suggest that CCN concentrations are not as crucial for cloud formation as previously thought.
+C) It would support the existing knowledge on the importance of CCN in cloud formation.
+D) It would indicate a need to reconsider the role of CCN in cloud nucleation processes.",D) It would indicate a need to reconsider the role of CCN in cloud nucleation processes.,C) It would support the existing knowledge on the importance of CCN in cloud formation.,ambiguous,"CCN do vary with latitude and season, so C follows from the premise at least as well as D",,,
+gold/mcq/110,mcq,How do mathematical functions play a crucial role in converting ice-sheet sulfate deposition records to estimates of atmospheric sulfate aerosol burden and stratospheric aerosol optical depth?,"A) By directly measuring the spatial distribution of volcanic aerosols in the atmosphere
+B) By calculating the total mass of volcanic SO2 emitted
+C) By accounting for the spatial variability in deposition onto Earth's surface and deriving functions based on direct measurements
+D) By estimating key parameters for past eruptions where direct observations are not available",C) By accounting for the spatial variability in deposition onto Earth's surface and deriving functions based on direct measurements,D) By estimating key parameters for past eruptions where direct observations are not available,model error,"C says how the functions are built, which is what the question asks; D says what they are for",,,
+gold/mcq/113,mcq,"Why is the observed lapse rate in the troposphere stable, even with respect to the saturated adiabatic lapse rate?","A) As a result of the repeated absorption and reemission of outgoing longwave radiation below the tropopause
+B) Through the interplay among radiative transfer, convection, and large-scale motions
+C) Because of the downward emission of longwave radiation by slowly subsiding air
+D) Due to the absorption of solar radiation by greenhouse gases",C) Because of the downward emission of longwave radiation by slowly subsiding air,"B) Through the interplay among radiative transfer, convection, and large-scale motions","model error, debatable","B names the general balance, C the specific mechanism the question is after",,,
+gold/mcq/125,mcq,How do Lagrangian models differ from large eddy simulation (LES) models in climate science?,"A) Lagrangian models focus on studying cloud-aerosol interactions while LES models focus on large-scale climate processes.
+B) Lagrangian models focus on analyzing regional climate patterns while LES models focus on modeling large-scale climate processes.
+C) Lagrangian models focus on modeling large-scale climate processes while LES models focus on small-scale process models.
+D) Lagrangian models focus on tracking the movement of air parcels while LES models focus on analyzing regional climate patterns.",C) Lagrangian models focus on modeling large-scale climate processes while LES models focus on small-scale process models.,D) Lagrangian models focus on tracking the movement of air parcels while LES models focus on analyzing regional climate patterns.,flawed: no fully right option,Lagrangian models track air parcels (D's first half) and LES are small-scale models (C's second half); each option is half wrong,,,
+gold/mcq/130,mcq,What is the main difference in the precipitation response to aerosol forcing between scattering and absorbing aerosols?,"A) Absorbing aerosol leads to a larger global precipitation response than greenhouse gases.
+B) Absorbing aerosol has a larger effect on global-mean precipitation compared to scattering aerosol.
+C) Scattering aerosol tends to reduce global-mean precipitation due to induced surface cooling.
+D) Scattering aerosol induces increased precipitation due to long-term surface warming.",C) Scattering aerosol tends to reduce global-mean precipitation due to induced surface cooling.,B) Absorbing aerosol has a larger effect on global-mean precipitation compared to scattering aerosol.,"model error, debatable","B can hold per unit forcing, but C is the stated difference in mechanism",,,
+gold/mcq/132,mcq,Which of the following individuals is not mentioned in the acknowledgments section for reviewing chapters of the book?,"A) Ivy Tan
+B) Betty Croft
+C) Mian Chin
+D) Paul DeMott",B) Betty Croft,A) Ivy Tan,source only,asks who is named in a book's acknowledgments,,,
+gold/mcq/141,mcq,Why are single-moment bulk schemes in large-scale models used to represent warm liquid cloud processes?,"A) To facilitate theoretical analysis and easy implementation in models by assuming a linear dependence of autoconversion rate on cloud water content
+B) To divide cloud processes into autoconversion and accretion to represent the evolution of warm liquid cloud processes
+C) To accurately calculate size-dependent microphysical processes according to the defined size distribution function
+D) To maintain water-saturated conditions by condensing excess water vapor or evaporating liquid condensate",A) To facilitate theoretical analysis and easy implementation in models by assuming a linear dependence of autoconversion rate on cloud water content,B) To divide cloud processes into autoconversion and accretion to represent the evolution of warm liquid cloud processes,model error,"the question asks why; A gives a reason (simplicity), B describes what the schemes do",,,
+gold/mcq/148,mcq,Which of the following is NOT involved in the nucleation process of highly oxidized organic molecules?,"A) Amines
+B) Ammonia
+C) Organic molecules
+D) H2SO4",D) H2SO4,B) Ammonia,ambiguous,"the question does not say whether it means pure organic nucleation or nucleation with H2SO4, ammonia or amines; B and D each fit one reading",,,
+gold/mcq/164,mcq,"In a hypothetical scenario where turbulence is not considered, what would be the outcome of the coagulation process between two equally sized droplets?","A) The droplet growth rate would decelerate
+B) The droplet growth rate would accelerate
+C) The droplet growth rate would remain constant
+D) The droplets would evaporate",B) The droplet growth rate would accelerate,A) The droplet growth rate would decelerate,ambiguous,"two readings: the merged drop grows faster (key), or equal drops barely collide without turbulence (model)",,,
+gold/mcq/167,mcq,What is the approximate amount of solar radiation absorbed by aerosols in cloud-free conditions at the top of the atmosphere?,"A) 6.3 W m^-2
+B) 1.2 W m^-2
+C) 2.8 W m^-2
+D) 4.5 W m^-2",D) 4.5 W m^-2,C) 2.8 W m^-2,source only,a number from one source (4.5 W m^-2); same question and key as 207,,,
+gold/mcq/187,mcq,What parameter is commonly used as a measure of the CCN concentration at cloud base?,"A) Aerosol optical depth
+B) Cloud optical depth
+C) Droplet effective radius
+D) Aerosol extinction coefficient",A) Aerosol optical depth,D) Aerosol extinction coefficient,model error,"the question asks for the commonly used measure, which is AOD; gold/cloze/22 is the same source sentence",,,
+gold/mcq/204,mcq,"In a hypothetical scenario where there is a sudden increase in volcanic activity emitting large amounts of particles into the atmosphere, how would this impact the typical vertical distribution pattern of particle mass concentration?","A) Particle mass concentration would remain highest near the surface and fall with altitude, particularly above the well-mixed boundary layer.
+B) Particle mass concentration would be uniform throughout the atmosphere.
+C) Particle mass concentration would be highest near the surface where particles are emitted and fall with altitude, particularly above the well-mixed boundary layer.
+D) Particle mass concentration would peak at high altitudes and fall near the surface.","C) Particle mass concentration would be highest near the surface where particles are emitted and fall with altitude, particularly above the well-mixed boundary layer.",D) Particle mass concentration would peak at high altitudes and fall near the surface.,flawed: near-identical options,"A and C say nearly the same thing, and an explosive eruption can put a peak aloft (D)",,,
+gold/mcq/207,mcq,What is the approximate amount of solar radiation absorbed by aerosols in cloud-free conditions?,"A) 2.8 W m^-2
+B) 1.2 W m^-2
+C) 6.3 W m^-2
+D) 4.5 W m^-2",D) 4.5 W m^-2,A) 2.8 W m^-2,source only,same as 167,,,
+gold/mcq/210,mcq,How does the time available for the growth of ice particles sedimenting from cloud top differ between stratiform and convective clouds?,"A) In stratiform clouds, the time available for the growth of ice particles sedimenting from cloud top is typically less than 1 hour, while in convective clouds it is at least 1–3 hours.
+B) In stratiform clouds, the time available for the growth of ice particles sedimenting from cloud top is at least 1–3 hours, while in convective clouds it is typically less than 1 hour.
+C) In stratiform clouds, the time available for the growth of ice particles sedimenting from cloud top is typically less than 1 hour, which is shorter than in convective clouds.
+D) In stratiform clouds, the time available for the growth of ice particles sedimenting from cloud top is at least 1–3 hours, which is longer than in convective clouds.","D) In stratiform clouds, the time available for the growth of ice particles sedimenting from cloud top is at least 1–3 hours, which is longer than in convective clouds.","B) In stratiform clouds, the time available for the growth of ice particles sedimenting from cloud top is at least 1–3 hours, while in convective clouds it is typically less than 1 hour.",ambiguous,B and D agree that stratiform times are longer (at least 1 to 3 hours); B adds a convective bound,,,
+gold/mcq/222,mcq,What could potentially happen if the vertical velocity field in the region of warm advection in advance of a developing surface low starts sinking instead of rising?,"A) The cyclone would dissipate quickly
+B) The cyclone would change direction unpredictably
+C) The cyclone would weaken gradually
+D) The cyclone would intensify rapidly",A) The cyclone would dissipate quickly,D) The cyclone would intensify rapidly,model error,"sinking ahead of the low works against development, so A or C; D is wrong (A against C is a second ambiguity)",,,
+gold/mcq/232,mcq,"What term describes the constancy of the mean, variance, and covariances that depend only on separation and not on absolute positions in a random process, and what hypothesis released practitioners from the constraints of second-order stationarity?","A) Second-order stationarity and intrinsic hypothesis
+B) Intrinsic hypothesis and variogram
+C) Spatial dependence and variogram
+D) First-order stationarity and spatial dependence",B) Intrinsic hypothesis and variogram,A) Second-order stationarity and intrinsic hypothesis,flawed: key wrong,"the first term is second-order stationarity and the hypothesis is the intrinsic hypothesis, which is A; ""variogram"" in B is not a hypothesis",,,
+gold/mcq/238,mcq,What is a characteristic of variograms that suggests the presence of a long-range trend in the underlying process and what type of model represents unbounded random variation?,"A) Variogram increasing less than the square of the lag distance and power functions
+B) Variogram increasing faster than jhj^2 and exponential functions
+C) Variogram being symmetric about the origin and exponential functions
+D) Variogram approaching the origin linearly and power functions",A) Variogram increasing less than the square of the lag distance and power functions,B) Variogram increasing faster than jhj^2 and exponential functions,flawed: no fully right option,"a variogram growing faster than h squared signals a trend (B's first half) and power functions model unbounded variation (A's second half); ""jhj^2"" is a garbled \|h\|^2",,,
+gold/mcq/239,mcq,What forces are involved in maintaining the east-to-west slope of the isentropes against the force of gravity near a mountain barrier?,"A) Coriolis force and pressure gradient force
+B) Frictional drag force and Coriolis force
+C) Pressure gradient force and frictional drag force
+D) Coriolis force and back pressure from the colder, denser air","D) Coriolis force and back pressure from the colder, denser air",A) Coriolis force and pressure gradient force,ambiguous,"the back pressure of the dense air is a pressure gradient force, so A and D name the same balance",,,
+gold/mcq/247,mcq,Why does radiation at visible and infrared wavelengths not possess sufficient energy to produce photoionization or photodissociation?,"A) The Earth's atmosphere presents an atmospheric window over the visible spectrum, where gaseous absorption is low.
+B) The energy carried by photons at visible and infrared wavelengths is inversely proportional to the wavelength of the radiation.
+C) The absorption continua associated with these reactions are confined to the x-ray and ultraviolet regions of the spectrum.
+D) Quantum mechanics predicts that only certain configurations of electron orbits are permitted within each atom at visible and infrared wavelengths.",C) The absorption continua associated with these reactions are confined to the x-ray and ultraviolet regions of the spectrum.,B) The energy carried by photons at visible and infrared wavelengths is inversely proportional to the wavelength of the radiation.,flawed: key wrong,"C is the consequence (the continua sit in the X-ray and UV); the reason is photon energy, which is B",,,
+gold/mcq/249,mcq,What are the two types of volcanic activities that have roles in climate forcing according to the information provided?,"A) Volcanic eruptions with VEIs greater than 5 and passive degassing
+B) Volcanic eruptions with VEIs of exactly 5 and passive degassing
+C) Volcanic eruptions with VEIs greater than 5 and volcanic eruptions with VEIs of less than 5
+D) Volcanic eruptions with VEIs of less than 5 and passive degassing",D) Volcanic eruptions with VEIs of less than 5 and passive degassing,A) Volcanic eruptions with VEIs greater than 5 and passive degassing,flawed: missing information,"asks ""according to the information provided"" and provides none",,,
+gold/mcq/255,mcq,What distinguishes stratiform clouds from convective clouds based on the comparison of vertical air motion with the terminal velocity of snowflakes?,"A) In convective clouds, the vertical air motions are typically larger than the terminal velocity of snow.
+B) In stratiform clouds, the vertical air motions are typically larger than the terminal velocity of snow.
+C) In stratiform clouds, the vertical air motions are smaller than the terminal velocity of snow.
+D) In convective clouds, the vertical air motions are smaller than the terminal velocity of snow.","C) In stratiform clouds, the vertical air motions are smaller than the terminal velocity of snow.","A) In convective clouds, the vertical air motions are typically larger than the terminal velocity of snow.",ambiguous,"A and C are both true, and either one distinguishes the two cloud types",,,
+gold/mcq/268,mcq,How can changes in European aerosol impact Arctic sea ice?,"A) By causing large-scale anomalous warming in the Arctic region
+B) By strengthening the subtropical jet over the Arctic
+C) By enhancing convective storms in the Arctic region
+D) By increasing regional warming and reducing Arctic sea ice",D) By increasing regional warming and reducing Arctic sea ice,A) By causing large-scale anomalous warming in the Arctic region,"ambiguous, debatable","A gives the mechanism, D the full answer",,,
+gold/mcq/277,mcq,"In kriging analysis, what is the purpose of the Lagrange multipliers in the kriging system?","A) To ensure that the estimation variance is minimized
+B) To ensure that the weights sum to 1
+C) To maximize the estimation variance
+D) To introduce bias into the estimation process",A) To ensure that the estimation variance is minimized,B) To ensure that the weights sum to 1,ambiguous,the multiplier enforces weights summing to 1 while the variance is minimized; A and B each give half,,,
+gold/mcq/279,mcq,What is the main function of the electrosphere in the global electrical circuit?,"A) To create thunderstorms
+B) To act as an electrostatic shield
+C) To transport positive charge from electrified clouds to the Earth's surface
+D) To generate lightning flashes",B) To act as an electrostatic shield,C) To transport positive charge from electrified clouds to the Earth's surface,"model error, debatable","the key's ""electrostatic shield"" wording looks taken from the source; C mixes in the fair-weather current",,,
+gold/cloze/4,cloze,The vertical <MASK> gradient in the atmosphere leads to a significant portion of the Earth's surface energy budget being transported by sensible and latent heat fluxes into the atmosphere.,,density,temperature,"other, debatable","a temperature gradient drives sensible heat flux, but the sentence also names latent heat",,,
+gold/cloze/8,cloze,"Residual Maximum Likelihood <MASK> estimation is becoming more feasible in practice with increasing computing power and sophisticated software, allowing for accurate predictions with at least 100 data points.",,(REML),variogram,other,"the key abbreviates the three words before the mask, so a content word fits the blank",,,
+gold/cloze/14,cloze,The radiative effect of aerosol–radiation interactions can lead to changes in the spatial and temporal distribution of radiative <MASK> with the potential for both positive and negative impacts on the Earth's energy balance.,,fluxes,forcing,"other, debatable","fits, but circular: the radiative effect named at the start of the sentence is itself a forcing",,,
+gold/cloze/16,cloze,The Global Atmosphere Watch programme monitors long-term changes to the atmosphere and Earth system by collecting <MASK> data from a network of global sites in remote locations to characterize the background atmosphere in different geographical locations.,,aerosol,baseline,other,the sentence itself says the data characterize the background atmosphere,,,
+gold/cloze/19,cloze,Model and observational aerosol <MASK> forcing estimates show surprising similarities.,,radiative,direct,other,direct forcing is part of aerosol radiative forcing; the sentence stays true,,,
+gold/cloze/22,cloze,"Aerosol optical depth <MASK> is commonly used as a measure of the CCN concentration at cloud base, showing a good correlation between these parameters at large spatial and temporal scales.",,(τa),(AOD),strictness: symbol,two notations for aerosol optical depth,,,
+gold/cloze/26,cloze,It is crucial to have prognostic <MASK> particle size distributions in order to accurately simulate the responses of microphysical processes to CCN and avoid unrealistic effects on convective intensity.,,aerosol,hydrometeor,"other, debatable","prognostic hydrometeor size distributions also respond to CCN, but the claim changes",,,
+gold/cloze/34,cloze,"Heterogeneous ice nucleation occurs through various modes involving insoluble or partially insoluble <MASK> particles, leading to the coexistence of liquid and ice in clouds between 0°C and about -38°C.",,ice-nucleating,aerosol,other,broader: ice-nucleating particles are aerosol particles,,,
+gold/cloze/37,cloze,"<MASK> interactions play a significant role in climate feedbacks and sensitivity, influencing processes such as ice-nucleating particles, deep convection, anvil cirrus clouds, and shallow mixed-phase clouds.",,Cloud-aerosol,Aerosol-cloud (en dash in the reply),strictness: word order,"same compound; the contract compares ""aerosol cloud"" with ""cloud aerosol""",,,
+gold/cloze/47,cloze,The <MASK> process in clouds leads to bimodality in the droplet size distribution over time.,,coagulation,collision-coalescence,strictness: synonym,"AMS Glossary, ""coagulation"", sense 1: in cloud physics ""an obsolete term denoting any process that converts the numerous small cloud drops into a smaller number of larger precipitation particles""",,,
+gold/cloze/49,cloze,"Large <MASK> particles may not reach activation for cloud droplet formation within a relevant time scale, especially in short-lived convective clouds, due to requiring a significant amount of water to condense on them to reach activation radius.",,aerosol,hygroscopic,other,narrower; the sentence stays true,,,
+gold/cloze/56,cloze,"Ships emitting large numbers of Cloud Condensation Nuclei (CCN) into marine <MASK> clouds can significantly increase the number concentration of cloud droplets and decrease the average size of the droplets, leading to the formation of white ship tracks visible from satellites.",,stratus,stratocumulus,other,another low marine cloud type that fits the sentence,,,
+gold/cloze/59,cloze,"The kriging <MASK> are supported by the theoretical framework provided in each chapter, allowing for the practical implementation of the methods through the given formulae.",,variances,algorithms,other,nothing in the sentence points to variances,,,
+gold/cloze/66,cloze,"Aerosols, including mineral dust and <MASK> aerosols, exert opposite effects on the top of the atmosphere solar radiative forcing due to differences in aerosol absorption and cloud optical depth.",,anthropogenic,biomass burning,"other, debatable","fits, but the sentence may contrast dust with a scattering aerosol type",,,
+gold/cloze/72,cloze,The cross-variograms of the indicators in Disjunctive Kriging are more structured than the <MASK> indicating a stronger spatial correlation among the indicators.,,autovariograms,direct variograms,strictness: synonym,"both name the single-variable variogram set against a cross-variogram (the reader's usage claim, not cited)",,,
+gold/cloze/74,cloze,"Cloud <MASK> play a crucial role in the formation and characteristics of cloud droplets, impacting various aspects of climate including cloud radiative effects and cloud feedback.",,microphysics,condensation nuclei,other,"the plural verb ""play"" fits the reply better than the key",,,
+gold/cloze/76,cloze,Aerosols have a significant impact on <MASK> clouds and precipitation processes in the atmosphere.,,convective,both,"other, debatable","""impact on both clouds and precipitation"" is true, but ""both"" is not a term",,,
+gold/cloze/83,cloze,"The <MASK> must emit energy in the longwave part of the spectrum to achieve a balance, with greenhouse gases emitting more longwave radiation than they absorb.",,troposphere,atmosphere,other,broader; the sentence stays true,,,
+gold/cloze/84,cloze,"Decadal changes in <MASK> emissions over North America and China have been found to be consistent with trends in cloud properties, indicating the significant impact of aerosols on clouds.",,aerosol,SO2,other,SO2 is an aerosol precursor; the sentence stays true,,,
+gold/cloze/85,cloze,"Raindrop break-up is important in limiting the <MASK> of the largest drops, with different types of break-up such as neck, sheet, and disk break-up influencing the raindrop size distribution.",,growth,size,other,"""limiting the size of the largest drops""",,,
+gold/cloze/101,cloze,The study by Brenguier et al. (1994) provides a comprehensive review of processing algorithms for FSSP <MASK> measurements in atmospheric science.,,concentration,droplet,"other, debatable",true but less specific than the key,,,
+gold/cloze/102,cloze,"Wind-driven <MASK> can lead to damaging effects, especially in the presence of convective storms and near fronts.",,upwelling,rain,other,"""wind-driven rain"" fits the storms and fronts in the sentence",,,
+gold/cloze/105,cloze,Aqueous-phase oxidation of <MASK> to form sulfuric acid in cloud droplets is a crucial process that contributes significantly to global sulfate mass and has long been recognized as important for aerosols and climate.,,SO2,sulfur dioxide,strictness: symbol,formula and name,,,
+gold/cloze/107,cloze,"Changes in droplet <MASK> due to anthropogenic aerosol can lead to a cascade of effects on clouds, affecting precipitation formation, radiative cooling, and cloud coverage, ultimately influencing the Earth's energy balance.",,concentrations,size,other,aerosol changes both droplet number and droplet size,,,
+gold/cloze/109,cloze,"In environmental science, models often involve popular functions such as spherical, exponential, and power functions to <MASK> data accurately.",,simulate,fit,other,the functions are fitted to data,,,
+gold/cloze/111,cloze,"Reductions in aerosol emissions can lead to an overall warming of climate, highlighting the need to further limit <MASK> emissions to achieve climate targets.",,CO2,greenhouse gas,other,broader: CO2 is one greenhouse gas,,,
+gold/cloze/114,cloze,"Bubble bursting over the <MASK> leads to the production of sea-salt particles, organic compounds, and bacteria that are injected into the atmosphere, contributing to the formation of dry sea-salt particles and other materials in the air.",,oceans,ocean,strictness: plural,,,,
+gold/cloze/136,cloze,SO2 emissions and plume <MASK> from eruptions with VEIs of less than 5 play a significant role in climate forcing.,,altitudes,height,strictness: synonym,plume height and plume altitude name the same quantity,,,
+gold/cloze/139,cloze,"Understanding the spatial scale of variation in a region is crucial for optimizing sampling <MASK> and effectively estimating correlations, which can be achieved through a nested survey and analysis approach.",,density,design,other,"""sampling design"" fits as well as ""sampling density""",,,
+gold/cloze/142,cloze,"The first global estimates of aerosol optical depth over ocean were derived from AVHRR using a single red-band channel centered at 0.63 μm, attributing the additional <MASK> received by the satellite to aerosol scattering.",,signal,radiance,strictness: synonym,"the signal a satellite radiometer receives is radiance; the weakest synonym call, since only a per-item alias would accept it",,,
+gold/cloze/144,cloze,"The focus of the book remains on straightforward linear geostatistics based on <MASK> estimation, which has been utilized in mineral exploration and petroleum engineering for about four decades.",,least-squares,kriging,"other, debatable","kriging is a least-squares estimator, but the reply only repeats ""linear geostatistics""",,,
+gold/cloze/153,cloze,Biogenic <MASK> contribute to the production of extremely low volatile organic compounds with atmospheric implications.,,emissions,volatile organic compounds,other,narrower; the sentence stays true,,,
+gold/cloze/157,cloze,"A time series analysis was conducted to fit a <MASK> curve to the seasonal variation of weekly surface-based atmospheric concentrations of aerosol particle constituents, equivalent BC, and gas-phase ozone at Alert Canada.",,spline,sinusoidal,"other, debatable","a sinusoid is a standard fit to a seasonal cycle; the sentence names no study, so the reply is wrong only if that study fit a spline alone (source not checked)",,,
+gold/mcq/56,mcq,Which publication provides an assessment of global and regional emissions of trace metals to the atmosphere from anthropogenic sources worldwide and is referenced in the Chapter 8 Aerosol and precursor gas emissions?,"A) An updated climatology of surface dimethlysulfide concentrations and emission fluxes in the global ocean. Glob. Biogeochem. Cycles 25
+B) A sea spray aerosol flux parameterization encapsulating wave state. Atmos. Chem. Phys. 14, 1837
+C) Contribution of isoprene to chemical budgets: a model tracer study with the NCAR CTM
+D) An assessment of global and regional emissions of trace metals to the atmosphere from anthropogenic sources worldwide. Environ. Rev. 9, 269–298","D) An assessment of global and regional emissions of trace metals to the atmosphere from anthropogenic sources worldwide. Environ. Rev. 9, 269–298","D) An assessment of global and regional emissions of trace metals to the atmosphere from anthropogenic sources worldwide. Environ. Rev. 9, 269–298","kept, flagged by review",tests the source document (baseline review M4),,,
+gold/mcq/215,mcq,What is the focus of the book Geostatistics for Environmental Scientists based on?,"A) Straightforward linear geostatistics based on least-squares estimation
+B) Advanced machine learning techniques
+C) Statistical hypothesis testing
+D) Non-linear geostatistics",A) Straightforward linear geostatistics based on least-squares estimation,A) Straightforward linear geostatistics based on least-squares estimation,"kept, flagged by review",tests the source document (baseline review M4),,,
+gold/cloze/149,cloze,"The system tends to increase phase 2 at the expense of phase 1 if the chemical <MASK> of phase 2 is lower than that of phase 1, based on the minimum principle of Gibbs free energy.",,potential,potential,sampled hit,,,,
+gold/mcq/157,mcq,How can the particle extinction coefficient (βext) be determined directly?,"A) By measuring the absorbed light energy converted to heat detected as sound in an acoustic cavity
+B) By measuring the absorbed light energy as changes to the surrounding air's refractive index
+C) By measuring the scattered light over a defined solid angle using an integrating nephelometer
+D) By using a high-finesse optical cavity and measuring the ring-down time associated with a modulated monochromatic light source",D) By using a high-finesse optical cavity and measuring the ring-down time associated with a modulated monochromatic light source,D) By using a high-finesse optical cavity and measuring the ring-down time associated with a modulated monochromatic light source,sampled hit,,,,
+gold/cloze/159,cloze,"Clouds play a crucial role in removing <MASK> particles through precipitation and transport, impacting the properties of particles released when droplets evaporate.",,aerosol,aerosol,sampled hit,,,,
+gold/mcq/261,mcq,What type of variogram behavior suggests the presence of a long-range trend in the underlying process?,"A) Variogram approaching the origin linearly
+B) Variogram being symmetric about the origin
+C) Variogram increasing faster than jhj^2
+D) Variogram increasing less than the square of the lag distance",C) Variogram increasing faster than jhj^2,C) Variogram increasing faster than jhj^2,sampled hit,,,,
+gold/cloze/38,cloze,"The historical development of aerosol-climate modeling involved the exploration of various aerosol types and processes, such as sulfate aerosol and stratospheric <MASK> depletion, through the use of box models to estimate aerosol burdens and international MIPs to evaluate transport and deposition processes.",,ozone,ozone,sampled hit,,,,
+gold/mcq/28,mcq,Which project provides an experimental protocol for CMIP6 related to radiative forcing models?,"A) LongRunMIP
+B) AeroCom
+C) RFMIP
+D) DAMIP",C) RFMIP,C) RFMIP,sampled hit,,,,
+gold/cloze/126,cloze,The partitioning between <MASK> and stratiform rainfall determines the character of the vertical profiles of vertical velocity and divergence in squall lines.,,convective,convective,sampled hit,,,,
+gold/mcq/190,mcq,What is the process by which warm clouds grow through the collision and merging of cloud droplets?,"A) Coalescence
+B) Evaporation
+C) Nucleation
+D) Condensation",A) Coalescence,A) Coalescence,sampled hit,,,,
+gold/mcq/195,mcq,How can the large-scale vertical velocity at the top of the boundary layer be related to the mass-weighted divergence in the boundary layer over flat terrain?,"A) They are equal to the wind speed at the Earth's surface.
+B) They are approximately equal to each other.
+C) They are inversely proportional to each other.
+D) They are dependent on the temperature gradient in the boundary layer.",B) They are approximately equal to each other.,B) They are approximately equal to each other.,sampled hit,,,,
+gold/mcq/86,mcq,What is the major role of the hydroxyl radical (OH) in the atmosphere?,"A) Causing acid rain through its reactions with water vapor
+B) Removing many pollutants by reacting with various trace gases
+C) Contributing to the depletion of the ozone layer
+D) Acting as a greenhouse gas",B) Removing many pollutants by reacting with various trace gases,B) Removing many pollutants by reacting with various trace gases,sampled hit,,,,
+gold/mcq/264,mcq,"In thermodynamics, what does a chemical potential difference between two phases in thermodynamic equilibrium indicate?","A) The direction in which the phase transition tends to take place
+B) The tendency for the reaction to occur in a certain direction
+C) The amount of latent heat involved in the phase transition
+D) The heat exchange with the surroundings during the phase transition",A) The direction in which the phase transition tends to take place,A) The direction in which the phase transition tends to take place,sampled hit,,,,
+gold/mcq/209,mcq,How do control technologies affect greenhouse gas and air pollutant emissions?,"A) They always result in a decrease of all pollutants
+B) They target single pollutants and have no impact on others
+C) They have no effect on greenhouse gases
+D) They can result in reductions or increases of some other species, including greenhouse gases","D) They can result in reductions or increases of some other species, including greenhouse gases","D) They can result in reductions or increases of some other species, including greenhouse gases",sampled hit,,,,
+gold/cloze/40,cloze,"Aerosol retrievals from satellite measurements often require assumptions about particle properties and aerosol vertical distribution, with some algorithms using location-specific or globally applied lists of detailed particle <MASK> properties to identify aerosol components consistent with the observations.",,microphysical,microphysical,sampled hit,,,,
+gold/mcq/98,mcq,What is the basis of the soccer ball model and the multiple component stochastic model in describing ice nucleation?,"A) Neglecting site-to-site variability and focusing on a single temperature-dependent nucleation rate
+B) Representing both the site-dependent and time-dependent nature of nucleation
+C) Representing the time-dependent nature of nucleation
+D) Deriving detailed data on temperature-dependent nucleation rate constants for each site",B) Representing both the site-dependent and time-dependent nature of nucleation,B) Representing both the site-dependent and time-dependent nature of nucleation,sampled hit,,,,
+gold/mcq/103,mcq,How can anthropogenic aerosols affect tropical cyclones in the Western Pacific in a hypothetical scenario where there is a significant increase in aerosol emissions from Asia?,"A) By causing a decrease in the frequency of tropical cyclones.
+B) By affecting typhoons through increased rainfall rate and area.
+C) By directly increasing the wind speed of the cyclones.
+D) By reducing the precipitation rate of the cyclones.",B) By affecting typhoons through increased rainfall rate and area.,B) By affecting typhoons through increased rainfall rate and area.,sampled hit,,,,
+gold/mcq/114,mcq,What method was used to measure the sand content in the topsoil samples?,"A) Mass spectrometry
+B) Laser diffraction grain sizing
+C) Spectroscopy analysis
+D) X-ray diffraction analysis",B) Laser diffraction grain sizing,B) Laser diffraction grain sizing,sampled hit,,,,
+gold/mcq/59,mcq,What is the impact of tropical explosive volcanic eruptions on El Niño according to the provided references?,"A) Tropical explosive volcanic eruptions have no impact on El Niño.
+B) Tropical explosive volcanic eruptions always lead to La Niña events.
+C) Tropical explosive volcanic eruptions can trigger El Niño.
+D) Tropical explosive volcanic eruptions directly cause global cooling.",C) Tropical explosive volcanic eruptions can trigger El Niño.,C) Tropical explosive volcanic eruptions can trigger El Niño.,sampled hit,,,,
+gold/mcq/16,mcq,How does the hydroxyl radical (OH) contribute to the removal of pollutants in the atmosphere?,"A) By reacting with nitrogen oxides to produce NOx
+B) By reacting with various trace gases to form CO2, HNO3, SO2, H2SO4, etc.
+C) By forming a null cycle with O2 and O3
+D) By causing acid rain through its reactions with water vapor","B) By reacting with various trace gases to form CO2, HNO3, SO2, H2SO4, etc.","B) By reacting with various trace gases to form CO2, HNO3, SO2, H2SO4, etc.",sampled hit,,,,
+gold/mcq/205,mcq,What relationship is sometimes used to approximate the relationship between CCN concentration and supersaturation?,"A) Empirical power law
+B) Exponential equation
+C) Linear equation
+D) Quadratic equation",A) Empirical power law,A) Empirical power law,sampled hit,,,,
+gold/mcq/272,mcq,How might the removal of European and North American aerosol affect the Arctic climate system?,"A) Increase regional warming and reduce Arctic sea ice
+B) Cause large-scale anomalous cooling
+C) Enhance convective storms
+D) Strengthen the subtropical jet",A) Increase regional warming and reduce Arctic sea ice,A) Increase regional warming and reduce Arctic sea ice,sampled hit,,,,
