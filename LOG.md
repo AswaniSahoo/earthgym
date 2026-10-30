@@ -39,7 +39,15 @@ Newest first. One entry per working session: what changed, what we learned, what
   documented `inspect eval` command runs from the repo root on mockllm.
 - The 0005 review sheet is ready for an expert: 83 rows (61 misses, 2 review flags, 20 sampled
   hits), expert columns empty, written once and never overwritten.
-- Next: the Phase 3 review.
+- Fable's Phase 3 review: no High (correctness 9, publish 6). It read the published score
+  file at its root, recomputed items online and found a latent division by zero in the floor
+  rule, no test tying items to source data, a parser stricter than 0004, one wrong sheet cell
+  and undisclosed reward limits: on the quarter of temperature items with the smallest
+  baseline error, HRES earns 0.086 and 3 items cannot be won. All fixed test-first; the bias
+  now reproduces too (1.2e-15 Pa).
+- Lesson: the editing tool turned `\u` escapes into literal characters (an en dash, a Unicode
+  minus) in two files; a grep for the code points caught it, and they are escapes again.
+- Next: a first real model run needs Aswani's yes; LICENSE and the expert's name are open.
 
 ## 2026-10-30, Phase 2 baseline
 

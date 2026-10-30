@@ -43,7 +43,8 @@ Plan (2026-10-30, from the radar in docs/radar.md):
 - [x] Reward floors by the coordinating session's rule (not Aswani's): the 10th percentile of
       the better-baseline error per variable, 28.75 Pa and 0.069 K, each binding on 36 of 360;
       what is left to earn per quarter is in the Limits block of the baselines report
-- [ ] Phase 3 review (Fable): reviews/phase-3-era5-forecast.md
+- [x] Phase 3 review (Fable): no High; M1 to M3 and L1 to L5 fixed test-first; author response
+      in reviews/phase-3-era5-forecast.md
 
 ## Waiting on Aswani
 
@@ -51,6 +52,7 @@ Plan (2026-10-30, from the radar in docs/radar.md):
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
 - [ ] Name the domain expert for the 0005 review; the sheet is ready:
       reports/climaqa/expert_review_v2.csv
+- [ ] A first real model run on era5-forecast-v1 (paid or local; Phase 2 run config)
 
 ## Done
 
