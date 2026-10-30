@@ -21,6 +21,10 @@ def summarize(log: EvalLog) -> dict:
         if sample.metadata.get("task") == "mcq" and not score.answer:
             format_failures += 1  # no clean 'ANSWER: X' line
     metrics = log.results.scores[0].metrics
+    rev = log.eval.revision
+    # eval-level settings override the model's own, as in Model._resolve_config
+    config = log.eval.model_generate_config.merge(log.plan.config).model_dump(exclude_none=True)
+    usage = log.stats.model_usage.values()
     return {
         "task": log.eval.task.split("/")[-1],
         "model": log.eval.model,
@@ -31,6 +35,14 @@ def summarize(log: EvalLog) -> dict:
         "format_failures": format_failures,
         "by_complexity": {k: sum(v) / len(v) for k, v in sorted(by_level.items())},
         "inspect_ai": log.eval.packages.get("inspect_ai", ""),
+        "commit": f"{rev.commit}{' (dirty)' if rev.dirty else ''}" if rev else "unknown",
+        "generate_config": ", ".join(f"{k} {v}" for k, v in config.items()) or "provider defaults",
+        "tokens": {
+            "input": sum(u.input_tokens for u in usage),
+            "output": sum(u.output_tokens for u in usage),
+            "reasoning": sum(u.reasoning_tokens or 0 for u in usage),
+        },
+        "log": Path(log.location).name,
     }
 
 
@@ -57,6 +69,22 @@ def render(summaries: list[dict], set_sha256: str) -> str:
     ]
     for s in summaries:
         lines += [f"| {s['task']} | {k} | {v:.3f} |" for k, v in s["by_complexity"].items()]
+    lines += [
+        "",
+        "## Run config",
+        "",
+        "Prompts and scoring rules: climaqa_v1/contract.py at the commit shown. "
+        "Tokens out include reasoning tokens.",
+        "",
+        "| task | commit | generate config | tokens in | tokens out | reasoning | log |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for s in summaries:
+        t = s["tokens"]
+        lines.append(
+            f"| {s['task']} | {s['commit']} | {s['generate_config']} | {t['input']} | "
+            f"{t['output']} | {t['reasoning']} | {s['log']} |"
+        )
     runs = ", ".join(f"{s['task']} at {s['created']}" for s in summaries)
     lines += [
         "",

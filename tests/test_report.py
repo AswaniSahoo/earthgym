@@ -1,7 +1,8 @@
 import json
 
 from inspect_ai import eval
-from inspect_ai.model import ModelOutput, get_model
+from inspect_ai.log import EvalRevision
+from inspect_ai.model import GenerateConfig, ModelOutput, ModelUsage, get_model
 
 from rlenv.climaqa import report, tasks
 
@@ -25,13 +26,14 @@ MCQ = [
 ]
 
 
-def run(tmp_path, reply):
+def run(tmp_path, reply, model_config=None, **config):
     path = tmp_path / "set.jsonl"
     path.write_text("".join(json.dumps(r) + "\n" for r in MCQ), encoding="utf-8")
-    outputs = [ModelOutput.from_content("mockllm/model", reply)] * len(MCQ)
-    model = get_model("mockllm/model", custom_outputs=outputs)
+    output = ModelOutput.from_content("mockllm/model", reply)
+    output.usage = ModelUsage(input_tokens=10, output_tokens=5, total_tokens=15, reasoning_tokens=3)
+    model = get_model("mockllm/model", config=model_config, custom_outputs=[output] * len(MCQ))
     task = tasks.climaqa_mcq(path=str(path))
-    return eval(task, model=model, log_dir=str(tmp_path / "logs"), display="none")[0]
+    return eval(task, model=model, log_dir=str(tmp_path / "logs"), display="none", **config)[0]
 
 
 def test_summary_counts_accuracy_complexity_and_format_failures(tmp_path):
@@ -44,3 +46,28 @@ def test_summary_counts_accuracy_complexity_and_format_failures(tmp_path):
 def test_render_lists_each_task_with_its_model_and_the_set_checksum(tmp_path):
     text = report.render([report.summarize(run(tmp_path, "ANSWER: B"))], set_sha256="abc123")
     assert "| climaqa_mcq | mockllm/model | 2 | 0.500 |" in text and "abc123" in text
+
+
+def test_summary_records_the_run_config(tmp_path):
+    log = run(tmp_path, "ANSWER: B", GenerateConfig(max_tokens=50), temperature=0.0)
+    log.eval.revision = EvalRevision(type="git", origin="o", commit="abc1234", dirty=True)
+    summary = report.summarize(log)
+    assert summary["commit"] == "abc1234 (dirty)"
+    assert summary["generate_config"] == "max_tokens 50, temperature 0.0"
+    assert summary["tokens"] == {"input": 20, "output": 10, "reasoning": 6}
+    assert summary["log"] == next((tmp_path / "logs").glob("*.eval")).name
+
+
+def test_summary_labels_settings_the_log_does_not_record(tmp_path):
+    log = run(tmp_path, "ANSWER: B")
+    log.eval.revision = None
+    summary = report.summarize(log)
+    assert (summary["commit"], summary["generate_config"]) == ("unknown", "provider defaults")
+
+
+def test_render_prints_the_run_config_of_each_task(tmp_path):
+    log = run(tmp_path, "ANSWER: B", temperature=0.0)
+    log.eval.revision = EvalRevision(type="git", origin="o", commit="abc1234", dirty=False)
+    text = report.render([report.summarize(log)], set_sha256="abc123")
+    name = next((tmp_path / "logs").glob("*.eval")).name
+    assert f"| climaqa_mcq | abc1234 | temperature 0.0 | 20 | 10 | 6 | {name} |" in text
