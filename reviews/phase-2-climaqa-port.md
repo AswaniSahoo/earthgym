@@ -259,3 +259,238 @@ Each fix landed test-first.
 
 Clean set v1: 350 items (222 MCQ, 128 cloze), 102 exclusions with reasons, keys spread A 60, B 51, C 51, D 60.
 Open: LICENSE at publish time; a second model's logs for the inspect_evals Register.
+
+## Baseline review (2026-10-30)
+
+Reviewed at commit `121596e` on `main` (tree clean, equal to `origin/main`). Eight commits landed
+while this review ran (6c897ac, 770a778, 495063c, c376553, 5a845c5, e44123f, 6ac9c47, 121596e,
+all after 7a18923), so every check below was repeated at 121596e. The run itself is recorded at
+3c70706 (dirty); its logs sit in `logs/2026-10-30-gemini-3.8-flash/` (gitignored, this machine
+only).
+
+What was run: `uv run pytest -q` (60 passed), `uv run ruff check .` (clean), `uv run ruff format
+--check .` (37 files clean), `uv lock --check` (clean), `gh run list` (the six newest runs on
+`main` green, newest 121596e at 2026-10-30T11:19Z). Both `.eval` files read with
+`inspect_ai.log.read_eval_log` (inspect_ai 0.3.286, both `status success`, 128 and 222 samples,
+no sample errors, no empty replies). Recomputed from the samples and matched to the report:
+correct counts (95 of 128, 194 of 222), accuracy, stderr (from `results`), n and accuracy per
+complexity level (BASE 97 of 107, HYPOTHETICAL 39 of 46, REASONING 58 of 69), per-sample token
+sums against `stats.model_usage` (equal: 7355 / 93511 / 93278 and 24284 / 121121 / 108017, so
+LOG.md's 89.2 and 99.8 percent reasoning shares are right), MCQ format failures (all 222 replies
+end in a line the contract parses), `eval.revision` (3c70706, dirty) and the generate config
+(every field None in both `eval.model_generate_config` and `plan.config`). All 350 logged inputs
+equal `contract.mcq_prompt` or `contract.cloze_prompt` over the bundled jsonl, all 350 targets
+equal the keys, and the contract at 121596e reproduces all 350 verdicts; the jsonl sha256 equals
+the manifest and the report (`5f345d8e...`). `uv run python -m rlenv.climaqa.report
+logs/2026-10-30-gemini-3.8-flash --out <scratch>` reproduced the committed `.md` and `.json` byte
+for byte. A blind sort of the 33 cloze misses was written to
+`/tmp/claude-1000/-data-rlenv/4d714d75-e1d0-4566-82bd-f40bd67e6f3a/scratchpad/blind_sort.md`
+before the author's note, LOG.md or WORKBOARD.md were opened; the table below is the durable
+record. Six MCQ misses were read by eye against the jsonl (gold/mcq/102, 110, 113, 125, 130, 132).
+The AMS Glossary sentence quoted in the note for item 47 is verbatim at
+glossary.ametsoc.org/wiki/Coagulation, sense 1. The DOI cited for item 72 resolves (via
+link.springer.com) to "On a controversial method for modeling a coregionalization", Mathematical
+Geology, 1994; whether that text uses "direct variogram" is UNKNOWN (paywall). Inspect's config
+precedence was checked in the installed source (L2).
+
+### 1. Ratings
+
+| Area | Baseline report | Cloze note | Justification |
+|---|---|---|---|
+| Correctness | 9 | 8 | Every number in `reports/climaqa/runs/2026-10-30-gemini-3.8-flash.md` reproduces from the logs and the bundled set. The note agrees with a blind sort on 31 of 33 buckets; its one firm claim, a "clear model error" at 157, is asserted, not shown (M1). |
+| Minimalism and clarity | 8 | 8 | 122 lines of code, one table per concern; the "Runs ... at" line prints the same creation time for both tasks (L1). The note states its bucket rules, gives a reason per item and an accuracy-under-each-reading table, which is the right artefact. |
+| Test coverage | 7 | n/a | Eight tests cover counts, n per level, n/a for cloze, the config string, tokens, the log name and the unknown case. Not covered: an eval setting overriding the model's own on the same key (L2), `main()` (L5). |
+| Reproducibility | 6 | 7 | Dirty tree, provider defaults, no seed, no command line in the report (M3); the logs are gitignored so only this machine can regenerate. Mitigated: HEAD reproduces every prompt and verdict. The note is one reader's sort with explicit rules; a blind second reader reproduced 31 of 33. |
+| CI/CD | 8 | n/a | Green on every commit. CI never runs `rlenv.climaqa.report` on a real log; a two-sample mockllm fixture would close that. |
+| Research rigor | 7 | 8 | The report has no limitations paragraph, no letter balance or longest-option line (section 3 item 5 above), and no link to the miss note. The note hedges well ("25 to 32") but decision 0005 rests on it without an equivalent read of the 28 MCQ misses (M2). |
+| Readiness to publish | 6 | 7 | A sound first log, not yet a benchmark number. The note is publishable once 157 is relabelled and the expert check is stated as open. |
+
+### 2. Issues by severity
+
+No High. Nothing found changes the two headline numbers.
+
+#### Medium
+
+**M1. gold/cloze/157 is labelled "model error" without evidence.**
+`reports/climaqa/runs/2026-10-30-gemini-3.8-flash-cloze-misses.md:84` says "names a different
+curve for a specific study", but the sentence names no study and the note cites none. The note's
+own rule for sentences about a specific paper or book is "other, debatable": 101 (line 72, the
+Brenguier et al. 1994 review), 59 (line 64) and 144 (line 82, the geostatistics book). "A time
+series analysis was conducted to fit a sinusoidal curve to the seasonal variation" is a standard
+method and nothing in the sentence rules it out, so by the note's definitions it is "other
+correct word, debatable" until the study's method is cited. The label propagates to line 31,
+line 43 ("1 clear"), LOG.md:21 ("1 is a clear model error (157)"), WORKBOARD.md:16 and
+`docs/decisions/0005-cloze-in-clean-set-v2.md:10` ("Only 1 to 8 are wrong"). Smallest fix:
+relabel 157 "other, debatable" (or cite the source that shows a spline fit and keep it), and
+change the five counts to 0 to 8 wrong, 25 other correct words (8 debatable).
+
+**M2. Decision 0005 moves the RL reward to MCQ on the strength of the cloze sort alone.**
+`docs/decisions/0005-cloze-in-clean-set-v2.md:6-12` cites only the cloze misses; the 28 MCQ
+misses have had no equivalent read. Of the six I read against the jsonl, my reading is: two keys I
+would dispute (gold/mcq/125, key C says Lagrangian models "focus on modeling large-scale climate
+processes" while the model's D, tracking air parcels, is the defining property; gold/mcq/102, a
+HYPOTHETICAL item where C and D both follow from the premise), one item that is not a science
+question (gold/mcq/132, which person is absent from a book's acknowledgments), and three where
+the key is defensible and the model is wrong (110, 113, 130). If 2 of 6 holds across 28, the MCQ
+reward carries key errors of the same order as the cloze reward carries alternative answers.
+Smallest fix: a second note that sorts the 28 MCQ misses into key wrong / ambiguous / model
+error, cited from 0005 before Aswani decides it.
+
+**M3. The run is not reproducible as recorded, and the report does not say so.**
+`2026-10-30-gemini-3.8-flash.md:25-26` records `3c70706 (dirty)` and `provider defaults`; the
+report says nothing about what either means. LOG.md:14-16 does ("a rerun need not match") but a
+reader of the report alone cannot know that no temperature, seed or max_tokens was set, which
+section 3 item 4 above asked for before the first run. What the dirty state could have touched is
+UNKNOWN (inspect records only the flag); what it did not change is verified: `environments/` and
+`src/rlenv/climaqa/tasks.py` are identical between 3c70706 and 121596e (`git diff --stat`), and
+HEAD's contract and set reproduce all 350 prompts and verdicts. Smallest fix: in `render()`
+(`src/rlenv/climaqa/report.py:83-84`) add one sentence when any commit ends in "(dirty)" or any
+config is "provider defaults": "uncommitted changes at run time, contents unknown; sampling
+settings were the provider's defaults, a rerun need not match". Run the second model from a clean
+tree with `--temperature 0 --seed <n> --max-tokens <m>` and keep the command in the report.
+
+**M4. Seven kept items test the source document, not climate science, and all feed the reward.**
+A grep of the bundled jsonl for acknowledgments, chapter and book terms returns five items:
+gold/mcq/56 ("Which publication ... is referenced in the"), gold/mcq/132 (acknowledgments),
+gold/mcq/215 ("What is the focus of the book Geostatistics for Environmental Scientists"),
+gold/cloze/59 ("supported by the theoretical framework provided in each chapter") and
+gold/cloze/144 ("The focus of the book remains on"). The note (lines 98 to 100) already flags the
+two cloze keys that are a parenthesised acronym of the words before the mask (gold/cloze/8, 22;
+verified as the only two of 128). Smallest fix: two checks in the Phase 1 audit, `source_metadata`
+(question or options mention the book, a chapter, acknowledgments or a referenced publication)
+and `cloze.key_is_parenthesised_acronym`, both excluded in v2 and counted in the manifest.
+
+#### Low
+
+**L1. The "Runs" line prints the eval creation time, not the run time.**
+`2026-10-30-gemini-3.8-flash.md:28` shows both tasks "at 2026-10-30T09:02:52+00:00" because
+`report.py:32,95` use `log.eval.created`, which is the same for every task of one `inspect eval`
+call. `log.stats.started_at` and `completed_at` say MCQ ran 09:02:52 to 09:21:32 and cloze
+09:21:32 to 09:33:14. Smallest fix: record `started_at` and `completed_at` in `summarize` and
+print those.
+
+**L2. The config precedence is right but untested on a shared key.**
+`report.py:26-27` composes `model_generate_config.merge(plan.config)`. Verified in the installed
+inspect_ai 0.3.286: `_eval/task/run.py:767` builds the eval-level config, `run.py:1125` stores it
+as `plan.config`, `run.py:1135` applies `model.config.merge(generate_config)` to the model,
+`_eval/task/log.py:301` stores `model.config` as `model_generate_config`, and
+`GenerateConfig.merge` (`model/_generate_config.py:379-398`) lets the argument's non-None fields
+win. `tests/test_report.py:86-91` sets `max_tokens` on the model and `temperature` on the eval,
+so it tests the union, not the override. Smallest fix: `GenerateConfig(temperature=0.5)` on the
+model, `temperature=0.0` on the eval, assert `"temperature 0.0"`.
+
+**L3. The report names the log file but not its directory.**
+`report.py:48` keeps `Path(log.location).name`; `logs/2026-10-30-gemini-3.8-flash/` appears only
+in the miss note (line 4). Smallest fix: print the log directory once in `main()` or store the
+path relative to the repo root.
+
+**L4. No limitations paragraph, no link to the miss note.**
+The report does not mention exact match, the near matches kept in v1, provider-default sampling,
+or the letter balance (A 60, B 51, C 51, D 60, author response above, verified from the jsonl)
+and longest-option share that section 3 item 5 asked for. The miss note links to the report; the
+report does not link back. Smallest fix: a fixed "Limits" paragraph in `render()` with those
+sentences and a relative link to any `*-cloze-misses.md` beside the report.
+
+**L5. `main()` is untested.**
+`report.py:104-118` (argparse, the `status == "success"` filter, the manifest read, the json dump
+with `default=str`) only ran by hand. Smallest fix: a test that writes a mockllm log and a
+manifest under `tmp_path`, calls `main()` with patched `sys.argv`, and asserts both output files
+exist and carry the manifest sha256.
+
+**L6. One citation in the note cannot be checked.**
+`2026-10-30-gemini-3.8-flash-cloze-misses.md:66` cites "pygeostat variogram docs" and doi
+10.1007/BF02082763 for "direct variogram" meaning "autovariogram". The DOI resolves to a 1994
+Mathematical Geology paper on coregionalization, which is the right literature, but the usage
+inside it is UNKNOWN. Smallest fix: quote the sentence from the paper or the docs page, or drop
+the DOI and keep the usage claim as the reader's.
+
+### 3. Blind sort against the author's sort
+
+Same three buckets and definitions as the note. Counts: the author has strictness 8, other correct
+word 24 (17 clear, 7 debatable), model error 1; the blind sort has strictness 7 (1 debatable),
+other correct word 26 (17 clear, 9 debatable), model error 0. Buckets match on 31 of 33 items.
+Debatable flags: author 7 (4, 14, 26, 66, 76, 101, 144), blind 10 (26, 47, 59, 66, 76, 83, 101,
+111, 142, 157), shared on 4 (26, 66, 76, 101).
+
+Disagreements:
+
+- gold/cloze/142, key "signal", reply "radiance". Author: strictness, synonym ("the signal a
+  satellite radiometer receives is radiance"). Blind: other correct word, debatable (same
+  referent, but not a string variant of the key; only a per-item alias would catch it). The
+  author's reading fits the bucket definition better, since the two words name the same quantity
+  in this sentence; it is the weakest of the eight synonym calls because no general rule
+  (plural, word order, symbol) recovers it, so it should keep a debatable mark.
+- gold/cloze/157, key "spline", reply "sinusoidal". Author: model error ("names a different curve
+  for a specific study"). Blind: other correct word, debatable (fitting a sinusoid to a seasonal
+  cycle is a standard method; the sentence names no study and nothing in it rules the reply out).
+  The blind reading is the supportable one by the note's own treatment of 101, 59 and 144, and by
+  the repo rule that an unverified claim is UNKNOWN; the author's label needs a citation of the
+  study's method to stand (M1).
+
+Accuracy on the same logs under each reading, author versus blind: exact match 95 of 128 (0.742)
+for both; plus the same-meaning replies 103 (0.805) versus 102 (0.797); plus the clear other
+correct words 120 (0.938) versus 119 (0.930); plus the debatable ones 127 (0.992) versus 128
+(1.000). The note's conclusion holds under both sorts: for this model the cloze score measures
+whether it picks the source's word, and at most 1 of the 33 misses is a wrong statement that
+either reader will call clear.
+
+| N | key | reply | author | blind | match |
+|---|---|---|---|---|---|
+| 4 | density | temperature | other, debatable | other | yes |
+| 8 | (REML) | variogram | other | other | yes |
+| 14 | fluxes | forcing | other, debatable | other | yes |
+| 16 | aerosol | baseline | other | other | yes |
+| 19 | radiative | direct | other | other | yes |
+| 22 | (τa) | (AOD) | strictness | strictness | yes |
+| 26 | aerosol | hydrometeor | other, debatable | other, debatable | yes |
+| 34 | ice-nucleating | aerosol | other | other | yes |
+| 37 | Cloud-aerosol | Aerosol-cloud (en dash in the reply) | strictness | strictness | yes |
+| 47 | coagulation | collision-coalescence | strictness | strictness, debatable | yes |
+| 49 | aerosol | hygroscopic | other | other | yes |
+| 56 | stratus | stratocumulus | other | other | yes |
+| 59 | variances | algorithms | other | other, debatable | yes |
+| 66 | anthropogenic | biomass burning | other, debatable | other, debatable | yes |
+| 72 | autovariograms | direct variograms | strictness | strictness | yes |
+| 74 | microphysics | condensation nuclei | other | other | yes |
+| 76 | convective | both | other, debatable | other, debatable | yes |
+| 83 | troposphere | atmosphere | other | other, debatable | yes |
+| 84 | aerosol | SO2 | other | other | yes |
+| 85 | growth | size | other | other | yes |
+| 101 | concentration | droplet | other, debatable | other, debatable | yes |
+| 102 | upwelling | rain | other | other | yes |
+| 105 | SO2 | sulfur dioxide | strictness | strictness | yes |
+| 107 | concentrations | size | other | other | yes |
+| 109 | simulate | fit | other | other | yes |
+| 111 | CO2 | greenhouse gas | other | other, debatable | yes |
+| 114 | oceans | ocean | strictness | strictness | yes |
+| 136 | altitudes | height | strictness | strictness | yes |
+| 139 | density | design | other | other | yes |
+| 142 | signal | radiance | strictness | other, debatable | no |
+| 144 | least-squares | kriging | other, debatable | other | yes |
+| 153 | emissions | volatile organic compounds | other | other | yes |
+| 157 | spline | sinusoidal | model error | other, debatable | no |
+
+### 4. What is missing before Phase 2 can close
+
+1. M1 and M2 before the decision: relabel 157 and sort the 28 MCQ misses, so that 0005 and the
+   alias question (WORKBOARD.md:27-28) rest on both splits.
+2. The second model's logs for the Register (WORKBOARD.md:26), run from a clean tree with a fixed
+   sampling config (M3), so the report shows a clean commit and a rerun can be compared.
+3. A domain expert's pass over the 24 to 26 other-correct-word items, or at minimum the written
+   reconciliation of 142 and 157 above adopted into the note.
+4. Report fixes L1, L3, L4 and tests L2, L5, test-first.
+5. Still open from Phase 1 and the first Phase 2 review: `reports/climaqa/leak_review.csv`,
+   `reports/climaqa/review_sample.csv` (WORKBOARD.md:24-25) and LICENSE.
+
+### 5. What I would not publish yet, and why
+
+- "1 clear model error" (note line 31, 43; LOG.md:21; WORKBOARD.md:16; 0005 line 10). The
+  supportable sentence is "0 to 1 clear, up to 9 debatable".
+- 0.805 as a rescored cloze accuracy. It depends on eight aliases no expert has approved and on
+  142 counting as a synonym.
+- The MCQ reward as the clean alternative (0005). Two of six MCQ misses I read have keys I would
+  dispute; that is one reader on six items, which is why M2 asks for the full sort rather than
+  asserting a rate.
+- The baseline numbers as a benchmark result. As the first log of the pipeline they are sound and
+  fully reproduced here; as a number to compare against, a dirty commit and provider-default
+  sampling are not enough.
