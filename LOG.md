@@ -29,7 +29,11 @@ Newest first. One entry per working session: what changed, what we learned, what
   0.53 K), so it caps those rewards; MSLP's 50 Pa binds on 65 of 360. Left for Aswani.
 - Lesson: a piped `pytest | tail` hid a failing test and let a commit through (amended before
   any push); every commit now runs with `set -o pipefail`.
-- Next: the verifiers taskset and the Inspect task.
+- The verifiers taskset (720 of 720 valid) and the Inspect task share one contract; the
+  documented `inspect eval` command runs from the repo root on mockllm.
+- The 0005 review sheet is ready for an expert: 83 rows (61 misses, 2 review flags, 20 sampled
+  hits), expert columns empty, written once and never overwritten.
+- Next: the Phase 3 review.
 
 ## 2026-10-30, Phase 2 baseline
 

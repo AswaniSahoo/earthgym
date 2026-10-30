@@ -35,16 +35,18 @@ Plan (2026-10-30, from the radar in docs/radar.md):
       over the better of persistence and climatology
 - [x] Stage 2 contract and reward (copying a baseline earns 0), prompt, 720 items from the
       pinned stores (about 55 MB read), baseline rows: reports/era5/items_v1_baselines.md
-- [ ] Stage 2: verifiers taskset and Inspect task on the 720 items, tested on mockllm
-- [ ] Then: the 0005 review sheet of flagged ClimaQA items for the expert (no accepted answers
-      written by the build session)
+- [x] Stage 2: verifiers taskset (vf-validate 720 of 720) and Inspect task, tested on mockllm;
+      environments/era5_forecast_v1/README.md
+- [x] The 0005 review sheet: reports/climaqa/expert_review_v2.csv (83 rows, expert columns
+      empty) and its instructions, expert_review_v2.md
+- [ ] Phase 3 review (Fable): reviews/phase-3-era5-forecast.md
 
 ## Waiting on Aswani
 
 - [ ] reports/climaqa/leak_review.csv: 56 Gold and Silver pairs, same item or not
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
-- [ ] Name the domain expert for the 0005 review (accepted 2026-10-30); the review sheet
-      follows Phase 3 stage 2
+- [ ] Name the domain expert for the 0005 review; the sheet is ready:
+      reports/climaqa/expert_review_v2.csv
 - [ ] The 2 m temperature reward floor: 0.5 K binds on 167 of 360 items (median better-baseline
       error 0.53 K) and caps their reward; 0.2 K would bind on about a quarter. Keep or lower?
 
