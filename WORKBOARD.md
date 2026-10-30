@@ -27,7 +27,8 @@ Plan (2026-10-30, from the radar in docs/radar.md):
 - [x] Decision 0006: numpy, zarr, numcodecs in an `era5` group; no xarray, gcsfs or
       weatherbench2 package
 - [x] `rlenv.era5.scores`: area weights, MSE, RMSE, bias, in float64, test-first
-- [x] Pinned subset (12.0 MB, content sha256 pinned) and the reproduction: 133.890547 Pa,
+- [x] Pinned subset (18.0 MB with the climatology, content sha256 pinned) and the
+      reproduction: 133.890547 Pa,
       equal to the published WB2 value; reports/era5/2026-10-30-wb2-reproduction.md
 - [x] ACC against the 1990 to 2019 climatology: MSLP 0.981878, equal to the published value;
       pooled over inits as WeatherBench-X does (the WB2 paper's per-init mean gives 0.981470)
@@ -39,8 +40,9 @@ Plan (2026-10-30, from the radar in docs/radar.md):
       environments/era5_forecast_v1/README.md
 - [x] The 0005 review sheet: reports/climaqa/expert_review_v2.csv (83 rows, expert columns
       empty) and its instructions, expert_review_v2.md
-- [x] Reward floors by rule, a technical choice: the 10th percentile of the better-baseline
-      error per variable, 28.75 Pa and 0.069 K, each binding on 36 of 360 items
+- [x] Reward floors by the coordinating session's rule (not Aswani's): the 10th percentile of
+      the better-baseline error per variable, 28.75 Pa and 0.069 K, each binding on 36 of 360;
+      what is left to earn per quarter is in the Limits block of the baselines report
 - [ ] Phase 3 review (Fable): reviews/phase-3-era5-forecast.md
 
 ## Waiting on Aswani

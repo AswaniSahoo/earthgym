@@ -7,7 +7,8 @@ Newest first. One entry per working session: what changed, what we learned, what
 - Radar refreshed for Phase 3 (17 entries). No existing environment scores forecasts with the
   WB2 rules; WB2 publishes score files that can serve as answer keys.
 - Grader: `rlenv.era5.scores` ports the WB2 rules (cell-area weights, MSE over init time and
-  grid, root after the mean, float64). From a pinned 12.0 MB subset it gives IFS HRES MSLP
+  grid, root after the mean, float64). From a pinned 12.0 MB subset (18.0 MB once the
+  climatology joined) it gives IFS HRES MSLP
   RMSE at 72 h for 2020 as 133.890547 Pa, the published value to all six decimals.
 - Lesson: on a grid without poles, cell-area weights equal cosine weights, so only a test on
   a grid with poles catches a cosine bug. Lesson: float32 squares shift MSE at the eighth
@@ -28,7 +29,7 @@ Newest first. One entry per working session: what changed, what we learned, what
 - Finding: the first floors, 50 Pa and 0.5 K (the build session's own guess), bound on 65 and
   167 of 360 items; 0.5 K capped nearly half the temperature rewards.
 - Correction: earlier notes said Aswani set those floors; he did not. The guard was suggested
-  in coordination and its values are a technical choice. Rule now: each variable's floor is
+  in coordination, and the rule was then set by the coordinating session. Rule now: each variable's floor is
   the 10th percentile of the better-baseline error over the items (baseline data only), 28.75
   Pa and 0.069 K, each binding on 36 of 360. HRES rewards on 2 m temperature rose to 0.30 to
   0.49; every copy-baseline row still pays 0.000.
