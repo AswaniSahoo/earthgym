@@ -1,9 +1,10 @@
 """Pinned subset of the WeatherBench 2 stores for the Phase 3 reproduction (decision 0006).
 
-uv run python -m rlenv.era5.data   # about 12 MB over anonymous HTTPS, writes data/era5/
+uv run python -m rlenv.era5.data   # about 19 MB over anonymous HTTPS, writes data/era5/
 
-IFS HRES 72 h forecasts of mean sea level pressure from the 732 inits of 2020 and the ERA5
-values at their valid times, 64x32, as (init_time, latitude, longitude). ERA5 is CC BY 4.0
+IFS HRES 72 h forecasts of mean sea level pressure from the 732 inits of 2020, the ERA5 values
+at their valid times and the ERA5 1990 to 2019 climatology aligned to them, 64x32, as
+(init_time, latitude, longitude). ERA5 is CC BY 4.0
 (Copernicus notice required) and HRES is CC BY 4.0 with the ECMWF credit (docs/radar.md).
 """
 
@@ -18,14 +19,16 @@ import numpy as np
 BASE = "https://storage.googleapis.com/weatherbench2/datasets"
 ERA5 = "era5/1959-2023_01_10-6h-64x32_equiangular_conservative.zarr"
 HRES = "hres/2016-2022-0012-64x32_equiangular_conservative.zarr"
+CLIMATOLOGY = "era5-hourly-climatology/1990-2019_6h_64x32_equiangular_conservative.zarr"
 METADATA_SHA256 = {  # .zmetadata of each store, read 2026-10-30
     ERA5: "2a8290ef10bc7bebaa895bc17f42e305cdd004bdf9a0d92e0adae2cf39ba970d",
     HRES: "62811c8101885386acc33e3fe49641af74936d87eb2409ecf47dc193a777db9a",
+    CLIMATOLOGY: "f876a07f4c65d5375abad6bca5bb5af3eb115ff6aedc9c125dfeccc2e187c474",
 }
 VARIABLE = "mean_sea_level_pressure"
 FIRST_INIT, INITS, LEAD_HOURS = datetime(2020, 1, 1), 732, 72  # 2020, every 12 h
 SUBSET = Path("data/era5/hres_era5_mslp_2020_72h.npz")
-SUBSET_SHA256 = "866916061a708efd1192cd6f2ee506fdbf6fc99577fdd18b68b054a44e3334a2"  # 2026-10-30
+SUBSET_SHA256 = "942c5f05a7c2471eecfa880db1b60bf9c19d6759b7b9f491dba9ccf40a51072e"  # 2026-10-30
 
 
 def epoch(units: str) -> datetime:
@@ -84,30 +87,33 @@ def _open(store: str):
 
 
 def build() -> dict[str, np.ndarray]:
-    """Read the subset from the two stores; about 12 MB of chunks."""
-    era5, hres = _open(ERA5), _open(HRES)
+    """Read the subset from the three stores; about 19 MB of chunks."""
+    era5, hres, clim = _open(ERA5), _open(HRES), _open(CLIMATOLOGY)
     inits = [FIRST_INIT + timedelta(hours=12 * k) for k in range(INITS)]
-    lead = timedelta(hours=LEAD_HOURS)
+    valid = [t + timedelta(hours=LEAD_HOURS) for t in inits]
 
     def hours(group, when):
         return [int((t - epoch(group["time"].attrs["units"])) / timedelta(hours=1)) for t in when]
 
     h = positions(hres["time"][:], hours(hres, inits))
-    e = positions(era5["time"][:], hours(era5, [t + lead for t in inits]))
+    e = positions(era5["time"][:], hours(era5, valid))
     k = positions(hres["prediction_timedelta"][:], [LEAD_HOURS])[0]
     if not (np.diff(h) == 1).all():
         raise ValueError("HRES inits are not consecutive in the store")
     forecast = hres[VARIABLE][h[0] : h[-1] + 1, k]  # (init, longitude, latitude)
     truth = era5[VARIABLE][e[0] : e[-1] + 1][e - e[0]]  # contiguous read, then the valid times
+    normals = align(clim[VARIABLE][:], clim["hour"][:], clim["dayofyear"][:], valid)
     latitude, longitude = hres["latitude"][:], hres["longitude"][:]
-    same = np.array_equal(latitude, era5["latitude"][:]) and np.array_equal(
-        longitude, era5["longitude"][:]
+    same = all(
+        np.array_equal(latitude, g["latitude"][:]) and np.array_equal(longitude, g["longitude"][:])
+        for g in (era5, clim)
     )
     if not same or not (np.diff(latitude) > 0).all():
         raise ValueError("the stores disagree on the grid, or latitude does not increase")
     return {
         "forecast": np.transpose(forecast, (0, 2, 1)),
         "truth": np.transpose(truth, (0, 2, 1)),
+        "climatology": np.transpose(normals, (0, 2, 1)),
         "latitude": latitude,
         "longitude": longitude,
         "init_time": np.array(inits, dtype="datetime64[h]"),
