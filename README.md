@@ -10,9 +10,9 @@ ClimaQA. Later phases write new papers (environments) whose answers a program ca
 
 | Phase | What | Status |
 |---|---|---|
-| 1 | ClimaQA audit: integrity checks, paper cross-check, human hand-check sample | in progress |
-| 2 | Clean ClimaQA port (Inspect task, verifiers environment) | next |
-| 3 | ERA5 forecast-score environment, graded against weatherbench2 | planned |
+| 1 | ClimaQA audit: integrity checks, paper cross-check, human hand-check sample | done; hand-checks wait |
+| 2 | Clean ClimaQA port (Inspect task, verifiers environment), Gemini 3.8 Flash baseline | done; v2 waits on decision 0005 |
+| 3 | ERA5 forecast-score environment, graded against weatherbench2 | in progress: grader reproduces a published WB2 score |
 | 4 | IBTrACS cyclone analytics environment | planned |
 | 5 | Heat-insurance basis-risk environment | planned |
 
