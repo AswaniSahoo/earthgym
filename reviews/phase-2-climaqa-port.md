@@ -494,3 +494,24 @@ either reader will call clear.
 - The baseline numbers as a benchmark result. As the first log of the pipeline they are sound and
   fully reproduced here; as a number to compare against, a dirty commit and provider-default
   sampling are not enough.
+
+### Author response (2026-10-30)
+
+Code fixes landed test-first; each new test was also run against a broken version of the code
+(merge order flipped, note glob broken) to see it fail.
+
+| Issue | Fix | Commit |
+|---|---|---|
+| M1 157 labelled a model error without evidence | relabelled "other, debatable"; the note now says 0 to 8 wrong and 25 other correct words (8 debatable), and records the blind sort | cad05a9, 5c56b90 |
+| M2 0005 rested on the cloze sort alone | the 28 MCQ misses sorted: 7 model errors (3 debatable), 12 ambiguous, 6 flawed (keys wrong in 232 and 247), 3 source only; 0005 rewritten on both sorts | f8e9675, 1b656ef |
+| M3 report silent on the dirty tree and provider defaults | a Limits section warns when either applies | 8765095 |
+| M4 items that test the source document | carried into the 0005 proposal (two audit checks, exclusion in v2); not implemented until Aswani says yes | 1b656ef |
+| L1 Runs line showed the eval creation time | start and end per task from `log.stats` | 196989b |
+| L2 config precedence untested on a shared key | test with temperature on both levels | 96de4db |
+| L3 no log directory | a "Logs:" line | 5cb35b1 |
+| L4 no limits and no link to the notes | Limits: 21 kept near matches, exact match, key letters, the key is the strictly longest option in 82 of 222, links to both miss notes | 8f71163, 72c43ac |
+| L5 `main()` untested | end-to-end test | 97d7d39 |
+| L6 a citation that cannot be checked | DOI dropped; the usage claim is marked as the reader's | cad05a9 |
+
+Open: the second model's run from a clean tree with a fixed sampling config (needs an account or
+key), the domain expert's pass over both notes, LICENSE, and the two hand-check sheets.
