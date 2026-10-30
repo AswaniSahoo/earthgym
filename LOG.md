@@ -2,6 +2,22 @@
 
 Newest first. One entry per working session: what changed, what we learned, what is next.
 
+## 2026-10-30, Phase 2 baseline
+
+- Baseline: Gemini 3.8 Flash on Vertex over clean set v1. MCQ 0.874 (194 of 222, stderr 0.022;
+  BASE 0.907, HYPOTHETICAL 0.848, REASONING 0.841), cloze 0.742 (95 of 128, stderr 0.039),
+  0 format failures. Report: reports/climaqa/runs/2026-10-30-gemini-3.8-flash.md.
+- Checked: a separate stdlib reader of the two .eval files gives the same counts, stderr and
+  tokens; all 350 logged prompts and keys equal the bundled set (sha256 5f345d8e), and today's
+  contract gives every logged verdict. Inspect marks the run dirty at 3c70706; the only later
+  commit touches WORKBOARD.md and the Phase 2 review.
+- Finding: the run set no temperature, max tokens or seed, so it used provider defaults and a
+  rerun need not match. Reasoning is 89.2 percent of MCQ output tokens (108,017 of 121,121)
+  and 99.8 percent of cloze output (93,278 of 93,511).
+- The report now records commit, generate config, tokens and log file. Lesson: Inspect keeps
+  eval-level settings in `plan.config`, not `eval.model_generate_config`; a test caught it.
+- Next: sort the 33 wrong cloze replies, then Phase 3.
+
 ## 2026-10-30
 
 - Phase 1 ClimaQA audit built stdlib-only on a pinned dataset revision (3f084a0, sha256 per
