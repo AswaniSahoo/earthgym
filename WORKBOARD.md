@@ -11,7 +11,7 @@ Updated 2026-10-30. Publish after completion. Small commits, one-line messages.
       trailing punctuation (12 Gold keys)
 - [x] Inspect tasks for MCQ (226) and cloze (151), tested end to end on mockllm
 - [ ] Baseline runs on several models, dated report in reports/
-- [ ] verifiers environment for MCQ and cloze
+- [x] verifiers v1 taskset climaqa-v1 (377 tasks, exact rewards, seeded option shuffle)
 - [ ] Phase 2 review (Fable), fixes test-first
 
 ## Waiting on Aswani

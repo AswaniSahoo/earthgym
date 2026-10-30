@@ -17,6 +17,10 @@ dev = [
     "pytest>=9.2.0",
     "ruff>=0.17.3",
 ]
+env = [
+    "climaqa-v1",
+    "verifiers==0.4.0",
+]
 eval = [
     "inspect-ai==0.3.286",
 ]
@@ -29,3 +33,11 @@ select = ["E", "F", "I", "B", "UP", "SIM"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.uv.workspace]
+members = [
+    "environments/climaqa_v1",
+]
+
+[tool.uv.sources]
+climaqa-v1 = { workspace = true, editable = true }

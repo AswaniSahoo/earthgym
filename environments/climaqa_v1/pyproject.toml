@@ -1,0 +1,13 @@
+[project]
+name = "climaqa-v1"
+version = "0.1.0"
+description = "ClimaQA clean set v0 (validated Gold MCQ and cloze, leaks removed) with exact rewards."
+requires-python = ">=3.11"
+dependencies = ["verifiers>=0.4.0,<0.5"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["climaqa_v1"]
