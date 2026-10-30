@@ -1,6 +1,6 @@
 # 0007: what a Phase 3 task asks
 
-Date: 2026-10-30. Status: proposed. Stage 2 starts only after Aswani chooses.
+Date: 2026-10-30. Status: accepted (Aswani, 2026-10-30), option 1 with his reward rule below.
 
 Context: stage 1 gave a grader that reproduces two published WeatherBench 2 scores exactly
 (IFS HRES MSLP at 72 h, 2020: RMSE 133.890547 Pa and ACC 0.981878;
@@ -9,23 +9,28 @@ weatherbench2", which fits two task designs. The radar found no environment that
 forecasts with the WB2 rules; numeric question answering over ERA5 already exists (Zephyrus,
 TerraBench; `docs/radar.md`).
 
-Options:
+Options considered:
 
-1. Forecast-answer tasks. A prompt gives a 64x32 grid cell, a variable (MSLP or 2 m
-   temperature), an init time in 2020, a lead of 24, 48 or 72 h, the cell's ERA5 values over
-   the three days before the init and the climatology at the valid time. The reply is a
-   forecast value on a last line `ANSWER: <number>`. The eval reports WB2-graded RMSE and ACC
-   over all items, next to persistence, climatology and HRES at the same cells. The RL reward
-   per item is a bounded function of the error scaled per variable. This measures forecasting
-   and gives RL a graded signal; the per-item scale is a choice to make and test.
-2. Score-computation tasks. A prompt gives a small crop of HRES forecasts, ERA5 truth and
-   climatology and asks for the area-weighted RMSE, bias or ACC under the WB2 rules. The reply
-   is checked against the grader within a relative tolerance. This is exact and simple, but it
-   mostly tests arithmetic and knowledge of the conventions, close to existing numeric QA.
+1. Forecast-answer tasks: the model forecasts a value and the WB2 rules grade it.
+2. Score-computation tasks: the model computes RMSE, bias or ACC from a small crop. Exact, but
+   it mostly tests arithmetic and conventions, close to existing numeric QA.
 
-Proposal: option 1. Both options reuse the stage 1 grader, and the data for option 1 (ERA5,
-climatology and HRES for MSLP and 2 m temperature, 2020, three leads) fits under 100 MB by the
-radar's sizes. No paid run: tests use mockllm, and a baseline needs Aswani's yes.
+Decision: option 1.
 
-Consequences: option 1 adds a per-variable error scale and a persistence baseline to the
-grader, each test-first; option 2 adds only a tolerance.
+- A prompt gives a 64x32 grid cell, a variable (MSLP or 2 m temperature), an init time in
+  2020, a lead of 24, 48 or 72 h, the cell's ERA5 values over the three days up to the init
+  and the climatology at the valid time. The reply ends with a line `ANSWER: <number>`.
+- Reward per item, from Aswani: skill over the better of persistence and climatology for that
+  item, bounded, so copying a baseline earns zero. With truth y, forecast f, persistence p (the
+  cell's ERA5 value at the init time) and climatology c, let e = |f - y| and
+  b = min(|p - y|, |c - y|). The reward is clip((b - e) / max(b, floor), 0, 1). A copy of p or
+  c gives e >= b and so 0; the per-variable floor keeps a near-zero b from inflating the
+  reward. Floors start at 50 Pa for MSLP and 0.5 K for 2 m temperature, choices to check
+  against the item data. A reply without a valid answer line scores 0.
+- The eval reports WB2-graded RMSE and ACC over the items with area weights, and baseline rows
+  for persistence, climatology, an always-climatology policy run through the parser and the
+  reward (its mean reward must be 0), and IFS HRES at the same cells.
+
+Consequences: the data (ERA5, climatology and HRES for MSLP and 2 m temperature, 2020, three
+leads) stays under 100 MB by the radar's sizes. No paid run: tests use mockllm, and a baseline
+run needs Aswani's yes.
