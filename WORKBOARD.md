@@ -40,7 +40,8 @@ Plan (2026-10-30, from the radar in docs/radar.md):
 - [ ] Decision 0005 (proposed): expert review of the flagged items in both splits,
       accepted-answer lists for cloze, rewards from reviewed items only, no judge model.
       Not implemented until yes
-- [ ] Phase 3 stage 2: forecast-answer tasks (proposed) or score-computation tasks
+- [ ] Decision 0007 (proposed): Phase 3 stage 2 as forecast-answer tasks, or as
+      score-computation tasks
 
 ## Done
 
