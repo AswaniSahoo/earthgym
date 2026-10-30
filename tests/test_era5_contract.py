@@ -33,6 +33,11 @@ def test_reward_pays_nothing_and_does_not_crash_when_a_baseline_is_exact_and_the
         ("ANSWER: about 285", None),
         ("The answer is 285.", None),
         ("ANSWER: 1013 hPa", None),
+        ("ANSWER: 285.5.", 285.5),  # a trailing full stop, as contract 0004 allows
+        ("ANSWER: 285.5 K.", 285.5),
+        ("ANSWER: −3.2", -3.2),  # the Unicode minus sign
+        ("ANSWER: 285.5\nThat is my final answer.", 285.5),  # the last answer line counts
+        ("ANSWER:\n285.5", None),  # the number must be on the answer line
     ],
 )
 def test_answer_reads_the_last_answer_line_with_an_optional_unit(reply, want):

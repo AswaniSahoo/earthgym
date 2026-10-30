@@ -19,8 +19,9 @@ PROMPT = (
     "Give your forecast in {unit}. The last line of your response must be 'ANSWER: <number>'."
 )
 NUMBER = r"[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?"
-ANSWER_LINE = re.compile(
-    rf"^\s*ANSWER\s*:\s*({NUMBER})\s*(?:Pa|K)?\s*$", re.MULTILINE | re.IGNORECASE
+ANSWER_LINE = re.compile(  # horizontal space only, so the number sits on the answer line
+    rf"^[ \t]*ANSWER[ \t]*:[ \t]*({NUMBER})[ \t]*(?:Pa|K)?[ \t]*\.?[ \t]*$",
+    re.MULTILINE | re.IGNORECASE,
 )
 
 
@@ -34,9 +35,12 @@ def prompt(item: dict) -> str:
 
 
 def answer(reply: str) -> float | None:
-    """The number on the last line that is only 'ANSWER: <number>', with an optional Pa or K;
-    markdown bold and code marks are ignored. None when no line follows the format."""
-    found = ANSWER_LINE.findall(reply.replace("*", "").replace("`", ""))
+    """The number on the last line, wherever it sits in the reply, that is only
+    'ANSWER: <number>' with an optional Pa or K and full stop, as in contract 0004; markdown
+    bold, code marks and the Unicode minus sign are read as plain text. None when no line
+    follows the format."""
+    plain = reply.replace("*", "").replace("`", "").replace("−", "-")
+    found = ANSWER_LINE.findall(plain)
     return float(found[-1]) if found else None
 
 
