@@ -83,6 +83,21 @@ def test_cloze_runs_report_no_format_check(tmp_path):
     assert "| climaqa_cloze | mockllm/model | 2 | 0.500 | 0.500 | n/a |" in text
 
 
+def test_render_warns_about_a_dirty_tree_and_provider_defaults(tmp_path):
+    log = run(tmp_path, "ANSWER: B")
+    log.eval.revision = EvalRevision(type="git", origin="o", commit="abc1234", dirty=True)
+    text = report.render([report.summarize(log)], set_sha256="abc123")
+    assert "uncommitted changes at run time" in text
+    assert "provider's defaults" in text
+
+
+def test_render_leaves_out_warnings_that_do_not_apply(tmp_path):
+    log = run(tmp_path, "ANSWER: B", temperature=0.0)
+    log.eval.revision = EvalRevision(type="git", origin="o", commit="abc1234", dirty=False)
+    text = report.render([report.summarize(log)], set_sha256="abc123")
+    assert "uncommitted changes" not in text and "provider's defaults" not in text
+
+
 def test_summary_records_the_run_config(tmp_path):
     log = run(tmp_path, "ANSWER: B", GenerateConfig(max_tokens=50), temperature=0.0)
     log.eval.revision = EvalRevision(type="git", origin="o", commit="abc1234", dirty=True)

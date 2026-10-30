@@ -92,6 +92,14 @@ def render(summaries: list[dict], set_sha256: str) -> str:
             f"| {s['task']} | {s['commit']} | {s['generate_config']} | {t['input']} | "
             f"{t['output']} | {t['reasoning']} | {s['log']} |"
         )
+    lines += ["", "## Limits", ""]
+    if any(s["commit"].endswith("(dirty)") for s in summaries):
+        lines.append("- The tree had uncommitted changes at run time; their contents are unknown.")
+    if any(s["generate_config"] == "provider defaults" for s in summaries):
+        lines.append(
+            "- Sampling settings were the provider's defaults (no temperature, seed or max "
+            "tokens set), so a rerun need not match."
+        )
     runs = ", ".join(f"{s['task']} at {s['created']}" for s in summaries)
     lines += [
         "",
