@@ -24,8 +24,8 @@ Updated 2026-10-30. Publish after completion. Small commits, one-line messages.
 - [ ] reports/climaqa/leak_review.csv: 56 Gold and Silver pairs, same item or not
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
 - [ ] Second model for the inspect_evals Register (needs an account or key)
-- [ ] Cloze aliases: keep exact match, or approve aliases for the 8 same-meaning keys, cut clean
-      set v2 and rescore the same logs (0.742 becomes 0.805; no new paid run)
+- [ ] Decision 0005 (proposed): v2 cloze. MCQ-only rewards now; expert-checked accepted-answer
+      lists bring cloze back; no judge model. Not implemented until yes
 
 ## Done
 

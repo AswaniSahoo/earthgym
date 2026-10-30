@@ -23,6 +23,9 @@ Newest first. One entry per working session: what changed, what we learned, what
   source's word. One reader's sort; a blind second sort is running.
 - The contract stays: no single rule recovers more than 1 item, and aliases need a person's
   approval. Decision for Aswani in WORKBOARD.md.
+- Follow-ups: the report shows n per complexity level and n/a for cloze format failures (only
+  MCQ has a format check); `.serena/` is ignored. Decision 0005 proposes MCQ-only rewards in
+  v2, with expert-checked accepted-answer lists to bring cloze back; contract v1 unchanged.
 - Next: the Fable review and blind sort, then Phase 3 (radar check running).
 
 ## 2026-10-30
