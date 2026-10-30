@@ -9,7 +9,8 @@ the init and the ERA5 1990 to 2019 climatology at the valid time. The reply must
 
 Reward per item, from `era5_forecast_v1/contract.py`: with truth y, persistence p (the value at
 the init), climatology c and forecast f, let b = min(|p - y|, |c - y|). The reward is
-clip((b - |f - y|) / max(b, floor), 0, 1), with floors of 50 Pa and 0.5 K. Copying either
+clip((b - |f - y|) / max(b, floor), 0, 1). Each variable's floor is the 10th percentile of b
+over the items, 28.75 Pa and 0.069 K, and binds on 36 of 360 items each. Copying either
 baseline from the prompt earns 0. Baseline rows for these items, IFS HRES included, are in
 `reports/era5/items_v1_baselines.md`.
 
