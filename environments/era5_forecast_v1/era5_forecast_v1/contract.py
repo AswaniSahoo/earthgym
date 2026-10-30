@@ -6,10 +6,31 @@ replies and pay the same reward.
 
 import re
 
+VARIABLES = {  # WB2 name: (name in the prompt, unit, reward floor from decision 0007)
+    "mean_sea_level_pressure": ("mean sea level pressure", "Pa", 50.0),
+    "2m_temperature": ("2 m temperature", "K", 0.5),
+}
+PROMPT = (
+    "Forecast {name} at one cell of the 64x32 ERA5 grid, centred at latitude {latitude:.4f} "
+    "and longitude {longitude:.4f}. The forecast is issued at {init_time} UTC for "
+    "{valid_time} UTC, {lead_hours} hours ahead.\n\n"
+    "ERA5 {name} at this cell, every 6 hours up to the issue time, in {unit}:\n{lines}\n\n"
+    "ERA5 1990 to 2019 climatology for this cell at the valid time: {climatology} {unit}.\n\n"
+    "Give your forecast in {unit}. The last line of your response must be 'ANSWER: <number>'."
+)
 NUMBER = r"[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?"
 ANSWER_LINE = re.compile(
     rf"^\s*ANSWER\s*:\s*({NUMBER})\s*(?:Pa|K)?\s*$", re.MULTILINE | re.IGNORECASE
 )
+
+
+def prompt(item: dict) -> str:
+    """The task text: the cell, the times, the ERA5 history and the climatology; never the
+    truth or the HRES forecast."""
+    name, unit, _ = VARIABLES[item["variable"]]
+    pairs = zip(item["history_times"], item["history"], strict=True)
+    lines = "\n".join(f"{time} UTC: {value}" for time, value in pairs)
+    return PROMPT.format(**{**item, "name": name, "unit": unit, "lines": lines})
 
 
 def answer(reply: str) -> float | None:

@@ -33,3 +33,25 @@ def test_floor_caps_the_reward_when_both_baselines_are_nearly_right():
 )
 def test_answer_reads_the_last_answer_line_with_an_optional_unit(reply, want):
     assert contract.answer(reply) == want
+
+
+ITEM = {
+    "variable": "2m_temperature",
+    "latitude": 47.8125,
+    "longitude": 8.4375,
+    "init_time": "2020-07-01T00",
+    "valid_time": "2020-07-02T00",
+    "lead_hours": 24,
+    "history_times": ["2020-06-30T18", "2020-07-01T00"],
+    "history": [290.12, 288.47],
+    "climatology": 289.05,
+    "truth": 291.33,
+    "hres": 290.88,
+}
+
+
+def test_prompt_gives_history_and_climatology_but_never_the_truth_or_hres():
+    text = contract.prompt(ITEM)
+    for shown in ["290.12", "288.47", "289.05", "24 hours", "2020-07-02T00", "K", "ANSWER:"]:
+        assert shown in text
+    assert "291.33" not in text and "290.88" not in text
