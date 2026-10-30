@@ -19,6 +19,7 @@ dev = [
 ]
 env = [
     "climaqa-v1",
+    "era5-forecast-v1",
     "verifiers==0.4.0",
 ]
 era5 = [
@@ -28,6 +29,7 @@ era5 = [
 ]
 eval = [
     "climaqa-v1",
+    "era5-forecast-v1",
     "google-genai==2.34.0",
     "inspect-ai==0.3.286",
 ]
@@ -44,7 +46,9 @@ testpaths = ["tests"]
 [tool.uv.workspace]
 members = [
     "environments/climaqa_v1",
+    "environments/era5_forecast_v1",
 ]
 
 [tool.uv.sources]
 climaqa-v1 = { workspace = true, editable = true }
+era5-forecast-v1 = { workspace = true, editable = true }
