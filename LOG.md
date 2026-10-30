@@ -2,6 +2,18 @@
 
 Newest first. One entry per working session: what changed, what we learned, what is next.
 
+## 2026-10-30, Phase 3 start
+
+- Radar refreshed for Phase 3 (17 entries). No existing environment scores forecasts with the
+  WB2 rules; WB2 publishes score files that can serve as answer keys.
+- Grader: `rlenv.era5.scores` ports the WB2 rules (cell-area weights, MSE over init time and
+  grid, root after the mean, float64). From a pinned 12.0 MB subset it gives IFS HRES MSLP
+  RMSE at 72 h for 2020 as 133.890547 Pa, the published value to all six decimals.
+- Lesson: on a grid without poles, cell-area weights equal cosine weights, so only a test on
+  a grid with poles catches a cosine bug. Lesson: float32 squares shift MSE at the eighth
+  digit; the scores now compute in float64.
+- Next: ACC; stage 2 task design waits for Aswani.
+
 ## 2026-10-30, Phase 2 baseline
 
 - Baseline: Gemini 3.8 Flash on Vertex over clean set v1. MCQ 0.874 (194 of 222, stderr 0.022;

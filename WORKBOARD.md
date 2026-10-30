@@ -24,10 +24,12 @@ Plan (2026-10-30, from the radar in docs/radar.md):
   pinned subset is on disk and is skipped otherwise, so CI stays offline.
 
 - [x] Radar check for Phase 3 (scout): 17 new entries in docs/radar.md
-- [ ] Decision record for the new dependencies (numpy, zarr, numcodecs; no gcsfs, no
-      weatherbench2 package)
-- [ ] `rlenv.era5.scores`: area weights, MSE, RMSE, bias, test-first
-- [ ] Pinned subset build and the 133.890547 Pa reproduction
+- [x] Decision 0006: numpy, zarr, numcodecs in an `era5` group; no xarray, gcsfs or
+      weatherbench2 package
+- [x] `rlenv.era5.scores`: area weights, MSE, RMSE, bias, in float64, test-first
+- [x] Pinned subset (12.0 MB, content sha256 pinned) and the reproduction: 133.890547 Pa,
+      equal to the published WB2 value; reports/era5/2026-10-30-wb2-reproduction.md
+- [ ] ACC against the 1990 to 2019 climatology (T2M climatology chunk, 7.0 MB)
 - [ ] Stage 2 task design, after Aswani's choice
 
 ## Waiting on Aswani
