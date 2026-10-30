@@ -126,6 +126,21 @@ def test_render_names_the_log_directory(tmp_path):
     assert "Logs: `logs/x` (not in git)." in text
 
 
+def test_main_writes_the_report_and_its_json_from_a_log_directory(tmp_path, monkeypatch):
+    run(tmp_path, "ANSWER: B")
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(json.dumps({"sha256": "abc123"}), encoding="utf-8")
+    out = tmp_path / "out" / "r.md"
+    out.parent.mkdir()
+    (out.parent / "r-cloze-misses.md").write_text("notes", encoding="utf-8")
+    argv = ["report", str(tmp_path / "logs"), "--out", str(out), "--manifest", str(manifest)]
+    monkeypatch.setattr("sys.argv", argv)
+    report.main()
+    text = out.read_text(encoding="utf-8")
+    assert "sha256 `abc123`" in text and "[r-cloze-misses.md](r-cloze-misses.md)" in text
+    assert [s["task"] for s in json.loads(out.with_suffix(".json").read_text())] == ["climaqa_mcq"]
+
+
 def test_summary_records_the_run_config(tmp_path):
     log = run(tmp_path, "ANSWER: B", GenerateConfig(max_tokens=50), temperature=0.0)
     log.eval.revision = EvalRevision(type="git", origin="o", commit="abc1234", dirty=True)
