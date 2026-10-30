@@ -16,7 +16,14 @@ Newest first. One entry per working session: what changed, what we learned, what
   and 99.8 percent of cloze output (93,278 of 93,511).
 - The report now records commit, generate config, tokens and log file. Lesson: Inspect keeps
   eval-level settings in `plan.config`, not `eval.model_generate_config`; a test caught it.
-- Next: sort the 33 wrong cloze replies, then Phase 3.
+- Finding: of the 33 cloze misses, 8 say the same thing in another string (symbols 22 and 105,
+  word order 37, plural 114, synonyms 47, 72, 136, 142), 24 are other words that still make a
+  correct sentence (7 debatable), and 1 is a clear model error (157). Counting the 8 lifts
+  cloze from 0.742 to 0.805. For this model the cloze score mostly measures picking the
+  source's word. One reader's sort; a blind second sort is running.
+- The contract stays: no single rule recovers more than 1 item, and aliases need a person's
+  approval. Decision for Aswani in WORKBOARD.md.
+- Next: the Fable review and blind sort, then Phase 3 (radar check running).
 
 ## 2026-10-30
 

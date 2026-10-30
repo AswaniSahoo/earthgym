@@ -12,8 +12,10 @@ Updated 2026-10-30. Publish after completion. Small commits, one-line messages.
 - [x] Baseline: Gemini 3.8 Flash on Vertex over clean set v1: MCQ 0.874 (194 of 222, stderr
       0.022), cloze 0.742 (95 of 128, stderr 0.039), 0 format failures, provider default
       settings; reports/climaqa/runs/2026-10-30-gemini-3.8-flash.md
-- [ ] Cloze error analysis: each of the 33 wrong replies sorted into model error or scorer
-      strictness; rescore these same logs if the contract changes
+- [x] Cloze misses sorted (33): 8 scorer strictness, 24 other correct words (7 debatable),
+      1 model error; contract unchanged;
+      reports/climaqa/runs/2026-10-30-gemini-3.8-flash-cloze-misses.md
+- [ ] Fable review of the baseline and a blind second sort of the 33 cloze misses (running)
 - [x] verifiers v1 taskset climaqa-v1 (350 tasks, shared answer contract)
 - [x] Phase 2 review (Fable): every issue fixed test-first; author response in the review
 
@@ -22,6 +24,8 @@ Updated 2026-10-30. Publish after completion. Small commits, one-line messages.
 - [ ] reports/climaqa/leak_review.csv: 56 Gold and Silver pairs, same item or not
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
 - [ ] Second model for the inspect_evals Register (needs an account or key)
+- [ ] Cloze aliases: keep exact match, or approve aliases for the 8 same-meaning keys, cut clean
+      set v2 and rescore the same logs (0.742 becomes 0.805; no new paid run)
 
 ## Done
 
