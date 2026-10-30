@@ -39,6 +39,8 @@ def summarize(log: EvalLog) -> dict:
         "task": log.eval.task.split("/")[-1],
         "model": log.eval.model,
         "created": log.eval.created,
+        "started": log.stats.started_at,
+        "completed": log.stats.completed_at,
         "n": len(log.samples or []),
         "accuracy": metrics["accuracy"].value,
         "stderr": metrics["stderr"].value,
@@ -125,7 +127,7 @@ def render(summaries: list[dict], set_sha256: str, notes: Sequence[str] = ()) ->
                 f"{s['key_longest']} of {s['n']} items."
             )
     lines += [f"- Miss analysis: [{note}]({note})" for note in notes]
-    runs = ", ".join(f"{s['task']} at {s['created']}" for s in summaries)
+    runs = ", ".join(f"{s['task']} from {s['started']} to {s['completed']}" for s in summaries)
     lines += [
         "",
         f"Runs: {runs}. inspect_ai {summaries[0]['inspect_ai'] if summaries else ''}.",

@@ -112,6 +112,14 @@ def test_render_links_the_miss_notes_beside_the_report(tmp_path):
     assert "[r-cloze-misses.md](r-cloze-misses.md)" in text
 
 
+def test_render_gives_when_each_task_ran(tmp_path):
+    log = run(tmp_path, "ANSWER: B")
+    log.stats.started_at = "2026-01-01T00:00:00+00:00"
+    log.stats.completed_at = "2026-01-01T00:10:00+00:00"
+    text = report.render([report.summarize(log)], set_sha256="abc123")
+    assert "climaqa_mcq from 2026-01-01T00:00:00+00:00 to 2026-01-01T00:10:00+00:00" in text
+
+
 def test_summary_records_the_run_config(tmp_path):
     log = run(tmp_path, "ANSWER: B", GenerateConfig(max_tokens=50), temperature=0.0)
     log.eval.revision = EvalRevision(type="git", origin="o", commit="abc1234", dirty=True)
