@@ -1,0 +1,4332 @@
+{
+ "dataset": "Rose-STL-Lab/ClimaQA",
+ "revision": "3f084a0202c6260e588fb5b681d2e4ec859a3845",
+ "inventory": {
+  "gold/mcq": {
+   "rows": 292,
+   "validation": {
+    "True": 245,
+    "False": 47
+   },
+   "complexity": {
+    "REASONING": 86,
+    "HYPOTHETICAL": 65,
+    "BASE": 141
+   },
+   "validated_complexity": {
+    "REASONING": 72,
+    "HYPOTHETICAL": 47,
+    "BASE": 126
+   },
+   "answer": {
+    "c": 80,
+    "d": 62,
+    "b": 73,
+    "a": 77
+   }
+  },
+  "gold/cloze": {
+   "rows": 160
+  },
+  "gold/ffq": {
+   "rows": 181,
+   "validation": {
+    "True": 161,
+    "False": 20
+   },
+   "complexity": {
+    "BASE": 61,
+    "REASONING": 59,
+    "HYPOTHETICAL": 61
+   },
+   "validated_complexity": {
+    "BASE": 54,
+    "REASONING": 52,
+    "HYPOTHETICAL": 55
+   }
+  },
+  "silver/mcq": {
+   "rows": 1000,
+   "complexity": {
+    "BASE": 501,
+    "REASONING": 264,
+    "HYPOTHETICAL": 235
+   },
+   "answer": {
+    "d": 256,
+    "c": 279,
+    "a": 244,
+    "b": 221
+   }
+  },
+  "silver/cloze": {
+   "rows": 1000
+  },
+  "silver/ffq": {
+   "rows": 1000,
+   "complexity": {
+    "BASE": 507,
+    "HYPOTHETICAL": 252,
+    "REASONING": 241
+   }
+  }
+ },
+ "findings": [
+  {
+   "check": "mcq.all_or_none_of_above",
+   "split": "gold/mcq",
+   "item": "20",
+   "detail": "",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.answer_in_question",
+   "split": "gold/mcq",
+   "item": "34",
+   "detail": "modeling the global emission transport and deposition of trace elements associat",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.duplicate_options",
+   "split": "gold/mcq",
+   "item": "227",
+   "detail": "",
+   "refs": [],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "mcq.all_or_none_of_above",
+   "split": "gold/mcq",
+   "item": "236",
+   "detail": "",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.answer_in_question",
+   "split": "gold/mcq",
+   "item": "265",
+   "detail": "correlation between cloud condensation nuclei concentration and aerosol optical ",
+   "refs": [],
+   "kind": "flag",
+   "rejected": true
+  },
+  {
+   "check": "mcq.answer_in_question",
+   "split": "gold/mcq",
+   "item": "273",
+   "detail": "effects of dilution on fine particle mass",
+   "refs": [],
+   "kind": "flag",
+   "rejected": true
+  },
+  {
+   "check": "mcq.answer_in_question",
+   "split": "gold/mcq",
+   "item": "291",
+   "detail": "influence of anthropogenic aerosol deposition on the relationship between oceani",
+   "refs": [],
+   "kind": "flag",
+   "rejected": true
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "0",
+   "detail": "turbulence",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "2",
+   "detail": "stratiform",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "20",
+   "detail": "aerosol",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "21",
+   "detail": "hpa",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "25",
+   "detail": "precipitation",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "28",
+   "detail": "correlation",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "30",
+   "detail": "particle",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "32",
+   "detail": "ccn",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "33",
+   "detail": "variogram",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "35",
+   "detail": "aerosol",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "39",
+   "detail": "extrema",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "45",
+   "detail": "condensation",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "58",
+   "detail": "adiabatic",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "60",
+   "detail": "soil",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "68",
+   "detail": "albedo",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "95",
+   "detail": "tropopause",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "97",
+   "detail": "precipitation",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "113",
+   "detail": "force",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "115",
+   "detail": "feedbacks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "132",
+   "detail": "humidity",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "134",
+   "detail": "droplet",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "137",
+   "detail": "aerosol",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "143",
+   "detail": "kriging",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "gold/cloze",
+   "item": "155",
+   "detail": "precipitation",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "1",
+   "detail": "also ids ['401']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "2",
+   "detail": "also ids ['819']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "5",
+   "detail": "also ids ['735']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "7",
+   "detail": "also ids ['737']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "11",
+   "detail": "also ids ['12']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "16",
+   "detail": "also ids ['102']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "30",
+   "detail": "also ids ['129']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "30",
+   "detail": "ids ['30', '129']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "34",
+   "detail": "also ids ['568']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "49",
+   "detail": "also ids ['832']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "49",
+   "detail": "ids ['49', '832']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "50",
+   "detail": "also ids ['281']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "50",
+   "detail": "ids ['50', '281']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "71",
+   "detail": "also ids ['72', '969', '970']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "75",
+   "detail": "also ids ['760', '805']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "99",
+   "detail": "also ids ['905']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "103",
+   "detail": "also ids ['104']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "108",
+   "detail": "also ids ['235']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "108",
+   "detail": "ids ['108', '235']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "121",
+   "detail": "also ids ['229']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "163",
+   "detail": "also ids ['556']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "164",
+   "detail": "also ids ['166']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "178",
+   "detail": "also ids ['862']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "188",
+   "detail": "also ids ['399', '576']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "207",
+   "detail": "also ids ['208']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "210",
+   "detail": "also ids ['520']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "214",
+   "detail": "also ids ['215', '777']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "217",
+   "detail": "also ids ['691', '693']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "217",
+   "detail": "ids ['217', '691', '693']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "218",
+   "detail": "also ids ['692']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "218",
+   "detail": "ids ['218', '692']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "223",
+   "detail": "also ids ['225']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "226",
+   "detail": "also ids ['353']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "231",
+   "detail": "also ids ['442']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "237",
+   "detail": "also ids ['311']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "239",
+   "detail": "also ids ['971']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "259",
+   "detail": "also ids ['260']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "280",
+   "detail": "also ids ['585']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "280",
+   "detail": "ids ['280', '585']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "285",
+   "detail": "also ids ['685']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "290",
+   "detail": "also ids ['291', '292']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "293",
+   "detail": "also ids ['647']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "293",
+   "detail": "ids ['293', '647']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "295",
+   "detail": "also ids ['297']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "303",
+   "detail": "also ids ['403']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "303",
+   "detail": "ids ['303', '403']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "321",
+   "detail": "also ids ['481']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "323",
+   "detail": "also ids ['482']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "356",
+   "detail": "also ids ['662']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "361",
+   "detail": "also ids ['362']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "361",
+   "detail": "ids ['361', '362']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "405",
+   "detail": "also ids ['872']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "409",
+   "detail": "also ids ['751']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "410",
+   "detail": "also ids ['752']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "410",
+   "detail": "ids ['410', '752']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "411",
+   "detail": "also ids ['753']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "420",
+   "detail": "also ids ['421']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "479",
+   "detail": "also ids ['683']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "479",
+   "detail": "ids ['479', '683']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "500",
+   "detail": "also ids ['502']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "517",
+   "detail": "also ids ['860']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "518",
+   "detail": "also ids ['861']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "546",
+   "detail": "also ids ['547']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "546",
+   "detail": "ids ['546', '547']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "548",
+   "detail": "also ids ['549']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "607",
+   "detail": "also ids ['609']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "629",
+   "detail": "also ids ['878']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "633",
+   "detail": "also ids ['634', '635']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "664",
+   "detail": "also ids ['935']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "666",
+   "detail": "also ids ['937']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "669",
+   "detail": "also ids ['733', '734']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "669",
+   "detail": "ids ['669', '733', '734']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "671",
+   "detail": "also ids ['790']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "679",
+   "detail": "also ids ['680']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "706",
+   "detail": "also ids ['708']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "709",
+   "detail": "also ids ['750']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "766",
+   "detail": "also ids ['768']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "781",
+   "detail": "also ids ['993']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "781",
+   "detail": "ids ['781', '993']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "783",
+   "detail": "also ids ['994', '995']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.answer_differs",
+   "split": "silver/mcq",
+   "item": "783",
+   "detail": "ids ['783', '994', '995']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "784",
+   "detail": "also ids ['785']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "801",
+   "detail": "also ids ['983']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "820",
+   "detail": "also ids ['821']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "833",
+   "detail": "also ids ['834', '835']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "853",
+   "detail": "also ids ['856']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "899",
+   "detail": "also ids ['900']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "901",
+   "detail": "also ids ['902']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "948",
+   "detail": "also ids ['959']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "949",
+   "detail": "also ids ['960']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/mcq",
+   "item": "996",
+   "detail": "also ids ['997']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.duplicate_options",
+   "split": "silver/mcq",
+   "item": "21",
+   "detail": "",
+   "refs": [],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "mcq.all_or_none_of_above",
+   "split": "silver/mcq",
+   "item": "24",
+   "detail": "",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.duplicate_options",
+   "split": "silver/mcq",
+   "item": "27",
+   "detail": "",
+   "refs": [],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "mcq.duplicate_options",
+   "split": "silver/mcq",
+   "item": "37",
+   "detail": "",
+   "refs": [],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "mcq.all_or_none_of_above",
+   "split": "silver/mcq",
+   "item": "155",
+   "detail": "",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.answer_in_question",
+   "split": "silver/mcq",
+   "item": "325",
+   "detail": "sulfur dioxide so2",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.all_or_none_of_above",
+   "split": "silver/mcq",
+   "item": "348",
+   "detail": "",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.answer_in_question",
+   "split": "silver/mcq",
+   "item": "443",
+   "detail": "30 w m 2",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.answer_in_question",
+   "split": "silver/mcq",
+   "item": "464",
+   "detail": "collision kinetic energy",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.answer_in_question",
+   "split": "silver/mcq",
+   "item": "547",
+   "detail": "to synchronize different ice core records and other paleoenvironmental archives",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.all_or_none_of_above",
+   "split": "silver/mcq",
+   "item": "679",
+   "detail": "",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.all_or_none_of_above",
+   "split": "silver/mcq",
+   "item": "680",
+   "detail": "",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "mcq.all_or_none_of_above",
+   "split": "silver/mcq",
+   "item": "681",
+   "detail": "",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "6",
+   "detail": "also ids ['651']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "16",
+   "detail": "also ids ['734']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "25",
+   "detail": "also ids ['111']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "28",
+   "detail": "also ids ['711']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "39",
+   "detail": "also ids ['708']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "41",
+   "detail": "also ids ['586']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "52",
+   "detail": "also ids ['985']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "76",
+   "detail": "also ids ['225']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "91",
+   "detail": "also ids ['787']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "95",
+   "detail": "also ids ['492']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "106",
+   "detail": "also ids ['454']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "115",
+   "detail": "also ids ['538']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "119",
+   "detail": "also ids ['626']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "155",
+   "detail": "also ids ['786']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "168",
+   "detail": "also ids ['473']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "189",
+   "detail": "also ids ['979']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "221",
+   "detail": "also ids ['507']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "222",
+   "detail": "also ids ['838']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "226",
+   "detail": "also ids ['264']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "233",
+   "detail": "also ids ['560']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "249",
+   "detail": "also ids ['332']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "267",
+   "detail": "also ids ['758']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "268",
+   "detail": "also ids ['380']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "275",
+   "detail": "also ids ['330']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "306",
+   "detail": "also ids ['366']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "334",
+   "detail": "also ids ['580', '790']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "341",
+   "detail": "also ids ['355']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "347",
+   "detail": "also ids ['418']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "375",
+   "detail": "also ids ['935']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "378",
+   "detail": "also ids ['799']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "392",
+   "detail": "also ids ['675']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "420",
+   "detail": "also ids ['491']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "429",
+   "detail": "also ids ['463']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "447",
+   "detail": "also ids ['742']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "526",
+   "detail": "also ids ['774', '812']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "528",
+   "detail": "also ids ['673']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "548",
+   "detail": "also ids ['981']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "566",
+   "detail": "also ids ['885']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "570",
+   "detail": "also ids ['603']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "571",
+   "detail": "also ids ['685']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "604",
+   "detail": "also ids ['646']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "616",
+   "detail": "also ids ['631']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "619",
+   "detail": "also ids ['768', '976']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "638",
+   "detail": "also ids ['922']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "648",
+   "detail": "also ids ['896']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "667",
+   "detail": "also ids ['846']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "674",
+   "detail": "also ids ['904']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "743",
+   "detail": "also ids ['894']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "810",
+   "detail": "also ids ['883']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/cloze",
+   "item": "823",
+   "detail": "also ids ['963']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "6",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "22",
+   "detail": "flux",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "23",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "23",
+   "detail": "aerosol",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "24",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "41",
+   "detail": "troposphere",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "44",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "46",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "50",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "51",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "65",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "73",
+   "detail": "mcb",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "77",
+   "detail": "supersaturation",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "86",
+   "detail": "turbulence",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "93",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "114",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "117",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "117",
+   "detail": "deposition",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "122",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "123",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "127",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "128",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "134",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "139",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "140",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "153",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "182",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "184",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "188",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "204",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "205",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "241",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "241",
+   "detail": "radius",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "244",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "245",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "256",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "259",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "278",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "302",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "327",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "345",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "359",
+   "detail": "inversion",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "382",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "385",
+   "detail": "convection",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "389",
+   "detail": "momentum",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "406",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "411",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "413",
+   "detail": "adiabats",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "420",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "422",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "423",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "453",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "461",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "462",
+   "detail": "precipitation",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "467",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "472",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "482",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "489",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "491",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "503",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "506",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "509",
+   "detail": "updraft",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "525",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "536",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "542",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "547",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "550",
+   "detail": "cyclones",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "579",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "582",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "586",
+   "detail": "troposphere",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "588",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "599",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "606",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "608",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "614",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "623",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "628",
+   "detail": "equilibrium",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "630",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "651",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "656",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "659",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "661",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "662",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "670",
+   "detail": "equilibrium",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "696",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "717",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "719",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "746",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "770",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "778",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "785",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "789",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "795",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "796",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "811",
+   "detail": "co2",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "814",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "820",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "822",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "825",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "826",
+   "detail": "mcb",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "828",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "832",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "850",
+   "detail": "3 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "856",
+   "detail": "hygroscopic",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "862",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "864",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "871",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "889",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "890",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "903",
+   "detail": "troposphere",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "909",
+   "detail": "inversion",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "911",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "916",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "916",
+   "detail": "deposition",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "932",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "940",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "942",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.answer_in_question",
+   "split": "silver/cloze",
+   "item": "942",
+   "detail": "freezing",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "954",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "956",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "964",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "984",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "994",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "cloze.multiple_masks",
+   "split": "silver/cloze",
+   "item": "999",
+   "detail": "2 masks",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "15",
+   "detail": "also ids ['635']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "21",
+   "detail": "also ids ['491']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "23",
+   "detail": "also ids ['974']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "44",
+   "detail": "also ids ['718']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "48",
+   "detail": "also ids ['212']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "57",
+   "detail": "also ids ['824']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "67",
+   "detail": "also ids ['502']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "69",
+   "detail": "also ids ['140', '682']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "71",
+   "detail": "also ids ['684']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "73",
+   "detail": "also ids ['786']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "101",
+   "detail": "also ids ['739']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "102",
+   "detail": "also ids ['740']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "111",
+   "detail": "also ids ['240']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "112",
+   "detail": "also ids ['113']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "118",
+   "detail": "also ids ['420']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "134",
+   "detail": "also ids ['611']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "141",
+   "detail": "also ids ['683']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "164",
+   "detail": "also ids ['468']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "174",
+   "detail": "also ids ['715']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "196",
+   "detail": "also ids ['441']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "204",
+   "detail": "also ids ['643']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "205",
+   "detail": "also ids ['644']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "206",
+   "detail": "also ids ['645']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "214",
+   "detail": "also ids ['770']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "216",
+   "detail": "also ids ['968']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "218",
+   "detail": "also ids ['580', '581']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "220",
+   "detail": "also ids ['438']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "232",
+   "detail": "also ids ['899']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "258",
+   "detail": "also ids ['572']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "259",
+   "detail": "also ids ['573']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "272",
+   "detail": "also ids ['415']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "309",
+   "detail": "also ids ['381']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "331",
+   "detail": "also ids ['392']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "340",
+   "detail": "also ids ['655', '747', '886']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "342",
+   "detail": "also ids ['887']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "343",
+   "detail": "also ids ['371']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "344",
+   "detail": "also ids ['372']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "367",
+   "detail": "also ids ['949']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "368",
+   "detail": "also ids ['386']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "370",
+   "detail": "also ids ['388']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "406",
+   "detail": "also ids ['838']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "411",
+   "detail": "also ids ['458']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "443",
+   "detail": "also ids ['942']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "444",
+   "detail": "also ids ['850']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "446",
+   "detail": "also ids ['851']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "475",
+   "detail": "also ids ['708']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "477",
+   "detail": "also ids ['710']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "478",
+   "detail": "also ids ['543']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "479",
+   "detail": "also ids ['544']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "529",
+   "detail": "also ids ['750']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "600",
+   "detail": "also ids ['908']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "601",
+   "detail": "also ids ['909']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "602",
+   "detail": "also ids ['910']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "607",
+   "detail": "also ids ['625']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "646",
+   "detail": "also ids ['711']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "656",
+   "detail": "also ids ['748']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "735",
+   "detail": "also ids ['833']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "754",
+   "detail": "also ids ['755']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "790",
+   "detail": "also ids ['911']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "794",
+   "detail": "also ids ['795']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "dup.question",
+   "split": "silver/ffq",
+   "item": "916",
+   "detail": "also ids ['997']",
+   "refs": [],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "2",
+   "detail": "answer text same",
+   "refs": [
+    "silver/mcq:188",
+    "silver/mcq:399",
+    "silver/mcq:576"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "22",
+   "detail": "answer text same",
+   "refs": [
+    "silver/mcq:176"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "61",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/mcq:114"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "93",
+   "detail": "answer text same",
+   "refs": [
+    "silver/mcq:895"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "100",
+   "detail": "answer text same",
+   "refs": [
+    "silver/mcq:903"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "112",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/mcq:553"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "139",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/mcq:812"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "158",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/mcq:943"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "163",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/mcq:652"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "171",
+   "detail": "answer text same",
+   "refs": [
+    "silver/mcq:75",
+    "silver/mcq:760",
+    "silver/mcq:805"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "176",
+   "detail": "answer text same",
+   "refs": [
+    "silver/mcq:787"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "191",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/mcq:593"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "201",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/mcq:555"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "220",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/mcq:55"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "225",
+   "detail": "answer text same",
+   "refs": [
+    "silver/mcq:405",
+    "silver/mcq:872"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "240",
+   "detail": "answer text same",
+   "refs": [
+    "silver/mcq:844"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/mcq",
+   "item": "287",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/mcq:50",
+    "silver/mcq:281"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_other_silver_task",
+   "split": "gold/mcq",
+   "item": "2",
+   "detail": "",
+   "refs": [
+    "silver/ffq:272",
+    "silver/ffq:415"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_other_silver_task",
+   "split": "gold/mcq",
+   "item": "17",
+   "detail": "",
+   "refs": [
+    "silver/ffq:281"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "32",
+   "detail": "jaccard 0.82",
+   "refs": [
+    "silver/ffq:736"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "63",
+   "detail": "jaccard 0.81",
+   "refs": [
+    "silver/ffq:812"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "85",
+   "detail": "jaccard 0.89",
+   "refs": [
+    "silver/ffq:736"
+   ],
+   "kind": "flag",
+   "rejected": true
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "117",
+   "detail": "jaccard 0.95",
+   "refs": [
+    "silver/ffq:836"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "157",
+   "detail": "jaccard 0.90",
+   "refs": [
+    "silver/mcq:657"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "169",
+   "detail": "jaccard 0.88",
+   "refs": [
+    "silver/mcq:813"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "183",
+   "detail": "jaccard 0.88",
+   "refs": [
+    "silver/mcq:149"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "187",
+   "detail": "jaccard 0.87",
+   "refs": [
+    "silver/ffq:600"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "197",
+   "detail": "jaccard 0.83",
+   "refs": [
+    "silver/mcq:207"
+   ],
+   "kind": "flag",
+   "rejected": true
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "200",
+   "detail": "jaccard 0.83",
+   "refs": [
+    "silver/mcq:207"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "213",
+   "detail": "jaccard 0.91",
+   "refs": [
+    "silver/ffq:630"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "234",
+   "detail": "jaccard 0.85",
+   "refs": [
+    "silver/mcq:470"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "263",
+   "detail": "jaccard 0.86",
+   "refs": [
+    "silver/mcq:535"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/mcq",
+   "item": "286",
+   "detail": "jaccard 0.83",
+   "refs": [
+    "silver/ffq:741"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/cloze",
+   "item": "0",
+   "detail": "answer text same",
+   "refs": [
+    "silver/cloze:86"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/cloze",
+   "item": "6",
+   "detail": "answer text same",
+   "refs": [
+    "silver/cloze:566",
+    "silver/cloze:885"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/cloze",
+   "item": "44",
+   "detail": "answer text same",
+   "refs": [
+    "silver/cloze:216"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/cloze",
+   "item": "50",
+   "detail": "answer text same",
+   "refs": [
+    "silver/cloze:733"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/cloze",
+   "item": "78",
+   "detail": "answer text same",
+   "refs": [
+    "silver/cloze:592"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/cloze",
+   "item": "94",
+   "detail": "answer text same",
+   "refs": [
+    "silver/cloze:233",
+    "silver/cloze:560"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/cloze",
+   "item": "104",
+   "detail": "answer text same",
+   "refs": [
+    "silver/cloze:106",
+    "silver/cloze:454"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/cloze",
+   "item": "119",
+   "detail": "answer text same",
+   "refs": [
+    "silver/cloze:429",
+    "silver/cloze:463"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/cloze",
+   "item": "123",
+   "detail": "answer text same",
+   "refs": [
+    "silver/cloze:234"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/cloze",
+   "item": "1",
+   "detail": "jaccard 0.92",
+   "refs": [
+    "silver/cloze:447"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/cloze",
+   "item": "18",
+   "detail": "jaccard 0.94",
+   "refs": [
+    "silver/cloze:837"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/cloze",
+   "item": "22",
+   "detail": "jaccard 0.96",
+   "refs": [
+    "silver/cloze:201"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/cloze",
+   "item": "88",
+   "detail": "jaccard 0.86",
+   "refs": [
+    "silver/cloze:255"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/cloze",
+   "item": "91",
+   "detail": "jaccard 0.84",
+   "refs": [
+    "silver/cloze:684"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/cloze",
+   "item": "95",
+   "detail": "jaccard 0.96",
+   "refs": [
+    "silver/cloze:382"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/cloze",
+   "item": "99",
+   "detail": "jaccard 0.83",
+   "refs": [
+    "silver/cloze:388"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/cloze",
+   "item": "106",
+   "detail": "jaccard 0.93",
+   "refs": [
+    "silver/cloze:974"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/cloze",
+   "item": "137",
+   "detail": "jaccard 0.96",
+   "refs": [
+    "silver/cloze:127"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/cloze",
+   "item": "152",
+   "detail": "jaccard 0.88",
+   "refs": [
+    "silver/cloze:67"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/cloze",
+   "item": "155",
+   "detail": "jaccard 0.94",
+   "refs": [
+    "silver/cloze:462"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/cloze",
+   "item": "157",
+   "detail": "jaccard 0.90",
+   "refs": [
+    "silver/cloze:306"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "4",
+   "detail": "answer text same",
+   "refs": [
+    "silver/ffq:34"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "12",
+   "detail": "answer text same",
+   "refs": [
+    "silver/ffq:630"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "16",
+   "detail": "answer text same",
+   "refs": [
+    "silver/ffq:631"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "21",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/ffq:671"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "63",
+   "detail": "answer text same",
+   "refs": [
+    "silver/ffq:492"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "73",
+   "detail": "answer text same",
+   "refs": [
+    "silver/ffq:21",
+    "silver/ffq:491"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "76",
+   "detail": "answer text same",
+   "refs": [
+    "silver/ffq:970"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "79",
+   "detail": "answer text same",
+   "refs": [
+    "silver/ffq:22"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "84",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/ffq:560"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "94",
+   "detail": "answer text same",
+   "refs": [
+    "silver/ffq:26"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "103",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/ffq:969"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "108",
+   "detail": "answer text same",
+   "refs": [
+    "silver/ffq:790",
+    "silver/ffq:911"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "142",
+   "detail": "answer text same",
+   "refs": [
+    "silver/ffq:730"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "161",
+   "detail": "answer text same",
+   "refs": [
+    "silver/ffq:27"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "162",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/ffq:559"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "178",
+   "detail": "answer text same",
+   "refs": [
+    "silver/ffq:588"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_silver",
+   "split": "gold/ffq",
+   "item": "179",
+   "detail": "answer text differs",
+   "refs": [
+    "silver/ffq:590"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_other_silver_task",
+   "split": "gold/ffq",
+   "item": "60",
+   "detail": "",
+   "refs": [
+    "silver/mcq:908"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_other_silver_task",
+   "split": "gold/ffq",
+   "item": "92",
+   "detail": "",
+   "refs": [
+    "silver/mcq:657"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_other_silver_task",
+   "split": "gold/ffq",
+   "item": "113",
+   "detail": "",
+   "refs": [
+    "silver/mcq:656"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.gold_in_other_silver_task",
+   "split": "gold/ffq",
+   "item": "150",
+   "detail": "",
+   "refs": [
+    "silver/mcq:439"
+   ],
+   "kind": "defect",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/ffq",
+   "item": "9",
+   "detail": "jaccard 0.86",
+   "refs": [
+    "silver/ffq:35"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/ffq",
+   "item": "53",
+   "detail": "jaccard 0.83",
+   "refs": [
+    "silver/mcq:455"
+   ],
+   "kind": "flag",
+   "rejected": true
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/ffq",
+   "item": "81",
+   "detail": "jaccard 0.82",
+   "refs": [
+    "silver/ffq:417"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/ffq",
+   "item": "96",
+   "detail": "jaccard 0.81",
+   "refs": [
+    "silver/ffq:969"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/ffq",
+   "item": "99",
+   "detail": "jaccard 0.90",
+   "refs": [
+    "silver/ffq:72"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/ffq",
+   "item": "107",
+   "detail": "jaccard 0.87",
+   "refs": [
+    "silver/ffq:30"
+   ],
+   "kind": "flag",
+   "rejected": true
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/ffq",
+   "item": "128",
+   "detail": "jaccard 0.90",
+   "refs": [
+    "silver/ffq:28"
+   ],
+   "kind": "flag",
+   "rejected": false
+  },
+  {
+   "check": "leak.near_match",
+   "split": "gold/ffq",
+   "item": "176",
+   "detail": "jaccard 0.87",
+   "refs": [
+    "silver/ffq:884"
+   ],
+   "kind": "flag",
+   "rejected": false
+  }
+ ]
+}
