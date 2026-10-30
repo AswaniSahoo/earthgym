@@ -23,6 +23,7 @@ env = [
 ]
 eval = [
     "climaqa-v1",
+    "google-genai==2.34.0",
     "inspect-ai==0.3.286",
 ]
 
