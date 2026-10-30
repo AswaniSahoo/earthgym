@@ -80,3 +80,32 @@ def test_manifest_counts_by_reason_and_pins_the_set_by_sha256():
     assert summary["kept"] == {"cloze": 1, "mcq": 2}
     assert summary["excluded_by_reason"] == {"leak.gold_in_silver": 1, "rejected by experts": 1}
     assert summary["sha256"] == __import__("hashlib").sha256(text.encode()).hexdigest()
+
+
+def test_bundled_set_matches_its_manifest():
+    import hashlib
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    summary = json.loads((root / "reports/climaqa/clean_v1_manifest.json").read_text())
+    text = (root / clean.BUNDLE / "climaqa_clean_v1.jsonl").read_text("utf-8")
+    assert hashlib.sha256(text.encode()).hexdigest() == summary["sha256"]
+    assert len(text.splitlines()) == sum(summary["kept"].values())
+
+
+def test_main_writes_the_set_and_its_manifest(tmp_path, monkeypatch):
+    import json
+    import sys
+
+    from rlenv.climaqa import data
+
+    rows = {(c, t): [] for c in ("gold", "silver") for t in ("mcq", "cloze", "ffq")}
+    rows["gold", "mcq"] = [mcq("0")]
+    monkeypatch.setattr(data, "load_all", lambda cache: rows)
+    out, reports = tmp_path / "out", tmp_path / "reports"
+    reports.mkdir()
+    monkeypatch.setattr(sys, "argv", ["clean", "--out", str(out), "--reports", str(reports)])
+    clean.main()
+    assert len((out / "climaqa_clean_v1.jsonl").read_text().splitlines()) == 1
+    assert json.loads((reports / "clean_v1_manifest.json").read_text())["kept"] == {"mcq": 1}
