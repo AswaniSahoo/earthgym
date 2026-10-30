@@ -39,7 +39,7 @@ def answer(reply: str) -> float | None:
     'ANSWER: <number>' with an optional Pa or K and full stop, as in contract 0004; markdown
     bold, code marks and the Unicode minus sign are read as plain text. None when no line
     follows the format."""
-    plain = reply.replace("*", "").replace("`", "").replace("−", "-")
+    plain = reply.replace("*", "").replace("`", "").replace("\u2212", "-")
     found = ANSWER_LINE.findall(plain)
     return float(found[-1]) if found else None
 

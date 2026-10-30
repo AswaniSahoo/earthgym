@@ -35,7 +35,7 @@ def test_reward_pays_nothing_and_does_not_crash_when_a_baseline_is_exact_and_the
         ("ANSWER: 1013 hPa", None),
         ("ANSWER: 285.5.", 285.5),  # a trailing full stop, as contract 0004 allows
         ("ANSWER: 285.5 K.", 285.5),
-        ("ANSWER: −3.2", -3.2),  # the Unicode minus sign
+        ("ANSWER: \u22123.2", -3.2),  # the Unicode minus sign
         ("ANSWER: 285.5\nThat is my final answer.", 285.5),  # the last answer line counts
         ("ANSWER:\n285.5", None),  # the number must be on the answer line
     ],
