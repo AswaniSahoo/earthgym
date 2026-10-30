@@ -1,1 +1,3 @@
-"""ERA5 forecast tasks graded by the WeatherBench 2 rules (decision 0007)."""
+from era5_forecast_v1.taskset import ForecastTaskset
+
+__all__ = ["ForecastTaskset"]
