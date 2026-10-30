@@ -62,7 +62,9 @@ def summarize(log: EvalLog) -> dict:
     }
 
 
-def render(summaries: list[dict], set_sha256: str, notes: Sequence[str] = ()) -> str:
+def render(
+    summaries: list[dict], set_sha256: str, notes: Sequence[str] = (), log_dir: str = ""
+) -> str:
     lines = [
         "# ClimaQA baseline",
         "",
@@ -128,12 +130,10 @@ def render(summaries: list[dict], set_sha256: str, notes: Sequence[str] = ()) ->
             )
     lines += [f"- Miss analysis: [{note}]({note})" for note in notes]
     runs = ", ".join(f"{s['task']} from {s['started']} to {s['completed']}" for s in summaries)
-    lines += [
-        "",
-        f"Runs: {runs}. inspect_ai {summaries[0]['inspect_ai'] if summaries else ''}.",
-        "",
-    ]
-    return "\n".join(lines)
+    lines += ["", f"Runs: {runs}. inspect_ai {summaries[0]['inspect_ai'] if summaries else ''}."]
+    if log_dir:
+        lines.append(f"Logs: `{log_dir}` (not in git).")
+    return "\n".join([*lines, ""])
 
 
 def main() -> None:
@@ -149,7 +149,7 @@ def main() -> None:
     sha256 = json.loads(args.manifest.read_text())["sha256"]
     args.out.parent.mkdir(parents=True, exist_ok=True)
     notes = sorted(p.name for p in args.out.parent.glob(f"{args.out.stem}-*misses.md"))
-    args.out.write_text(render(summaries, sha256, notes), "utf-8")
+    args.out.write_text(render(summaries, sha256, notes, str(args.log_dir)), "utf-8")
     args.out.with_suffix(".json").write_text(json.dumps(summaries, indent=1, default=str), "utf-8")
     print(f"{len(summaries)} runs written to {args.out}")
 

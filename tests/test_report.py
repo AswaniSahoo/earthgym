@@ -120,6 +120,12 @@ def test_render_gives_when_each_task_ran(tmp_path):
     assert "climaqa_mcq from 2026-01-01T00:00:00+00:00 to 2026-01-01T00:10:00+00:00" in text
 
 
+def test_render_names_the_log_directory(tmp_path):
+    summary = report.summarize(run(tmp_path, "ANSWER: B"))
+    text = report.render([summary], set_sha256="abc123", log_dir="logs/x")
+    assert "Logs: `logs/x` (not in git)." in text
+
+
 def test_summary_records_the_run_config(tmp_path):
     log = run(tmp_path, "ANSWER: B", GenerateConfig(max_tokens=50), temperature=0.0)
     log.eval.revision = EvalRevision(type="git", origin="o", commit="abc1234", dirty=True)
