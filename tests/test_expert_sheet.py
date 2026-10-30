@@ -47,3 +47,23 @@ def test_write_once_keeps_a_sheet_the_expert_may_have_filled(tmp_path):
     path.write_text("filled", encoding="utf-8")
     assert expert_sheet.write_once([], path) is False
     assert path.read_text(encoding="utf-8") == "filled"
+
+
+def test_mcq_notes_have_six_columns_and_the_sheet_shows_the_chosen_option():
+    note = "| 36 | HYPOTHETICAL | A | D | ambiguous | a reason |\n"
+    flags = expert_sheet.note_rows(note, "mcq")
+    assert flags == [("gold/mcq/36", "D", "ambiguous", "a reason")]
+    record = {**RECORDS[3], "id": "gold/mcq/36"}
+    assert expert_sheet.sheet([record], flags, {}, hits=0)[0]["model_answer"] == "D) z"
+
+
+def test_sheet_restores_a_reply_the_note_could_not_write_verbatim():
+    record = {
+        "id": "gold/cloze/37",
+        "task": "cloze",
+        "question": "<MASK> interactions.",
+        "answer": "x",
+    }
+    flags = [("gold/cloze/37", "Aerosol-cloud", "strictness: word order", "a reason")]
+    row = expert_sheet.sheet([record], flags, {}, hits=0)[0]
+    assert row["model_answer"] == "Aerosol\u2013cloud"  # the logged reply has an en dash

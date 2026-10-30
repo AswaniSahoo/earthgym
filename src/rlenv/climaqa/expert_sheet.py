@@ -21,6 +21,9 @@ EXTRAS = {  # baseline review M4 (reviews/phase-2-climaqa-port.md), kept items t
     "gold/mcq/56": "tests the source document (baseline review M4)",
     "gold/mcq/215": "tests the source document (baseline review M4)",
 }
+VERBATIM = {  # logged replies a note writes with a hyphen, to keep its prose free of dashes
+    "gold/cloze/37": "Aerosol\u2013cloud",
+}
 SHEET = Path("reports/climaqa/expert_review_v2.csv")
 SEED, HITS = 20261030, 20  # only misses were read, so the expert also sees a sample of hits
 COLUMNS = ["id", "task", "question", "options", "key", "model_answer", "flag", "our_note"]
@@ -66,7 +69,8 @@ def sheet(
 ) -> list[dict]:
     """The flagged items, then the extras, then a seeded sample of the other items."""
     by_id = {r["id"]: r for r in rows}
-    entries = list(flags) + [(i, None, "kept, flagged by review", n) for i, n in extras.items()]
+    entries = [(i, VERBATIM.get(i, answer), flag, note) for i, answer, flag, note in flags]
+    entries += [(i, None, "kept, flagged by review", n) for i, n in extras.items()]
     flagged = {entry[0] for entry in entries}
     pool = [r["id"] for r in rows if r["id"] not in flagged]
     entries += [(i, None, "sampled hit", "") for i in random.Random(seed).sample(pool, hits)]
