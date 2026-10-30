@@ -5,11 +5,20 @@ the 72 h up to the init and the climatology at the valid time go into the prompt
 truth and the IFS HRES forecast stay hidden for the reward and the baseline rows.
 """
 
+import argparse
+import hashlib
+import json
 import random
 from datetime import timedelta
+from pathlib import Path
 
-from rlenv.era5 import data
+import numpy as np
 
+from rlenv.era5 import data, scores
+
+SEED, PER_GROUP = 20261030, 120  # 2 variables x 3 leads x 120 = 720 items
+OUT = Path("environments/era5_forecast_v1/era5_forecast_v1/era5_forecast_v1.jsonl")
+MANIFEST = Path("reports/era5/items_v1_manifest.json")
 VARIABLES = ["mean_sea_level_pressure", "2m_temperature"]
 LEADS = [24, 48, 72]
 DECIMALS = {"mean_sea_level_pressure": 1, "2m_temperature": 2}  # Pa and K as shown
@@ -54,4 +63,57 @@ def make_item(variable: str, lead: int, k: int, i: int, j: int, fields: dict) ->
         "climatology": round(float(normal), places),
         "truth": at(valid),
         "hres": round(float(fields["hres"][(variable, lead)][k, i, j]), places),
+        "area_weight": float(scores.area_weights(fields["latitude"])[i]),
     }
+
+
+def read_fields() -> dict:
+    """ERA5, climatology and HRES (24, 48, 72 h) for both variables from the pinned stores;
+    about 56 MB of chunks."""
+    era5, hres = data.open_store(data.ERA5), data.open_store(data.HRES)
+    clim = data.open_store(data.CLIMATOLOGY)
+    inits = [data.FIRST_INIT + timedelta(hours=12 * k) for k in range(data.INITS)]
+    first = inits[0] - timedelta(hours=6 * (HISTORY_STEPS - 1))
+    steps = (inits[-1] + timedelta(hours=max(LEADS)) - first) // timedelta(hours=6) + 1
+    era5_times = [first + timedelta(hours=6 * s) for s in range(steps)]
+    e = data.positions(era5["time"][:], data.store_hours(era5, era5_times))
+    h = data.positions(hres["time"][:], data.store_hours(hres, inits))
+    if not ((np.diff(e) == 1).all() and (np.diff(h) == 1).all()):
+        raise ValueError("ERA5 steps or HRES inits are not consecutive in the store")
+    leads = data.positions(hres["prediction_timedelta"][:], LEADS)
+    latitude, longitude = data.grid(hres, era5, clim)
+    fields = {"inits": inits, "latitude": latitude, "longitude": longitude}
+    fields |= {"era5_times": era5_times, "era5": {}, "clim": {}, "hres": {}}
+    fields |= {"clim_hours": clim["hour"][:], "clim_days": clim["dayofyear"][:]}
+    for v in VARIABLES:  # stores hold (..., longitude, latitude); items want latitude first
+        fields["era5"][v] = np.swapaxes(era5[v][e[0] : e[-1] + 1], -1, -2)
+        fields["clim"][v] = np.swapaxes(clim[v][:], -1, -2)
+        for lead, k in zip(LEADS, leads, strict=True):
+            fields["hres"][(v, lead)] = np.swapaxes(hres[v][h[0] : h[-1] + 1, k], -1, -2)
+    return fields
+
+
+def write(rows: list[dict], out: Path = OUT, manifest: Path = MANIFEST) -> str:
+    """One JSON object per line, and a manifest with the file's sha256 and how it was made."""
+    text = "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(text, "utf-8")
+    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    meta = {"version": "v1", "items": len(rows), "sha256": digest, "seed": SEED}
+    meta |= {"per_group": PER_GROUP, "variables": VARIABLES, "leads": LEADS}
+    meta |= {"history_steps": HISTORY_STEPS, "stores": data.METADATA_SHA256}
+    manifest.parent.mkdir(parents=True, exist_ok=True)
+    manifest.write_text(json.dumps(meta, indent=1) + "\n", "utf-8")
+    return digest
+
+
+def main() -> None:
+    argparse.ArgumentParser(description="Build the era5-forecast-v1 items.").parse_args()
+    fields = read_fields()
+    shape = (data.INITS, len(fields["latitude"]), len(fields["longitude"]))
+    rows = [make_item(*pick, fields) for pick in plan(SEED, PER_GROUP, *shape)]
+    print(f"{len(rows)} items, sha256 {write(rows)}")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,6 +1,9 @@
+import hashlib
+import json
 from datetime import datetime, timedelta
 
 import numpy as np
+import pytest
 
 from rlenv.era5 import items
 
@@ -19,7 +22,7 @@ def fields():
     clim[0, INIT.timetuple().tm_yday, 1, 2] = 288.456  # 00 UTC on the day after the init
     return {
         "inits": [INIT],
-        "latitude": np.array([-45.0, 45.0]),
+        "latitude": np.array([-60.0, 0.0]),  # cell areas 0.5 and 1, so weights 2/3 and 4/3
         "longitude": np.array([0.0, 120.0, 240.0]),
         "era5_times": [INIT - timedelta(hours=72) + timedelta(hours=6 * s) for s in range(20)],
         "era5": {T2M: (1000.0 * steps + grid).astype("f4")},
@@ -38,9 +41,10 @@ def test_make_item_takes_history_truth_climatology_and_hres_at_its_cell():
     assert (item["climatology"], item["hres"]) == (288.46, 300.12)  # 2 decimals for kelvin
     assert (item["valid_time"], item["latitude"], item["longitude"]) == (
         "2020-07-02T00",
-        45.0,
+        0.0,
         240.0,
     )
+    assert item["area_weight"] == pytest.approx(4 / 3)
 
 
 def test_plan_is_seeded_and_balanced_over_variables_and_leads():
@@ -48,3 +52,17 @@ def test_plan_is_seeded_and_balanced_over_variables_and_leads():
     assert first == items.plan(seed=7, per_group=5, inits=10, lats=4, lons=8)
     groups = {(v, lead) for v, lead, *_ in first}
     assert len(first) == 30 and len(groups) == 6
+
+
+def test_write_saves_items_as_jsonl_and_a_manifest_with_their_sha256(tmp_path):
+    out, manifest = tmp_path / "items.jsonl", tmp_path / "manifest.json"
+    items.write([{"id": "b", "x": 1}, {"id": "a", "x": 2}], out, manifest)
+    assert [json.loads(line)["id"] for line in out.read_text().splitlines()] == ["b", "a"]
+    meta = json.loads(manifest.read_text())
+    assert meta["sha256"] == hashlib.sha256(out.read_bytes()).hexdigest() and meta["items"] == 2
+
+
+def test_bundled_items_match_their_manifest():
+    meta = json.loads(items.MANIFEST.read_text())
+    assert hashlib.sha256(items.OUT.read_bytes()).hexdigest() == meta["sha256"]
+    assert len(items.OUT.read_text().splitlines()) == meta["items"] == 720

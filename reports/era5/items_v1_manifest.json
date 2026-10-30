@@ -1,0 +1,22 @@
+{
+ "version": "v1",
+ "items": 720,
+ "sha256": "481d397afd6c6dca759938fa6e858607f342ac9d05c625e3a3f65117735bbb94",
+ "seed": 20261030,
+ "per_group": 120,
+ "variables": [
+  "mean_sea_level_pressure",
+  "2m_temperature"
+ ],
+ "leads": [
+  24,
+  48,
+  72
+ ],
+ "history_steps": 13,
+ "stores": {
+  "era5/1959-2023_01_10-6h-64x32_equiangular_conservative.zarr": "2a8290ef10bc7bebaa895bc17f42e305cdd004bdf9a0d92e0adae2cf39ba970d",
+  "hres/2016-2022-0012-64x32_equiangular_conservative.zarr": "62811c8101885386acc33e3fe49641af74936d87eb2409ecf47dc193a777db9a",
+  "era5-hourly-climatology/1990-2019_6h_64x32_equiangular_conservative.zarr": "f876a07f4c65d5375abad6bca5bb5af3eb115ff6aedc9c125dfeccc2e187c474"
+ }
+}
