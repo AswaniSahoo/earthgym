@@ -1,0 +1,46 @@
+[
+ {
+  "task": "climaqa_cloze",
+  "model": "google/vertex/gemini-3.8-flash",
+  "created": "2026-10-30T09:02:52+00:00",
+  "n": 128,
+  "accuracy": 0.7421875,
+  "stderr": 0.038815657085642094,
+  "format_failures": 0,
+  "by_complexity": {
+   "none": 0.7421875
+  },
+  "inspect_ai": "0.3.286",
+  "commit": "3c70706 (dirty)",
+  "generate_config": "provider defaults",
+  "tokens": {
+   "input": 7355,
+   "output": 93511,
+   "reasoning": 93278
+  },
+  "log": "2026-10-30T09-02-52-00-00_climaqa-cloze_ka7bjCEUzguyPHWJHjUiW5.eval"
+ },
+ {
+  "task": "climaqa_mcq",
+  "model": "google/vertex/gemini-3.8-flash",
+  "created": "2026-10-30T09:02:52+00:00",
+  "n": 222,
+  "accuracy": 0.8738738738738738,
+  "stderr": 0.022332161986243763,
+  "format_failures": 0,
+  "by_complexity": {
+   "BASE": 0.9065420560747663,
+   "HYPOTHETICAL": 0.8478260869565217,
+   "REASONING": 0.8405797101449275
+  },
+  "inspect_ai": "0.3.286",
+  "commit": "3c70706 (dirty)",
+  "generate_config": "provider defaults",
+  "tokens": {
+   "input": 24284,
+   "output": 121121,
+   "reasoning": 108017
+  },
+  "log": "2026-10-30T09-02-52-00-00_climaqa-mcq_mHpv6vbThqR6BGsruPC8Fi.eval"
+ }
+]
