@@ -1,7 +1,9 @@
 # 0005: how clean set v2 handles cloze, and which items reward a policy
 
-Date: 2026-10-30. Status: proposed. Nothing is implemented until Aswani says yes; the v1
-contract (0004) and clean set v1 stay unchanged until then.
+Date: 2026-10-30. Status: accepted (Aswani, 2026-10-30). No expert reviewer is named yet: after
+Phase 3 stage 2 the build session prepares a review sheet of the flagged items for that
+expert, and only the expert writes accepted answers. The v1 contract (0004) and clean set v1
+stay as they are until the review is done.
 
 Context: the first baseline (Gemini 3.8 Flash on clean set v1) has two miss notes, each one
 reader's sort:
