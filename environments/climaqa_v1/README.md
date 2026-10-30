@@ -1,12 +1,12 @@
 # climaqa-v1
 
-ClimaQA clean set v0 as a verifiers v1 taskset: 226 MCQ and 151 cloze items from the
+ClimaQA clean set v1 as a verifiers v1 taskset: 222 MCQ and 128 cloze items from the
 expert-validated Gold split, with the items found verbatim in Silver (the paper's fine-tuning set)
-and the defective items removed. Source: Rose-STL-Lab/ClimaQA at revision 3f084a0, Apache-2.0,
+the defective items and the items that give their answer away removed. Source: Rose-STL-Lab/ClimaQA at revision 3f084a0, Apache-2.0,
 arXiv 2410.16701.
 
 Rewards are exact: MCQ scores 1 when the last standalone capital letter A to D in the reply is the
-key (options are shuffled per item with a fixed seed); cloze scores 1 when the reply equals the
+key (options were shuffled once per item id when the set was built); cloze scores 1 when the reply equals the
 key, ignoring case and punctuation.
 
 Regenerate the bundled file from the repo root:

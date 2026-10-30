@@ -1,7 +1,6 @@
-"""ClimaQA clean set v0 as a verifiers v1 taskset: MCQ and cloze with exact rewards."""
+"""ClimaQA clean set v1 as a verifiers v1 taskset: MCQ and cloze with exact rewards."""
 
 import json
-import random
 import re
 from importlib.resources import files
 
@@ -45,13 +44,13 @@ class ClimaqaTask(vf.Task[ClimaqaData]):
 
 class ClimaqaConfig(vf.TasksetConfig):
     kinds: list[str] = ["mcq", "cloze"]
-    shuffle_seed: int = 20261030
-    """Seeds the per-item option order, so a policy cannot learn answer positions."""
 
 
 class ClimaqaTaskset(vf.Taskset[ClimaqaTask, ClimaqaConfig]):
     def load(self) -> list[ClimaqaTask]:
-        lines = files("climaqa_v1").joinpath("climaqa_v0.jsonl").read_text("utf-8").splitlines()
+        lines = (
+            files("climaqa_v1").joinpath("climaqa_clean_v1.jsonl").read_text("utf-8").splitlines()
+        )
         rows = [json.loads(line) for line in lines]
         return [
             ClimaqaTask(self.to_data(row), self.config.task)
@@ -69,9 +68,7 @@ class ClimaqaTaskset(vf.Taskset[ClimaqaTask, ClimaqaConfig]):
                 answer=row["answer"],
                 key_text=row["answer"],
             )
-        options = list(row["options"])
-        key_text = options[LETTERS.index(row["answer"])]
-        random.Random(f"{self.config.shuffle_seed}:{row['id']}").shuffle(options)
+        options = row["options"]  # already shuffled once, per item id, by rlenv.climaqa.clean
         listed = "\n".join(
             f"{letter}) {text}" for letter, text in zip(LETTERS, options, strict=True)
         )
@@ -80,6 +77,6 @@ class ClimaqaTaskset(vf.Taskset[ClimaqaTask, ClimaqaConfig]):
             id=row["id"],
             prompt=prompt,
             kind="mcq",
-            answer=LETTERS[options.index(key_text)],
-            key_text=key_text,
+            answer=row["answer"],
+            key_text=options[LETTERS.index(row["answer"])],
         )

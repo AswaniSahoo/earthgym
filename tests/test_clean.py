@@ -32,22 +32,35 @@ def test_clean_keeps_validated_items_and_logs_every_exclusion():
         ]
     }
     kept, excluded = clean.clean(rows, report)
-    assert [r["id"] for r in kept] == ["gold/mcq/0", "gold/cloze/0"]
+    assert [r["id"] for r in kept] == ["gold/mcq/0"]
     assert excluded == [
         {"id": "gold/mcq/1", "reasons": ["rejected by experts"]},
         {"id": "gold/mcq/2", "reasons": ["leak.gold_in_silver"]},
+        {"id": "gold/cloze/0", "reasons": ["cloze.answer_in_question"]},
     ]
 
 
-def test_mcq_record_lists_option_texts_in_order_and_the_key_letter():
+def test_mcq_options_are_shuffled_once_and_the_key_follows_its_text():
     kept, _ = clean.clean({("gold", "mcq"): [mcq("0")], ("gold", "cloze"): []}, {"findings": []})
-    assert kept[0]["options"] == [
-        "Warm air rises.",
-        "Cold air rises.",
-        "Still air.",
-        "Sinking air.",
-    ]
-    assert kept[0]["answer"] == "A" and kept[0]["task"] == "mcq"
+    options, key = kept[0]["options"], kept[0]["answer"]
+    assert sorted(options) == sorted(
+        ["Warm air rises.", "Cold air rises.", "Still air.", "Sinking air."]
+    )
+    assert options["ABCD".index(key)] == "Warm air rises." and kept[0]["task"] == "mcq"
+
+
+def test_keys_spread_across_letters_after_the_shuffle():
+    rows = {("gold", "mcq"): [mcq(str(i)) for i in range(20)], ("gold", "cloze"): []}
+    kept, _ = clean.clean(rows, {"findings": []})
+    assert len({r["answer"] for r in kept}) > 1
+
+
+def test_shuffle_depends_only_on_the_item_id_not_its_neighbours():
+    alone, _ = clean.clean({("gold", "mcq"): [mcq("7")], ("gold", "cloze"): []}, {"findings": []})
+    crowd, _ = clean.clean(
+        {("gold", "mcq"): [mcq("3"), mcq("7"), mcq("9")], ("gold", "cloze"): []}, {"findings": []}
+    )
+    assert alone[0]["options"] == crowd[1]["options"]
 
 
 def test_cloze_key_loses_trailing_punctuation_so_exact_match_is_fair():
@@ -59,11 +72,11 @@ def test_cloze_key_loses_trailing_punctuation_so_exact_match_is_fair():
     assert kept[0]["answer"] == "evaporation"
 
 
-def test_manifest_counts_kept_and_excluded_by_reason():
+def test_manifest_counts_by_reason_and_pins_the_set_by_sha256():
     kept = [{"task": "mcq"}, {"task": "cloze"}, {"task": "mcq"}]
     excluded = [{"id": "gold/mcq/1", "reasons": ["rejected by experts", "leak.gold_in_silver"]}]
-    assert clean.manifest(kept, excluded)["kept"] == {"cloze": 1, "mcq": 2}
-    assert clean.manifest(kept, excluded)["excluded_by_reason"] == {
-        "leak.gold_in_silver": 1,
-        "rejected by experts": 1,
-    }
+    text = clean.serialize(kept)
+    summary = clean.manifest(kept, excluded, text)
+    assert summary["kept"] == {"cloze": 1, "mcq": 2}
+    assert summary["excluded_by_reason"] == {"leak.gold_in_silver": 1, "rejected by experts": 1}
+    assert summary["sha256"] == __import__("hashlib").sha256(text.encode()).hexdigest()

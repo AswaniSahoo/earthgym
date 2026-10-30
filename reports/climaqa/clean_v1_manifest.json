@@ -1,14 +1,18 @@
 {
  "dataset": "Rose-STL-Lab/ClimaQA",
  "revision": "3f084a0202c6260e588fb5b681d2e4ec859a3845",
- "version": "v0",
+ "version": "v1",
+ "sha256": "5f345d8e234b65a310b8de47f1d99059b47c6e2429c5f22b80b154ef6b698464",
  "kept": {
-  "cloze": 151,
-  "mcq": 226
+  "cloze": 128,
+  "mcq": 222
  },
  "excluded_by_reason": {
+  "cloze.answer_in_question": 24,
   "leak.gold_in_other_silver_task": 2,
   "leak.gold_in_silver": 26,
+  "mcq.all_or_none_of_above": 2,
+  "mcq.answer_in_question": 5,
   "mcq.duplicate_options": 1,
   "rejected by experts": 47
  },
@@ -51,6 +55,12 @@
    ]
   },
   {
+   "id": "gold/mcq/20",
+   "reasons": [
+    "mcq.all_or_none_of_above"
+   ]
+  },
+  {
    "id": "gold/mcq/22",
    "reasons": [
     "leak.gold_in_silver"
@@ -60,6 +70,12 @@
    "id": "gold/mcq/26",
    "reasons": [
     "rejected by experts"
+   ]
+  },
+  {
+   "id": "gold/mcq/34",
+   "reasons": [
+    "mcq.answer_in_question"
    ]
   },
   {
@@ -231,6 +247,12 @@
    ]
   },
   {
+   "id": "gold/mcq/173",
+   "reasons": [
+    "mcq.answer_in_question"
+   ]
+  },
+  {
    "id": "gold/mcq/176",
    "reasons": [
     "leak.gold_in_silver"
@@ -327,6 +349,12 @@
    ]
   },
   {
+   "id": "gold/mcq/236",
+   "reasons": [
+    "mcq.all_or_none_of_above"
+   ]
+  },
+  {
    "id": "gold/mcq/240",
    "reasons": [
     "leak.gold_in_silver"
@@ -377,12 +405,14 @@
   {
    "id": "gold/mcq/265",
    "reasons": [
+    "mcq.answer_in_question",
     "rejected by experts"
    ]
   },
   {
    "id": "gold/mcq/273",
    "reasons": [
+    "mcq.answer_in_question",
     "rejected by experts"
    ]
   },
@@ -407,13 +437,21 @@
   {
    "id": "gold/mcq/291",
    "reasons": [
+    "mcq.answer_in_question",
     "rejected by experts"
    ]
   },
   {
    "id": "gold/cloze/0",
    "reasons": [
+    "cloze.answer_in_question",
     "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/cloze/2",
+   "reasons": [
+    "cloze.answer_in_question"
    ]
   },
   {
@@ -423,15 +461,93 @@
    ]
   },
   {
+   "id": "gold/cloze/20",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/21",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/25",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/28",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/30",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/32",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/33",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/35",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/39",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
    "id": "gold/cloze/44",
    "reasons": [
     "leak.gold_in_silver"
    ]
   },
   {
+   "id": "gold/cloze/45",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
    "id": "gold/cloze/50",
    "reasons": [
     "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/cloze/58",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/60",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/68",
+   "reasons": [
+    "cloze.answer_in_question"
    ]
   },
   {
@@ -447,9 +563,33 @@
    ]
   },
   {
+   "id": "gold/cloze/95",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/97",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
    "id": "gold/cloze/104",
    "reasons": [
     "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/cloze/113",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/115",
+   "reasons": [
+    "cloze.answer_in_question"
    ]
   },
   {
@@ -462,6 +602,36 @@
    "id": "gold/cloze/123",
    "reasons": [
     "leak.gold_in_silver"
+   ]
+  },
+  {
+   "id": "gold/cloze/132",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/134",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/137",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/143",
+   "reasons": [
+    "cloze.answer_in_question"
+   ]
+  },
+  {
+   "id": "gold/cloze/155",
+   "reasons": [
+    "cloze.answer_in_question"
    ]
   }
  ]
