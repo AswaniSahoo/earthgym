@@ -6,7 +6,7 @@
   "n": 128,
   "accuracy": 0.7421875,
   "stderr": 0.038815657085642094,
-  "format_failures": 0,
+  "format_failures": null,
   "by_complexity": {
    "none": {
     "n": 128,

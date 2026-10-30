@@ -14,12 +14,13 @@ from inspect_ai.scorer import CORRECT
 
 def summarize(log: EvalLog) -> dict:
     by_level: dict[str, list[bool]] = defaultdict(list)
-    format_failures = 0
+    format_failures, mcq = 0, False
     for sample in log.samples or []:
         score = next(iter(sample.scores.values()))
         by_level[sample.metadata.get("complexity") or "none"].append(score.value == CORRECT)
-        if sample.metadata.get("task") == "mcq" and not score.answer:
-            format_failures += 1  # no clean 'ANSWER: X' line
+        if sample.metadata.get("task") == "mcq":
+            mcq = True
+            format_failures += not score.answer  # no clean 'ANSWER: X' line
     metrics = log.results.scores[0].metrics
     rev = log.eval.revision
     # eval-level settings override the model's own, as in Model._resolve_config
@@ -32,7 +33,7 @@ def summarize(log: EvalLog) -> dict:
         "n": len(log.samples or []),
         "accuracy": metrics["accuracy"].value,
         "stderr": metrics["stderr"].value,
-        "format_failures": format_failures,
+        "format_failures": format_failures if mcq else None,  # only MCQ has an answer format
         "by_complexity": {
             k: {"n": len(v), "accuracy": sum(v) / len(v)} for k, v in sorted(by_level.items())
         },
@@ -58,9 +59,10 @@ def render(summaries: list[dict], set_sha256: str) -> str:
         "|---|---|---|---|---|---|",
     ]
     for s in summaries:
+        fails = "n/a" if s["format_failures"] is None else s["format_failures"]
         lines.append(
             f"| {s['task']} | {s['model']} | {s['n']} | {s['accuracy']:.3f} | "
-            f"{s['stderr']:.3f} | {s['format_failures']} |"
+            f"{s['stderr']:.3f} | {fails} |"
         )
     lines += [
         "",

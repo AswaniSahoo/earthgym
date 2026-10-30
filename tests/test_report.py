@@ -26,13 +26,32 @@ MCQ = [
 ]
 
 
-def run(tmp_path, reply, model_config=None, **config):
+CLOZE = [
+    {
+        "id": "gold/cloze/1",
+        "task": "cloze",
+        "question": "The <MASK> rises.",
+        "answer": "sun",
+        "complexity": "",
+    },
+    {
+        "id": "gold/cloze/2",
+        "task": "cloze",
+        "question": "The <MASK> falls.",
+        "answer": "rain",
+        "complexity": "",
+    },
+]
+
+
+def run(tmp_path, reply, model_config=None, kind="mcq", **config):
+    rows = MCQ if kind == "mcq" else CLOZE
     path = tmp_path / "set.jsonl"
-    path.write_text("".join(json.dumps(r) + "\n" for r in MCQ), encoding="utf-8")
+    path.write_text("".join(json.dumps(r) + "\n" for r in rows), encoding="utf-8")
     output = ModelOutput.from_content("mockllm/model", reply)
     output.usage = ModelUsage(input_tokens=10, output_tokens=5, total_tokens=15, reasoning_tokens=3)
-    model = get_model("mockllm/model", config=model_config, custom_outputs=[output] * len(MCQ))
-    task = tasks.climaqa_mcq(path=str(path))
+    model = get_model("mockllm/model", config=model_config, custom_outputs=[output] * len(rows))
+    task = (tasks.climaqa_mcq if kind == "mcq" else tasks.climaqa_cloze)(path=str(path))
     return eval(task, model=model, log_dir=str(tmp_path / "logs"), display="none", **config)[0]
 
 
@@ -55,6 +74,13 @@ def test_render_gives_n_and_accuracy_per_complexity_level(tmp_path):
     text = report.render([report.summarize(run(tmp_path, "ANSWER: B"))], set_sha256="abc123")
     assert "| climaqa_mcq | BASE | 1 | 1.000 |" in text
     assert "| climaqa_mcq | REASONING | 1 | 0.000 |" in text
+
+
+def test_cloze_runs_report_no_format_check(tmp_path):
+    summary = report.summarize(run(tmp_path, "sun", kind="cloze"))
+    assert summary["format_failures"] is None
+    text = report.render([summary], set_sha256="abc123")
+    assert "| climaqa_cloze | mockllm/model | 2 | 0.500 | 0.500 | n/a |" in text
 
 
 def test_summary_records_the_run_config(tmp_path):
