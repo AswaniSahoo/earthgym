@@ -2,6 +2,7 @@
 name = "era5-forecast-v1"
 version = "0.1.0"
 description = "ERA5 forecast tasks rewarded by skill over persistence and climatology, graded by the WeatherBench 2 rules."
+readme = "README.md"
 requires-python = ">=3.12"
 dependencies = ["verifiers>=0.4.0,<0.5"]
 
