@@ -39,6 +39,8 @@ Plan (2026-10-30, from the radar in docs/radar.md):
       environments/era5_forecast_v1/README.md
 - [x] The 0005 review sheet: reports/climaqa/expert_review_v2.csv (83 rows, expert columns
       empty) and its instructions, expert_review_v2.md
+- [x] Reward floors by rule, a technical choice: the 10th percentile of the better-baseline
+      error per variable, 28.75 Pa and 0.069 K, each binding on 36 of 360 items
 - [ ] Phase 3 review (Fable): reviews/phase-3-era5-forecast.md
 
 ## Waiting on Aswani
@@ -47,8 +49,6 @@ Plan (2026-10-30, from the radar in docs/radar.md):
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
 - [ ] Name the domain expert for the 0005 review; the sheet is ready:
       reports/climaqa/expert_review_v2.csv
-- [ ] The 2 m temperature reward floor: 0.5 K binds on 167 of 360 items (median better-baseline
-      error 0.53 K) and caps their reward; 0.2 K would bind on about a quarter. Keep or lower?
 
 ## Done
 

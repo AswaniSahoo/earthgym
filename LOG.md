@@ -16,17 +16,22 @@ Newest first. One entry per working session: what changed, what we learned, what
   anomaly statistics over all inits before the ratio (WeatherBench-X); the WB2 paper's mean of
   per-init correlations gives 0.981470 on the same data. Read the code that made a number, not
   only the paper that defines it.
-- Decisions from Aswani, about 19:25 IST: 0007 accepted as forecast-answer tasks with a reward
-  of clip((b - e) / max(b, floor), 0, 1) over the better of persistence and climatology, so
-  copying a baseline earns 0; 0005 accepted, with the review sheet after stage 2 and accepted
-  answers written only by the expert.
+- Decisions from Aswani, about 19:25 IST: 0007 accepted as forecast-answer tasks, rewarded by
+  skill over the better of persistence and climatology, bounded, so copying a baseline earns
+  0; 0005 accepted, with the review sheet after stage 2 and accepted answers written only by
+  the expert. The reward floor was not his decision (see the correction below).
 - Stage 2 so far: the answer contract and reward (copying a baseline earns 0 exactly), the
   prompt, and 720 items (MSLP and 2 m temperature, leads 24, 48, 72 h) built from the pinned
   stores. Baseline rows: persistence, climatology and the always-climatology policy earn
   0.000; IFS HRES earns 0.57 to 0.66 (MSLP) and 0.28 to 0.45 (2 m temperature). HRES item RMSE
   at 72 h (139.4 Pa, 0.86 K) sits near the published global values (133.9 Pa, 0.881 K).
-- Finding: the 0.5 K floor binds on 167 of 360 temperature items (median better-baseline error
-  0.53 K), so it caps those rewards; MSLP's 50 Pa binds on 65 of 360. Left for Aswani.
+- Finding: the first floors, 50 Pa and 0.5 K (the build session's own guess), bound on 65 and
+  167 of 360 items; 0.5 K capped nearly half the temperature rewards.
+- Correction: earlier notes said Aswani set those floors; he did not. The guard was suggested
+  in coordination and its values are a technical choice. Rule now: each variable's floor is
+  the 10th percentile of the better-baseline error over the items (baseline data only), 28.75
+  Pa and 0.069 K, each binding on 36 of 360. HRES rewards on 2 m temperature rose to 0.30 to
+  0.49; every copy-baseline row still pays 0.000.
 - Lesson: a piped `pytest | tail` hid a failing test and let a commit through (amended before
   any push); every commit now runs with `set -o pipefail`.
 - The verifiers taskset (720 of 720 valid) and the Inspect task share one contract; the
