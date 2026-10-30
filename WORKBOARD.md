@@ -29,7 +29,8 @@ Plan (2026-10-30, from the radar in docs/radar.md):
 - [x] `rlenv.era5.scores`: area weights, MSE, RMSE, bias, in float64, test-first
 - [x] Pinned subset (12.0 MB, content sha256 pinned) and the reproduction: 133.890547 Pa,
       equal to the published WB2 value; reports/era5/2026-10-30-wb2-reproduction.md
-- [ ] ACC against the 1990 to 2019 climatology (T2M climatology chunk, 7.0 MB)
+- [x] ACC against the 1990 to 2019 climatology: MSLP 0.981878, equal to the published value;
+      pooled over inits as WeatherBench-X does (the WB2 paper's per-init mean gives 0.981470)
 - [ ] Stage 2 task design, after Aswani's choice
 
 ## Waiting on Aswani

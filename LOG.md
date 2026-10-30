@@ -12,7 +12,12 @@ Newest first. One entry per working session: what changed, what we learned, what
 - Lesson: on a grid without poles, cell-area weights equal cosine weights, so only a test on
   a grid with poles catches a cosine bug. Lesson: float32 squares shift MSE at the eighth
   digit; the scores now compute in float64.
-- Next: ACC; stage 2 task design waits for Aswani.
+- ACC reproduced too: 0.981878, the published value. Finding: the published ACC pools the
+  anomaly statistics over all inits before the ratio (WeatherBench-X); the WB2 paper's mean of
+  per-init correlations gives 0.981470 on the same data. Read the code that made a number, not
+  only the paper that defines it.
+- Next: stage 2 task design waits for Aswani; until then, more reproduction checks (bias,
+  T2M) are possible within the 100 MB limit.
 
 ## 2026-10-30, Phase 2 baseline
 
