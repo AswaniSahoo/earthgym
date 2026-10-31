@@ -2,6 +2,13 @@
 
 Newest first. One entry per working session: what changed, what we learned, what is next.
 
+## 2026-11-01, Phase 4 start
+
+- Aswani parked the Jev third-reader study: there is no TypeSafe key now. The code stays as
+  it is; no call was made and nothing was spent.
+- Phase 3 is closed in the README and the workboard; its first model run waits for Aswani.
+- Phase 4, the IBTrACS cyclone analytics environment, starts with a scout radar check.
+
 ## 2026-10-31, Jev third reader
 
 - Task from Aswani: TypeSafe's Jev re-sorts the 83 rows of the expert review sheet, to
