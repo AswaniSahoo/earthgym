@@ -26,8 +26,9 @@ def reward(item: dict, forecast: float | None) -> float:
     return contract.reward(forecast, item["truth"], persistence, climatology, item["floor"])
 
 
-def rows(records: list[dict]) -> list[dict]:
-    """Per variable, lead and baseline: n, area-weighted RMSE and ACC, and the mean reward."""
+def rows(records: list[dict], forecasts: dict = BASELINES) -> list[dict]:
+    """Per variable, lead and forecast (the baselines unless given): n, area-weighted RMSE and
+    ACC, and the mean reward."""
     out = []
     for variable in items.VARIABLES:
         for lead in items.LEADS:
@@ -37,7 +38,7 @@ def rows(records: list[dict]) -> list[dict]:
             w = np.array([r["area_weight"] for r in group])
             y = np.array([r["truth"] for r in group])
             c = np.array([r["climatology"] for r in group])
-            for name, forecast in BASELINES.items():
+            for name, forecast in forecasts.items():
                 f = np.array([forecast(r) for r in group])
                 acc = scores.item_acc(f, y, c, w) if np.any(f != c) else None
                 paid = [reward(r, value) for r, value in zip(group, f, strict=True)]
