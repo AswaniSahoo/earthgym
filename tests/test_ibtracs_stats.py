@@ -77,6 +77,9 @@ def test_season_leaves_out_spur_tracks_and_rows_outside_the_basin():
         row("E", "2024-09-02 06:00:00", "HU", 80, basin="EP"),
     ]
     other_year = [row("F", "2023-09-01 06:00:00", "TS", 40, season="2023")]
-    result = stats.season(A + spur + crossing + other_year, 2024)
-    assert result | {"ace": None} == {"named": 2, "hurricanes": 1, "major": 0, "ace": None}
-    assert result["ace"] == pytest.approx(0.9 + 0.16)  # A, and E's 40 kt row inside the basin
+    five = [row("K", "2024-09-05 12:00:00", "HU", 140)]
+    result = stats.season(A + spur + crossing + other_year + five, 2024)
+    counts = {"named": 3, "hurricanes": 2, "major": 1, "category5": 1, "ace": None}
+    assert result | {"ace": None} == counts
+    # A, E's 40 kt row inside the basin, and K's 140 kt
+    assert result["ace"] == pytest.approx(0.9 + 0.16 + 1.96)

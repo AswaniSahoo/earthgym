@@ -37,3 +37,5 @@ def test_2024_season(rows):
     s = stats.season(rows, 2024)
     assert (s["named"], s["hurricanes"], s["major"]) == (18, 11, 5)
     assert s["ace"] == pytest.approx(161.6, abs=0.05)
+    # NCEI 202413 summary table: North Atlantic "Category 5 Cyclone (137 kts)" 2
+    assert s["category5"] == 2

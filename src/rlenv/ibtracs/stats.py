@@ -53,13 +53,15 @@ def season(rows: list[dict], year: int, basin: str = "NA") -> dict:
     for r in rows:
         if int(r["SEASON"]) == year:
             tracks[r["SID"]].append(r)
-    totals = {"named": 0, "hurricanes": 0, "major": 0, "ace": 0.0}
+    totals = {"named": 0, "hurricanes": 0, "major": 0, "category5": 0, "ace": 0.0}
     for track in tracks.values():
         if any("spur" in r["TRACK_TYPE"] for r in track):
             continue
-        s = storm([r for r in track if r["BASIN"] == basin])
+        inside = [r for r in track if r["BASIN"] == basin]
+        s = storm(inside)
         totals["named"] += s["named"]
         totals["hurricanes"] += s["hurricane"]
         totals["major"] += s["major"]
+        totals["category5"] += category(inside) == 5
         totals["ace"] += s["ace"]
     return totals
