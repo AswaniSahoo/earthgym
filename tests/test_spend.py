@@ -20,6 +20,12 @@ def test_cost_prices_each_kind_of_token_at_the_sonnet_5_5_rate():
     assert spend.cost(t, batch=True) == pytest.approx(7.3)  # the Batch API halves each price
 
 
+def test_projection_scales_the_probe_mean_and_adds_two_standard_errors():
+    mid, high = spend.project([1.0, 2.0, 3.0], 10)
+    assert mid == pytest.approx(20.0)
+    assert high == pytest.approx(10 * (2.0 + 2 * 1.0 / 3**0.5))  # sample sd 1
+
+
 def test_tokens_sum_over_logs_and_models():
     a = log(input_tokens=10, output_tokens=7, input_tokens_cache_read=3, reasoning_tokens=5)
     b = log(input_tokens=1, output_tokens=2)

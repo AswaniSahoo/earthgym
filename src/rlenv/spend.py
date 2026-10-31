@@ -13,6 +13,7 @@ uv run python -m rlenv.spend "<run>" <log dir>   # appends the run's row to the 
 """
 
 import argparse
+import statistics
 from pathlib import Path
 
 from inspect_ai.log import list_eval_logs, read_eval_log
@@ -28,8 +29,14 @@ TABLE = (
 
 
 def tokens(logs) -> dict:
-    """Token totals over the logs' model usage; Inspect's input count excludes cached tokens."""
-    usage = [u for log in logs for u in log.stats.model_usage.values()]
+    """Token totals over the logs' model usage."""
+    return count(log.stats.model_usage for log in logs)
+
+
+def count(usages) -> dict:
+    """Token totals over model usage maps, a log's or a sample's; Inspect's input count
+    excludes cached tokens."""
+    usage = [u for d in usages for u in d.values()]
     return {
         "input": sum(u.input_tokens for u in usage),
         "cache_write": sum(u.input_tokens_cache_write or 0 for u in usage),
@@ -43,6 +50,13 @@ def cost(t: dict, batch: bool = False) -> float:
     """USD at the page's prices; reasoning tokens are already inside output."""
     usd = sum(t[k] * PRICE[k] for k in PRICE) / 1e6
     return usd / 2 if batch else usd
+
+
+def project(costs: list[float], n: int) -> tuple[float, float]:
+    """A run of n items priced from a probe's per-item costs: the mean, and the mean plus two
+    standard errors as the margin a start decision uses."""
+    mean = statistics.fmean(costs)
+    return n * mean, n * (mean + 2 * statistics.stdev(costs) / len(costs) ** 0.5)
 
 
 def check(text: str) -> float:
