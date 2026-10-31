@@ -19,3 +19,4 @@ Rows are added with `uv run python -m rlenv.spend "<run>" <log dir>`.
 | run | date (UTC) | log | mode | tokens in | cache write | cache read | tokens out | reasoning | cost USD | total USD |
 |---|---|---|---|---|---|---|---|---|---|---|
 | ERA5 probe, 12 items | 2026-10-31 | logs/2026-11-01-era5-claude-sonnet-5-5-probe | batch | 5382 | 0 | 0 | 4102 | 0 | 0.0259 | 0.0259 |
+| ERA5 full run, 720 items | 2026-10-31 | logs/2026-11-01-era5-claude-sonnet-5-5 | batch | 322920 | 0 | 0 | 257940 | 0 | 1.6126 | 1.6385 |
