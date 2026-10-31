@@ -16,4 +16,5 @@ data/
 logs/
 .serena/
 outputs/
-.env
+.env*
+*.swp
