@@ -48,13 +48,31 @@ def opener(request, timeout):
     return Canned(json.dumps(body).encode())
 
 
+def test_rotations_put_each_option_first_once():
+    assert third_reader.rotations("cloze") == [
+        ["same_answer", "other_correct_word", "wrong_reply"],
+        ["other_correct_word", "wrong_reply", "same_answer"],
+        ["wrong_reply", "same_answer", "other_correct_word"],
+    ]
+
+
+def test_run_makes_five_fixed_calls_and_one_per_other_rotation_per_item(tmp_path):
+    out = tmp_path / "responses.jsonl"
+    records = third_reader.run([CLOZE_ROW], "k", out, opener=opener)
+    assert [(r["pass"], r["run"]) for r in records] == [("fixed", k) for k in range(1, 6)] + [
+        ("rotated", 1),
+        ("rotated", 2),
+    ]
+    assert records[5]["order"] == third_reader.rotations("cloze")[1]
+
+
 def test_run_calls_each_item_five_times_and_logs_raw_responses_but_never_the_key(tmp_path):
     out = tmp_path / "responses.jsonl"
     records = third_reader.run(
         [CLOZE_ROW, CLOZE_ROW | {"id": "gold/cloze/5"}], "secret-key", out, opener=opener
     )
     lines = out.read_text(encoding="utf-8").splitlines()
-    assert len(records) == len(lines) == 10 and "secret-key" not in out.read_text(encoding="utf-8")
+    assert len(records) == len(lines) == 14 and "secret-key" not in out.read_text(encoding="utf-8")
     first = json.loads(lines[0])
     assert (first["id"], first["run"], first["response"]["usage"]["input_tokens"]) == (
         "gold/cloze/4",
@@ -131,3 +149,26 @@ def test_render_reports_the_headline_numbers():
     assert "| Jev against the build session | 3 | 1.000 |" in text
     assert "| Jev against Fable's blind sort | 2 | 1.000 |" in text
     assert "Brier score where both sorts agree: 0.256 over 2 items" in text
+
+
+def rotated_item(item, picks):
+    """Fixed run 1 plus two rotated calls; picks maps each order's index to the chosen bucket."""
+    orders = third_reader.rotations("cloze")
+    out = []
+    for r, order in enumerate(orders):
+        choice = picks[r]
+        spread = {name: float(name == choice) for name in order}
+        rec = record(item, "cloze", 1 if r == 0 else r, choice, spread, 0.1)
+        out.append(rec | {"pass": "fixed" if r == 0 else "rotated", "order": order})
+    return out
+
+
+def test_analyse_measures_first_position_bias_over_rotated_orders():
+    leaning = rotated_item("c3", {0: SAME, 1: OTHER, 2: WRONG})  # always the first listed
+    blind = rotated_item("c4", {0: SAME, 1: SAME, 2: SAME})  # the same whatever the order
+    a = third_reader.analyse(leaning + blind, {"c4": SAME}, {})
+    assert (a["first_hits"], a["rotation_calls"]) == (4, 6)  # 3 of 3 and 1 of 3
+    assert a["first_expected"] == pytest.approx(1 / 3) and a["first_gain"] == pytest.approx(0.5)
+    assert a["rotated_modal"]["c4"] == SAME
+    text = third_reader.render(a)
+    assert "first-listed option in 4 of 6 rotated-order calls (0.667; 0.333 if order" in text

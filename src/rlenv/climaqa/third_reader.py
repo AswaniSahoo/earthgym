@@ -43,6 +43,12 @@ def state(row: dict) -> dict:
     return {"sentence": row["question"], "key": row["key"], "reply": row["model_answer"]}
 
 
+def rotations(task: str) -> list[list[str]]:
+    """The fixed option order and its cyclic rotations: each option is listed first once."""
+    names = list(jev.BUCKETS[task])
+    return [names[r:] + names[:r] for r in range(len(names))]
+
+
 def run(
     rows: list[dict],
     key: str,
@@ -52,9 +58,10 @@ def run(
     runs: int = RUNS,
     first_estimate: int = FIRST_ESTIMATE,
 ) -> list[dict]:
-    """RUNS identical requests per item, each raw response appended to `out` as it arrives;
-    stops when the next call might cross the budget. Refuses an existing log, so a second
-    launch cannot spend twice."""
+    """Per item, RUNS identical calls in the fixed order, then one call per other rotation of
+    the options (the first fixed call stands for rotation 0). Each raw response is appended to
+    `out` as it arrives; stops when the next call might cross the budget. Refuses an existing
+    log, so a second launch cannot spend twice."""
     budget = budget or jev.Budget()
     if out.exists():
         raise FileExistsError(f"{out} exists; move it away before a new run")
@@ -62,15 +69,18 @@ def run(
     records, seen = [], []
     with out.open("w", encoding="utf-8") as log:
         for row in rows:
-            body = jev.request(row["task"], state(row))
-            for k in range(1, runs + 1):
+            orders = rotations(row["task"])
+            plan = [("fixed", k, orders[0]) for k in range(1, runs + 1)]
+            plan += [("rotated", r, orders[r]) for r in range(1, len(orders))]
+            for kind, k, order in plan:
                 if not budget.allows(max(seen) if seen else first_estimate):
                     return records
+                body = jev.request(row["task"], state(row), order)
                 payload, seconds = jev.call(body, key, opener=opener)
                 seen.append(payload["usage"]["input_tokens"])
                 budget.charge(seen[-1])
-                record = {"id": row["id"], "task": row["task"], "run": k, "seconds": seconds}
-                records.append(record | {"response": payload})
+                record = {"id": row["id"], "task": row["task"], "pass": kind, "run": k}
+                records.append(record | {"order": order, "seconds": seconds, "response": payload})
                 log.write(json.dumps(records[-1]) + "\n")
                 log.flush()
     return records
@@ -115,12 +125,13 @@ def brier(probabilities: dict[str, float], label: str) -> float:
 
 
 def stability(choices: list[str]) -> dict:
-    """The modal choice over repeated calls, whether all agree, and pairwise agreement."""
+    """The modal choice over repeated calls, whether all agree, and pairwise agreement (1 when
+    there is a single call)."""
     pairs = list(itertools.combinations(choices, 2))
     return {
         "modal": Counter(choices).most_common(1)[0][0],
         "all_same": len(set(choices)) == 1,
-        "agreement": sum(x == y for x, y in pairs) / len(pairs),
+        "agreement": sum(x == y for x, y in pairs) / len(pairs) if pairs else 1.0,
     }
 
 
@@ -130,23 +141,64 @@ def _modal(choices: list[str], spreads: list[dict]) -> str:
     return max(counts, key=lambda o: (counts[o], sum(s.get(o, 0.0) for s in spreads)))
 
 
+def _first_position(sets: dict[str, list[dict]]) -> dict:
+    """How often Jev picks whichever option is listed first, and how much probability an
+    option gains from being listed first, over each item's rotation set."""
+    hits = calls = 0
+    expected, gains = 0.0, []
+    for recs in sets.values():
+        led = [(r["order"][0], r["response"]["answers"]["bucket"]) for r in recs]
+        hits += sum(answer["choice"] == lead for lead, answer in led)
+        calls += len(recs)
+        expected += len(recs) / len(recs[0]["order"])
+        for option in recs[0]["order"]:
+            first = [a["probabilities"][option] for lead, a in led if lead == option]
+            rest = [a["probabilities"][option] for lead, a in led if lead != option]
+            gains.append(statistics.mean(first) - statistics.mean(rest))
+    if not calls:
+        return {"first_hits": 0, "rotation_calls": 0, "first_expected": None, "first_gain": None}
+    return {
+        "first_hits": hits,
+        "rotation_calls": calls,
+        "first_expected": expected / calls,
+        "first_gain": statistics.mean(gains),
+    }
+
+
 def analyse(
     records: list[dict],
     mine_labels: dict,
     fable_labels: dict,
     usd_per_input_token: float = jev.USD_PER_INPUT_TOKEN,
 ) -> dict:
-    """Agreement, calibration, stability, cost and latency from the raw records."""
+    """Agreement, calibration and stability from the fixed-order calls; first-position bias
+    and rotation-averaged agreement from the rotated orders; cost and latency from all."""
+    fixed = [r for r in records if r.get("pass", "fixed") == "fixed"]
     by_item: dict[str, list[dict]] = {}
-    for r in records:
+    for r in fixed:
         by_item.setdefault(r["id"], []).append(r["response"]["answers"]["bucket"])
     modal = {
         i: _modal([a["choice"] for a in answers], [a["probabilities"] for a in answers])
         for i, answers in by_item.items()
     }
+    rotated_ids = {r["id"] for r in records if r.get("pass") == "rotated"}
+    sets = {
+        i: [r for r in records if r["id"] == i and (r.get("pass") == "rotated" or r["run"] == 1)]
+        for i in rotated_ids
+    }
+    rotated_modal = {}
+    for i, recs in sets.items():
+        spreads = [r["response"]["answers"]["bucket"]["probabilities"] for r in recs]
+        options = recs[0]["order"]
+        rotated_modal[i] = max(
+            sorted(options, key=list(jev.BUCKETS[recs[0]["task"]]).index),
+            key=lambda o: statistics.mean(s[o] for s in spreads),
+        )
 
-    def against(reference: dict, labels: dict) -> tuple[float, int]:
+    def against(reference: dict, labels: dict) -> tuple[float | None, int]:
         shared = [i for i in reference if i in labels]
+        if not shared:
+            return None, 0
         return kappa([labels[i] for i in shared], [reference[i] for i in shared]), len(shared)
 
     both = [i for i in fable_labels if mine_labels.get(i) == fable_labels[i] and i in by_item]
@@ -158,11 +210,15 @@ def analyse(
     seconds = [r["seconds"] for r in records]
     tokens = sum(r["response"]["usage"]["input_tokens"] for r in records)
     out = {"modal": modal, "items": len(by_item), "runs": max(map(len, by_item.values()))}
-    out |= dict(zip(("kappa_mine", "n_mine"), against(mine_labels, modal), strict=True))
-    out |= dict(zip(("kappa_fable", "n_fable"), against(fable_labels, modal), strict=True))
-    out |= dict(
-        zip(("kappa_mine_fable", "n_mine_fable"), against(fable_labels, mine_labels), strict=True)
-    )
+    for name, reference, labels in [
+        ("mine", mine_labels, modal),
+        ("fable", fable_labels, modal),
+        ("mine_fable", fable_labels, mine_labels),
+        ("mine_rotated", mine_labels, rotated_modal),
+        ("fable_rotated", fable_labels, rotated_modal),
+    ]:
+        out |= dict(zip((f"kappa_{name}", f"n_{name}"), against(reference, labels), strict=True))
+    out |= {"rotated_modal": rotated_modal} | _first_position(sets)
     out |= {"brier": sum(briers) / len(briers) if briers else None, "brier_items": len(briers)}
     out |= {"all_same": sum(s["all_same"] for s in stable)}
     out |= {"agreement": sum(s["agreement"] for s in stable) / len(stable)}
@@ -174,6 +230,10 @@ def analyse(
     return out
 
 
+def _f(value: float | None, places: int = 3) -> str:
+    return "n/a" if value is None else f"{value:.{places}f}"
+
+
 def render(a: dict) -> str:
     brier_line = (
         f"Brier score where both sorts agree: {a['brier']:.3f} over {a['brier_items']} items "
@@ -181,23 +241,40 @@ def render(a: dict) -> str:
         if a["brier"] is not None
         else "Brier score: no item where both sorts agree."
     )
+    if a["rotation_calls"]:
+        share = a["first_hits"] / a["rotation_calls"]
+        bias_line = (
+            f"First-position bias: Jev chose the first-listed option in {a['first_hits']} of "
+            f"{a['rotation_calls']} rotated-order calls ({share:.3f}; {a['first_expected']:.3f} "
+            "if order did not matter); being listed first adds "
+            f"{a['first_gain']:+.3f} to an option's probability on average."
+        )
+    else:
+        bias_line = "First-position bias: no rotated-order calls."
+    rows = [
+        ("Jev against the build session", "mine"),
+        ("Jev against Fable's blind sort", "fable"),
+        ("Jev, rotation-averaged, against the build session", "mine_rotated"),
+        ("Jev, rotation-averaged, against Fable's blind sort", "fable_rotated"),
+        ("build session against Fable's blind sort", "mine_fable"),
+    ]
     lines = [
         "# Jev as a third reader of the ClimaQA misses",
         "",
         f"Model {', '.join(a['models'])} (requested as the pinned jev-1.14.0), one item per",
-        f"request, {a['runs']} identical calls per item, {a['items']} items (decision 0008).",
+        f"request, {a['runs']} identical calls per item in a fixed option order and one call",
+        f"per other rotation of the options, {a['items']} items (decision 0008).",
         "",
         "| comparison | items | kappa |",
         "|---|---|---|",
-        f"| Jev against the build session | {a['n_mine']} | {a['kappa_mine']:.3f} |",
-        f"| Jev against Fable's blind sort | {a['n_fable']} | {a['kappa_fable']:.3f} |",
-        f"| build session against Fable's blind sort | {a['n_mine_fable']} | "
-        f"{a['kappa_mine_fable']:.3f} |",
+        *(f"| {label} | {a[f'n_{key}']} | {_f(a[f'kappa_{key}'])} |" for label, key in rows),
+        "",
+        bias_line,
         "",
         brier_line,
         "",
-        f"Stability: all {a['runs']} calls chose the same bucket on {a['all_same']} of "
-        f"{a['items']} items; mean pairwise agreement {a['agreement']:.3f}.",
+        f"Stability: all {a['runs']} fixed-order calls chose the same bucket on {a['all_same']}"
+        f" of {a['items']} items; mean pairwise agreement {a['agreement']:.3f}.",
         "",
         f"Cost: {a['calls']} calls, {a['input_tokens']} input tokens, ${a['usd']:.4f} "
         "(output tokens are free).",

@@ -51,9 +51,14 @@ BUCKETS = {  # the miss notes' buckets, restated as properties of the item
 }
 
 
-def request(task: str, state: dict) -> dict:
-    """One item as the state and one choice question over its task's buckets."""
-    question = {"type": "choice", "instructions": INSTRUCTIONS[task], "criteria": BUCKETS[task]}
+def request(task: str, state: dict, order: list[str] | None = None) -> dict:
+    """One item as the state and one choice question over its task's buckets, listed in
+    `order` (default: the order of BUCKETS)."""
+    names = list(BUCKETS[task]) if order is None else list(order)
+    if sorted(names) != sorted(BUCKETS[task]):
+        raise ValueError(f"the order must list each {task} bucket once: {names}")
+    criteria = {name: BUCKETS[task][name] for name in names}
+    question = {"type": "choice", "instructions": INSTRUCTIONS[task], "criteria": criteria}
     return {"model": MODEL, "state": state, "questions": {"bucket": question}}
 
 

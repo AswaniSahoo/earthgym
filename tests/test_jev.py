@@ -17,6 +17,13 @@ def test_request_holds_one_item_and_one_choice_question_on_the_pinned_model():
     assert list(question["criteria"]) == ["same_answer", "other_correct_word", "wrong_reply"]
 
 
+def test_request_lists_the_options_in_a_given_order_and_refuses_a_partial_one():
+    order = ["wrong_reply", "same_answer", "other_correct_word"]
+    assert list(jev.request("cloze", CLOZE, order)["questions"]["bucket"]["criteria"]) == order
+    with pytest.raises(ValueError):
+        jev.request("cloze", CLOZE, ["wrong_reply", "same_answer"])
+
+
 class FakeResponse(io.BytesIO):
     def __enter__(self):
         return self
