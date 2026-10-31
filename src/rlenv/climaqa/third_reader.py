@@ -3,8 +3,11 @@
 uv run python -m rlenv.climaqa.third_reader   # needs TYPESAFE_API_KEY; stops before $0.10
 """
 
+import argparse
+import csv
 import itertools
 import json
+import statistics
 import urllib.request
 from collections import Counter
 from pathlib import Path
@@ -14,6 +17,7 @@ from rlenv.climaqa import expert_sheet, jev
 RUNS = 5  # identical calls per item, for stability
 LOG = Path("logs/2026-10-31-jev/responses.jsonl")  # raw responses, not in git
 REVIEW = Path("reviews/phase-2-climaqa-port.md")
+REPORT = Path("reports/climaqa/runs/2026-10-31-jev-third-reader.md")
 FIRST_ESTIMATE = 2000  # input tokens assumed for the first call, before any usage is known
 LABELS = {  # the miss notes' bucket names, as the item-level options Jev chooses from
     "mcq": {
@@ -118,3 +122,106 @@ def stability(choices: list[str]) -> dict:
         "all_same": len(set(choices)) == 1,
         "agreement": sum(x == y for x, y in pairs) / len(pairs),
     }
+
+
+def _modal(choices: list[str], spreads: list[dict]) -> str:
+    """The most frequent choice; a tie goes to the higher mean probability."""
+    counts = Counter(choices)
+    return max(counts, key=lambda o: (counts[o], sum(s.get(o, 0.0) for s in spreads)))
+
+
+def analyse(
+    records: list[dict],
+    mine_labels: dict,
+    fable_labels: dict,
+    usd_per_input_token: float = jev.USD_PER_INPUT_TOKEN,
+) -> dict:
+    """Agreement, calibration, stability, cost and latency from the raw records."""
+    by_item: dict[str, list[dict]] = {}
+    for r in records:
+        by_item.setdefault(r["id"], []).append(r["response"]["answers"]["bucket"])
+    modal = {
+        i: _modal([a["choice"] for a in answers], [a["probabilities"] for a in answers])
+        for i, answers in by_item.items()
+    }
+
+    def against(reference: dict, labels: dict) -> tuple[float, int]:
+        shared = [i for i in reference if i in labels]
+        return kappa([labels[i] for i in shared], [reference[i] for i in shared]), len(shared)
+
+    both = [i for i in fable_labels if mine_labels.get(i) == fable_labels[i] and i in by_item]
+    briers = [
+        sum(brier(a["probabilities"], fable_labels[i]) for a in by_item[i]) / len(by_item[i])
+        for i in both
+    ]
+    stable = [stability([a["choice"] for a in answers]) for answers in by_item.values()]
+    seconds = [r["seconds"] for r in records]
+    tokens = sum(r["response"]["usage"]["input_tokens"] for r in records)
+    out = {"modal": modal, "items": len(by_item), "runs": max(map(len, by_item.values()))}
+    out |= dict(zip(("kappa_mine", "n_mine"), against(mine_labels, modal), strict=True))
+    out |= dict(zip(("kappa_fable", "n_fable"), against(fable_labels, modal), strict=True))
+    out |= dict(
+        zip(("kappa_mine_fable", "n_mine_fable"), against(fable_labels, mine_labels), strict=True)
+    )
+    out |= {"brier": sum(briers) / len(briers) if briers else None, "brier_items": len(briers)}
+    out |= {"all_same": sum(s["all_same"] for s in stable)}
+    out |= {"agreement": sum(s["agreement"] for s in stable) / len(stable)}
+    out |= {"calls": len(records), "input_tokens": tokens, "usd": tokens * usd_per_input_token}
+    out |= {"median_seconds": statistics.median(seconds)}
+    out |= {"p90_seconds": statistics.quantiles(seconds, n=10, method="inclusive")[-1]}
+    out |= {"models": sorted({r["response"]["model"] for r in records})}
+    out |= {"others": dict(Counter(modal[i] for i in modal if i not in mine_labels))}
+    return out
+
+
+def render(a: dict) -> str:
+    brier_line = (
+        f"Brier score where both sorts agree: {a['brier']:.3f} over {a['brier_items']} items "
+        "(0 is perfect; 2 is a sure wrong answer)."
+        if a["brier"] is not None
+        else "Brier score: no item where both sorts agree."
+    )
+    lines = [
+        "# Jev as a third reader of the ClimaQA misses",
+        "",
+        f"Model {', '.join(a['models'])} (requested as the pinned jev-1.14.0), one item per",
+        f"request, {a['runs']} identical calls per item, {a['items']} items (decision 0008).",
+        "",
+        "| comparison | items | kappa |",
+        "|---|---|---|",
+        f"| Jev against the build session | {a['n_mine']} | {a['kappa_mine']:.3f} |",
+        f"| Jev against Fable's blind sort | {a['n_fable']} | {a['kappa_fable']:.3f} |",
+        f"| build session against Fable's blind sort | {a['n_mine_fable']} | "
+        f"{a['kappa_mine_fable']:.3f} |",
+        "",
+        brier_line,
+        "",
+        f"Stability: all {a['runs']} calls chose the same bucket on {a['all_same']} of "
+        f"{a['items']} items; mean pairwise agreement {a['agreement']:.3f}.",
+        "",
+        f"Cost: {a['calls']} calls, {a['input_tokens']} input tokens, ${a['usd']:.4f} "
+        "(output tokens are free).",
+        "",
+        f"Latency per call: median {a['median_seconds']:.3f} s, p90 {a['p90_seconds']:.3f} s.",
+        "",
+        "Items outside the miss sort, by Jev's bucket: "
+        + (", ".join(f"{k} {v}" for k, v in sorted(a["others"].items())) or "none")
+        + ".",
+    ]
+    return "\n".join([*lines, ""])
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Jev third reader: run the calls, then report.")
+    parser.add_argument("step", choices=["run", "report"])
+    if parser.parse_args().step == "run":
+        rows = list(csv.DictReader(expert_sheet.SHEET.open(encoding="utf-8")))
+        print(f"{len(run(rows, jev.load_key()))} calls logged to {LOG}")
+        return
+    records = [json.loads(line) for line in LOG.read_text("utf-8").splitlines()]
+    REPORT.write_text(render(analyse(records, mine(), fable())), "utf-8")
+    print(f"report written to {REPORT}")
+
+
+if __name__ == "__main__":
+    main()

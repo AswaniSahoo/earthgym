@@ -94,3 +94,40 @@ def test_reference_labels_come_from_the_miss_notes_and_the_blind_sort():
     assert set(mine.values()) <= {n for task in jev.BUCKETS.values() for n in task}
     agree = sum(mine[i] == fable[i] for i in fable)
     assert agree == 32  # 31 of 33 at the review; 157 has since moved to the blind sort's label
+
+
+def record(item, task, k, choice, probabilities, seconds):
+    answer = {"type": "choice", "choice": choice, "confidence": 0.0, "probabilities": probabilities}
+    payload = {"model": "jev-1.14.0", "answers": {"bucket": answer}, "usage": {"input_tokens": 100}}
+    return {"id": item, "task": task, "run": k, "seconds": seconds, "response": payload}
+
+
+SAME, OTHER, WRONG = "same_answer", "other_correct_word", "wrong_reply"
+RECORDS = [
+    record("c1", "cloze", 1, SAME, {SAME: 0.8, OTHER: 0.2, WRONG: 0.0}, 0.1),
+    record("c1", "cloze", 2, SAME, {SAME: 0.6, OTHER: 0.4, WRONG: 0.0}, 0.2),
+    record("c2", "cloze", 1, OTHER, {SAME: 0.1, OTHER: 0.9, WRONG: 0.0}, 0.3),
+    record("c2", "cloze", 2, SAME, {SAME: 0.55, OTHER: 0.45, WRONG: 0.0}, 0.4),  # a tie
+    record("m1", "mcq", 1, "key_right", {"key_right": 1.0, "ambiguous": 0.0}, 0.5),
+    record("m1", "mcq", 2, "key_right", {"key_right": 1.0, "ambiguous": 0.0}, 0.6),
+]
+MINE = {"c1": SAME, "c2": OTHER, "m1": "key_right"}
+FABLE = {"c1": SAME, "c2": OTHER}
+
+
+def test_analyse_gives_agreement_calibration_stability_cost_and_latency():
+    a = third_reader.analyse(RECORDS, MINE, FABLE)
+    assert a["modal"] == {"c1": SAME, "c2": OTHER, "m1": "key_right"} and a["others"] == {}
+    assert (a["kappa_mine"], a["kappa_fable"], a["kappa_mine_fable"]) == (1.0, 1.0, 1.0)
+    assert a["brier"] == pytest.approx((0.20 + 0.3125) / 2) and a["brier_items"] == 2
+    assert a["all_same"] == 2 and a["agreement"] == pytest.approx(2 / 3)
+    assert (a["calls"], a["input_tokens"]) == (6, 600)
+    assert a["usd"] == pytest.approx(600 * 0.042 / 1e6)
+    assert a["median_seconds"] == pytest.approx(0.35) and a["models"] == ["jev-1.14.0"]
+
+
+def test_render_reports_the_headline_numbers():
+    text = third_reader.render(third_reader.analyse(RECORDS, MINE, FABLE))
+    assert "| Jev against the build session | 3 | 1.000 |" in text
+    assert "| Jev against Fable's blind sort | 2 | 1.000 |" in text
+    assert "Brier score where both sorts agree: 0.256 over 2 items" in text
