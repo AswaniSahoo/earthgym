@@ -2,6 +2,21 @@
 
 Newest first. One entry per working session: what changed, what we learned, what is next.
 
+## 2026-10-31, Jev third reader
+
+- Task from Aswani: TypeSafe's Jev re-sorts the 83 rows of the expert review sheet, to
+  measure agreement (Cohen's kappa) with the build session's sort and Fable's blind sort,
+  calibration (Brier) where both agree, stability over 5 calls, cost and latency.
+- Checked at the source: the OpenAPI spec (request `model`, `state`, `questions`; a choice
+  answer carries `probabilities`) and the models page (`jev-1.14.0`, $0.042 per million input
+  tokens, output free).
+- Decision 0008: Jev never enters a reward and its outputs never train a model (MCA 2.3(b));
+  one item per request; model pinned; raw responses under logs/; spend capped at $0.10.
+- Built test-first with the HTTP call mocked; `.env` ignored. The buckets are phrased as
+  properties of the item, so one question fits correct answers too. Reference check: the
+  build session and Fable agree on 32 of 33 cloze items (kappa 0.914).
+- Next: the real run once the key exists; no call has been made.
+
 ## 2026-10-30, Phase 3 start
 
 - Radar refreshed for Phase 3 (17 entries). No existing environment scores forecasts with the

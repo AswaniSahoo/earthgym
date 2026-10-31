@@ -46,6 +46,17 @@ Plan (2026-10-30, from the radar in docs/radar.md):
 - [x] Phase 3 review (Fable): no High; M1 to M3 and L1 to L5 fixed test-first; author response
       in reviews/phase-3-era5-forecast.md
 
+## Now: Jev as a third reader of the ClimaQA misses (decision 0008)
+
+- [x] `.env` ignored; decision 0008 (never in a reward, never trains a model, one item per
+      request, `jev-1.14.0` pinned, raw responses under logs/, spend cap $0.10)
+- [x] Client and study built test-first with the HTTP call mocked: request, Bearer call,
+      key loading, budget, runner (5 calls per item), kappa, Brier, stability, cost, latency,
+      report. A mocked dry run over the 83 sheet rows works end to end
+- [ ] Real run, once the key exists: `uv run python -m rlenv.climaqa.third_reader run`, then
+      `... report` (about 415 calls; estimated well under $0.10)
+- [ ] Blog-ready report under reports/climaqa/
+
 ## Waiting on Aswani
 
 - [ ] reports/climaqa/leak_review.csv: 56 Gold and Silver pairs, same item or not
@@ -53,6 +64,7 @@ Plan (2026-10-30, from the radar in docs/radar.md):
 - [ ] Name the domain expert for the 0005 review; the sheet is ready:
       reports/climaqa/expert_review_v2.csv
 - [ ] A first real model run on era5-forecast-v1 (paid or local; Phase 2 run config)
+- [ ] The TypeSafe key in `TYPESAFE_API_KEY` or /data/rlenv/.env, for the Jev study
 
 ## Done
 
