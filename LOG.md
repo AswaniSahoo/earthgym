@@ -2,6 +2,24 @@
 
 Newest first. One entry per working session: what changed, what we learned, what is next.
 
+## 2026-11-01, Claude Sonnet 5.5 runs
+
+- Aswani moved every model run to Claude Sonnet 5.5 on the Anthropic key, first with "use
+  sonnet 5-5 and use as much credit you need", then with "use for everything keep cap at 20
+  $": a hard cap of $20 in total, a spend ledger in reports/spend.md, and a probe before each
+  run (decision 0010). The Gemini full ERA5 run is dropped; its probe log is kept.
+- Hard rule from Aswani: "never use my gemini further ... from now no more vertex ai call".
+  Audit of defaults, tests, CI and documented commands: no code default, test or CI job names
+  a Google model, and CI's only eval runs on mockllm/model. The eval group still installed
+  `google-genai`, the client Inspect uses for `google/...` models, so one could still have
+  been called. Removed it, with `google-auth`; a test fails if either comes back. The commands
+  recorded in the 2026-10-30 Gemini reports stay as records of those runs.
+- Goal set by lfx-prep-b7 under Aswani's instruction "set goal and complete until all and
+  everything is completed": the Definition of done in WORKBOARD.md. Decision 0009 is decided
+  (option 1, with the counting rules in the prompt).
+- An editor's copy, `.env.save` (1 byte), appeared next to `.env`; git now ignores `.env*`
+  and swap files.
+
 ## 2026-11-01, Phase 4 start
 
 - Aswani parked the Jev third-reader study: there is no TypeSafe key now. The code stays as

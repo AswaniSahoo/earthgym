@@ -2,13 +2,60 @@
 
 Updated 2026-11-01. Publish after completion. Small commits, one-line messages.
 
-## Now: Phase 4, IBTrACS cyclone analytics environment
+## Definition of done (Aswani, 2026-11-01, relayed by lfx-prep-b7)
+
+Aswani: "set goal and complete until all and everything is completed". Work through it
+without waiting between steps.
+
+1. [ ] ERA5: the Sonnet 5.5 run (12-item probe, then all 720) and its report.
+2. [ ] ClimaQA clean v1 on Sonnet 5.5, plus a comparison report against the Gemini 3.8 Flash
+       baseline.
+3. [ ] Phase 4 complete: stage 2 environment (verifiers taskset and Inspect task, tests on
+       mockllm), a Sonnet 5.5 baseline within the cap, a Fable review, and every fix landed.
+4. [ ] Phase 5 complete: heat-insurance basis-risk environment, in the same pattern. Scout
+       radar first, a published number reproduced before the environment, then the
+       environment, a baseline within the cap, a Fable review and the fixes.
+5. [ ] Final pass: README current, a blog-ready report per phase, a top-level SUMMARY.md of
+       the findings with every number traced to a report, the spend ledger final, CI green.
+
+## Rules for this goal
+
+- Technical design choices are ours: Fable reviews them and each goes in a decision record.
+  lfx-prep-b7 reviews the commits.
+- Stop and tell lfx-prep-b7 only for: spend that would pass the $20 Anthropic cap; a download
+  over 100 MB; any account, key or sign-up; publishing, repo visibility or a LICENSE choice
+  (those are Aswani's); a hard blocker.
+- Every model run is Claude Sonnet 5.5 on the Anthropic key (`anthropic/claude-sonnet-5-5`),
+  $20 hard cap in total, ledger in reports/spend.md, cost projected from a probe before each
+  run, never a run that would pass the cap. Order: ERA5, ClimaQA, Phase 4, Phase 5.
+- No Vertex AI or Gemini calls of any kind, probes and smoke tests included (Aswani,
+  2026-11-01: "never use my gemini further ... from now no more vertex ai call"). Gemini
+  logs, reports and numbers stay as they are; comparisons may read those logs.
+- Test-first, small one-line commits, pushes as approved, every number checked against its
+  source. Every turn ends with done, next, blocked and the remaining budget.
+
+## Now: ERA5 on Claude Sonnet 5.5 (decision 0010)
+
+- [x] `anthropic==2.3.0` pinned in the eval group (Inspect 0.3.286 needs 2.0.0 or newer)
+- [x] Balanced probe ids: `uv run python -m rlenv.era5.tasks` (2 per variable and lead)
+- [x] Spend ledger and its checks: reports/spend.md, `src/rlenv/spend.py`
+- [ ] Decision 0010: the model switch, the cap, the ledger, the settings
+- [ ] Probe: 12 items into logs/2026-11-01-era5-claude-sonnet-5-5-probe, then project the
+      full run's cost
+- [ ] Full run: 720 items into logs/2026-11-01-era5-claude-sonnet-5-5
+- [ ] Report: WB2-graded scores next to persistence, climatology and HRES, mean reward,
+      parse failures, tokens, cost, Limits
+
+The Gemini full run is dropped; its 10-item probe log (logs/2026-11-01-era5-probe/) is kept
+as a record.
+
+## Phase 4, IBTrACS cyclone analytics environment
 
 Plan (2026-11-01, from the radar in docs/radar.md):
 
 - Goal: an analytics environment whose answers are computed exactly from IBTrACS by a
   reference implementation shown to reproduce NCEI's published North Atlantic numbers.
-- Stage 1, now: fetch `ibtracs.NA.list.v04r01.csv` (57.6 MB, anonymous HTTPS). NCEI publishes
+- Stage 1: fetch `ibtracs.NA.list.v04r01.csv` (57.6 MB, anonymous HTTPS). NCEI publishes
   no checksum and overwrites files in place, so we pin our own sha256 with the size and
   Last-Modified at first fetch, keep the copy under data/, and fail on any mismatch. A stdlib
   reader (names row, units row, single-space blanks) and season statistics: ACE by the NOAA
@@ -16,19 +63,22 @@ Plan (2026-11-01, from the radar in docs/radar.md):
   the wind is at least 34 kt, times 1e-4), and counts of named storms, hurricanes and major
   hurricanes. First tests reproduce NCEI's anchors: 1933 ACE 258.6; 2005 15 hurricanes and 7
   major; 2020 30 named storms and 7 major; 2024 18 named, 11 hurricanes, 5 major, ACE 161.6.
-- Stage 2, proposed for Aswani: per-storm analytics tasks with the storm's 6-hourly track in
-  the prompt (ACE, peak category, hours at hurricane strength, rapid intensification), exact
-  answers from the reference code; a verifiers taskset and an Inspect task, mockllm only.
+- Stage 2 (0009 decided 2026-11-01: option 1): per-storm analytics with exact answers from
+  the reference code. The counting rules go in the prompt: synoptic 00/06/12/18 UTC rows
+  only, which statuses count, units, ACE as the sum of v^2/10^4 in knots over qualifying
+  rows, rounding to one decimal with a tested tolerance. "Rules hidden" is a later ablation.
+  A verifiers taskset and an Inspect task, tested on mockllm, then a Sonnet 5.5 baseline.
 - Out: other basins (agencies average wind over 1 to 10 minutes, never to be pooled), the
-  netCDF files (they need an HDF5 reader), provisional seasons, any paid run.
+  netCDF files (they need an HDF5 reader), provisional seasons.
 - Tests: inline CSV rows with hand-computed values; the reproduction tests run when the pinned
   file is on disk and are skipped otherwise, so CI stays offline.
 
 - [x] Radar check for Phase 4 (scout): 12 new entries in docs/radar.md
 - [x] Stage 1: pinned NA file (sha256 666681be), stdlib reader, season counts and ACE; all
       NCEI anchors reproduced; reports/ibtracs/2026-11-01-ncei-reproduction.md
-- [ ] Stage 2 task design, after Aswani's choice on decision 0009 (proposed: per-storm
-      analytics with exact answers)
+- [ ] 0009 marked accepted, with the prompt rules and the tolerance
+- [ ] Stage 2 environment, test-first
+- [ ] Sonnet 5.5 baseline within the cap, then the Fable review and its fixes
 
 ## Parked: Jev as a third reader of the ClimaQA misses (decision 0008)
 
@@ -52,17 +102,13 @@ was called or spent.
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
 - [ ] Name the domain expert for the 0005 review; the sheet is ready:
       reports/climaqa/expert_review_v2.csv
-- [ ] ERA5 full run (approved 2026-11-01), stopped at the spend guard: the 10-item probe
-      projects 1,731,960 tokens for 720 items, over the 1.5 million guard (about $5.44 at
-      the Vertex introductory price). Approve the full run, a smaller set, or a stratified
-      probe first
 
 ## Done
 
 - [x] 2026-10-31 Phase 3 ERA5 forecast-score environment: the grader reproduces WB2's
       published RMSE, ACC and bias; 720 forecast items rewarded by skill over the better of
       persistence and climatology; verifiers taskset and Inspect task; Fable review with every
-      fix landed; the first model run waits for Aswani; reports/era5/
+      fix landed; reports/era5/
 - [x] 2026-10-30 Phase 2 clean ClimaQA port: clean set v1 (350 items), one answer contract,
       Inspect tasks and verifiers taskset, Gemini 3.8 Flash baseline (MCQ 0.874, cloze 0.742),
       both miss sorts, two Fable reviews with every fix landed; reports/climaqa/runs/
@@ -71,7 +117,5 @@ was called or spent.
 
 ## Later
 
-- Two-model inspect_evals Register run: parked 2026-10-30; Gemini 3.8 Flash is the only
-  baseline for now, and the second model needs Aswani's yes
-- Phase 5 heat-insurance basis-risk environment
-- Before publishing: LICENSE, write-up, blog posts from reports/
+- "Rules hidden" ablation for the Phase 4 tasks
+- Before publishing: LICENSE, write-up, blog posts from reports/ (Aswani's calls)
