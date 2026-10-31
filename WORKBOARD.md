@@ -31,7 +31,10 @@ was called or spent.
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
 - [ ] Name the domain expert for the 0005 review; the sheet is ready:
       reports/climaqa/expert_review_v2.csv
-- [ ] A first real model run on era5-forecast-v1 (paid or local; Phase 2 run config)
+- [ ] ERA5 full run (approved 2026-11-01), stopped at the spend guard: the 10-item probe
+      projects 1,731,960 tokens for 720 items, over the 1.5 million guard (about $5.44 at
+      the Vertex introductory price). Approve the full run, a smaller set, or a stratified
+      probe first
 
 ## Done
 

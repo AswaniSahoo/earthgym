@@ -8,6 +8,14 @@ Newest first. One entry per working session: what changed, what we learned, what
   it is; no call was made and nothing was spent.
 - Phase 3 is closed in the README and the workboard; its first model run waits for Aswani.
 - Phase 4, the IBTrACS cyclone analytics environment, starts with a scout radar check.
+- ERA5 probe (Aswani's yes, 2026-11-01): Gemini 3.8 Flash on Vertex, provider-default
+  sampling, 10 items from a clean tree at c725bc3. Per item: 489 input and 1,916 output
+  tokens, 1,624 of them reasoning; all 10 answers parsed; mean reward 0.256. Projected for 720
+  items: 1,731,960 tokens, over the 1.5 million guard, so the full run did not start. Price
+  from the Vertex pricing page (2026-11-01): $0.75 input and $3.75 output per million tokens
+  through 2026-12-31, reasoning billed as output, so about $5.44 for the full set. The probe's
+  items are all MSLP at 24 h, the first ten in file order, so the projection may not hold for
+  temperature or longer leads.
 
 ## 2026-10-31, Jev third reader
 
