@@ -38,12 +38,14 @@ How we run it (Inspect 0.3.286 source paths are under `inspect_ai/`):
   `find_dotenv(usecwd=True)` (`_util/dotenv.py:23`) and overrides variables already set only
   inside VS Code (line 20). This shell sets no ANTHROPIC variable. The key is never printed
   or logged.
-- Generate settings: none, so the provider defaults apply. Inspect sends `max_tokens` 32000
-  (`ANTHROPIC_MAX_TOKENS`, `model/_providers/_anthropic_max_tokens.py:8`), and sends
-  `thinking` and `output_config` only when `reasoning_effort` is set
-  (`model/_providers/anthropic.py:1456-1460`). Without them Sonnet 5.5 thinks adaptively at
-  its default effort, `high`: Anthropic's "Steering thinking" page lists "`high` (default on
-  most models)" and `medium` as the default only on Claude Opus 5.5 and Claude Haiku 5.5. No
+- Generate settings: none but `--batch`, so the provider defaults apply. Inspect sends
+  `max_tokens` 32000 (`ANTHROPIC_MAX_TOKENS`, `model/_providers/_anthropic_max_tokens.py:8`)
+  and `thinking: {"type": "adaptive"}` with a `block_binding` setting
+  (`apply_thinking_block_binding`, `model/_providers/anthropic.py:1716-1718`); it sends an
+  effort in `output_config` only when `reasoning_effort` is set (lines 1456-1460). The ERA5
+  probe's logged request shows exactly these fields. So Sonnet 5.5 thinks adaptively at its
+  default effort, `high`: Anthropic's "Steering thinking" page lists "`high` (default on most
+  models)" and `medium` as the default only on Claude Opus 5.5 and Claude Haiku 5.5. No
   temperature or seed is sent, so each reply is one draw.
 - Batch API for full runs. A batch costs half: "a 50 percent discount on both input and
   output tokens", and the cache multipliers "stack with other pricing modifiers, including the
