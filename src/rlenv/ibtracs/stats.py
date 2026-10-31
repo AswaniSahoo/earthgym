@@ -12,10 +12,23 @@ from collections import defaultdict
 COLUMNS = ("SID", "SEASON", "BASIN", "ISO_TIME", "TRACK_TYPE", "USA_STATUS", "USA_WIND")
 SYNOPTIC = ("00:00:00", "06:00:00", "12:00:00", "18:00:00")
 NAMED = {"TS", "HU", "SS"}  # tropical storm, hurricane, subtropical storm
+# NHC's Saffir-Simpson scale in kt (nhc.noaa.gov/aboutsshws.php): 1 is 64-82, ..., 5 is 137+
+CATEGORIES = ((137, 5), (113, 4), (96, 3), (83, 2), (64, 1))
 
 
 def wind(row: dict) -> int:
     return int(row["USA_WIND"]) if row["USA_WIND"] else 0
+
+
+def category(rows: list[dict]) -> int:
+    """Peak Saffir-Simpson category: the highest wind on any HU row, at any time; 0 if none."""
+    peak = max((wind(r) for r in rows if r["USA_STATUS"] == "HU"), default=0)
+    return next((c for knots, c in CATEGORIES if peak >= knots), 0)
+
+
+def hurricane_hours(rows: list[dict]) -> int:
+    """Six hours for each row at 00, 06, 12 or 18 UTC with status HU."""
+    return 6 * sum(r["USA_STATUS"] == "HU" for r in rows if r["ISO_TIME"][11:] in SYNOPTIC)
 
 
 def storm(rows: list[dict]) -> dict:

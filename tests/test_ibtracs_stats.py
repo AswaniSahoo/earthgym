@@ -45,6 +45,31 @@ def test_counts_take_any_row_at_the_threshold_with_the_right_status():
     assert (stats.storm(special)["major"], stats.storm(special)["ace"]) == (True, 0.0)
 
 
+def test_peak_category_takes_the_highest_hu_wind_at_any_time_on_the_nhc_scale():
+    assert stats.category(A) == 1  # 70 kt as HU; 45 kt EX does not count
+    off_hour = [
+        row("G", "2024-08-01 06:00:00", "HU", 90),
+        row("G", "2024-08-01 17:45:00", "HU", 96),
+    ]
+    assert stats.category(off_hour) == 3  # the 17:45 landfall row counts for the peak
+    edges = {63: 0, 64: 1, 82: 1, 83: 2, 95: 2, 96: 3, 112: 3, 113: 4, 136: 4, 137: 5}
+    for knots, category in edges.items():
+        assert stats.category([row("H", "2024-08-01 06:00:00", "HU", knots)]) == category
+    assert stats.category([row("I", "2024-08-01 06:00:00", "EX", 120)]) == 0
+
+
+def test_hurricane_hours_count_six_for_each_synoptic_hu_row():
+    track = [
+        row("J", "2024-08-01 00:00:00", "TS", 60),
+        row("J", "2024-08-01 06:00:00", "HU", 65),
+        row("J", "2024-08-01 09:00:00", "HU", 70),  # 3-hourly: not counted
+        row("J", "2024-08-01 12:00:00", "HU", 75),
+        row("J", "2024-08-01 17:45:00", "HU", 80),  # off-hour: not counted
+        row("J", "2024-08-01 18:00:00", "EX", 70),
+    ]
+    assert stats.hurricane_hours(track) == 12
+
+
 def test_season_leaves_out_spur_tracks_and_rows_outside_the_basin():
     spur = [row("D", "2024-08-01 06:00:00", "HU", 80, track="spur-merge")]
     crossing = [
