@@ -17,6 +17,11 @@ Decision:
   restate the miss notes' buckets as properties of the item, so they also fit correct answers.
   We measure Cohen's kappa against both sorts, the Brier score of its probabilities where the
   two sorts agree, stability over 5 identical calls per item, cost and latency.
+- The same run measures first-position bias, which TypeSafe lists among Jev's weaknesses:
+  one extra call per other cyclic rotation of the option order, so each option is listed
+  first once per item (626 calls in all). The report gives how often the first-listed option
+  wins against the rate if order did not matter, the probability an option gains from being
+  listed first, and kappa from rotation-averaged probabilities next to the fixed-order kappa.
 - Jev never enters a reward: under 0005 rewards come only from expert-reviewed items. Its
   outputs never train a model: TypeSafe's MCA 2.3(b) bars using Output to "train a model to
   imitate the output of the Services".

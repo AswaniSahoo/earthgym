@@ -15,6 +15,9 @@ Newest first. One entry per working session: what changed, what we learned, what
 - Built test-first with the HTTP call mocked; `.env` ignored. The buckets are phrased as
   properties of the item, so one question fits correct answers too. Reference check: the
   build session and Fable agree on 32 of 33 cloze items (kappa 0.914).
+- Added in the same run: each other cyclic rotation of the option order, once per item (626
+  calls in all), to measure the first-position lean TypeSafe documents. A mocked server that
+  always picks the first option scores 294 of 294 against 0.282 expected, so the measure works.
 - Next: the real run once the key exists; no call has been made.
 
 ## 2026-10-30, Phase 3 start

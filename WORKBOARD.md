@@ -53,8 +53,10 @@ Plan (2026-10-30, from the radar in docs/radar.md):
 - [x] Client and study built test-first with the HTTP call mocked: request, Bearer call,
       key loading, budget, runner (5 calls per item), kappa, Brier, stability, cost, latency,
       report. A mocked dry run over the 83 sheet rows works end to end
+- [x] Rotated option orders in the same run (each option first once per item), with
+      first-position bias and rotation-averaged kappa in the report
 - [ ] Real run, once the key exists: `uv run python -m rlenv.climaqa.third_reader run`, then
-      `... report` (about 415 calls; estimated well under $0.10)
+      `... report` (626 calls; about $0.01 at 400 input tokens a call, capped at $0.10)
 - [ ] Blog-ready report under reports/climaqa/
 
 ## Waiting on Aswani
