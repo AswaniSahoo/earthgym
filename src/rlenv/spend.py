@@ -23,8 +23,8 @@ LEDGER = Path("reports/spend.md")
 PRICE = {"input": 2.0, "cache_write": 2.5, "cache_read": 0.10, "output": 10.0}
 KINDS = ("input", "cache_write", "cache_read", "output", "reasoning")
 TABLE = (
-    "| run | date | log | mode | tokens in | cache write | cache read | tokens out | reasoning "
-    "| cost USD | total USD |\n|---|---|---|---|---|---|---|---|---|---|---|\n"
+    "| run | date (UTC) | log | mode | tokens in | cache write | cache read | tokens out "
+    "| reasoning | cost USD | total USD |\n|---|---|---|---|---|---|---|---|---|---|---|\n"
 )
 
 
