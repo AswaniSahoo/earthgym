@@ -1,6 +1,9 @@
 # 0009: what a Phase 4 task asks
 
-Date: 2026-11-01. Status: proposed. Stage 2 starts only after Aswani chooses.
+Date: 2026-11-01. Status: accepted 2026-11-01, option 1. Decided by lfx-prep-b7 under
+Aswani's instruction of the same day ("set goal and complete until all and everything is
+completed"), for three reasons it gave: a distinct skill from Phase 3, an exact verifier, and
+real traps.
 
 Context: stage 1 gave reference code that reproduces NCEI's published North Atlantic season
 numbers from a pinned IBTrACS file (`reports/ibtracs/2026-11-01-ncei-reproduction.md`). The
@@ -26,6 +29,12 @@ Proposal: option 1, North Atlantic storms from final (non-provisional) seasons, 
 items drawn by a seeded sample, every answer rule written in the prompt or left to the model
 by question type (to be fixed with the first tests). A verifiers taskset and an Inspect task,
 tested on mockllm only; no paid run without a yes.
+
+Decision: option 1. The counting rules go in the prompt: only the synoptic rows at 00, 06,
+12 and 18 UTC count, which statuses count, the units (knots), ACE as the sum of
+(v/10^4) * v over the qualifying rows, and rounding to one decimal, with a tolerance we choose
+and test in stage 2. The same items with the rules left out ("rules hidden") are a later
+ablation.
 
 Consequences: each question type needs its rule tested against hand-computed tracks first,
 and against NCEI where a published number exists.
