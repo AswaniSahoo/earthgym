@@ -4,10 +4,29 @@ Updated 2026-11-01. Publish after completion. Small commits, one-line messages.
 
 ## Now: Phase 4, IBTrACS cyclone analytics environment
 
-- [ ] Radar check for Phase 4 (scout, running)
-- [ ] A short plan here, from the radar
-- [ ] Build test-first in small commits: public data only, pinned by hash, every download
-      under 100 MB (a per-basin or per-season subset)
+Plan (2026-11-01, from the radar in docs/radar.md):
+
+- Goal: an analytics environment whose answers are computed exactly from IBTrACS by a
+  reference implementation shown to reproduce NCEI's published North Atlantic numbers.
+- Stage 1, now: fetch `ibtracs.NA.list.v04r01.csv` (57.6 MB, anonymous HTTPS). NCEI publishes
+  no checksum and overwrites files in place, so we pin our own sha256 with the size and
+  Last-Modified at first fetch, keep the copy under data/, and fail on any mismatch. A stdlib
+  reader (names row, units row, single-space blanks) and season statistics: ACE by the NOAA
+  CPC rule (USA_WIND squared at 00, 06, 12 and 18 UTC while USA_STATUS is TS, HU or SS and
+  the wind is at least 34 kt, times 1e-4), and counts of named storms, hurricanes and major
+  hurricanes. First tests reproduce NCEI's anchors: 1933 ACE 258.6; 2005 15 hurricanes and 7
+  major; 2020 30 named storms and 7 major; 2024 18 named, 11 hurricanes, 5 major, ACE 161.6.
+- Stage 2, proposed for Aswani: per-storm analytics tasks with the storm's 6-hourly track in
+  the prompt (ACE, peak category, hours at hurricane strength, rapid intensification), exact
+  answers from the reference code; a verifiers taskset and an Inspect task, mockllm only.
+- Out: other basins (agencies average wind over 1 to 10 minutes, never to be pooled), the
+  netCDF files (they need an HDF5 reader), provisional seasons, any paid run.
+- Tests: inline CSV rows with hand-computed values; the reproduction tests run when the pinned
+  file is on disk and are skipped otherwise, so CI stays offline.
+
+- [x] Radar check for Phase 4 (scout): 12 new entries in docs/radar.md
+- [ ] Stage 1: pinned NA file, reader, season statistics, NCEI reproduction, test-first
+- [ ] Stage 2 task design, after Aswani's choice
 
 ## Parked: Jev as a third reader of the ClimaQA misses (decision 0008)
 
