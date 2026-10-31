@@ -39,12 +39,14 @@ without waiting between steps.
 - [x] `anthropic==2.3.0` pinned in the eval group (Inspect 0.3.286 needs 2.0.0 or newer)
 - [x] Balanced probe ids: `uv run python -m rlenv.era5.tasks` (2 per variable and lead)
 - [x] Spend ledger and its checks: reports/spend.md, `src/rlenv/spend.py`
-- [ ] Decision 0010: the model switch, the cap, the ledger, the settings
-- [ ] Probe: 12 items into logs/2026-11-01-era5-claude-sonnet-5-5-probe, then project the
-      full run's cost
-- [ ] Full run: 720 items into logs/2026-11-01-era5-claude-sonnet-5-5
-- [ ] Report: WB2-graded scores next to persistence, climatology and HRES, mean reward,
-      parse failures, tokens, cost, Limits
+- [x] Decision 0010: the model switch, the cap, the ledger, the settings
+- [x] Probe: 12 items, Batch API, 12 parsed, 0 errors, mean reward 0.282, $0.0259 in the
+      ledger; full run projected at $1.55 ($1.64 with two standard errors)
+- [ ] Full run: 720 items into logs/2026-11-01-era5-claude-sonnet-5-5, started 2026-11-01
+      from bbafe0e through the Batch API. Check the log's status, then
+      `uv run python -m rlenv.spend "ERA5 full run, 720 items" logs/2026-11-01-era5-claude-sonnet-5-5`
+- [ ] Report: `uv run python -m rlenv.era5.report logs/2026-11-01-era5-claude-sonnet-5-5
+      --out reports/era5/2026-11-01-claude-sonnet-5-5.md`, then check it against the log
 
 The Gemini full run is dropped; its 10-item probe log (logs/2026-11-01-era5-probe/) is kept
 as a record.
@@ -76,9 +78,17 @@ Plan (2026-11-01, from the radar in docs/radar.md):
 - [x] Radar check for Phase 4 (scout): 12 new entries in docs/radar.md
 - [x] Stage 1: pinned NA file (sha256 666681be), stdlib reader, season counts and ACE; all
       NCEI anchors reproduced; reports/ibtracs/2026-11-01-ncei-reproduction.md
-- [ ] 0009 marked accepted, with the prompt rules and the tolerance
-- [ ] Stage 2 environment, test-first
+- [x] 0009 accepted; 0011 records the stage 2 design (300 items, seed 2026, tolerance 0.05)
+- [x] stats.category, stats.hurricane_hours; NCEI's 2024 count of 2 category 5 reproduced
+- [ ] Stage 2 environment, test-first: tests/test_ibtracs_items.py is written and red
+      (uncommitted); next src/rlenv/ibtracs/items.py, then the env package. Run uv sync only
+      after the ERA5 run has ended
 - [ ] Sonnet 5.5 baseline within the cap, then the Fable review and its fixes
+
+## Phase 5
+
+- [ ] Scout radar: launched 2026-11-01 and stopped at the usage limit; check
+      `git diff docs/radar.md`, then launch it again
 
 ## Parked: Jev as a third reader of the ClimaQA misses (decision 0008)
 
