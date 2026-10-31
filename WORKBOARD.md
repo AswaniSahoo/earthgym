@@ -7,7 +7,7 @@ Updated 2026-11-01. Publish after completion. Small commits, one-line messages.
 Aswani: "set goal and complete until all and everything is completed". Work through it
 without waiting between steps.
 
-1. [ ] ERA5: the Sonnet 5.5 run (12-item probe, then all 720) and its report.
+1. [x] ERA5: the Sonnet 5.5 run (12-item probe, then all 720) and its report.
 2. [ ] ClimaQA clean v1 on Sonnet 5.5, plus a comparison report against the Gemini 3.8 Flash
        baseline.
 3. [ ] Phase 4 complete: stage 2 environment (verifiers taskset and Inspect task, tests on
@@ -42,11 +42,10 @@ without waiting between steps.
 - [x] Decision 0010: the model switch, the cap, the ledger, the settings
 - [x] Probe: 12 items, Batch API, 12 parsed, 0 errors, mean reward 0.282, $0.0259 in the
       ledger; full run projected at $1.55 ($1.64 with two standard errors)
-- [ ] Full run: 720 items into logs/2026-11-01-era5-claude-sonnet-5-5, started 2026-11-01
-      from bbafe0e through the Batch API. Check the log's status, then
-      `uv run python -m rlenv.spend "ERA5 full run, 720 items" logs/2026-11-01-era5-claude-sonnet-5-5`
-- [ ] Report: `uv run python -m rlenv.era5.report logs/2026-11-01-era5-claude-sonnet-5-5
-      --out reports/era5/2026-11-01-claude-sonnet-5-5.md`, then check it against the log
+- [x] Full run: 720 items, Batch API, from bbafe0e: 720 parsed, 0 errors, mean reward 0.116
+      (stderr 0.009), $1.6126; ledger total $1.6385
+- [x] Report: reports/era5/2026-11-01-claude-sonnet-5-5.md (baseline rows match
+      items_v1_baselines.md); blog-ready write-up still to do
 
 The Gemini full run is dropped; its 10-item probe log (logs/2026-11-01-era5-probe/) is kept
 as a record.
