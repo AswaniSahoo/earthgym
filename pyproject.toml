@@ -28,9 +28,9 @@ era5 = [
     "zarr==3.4.2",
 ]
 eval = [
+    "anthropic==2.3.0",
     "climaqa-v1",
     "era5-forecast-v1",
-    "google-genai==2.34.0",
     "inspect-ai==0.3.286",
 ]
 
