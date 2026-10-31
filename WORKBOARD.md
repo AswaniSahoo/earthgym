@@ -25,7 +25,8 @@ Plan (2026-11-01, from the radar in docs/radar.md):
   file is on disk and are skipped otherwise, so CI stays offline.
 
 - [x] Radar check for Phase 4 (scout): 12 new entries in docs/radar.md
-- [ ] Stage 1: pinned NA file, reader, season statistics, NCEI reproduction, test-first
+- [x] Stage 1: pinned NA file (sha256 666681be), stdlib reader, season counts and ACE; all
+      NCEI anchors reproduced; reports/ibtracs/2026-11-01-ncei-reproduction.md
 - [ ] Stage 2 task design, after Aswani's choice
 
 ## Parked: Jev as a third reader of the ClimaQA misses (decision 0008)

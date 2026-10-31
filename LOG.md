@@ -8,6 +8,12 @@ Newest first. One entry per working session: what changed, what we learned, what
   it is; no call was made and nothing was spent.
 - Phase 3 is closed in the README and the workboard; its first model run waits for Aswani.
 - Phase 4, the IBTrACS cyclone analytics environment, starts with a scout radar check.
+- Phase 4 radar: 12 entries; the North Atlantic CSV (57.6 MB) is the source; NCEI publishes no
+  checksum and overwrites in place, so we pin our own sha256 (666681be, build of 2026-10-30).
+- Stage 1: a stdlib reader and season statistics by the NOAA rules reproduce every NCEI
+  anchor: 1933 ACE 258.6; 2005 15 hurricanes and 7 major; 2020 30 named and 7 major; 2024 18,
+  11, 5 and ACE 161.6. Both row scopes (basin rows only, or every row of a storm) agree on
+  these seasons; the code counts basin rows only.
 - ERA5 probe (Aswani's yes, 2026-11-01): Gemini 3.8 Flash on Vertex, provider-default
   sampling, 10 items from a clean tree at c725bc3. Per item: 489 input and 1,916 output
   tokens, 1,624 of them reasoning; all 10 answers parsed; mean reward 0.256. Projected for 720
