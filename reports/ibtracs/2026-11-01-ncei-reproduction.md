@@ -40,9 +40,9 @@ Phase 4 radar records them (`docs/radar.md`). Not anchored here, from the same c
 
 ## Limits
 
-- Provisional data: 458 rows of the 2025 and 2026 seasons carry `TRACK_TYPE` PROVISIONAL. NCEI
-  published 2025's ACE as 132.6 from provisional tracks; today's build gives 130.77. Seasons
-  with provisional rows are not used as answer keys.
+- Provisional data: 458 rows carry `TRACK_TYPE` PROVISIONAL, all of them in the 2026 season;
+  the 731 rows of 2025 are `main`. NCEI published 2025's ACE as 132.6 from provisional tracks;
+  today's build gives 130.77. Seasons with provisional rows are not used as answer keys.
 - Reanalysis rewrites old seasons in place, so another build can change any number above;
   the pin catches that.
 - North Atlantic only: agencies in other basins average wind over 1, 2, 3 or 10 minutes, and
