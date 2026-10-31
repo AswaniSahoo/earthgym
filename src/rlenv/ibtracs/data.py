@@ -20,7 +20,7 @@ URL = (
     "ibtracs/v04r01/access/csv/ibtracs.NA.list.v04r01.csv"
 )
 PATH = Path("data/ibtracs/ibtracs.NA.list.v04r01.csv")
-SHA256 = ""
+SHA256 = "666681be5b12caf5bad7a511bae5f6e5fa8b03789f7f6dd00ee2f0aaa41c2c97"  # 2026-10-30 build
 SIZE, LAST_MODIFIED = 57_593_323, "Fri, 30 Oct 2026 04:27:28 GMT"  # HEAD, 2026-11-01
 
 
