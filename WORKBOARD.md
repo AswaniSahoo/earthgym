@@ -27,7 +27,8 @@ Plan (2026-11-01, from the radar in docs/radar.md):
 - [x] Radar check for Phase 4 (scout): 12 new entries in docs/radar.md
 - [x] Stage 1: pinned NA file (sha256 666681be), stdlib reader, season counts and ACE; all
       NCEI anchors reproduced; reports/ibtracs/2026-11-01-ncei-reproduction.md
-- [ ] Stage 2 task design, after Aswani's choice
+- [ ] Stage 2 task design, after Aswani's choice on decision 0009 (proposed: per-storm
+      analytics with exact answers)
 
 ## Parked: Jev as a third reader of the ClimaQA misses (decision 0008)
 
