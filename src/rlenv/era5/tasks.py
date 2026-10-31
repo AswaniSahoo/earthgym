@@ -1,9 +1,11 @@
 """Inspect task for era5-forecast-v1, rewarded by the same contract as the verifiers taskset.
 
 uv run inspect eval src/rlenv/era5/tasks.py@era5_forecast --model <provider/model>
+uv run python -m rlenv.era5.tasks   # probe ids for --sample-id, 2 per variable and lead
 """
 
 import json
+from collections import Counter
 from pathlib import Path
 
 from era5_forecast_v1 import contract
@@ -29,6 +31,18 @@ def samples(path: str | None) -> MemoryDataset:
     return MemoryDataset(out, name="era5_forecast")
 
 
+def probe_ids(rows: list[dict] | None = None, n: int = 2) -> list[str]:
+    """The first n item ids of each variable and lead, in item order: a balanced probe."""
+    taken: Counter = Counter()
+    out = []
+    for row in records() if rows is None else rows:
+        group = (row["variable"], row["lead_hours"])
+        if taken[group] < n:
+            taken[group] += 1
+            out.append(row["id"])
+    return out
+
+
 @scorer(metrics=[mean(), stderr()])
 def forecast_scorer():
     async def score(state: TaskState, target: Target) -> Score:
@@ -45,3 +59,7 @@ def forecast_scorer():
 @task
 def era5_forecast(path: str | None = None) -> Task:
     return Task(dataset=samples(path), solver=generate(), scorer=forecast_scorer())
+
+
+if __name__ == "__main__":
+    print(",".join(probe_ids()))

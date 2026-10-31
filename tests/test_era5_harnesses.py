@@ -1,5 +1,6 @@
 import asyncio
 import json
+from collections import Counter
 from types import SimpleNamespace
 
 import pytest
@@ -55,6 +56,20 @@ ROW = {
     "area_weight": 1.0,
     "floor": 2.0,  # above the better-baseline error, so the item's own floor decides the pay
 }
+
+
+def test_probe_takes_the_first_items_of_each_variable_and_lead_in_item_order():
+    rows = [
+        {"id": f"{v}/{lead}/{k}", "variable": v, "lead_hours": lead}
+        for k in range(3)
+        for v in ("a", "b")
+        for lead in (24, 48)
+    ]
+    assert tasks.probe_ids(rows, n=2) == [r["id"] for r in rows[:8]]
+    bundled = {r["id"]: (r["variable"], r["lead_hours"]) for r in ts.records()}
+    probe = tasks.probe_ids()
+    assert len(set(probe)) == 12
+    assert sorted(Counter(bundled[i] for i in probe).values()) == [2] * 6
 
 
 def test_inspect_task_scores_replies_with_the_contract_reward(tmp_path):
