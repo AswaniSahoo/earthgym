@@ -14,7 +14,7 @@ the payouts, and the days the index missed?
 ## The published numbers first
 
 The counting code had to reproduce published heat counts before any item was written. From the
-pinned GHCN-Daily file for Phoenix Sky Harbor it gives every NWS Phoenix figure we checked on
+pinned GHCN-Daily file for Phoenix Sky Harbor it gives every NWS Phoenix figure I checked on
 the live pages: 55 days at 110 F or more in 2023, 133 at 100 F and 185 at 90 F, the 119 F high
 on 19, 20 and 25 July, and the 31-day run of 110 F days from 30 June to 30 July; 70 days at
 110 F in 2024 and a 113-day run at 100 F; 145 days at 100 F in 2020
@@ -61,7 +61,7 @@ once with the policy terms alone, worded as a term sheet would put them
 ## What this means for RL
 
 As built, the environment is saturated for a model as strong as Sonnet 5.5, with the rules or
-with the terms alone, and the one gap that remains sits on one station-season. Our untested guess is that
+with the terms alone, and the one gap that remains sits on one station-season. My untested guess is that
 a policy would take that convention from the reward in a few steps. Harder versions are in decision 0013's
 later list: an index with gaps in more than one season, the insurer's side of basis risk (days
 the index paid while the site was not hot), money amounts and deductibles, heat index triggers,

@@ -6,7 +6,7 @@ repo; the source is named next to it.
 ## The question
 
 People ask language models about the weather all the time. How good is a model's own
-forecast when it is graded the way forecasters grade forecasts? We built an environment that
+forecast when it is graded the way forecasters grade forecasts? I built an environment that
 scores point forecasts against ERA5 by the WeatherBench 2 (WB2) rules, checked the grader
 against WB2's published numbers first, and then ran Claude Sonnet 5.5 on it.
 
@@ -14,7 +14,7 @@ against WB2's published numbers first, and then ran Claude Sonnet 5.5 on it.
 
 A grader that cannot reproduce a published score is not trusted with new ones. WB2 publishes
 the global RMSE of the ECMWF IFS HRES forecast of mean sea level pressure against ERA5 at a
-72 h lead, for the 2020 inits on its 64x32 grid: 133.890547 Pa. Our numpy port gives the same
+72 h lead, for the 2020 inits on its 64x32 grid: 133.890547 Pa. My numpy port gives the same
 133.890547 Pa (a difference of 3.2e-8 Pa), and matches the published ACC (0.981878) and bias
 (-0.406578 Pa) too (`reports/era5/2026-10-30-wb2-reproduction.md`, lines 11 to 13 and 26 to 27).
 
@@ -40,7 +40,7 @@ perfect forecast earns 1. Each variable's floor is the 10th percentile of b over
 28.75 Pa and 0.069 K, so a near-perfect free forecast cannot blow up the ratio (decision 0007,
 `reports/era5/items_v1_baselines.md`).
 
-This reward is our own. The WB2 rules give the RMSE and ACC in the tables below as reference
+This reward is my own. The WB2 rules give the RMSE and ACC in the tables below as reference
 metrics; they are not the reward.
 
 ## Results

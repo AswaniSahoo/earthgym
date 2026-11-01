@@ -51,7 +51,7 @@ once with them left out (`reports/ibtracs/2026-11-01-rules-shown-vs-hidden.md`):
   the arithmetic (`docs/reviews/phase-4-ibtracs-storms.md`).
 - Not told them, it still applies NOAA's ACE convention and the Saffir-Simpson scale: ACE and
   category stay at 0.99.
-- Only hours fall, and 63 of the 87 misses follow a duration reading instead of our 6 hours per
+- Only hours fall, and 63 of the 87 misses follow a duration reading instead of my 6 hours per
   6-hourly row: the elapsed time of each hurricane spell, or each row's status held until the
   next row. That is a convention the question does not state, not a missing skill; the same
   storm, Keith in 2000, drew 75 hours in the probe and 71 in the full run.

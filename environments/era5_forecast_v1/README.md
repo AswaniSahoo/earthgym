@@ -1,6 +1,6 @@
 # era5-forecast-v1
 
-Forecast tasks scored against ERA5 (decision 0007). The reward is our own clipped skill score over
+Forecast tasks scored against ERA5 (decision 0007). The reward is a custom clipped skill score over
 persistence and climatology; the WeatherBench 2 rules give the area-weighted RMSE and ACC that the
 reports show as reference metrics, not the reward. Each of the 720
 items is one cell of the 64x32 grid, one variable (mean sea level pressure in Pa or 2 m

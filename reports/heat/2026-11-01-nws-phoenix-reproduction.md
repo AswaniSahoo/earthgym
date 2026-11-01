@@ -5,7 +5,7 @@ Date: 2026-11-01. Code: `src/rlenv/heat/data.py` and `src/rlenv/heat/stats.py`. 
 
 ## Result
 
-| year | quantity | ours | published |
+| year | quantity | this repo | published |
 |---|---|---|---|
 | 2023 | days with a high of 110 F or more | 55 | 55 |
 | 2023 | days with a high of 100 F or more | 133 | 133 |
@@ -27,7 +27,7 @@ record periods: the 2023 summary says "CLIMATE RECORD PERIOD 1895 TO 2024".
 - File: `https://www.ncei.noaa.gov/pub/data/ghcn/daily/by_station/USW00023183.csv.gz` (Phoenix
   Sky Harbor), 1,479,584 bytes, Last-Modified Sun, 01 Nov 2026 00:01:02 GMT, sha256
   `8c0de135bbafa0d0264069ddacf8d5acfed61cd9bef3af0aa7ef27f78b077eed`. NCEI publishes no
-  checksum and rewrites the file daily, so the pin is ours and the copy under `data/heat/` (not
+  checksum and rewrites the file daily, so the pin is mine and the copy under `data/heat/` (not
   in git) is the one kept.
 - Reader: the standard library `gzip` and `csv` modules; TMAX rows only; values with a quality
   flag dropped (none in these years).

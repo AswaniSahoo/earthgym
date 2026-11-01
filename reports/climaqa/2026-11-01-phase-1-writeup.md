@@ -7,18 +7,18 @@ the source is named next to it.
 
 ClimaQA (Rose-STL-Lab/ClimaQA) is a question-answering benchmark for climate science. A
 benchmark is an exam paper: before anyone is graded on it, someone should check the answer
-key, the wording, and that no exam question leaked into the study material. We ran that check
+key, the wording, and that no exam question leaked into the study material. I ran that check
 on the released files at a pinned revision, 3f084a02 (`reports/climaqa/SUMMARY.md`).
 
-## What we checked
+## What I checked
 
 The paper's statistics table first: its counts per split and complexity level match the
-released files on all six rows we could compare (`reports/climaqa/SUMMARY.md`, Paper check).
+released files on all six rows I could compare (`reports/climaqa/SUMMARY.md`, Paper check).
 Then pure integrity checks over every item: option labels, keys that are not options, empty or
 duplicate options, cloze items without a mask, and exact-match overlap between the Gold test
 set and Silver, the set the paper fine-tunes on (arXiv 2410.16701v2, A.3.2).
 
-## What we found
+## What I found
 
 - 43 validated Gold test questions appear verbatim in Silver: 17 multiple choice, 9 cloze and
   17 freeform, plus 6 more across tasks (4 freeform and 2 multiple choice). Since the paper
@@ -30,7 +30,7 @@ set and Silver, the set the paper fine-tunes on (arXiv 2410.16701v2, A.3.2).
 - The Gold multiple-choice file still holds the 47 items the experts rejected
   (Validation=False), and the freeform file 20 (same report, Inventory). The authors' own
   notebooks keep only the validated items, which matches the paper's counts; any other loader
-  has to filter the same way. The later ClimaQA scores we checked,
+  has to filter the same way. The later ClimaQA scores I checked,
   OpenCompass's and SciEvalKit's, use the unfiltered file
   (`docs/radar.md`, the ClimaQA scores row).
 - 24 Gold cloze items repeat their answer outside the blank (same table,

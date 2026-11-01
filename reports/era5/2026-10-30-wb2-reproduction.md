@@ -6,7 +6,7 @@ tests still pass at 37e6636. Test: `tests/test_era5_reproduction.py`.
 
 ## Result
 
-| quantity | ours | published |
+| quantity | this repo | published |
 |---|---|---|
 | global RMSE of IFS HRES MSLP against ERA5, 72 h lead, 2020 inits, 64x32 | 133.890547 Pa | 133.890547 Pa |
 | global ACC against the ERA5 1990 to 2019 climatology, same setup | 0.981878 | 0.981878 |
@@ -23,7 +23,7 @@ The published values are `rmse`, `acc` and `bias` for region global, lead 72 h, 
 (1,469,120 bytes, sha256 `eec4fab627a3eac87fbada045bcf3507970a41fb3017c3c8dce7882e37e44947`),
 read at its root on 2026-10-30 with `scipy.io.netcdf_file` in a throwaway `uv run --with scipy`
 environment; its metric set is WeatherBench-X `public_benchmark`. Full precision, published
-against ours: RMSE 133.89054684361142 against 133.8905468754412 Pa (difference 3.2e-8), ACC
+against this repo's: RMSE 133.89054684361142 against 133.8905468754412 Pa (difference 3.2e-8), ACC
 0.9818776389291946 against 0.9818776392430146 (3.1e-10), bias -0.40657755779113947 against
 -0.4065775577911383 Pa (1.2e-15). The grader follows the WB2 rules on this grid to float32
 accumulation error.

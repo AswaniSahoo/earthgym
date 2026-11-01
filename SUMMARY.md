@@ -1,4 +1,4 @@
-# rlenv: what we found
+# rlenv: what I found
 
 Verifiable evals and RL environments for climate and earth science, built in five phases on
 2026-10-30 and 2026-11-01. Every number here is traced to the report it comes from; the
@@ -10,9 +10,9 @@ blog-ready write-ups tell each phase's story.
   (17 multiple choice, 9 cloze, 17 freeform), plus 6 more across tasks: train/test leaks for
   the paper's fine-tuned results (`reports/climaqa/SUMMARY.md`, Findings).
 - The Gold multiple-choice file still holds the 47 items the experts rejected; the later
-  ClimaQA scores we checked, OpenCompass's and SciEvalKit's, use that unfiltered file
+  ClimaQA scores I checked, OpenCompass's and SciEvalKit's, use that unfiltered file
   (`reports/climaqa/SUMMARY.md`, Inventory; `docs/radar.md`).
-- The paper's statistics table matches the released files on all six rows we could compare.
+- The paper's statistics table matches the released files on all six rows I could compare.
 
 Write-up: `reports/climaqa/2026-11-01-phase-1-writeup.md`.
 
@@ -82,7 +82,7 @@ Write-up: `reports/heat/2026-11-01-phase-5-writeup.md`.
   same reward and a policy this strong gets almost no signal. Not told them, it still applies
   NOAA's ACE convention, the Saffir-Simpson scale and the policy's thresholds. What remains is
   convention: hours at hurricane strength, short by a constant 3 or 6 hours, and a missing
-  index value, which matters only at Deer Valley in 2019. Our untested guess is that a policy
+  index value, which matters only at Deer Valley in 2019. My untested guess is that a policy
   would take either from the reward in a few steps; no training run has checked it. They serve as regression checks, and for weaker models.
 - The forecasting environment of Phase 3 is far from saturated: the model's 0.116 is no better
   than the midpoint baseline's 0.107, against HRES's 0.30 to 0.67, so there is headroom and no

@@ -6,7 +6,7 @@ Tests: `tests/test_ibtracs_reproduction.py`.
 
 ## Result
 
-| season | quantity | ours | published |
+| season | quantity | this repo | published |
 |---|---|---|---|
 | 1933 | ACE (1e4 kt^2) | 258.57 | 258.6 |
 | 2005 | hurricanes, major hurricanes | 15, 7 | 15, 7 |
@@ -27,7 +27,7 @@ Phase 4 radar records them (`docs/radar.md`). The category 5 count is the North 
 - File: `https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.NA.list.v04r01.csv`,
   57,593,323 bytes, Last-Modified Fri, 30 Oct 2026 04:27:28 GMT, sha256
   `666681be5b12caf5bad7a511bae5f6e5fa8b03789f7f6dd00ee2f0aaa41c2c97`. NCEI publishes no
-  checksum and overwrites the file in place, so the pin is ours and the copy under
+  checksum and overwrites the file in place, so the pin is mine and the copy under
   `data/ibtracs/` (not in git) is the one kept; a newer build fails the pin. Since 2026-11-02
   the same build is also an asset of the repo's `data-v1` release (decision 0018).
 - Reader: the standard library `csv` module; the second header row (units) skipped; every cell
