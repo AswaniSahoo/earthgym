@@ -152,7 +152,7 @@ def render(s: dict) -> str:
         f"# heat-basis-v1 on {s['label']}{'' if s['rules'] else ' (terms only)'}",
         "",
         f"Model `{s['model']}` on {n} items, scored by heat_basis_v1/contract.py at commit "
-        f"{s['commit']}.",
+        f"{s['commit']}" + ("." if s["rules"] else ", with the policy terms alone in the prompt."),
         "",
         "## Result",
         "",

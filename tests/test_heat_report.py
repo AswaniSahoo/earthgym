@@ -114,6 +114,7 @@ def test_a_terms_only_log_says_so_and_counts_explained_misses(tmp_path):
     assert s["rules"] is False and s["questions"][0]["explained"] == 1  # 3 is the site's column
     text = report.render(s)
     assert text.startswith("# heat-basis-v1 on model (terms only)")
+    assert ", with the policy terms alone in the prompt." in text
     assert "the rules-shown run is the control" in text and "not run here" not in text
 
 

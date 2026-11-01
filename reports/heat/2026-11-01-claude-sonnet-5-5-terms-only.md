@@ -1,6 +1,6 @@
 # heat-basis-v1 on claude-sonnet-5-5 (terms only)
 
-Model `anthropic/claude-sonnet-5-5` on 300 items, scored by heat_basis_v1/contract.py at commit bb6fd9b.
+Model `anthropic/claude-sonnet-5-5` on 300 items, scored by heat_basis_v1/contract.py at commit bb6fd9b, with the policy terms alone in the prompt.
 
 ## Result
 
