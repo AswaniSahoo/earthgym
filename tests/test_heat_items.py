@@ -1,6 +1,8 @@
 import json
 from collections import Counter
 
+import pytest
+
 from rlenv.heat import items, policy, stats
 
 T = stats.tenths
@@ -58,3 +60,10 @@ def test_write_records_the_items_sha256_in_the_manifest(tmp_path):
     assert (m["n"], m["seed"], m["questions"]) == (1, 2026, {"trigger_days": 1})
     assert len(m["sha256"]) == 64 and set(m["stations"]) == set(items.INDEXES + items.SITES)
     assert json.loads(out.read_text())["key"] == 2
+
+
+def test_key_refuses_an_unknown_question():
+    spec = {"question": "hot_days", "index": items.INDEXES[0], "site": items.SITES[0]}
+    spec |= {"year": 2020, "threshold": 110, "k": None}
+    with pytest.raises(ValueError, match="unknown question 'hot_days'"):
+        items.key(spec, series())

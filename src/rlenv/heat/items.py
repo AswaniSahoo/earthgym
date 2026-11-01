@@ -66,7 +66,9 @@ def key(spec: dict, series: dict[str, dict[str, int]]) -> int:
         return policy.trigger_days(index, year, f)
     if spec["question"] == "events":
         return policy.events(index, year, f, spec["k"])
-    return policy.missed_days(index, site, year, f)
+    if spec["question"] == "missed_days":
+        return policy.missed_days(index, site, year, f)
+    raise ValueError(f"unknown question {spec['question']!r}")
 
 
 def make_item(spec: dict, series: dict[str, dict[str, int]]) -> dict:
