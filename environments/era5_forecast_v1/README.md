@@ -25,7 +25,8 @@ The grader behind the items reproduces two published WeatherBench 2 scores exact
 (`reports/era5/2026-10-30-wb2-reproduction.md`).
 
 Rebuild the items from the repo root (about 55 MB over anonymous HTTPS; the store metadata is
-pinned by sha256, and the file's sha256 is in `reports/era5/items_v1_manifest.json`):
+pinned by sha256, and `reports/era5/items_v1_manifest.json` holds the file's sha256 and
+`fields_sha256`, a hash of every array the builder reads, which a rebuild checks first):
 
     uv run python -m rlenv.era5.items
 

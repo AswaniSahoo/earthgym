@@ -93,3 +93,27 @@ def test_bundled_floors_follow_the_rule_and_the_manifest_records_them():
     floors = items.floors(rows)
     assert all(r["floor"] == pytest.approx(floors[r["variable"]]) for r in rows)
     assert json.loads(items.MANIFEST.read_text())["floors"] == pytest.approx(floors)
+
+
+def test_fields_sha256_changes_with_any_value_the_builder_reads():
+    f = fields()
+    base = items.fields_sha256(f)
+    assert items.fields_sha256(fields()) == base
+    f["hres"][(T2M, 24)][0, 0, 0] += 0.01
+    assert items.fields_sha256(f) != base
+    g = fields()
+    g["clim_days"] = g["clim_days"] + 1
+    assert items.fields_sha256(g) != base
+
+
+def test_a_rebuild_refuses_fields_that_differ_from_the_manifest(tmp_path):
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(json.dumps({"fields_sha256": "0" * 64}), "utf-8")
+    with pytest.raises(ValueError, match="other values"):
+        items.check_fields(fields(), manifest)
+    manifest.write_text(json.dumps({"fields_sha256": items.fields_sha256(fields())}), "utf-8")
+    assert items.check_fields(fields(), manifest) == items.fields_sha256(fields())
+
+
+def test_the_manifest_records_the_hash_of_the_fields_the_items_came_from():
+    assert len(json.loads(items.MANIFEST.read_text("utf-8"))["fields_sha256"]) == 64

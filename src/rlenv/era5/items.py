@@ -127,6 +127,25 @@ def read_fields() -> dict:
     return fields
 
 
+def fields_sha256(fields: dict) -> str:
+    """Content hash of every array the builder reads from the stores, so a rebuild can tell a
+    store that serves other values under the same pinned metadata."""
+    arrays = {k: fields[k] for k in ("latitude", "longitude", "clim_hours", "clim_days")}
+    arrays |= {f"era5/{v}": a for v, a in fields["era5"].items()}
+    arrays |= {f"clim/{v}": a for v, a in fields["clim"].items()}
+    arrays |= {f"hres/{v}/{lead}": a for (v, lead), a in fields["hres"].items()}
+    return data.content_sha256(arrays)
+
+
+def check_fields(fields: dict, manifest: Path = MANIFEST) -> str:
+    """The fields' hash, after checking it against the one the manifest records, if any."""
+    digest = fields_sha256(fields)
+    pinned = json.loads(manifest.read_text("utf-8")).get("fields_sha256")
+    if pinned not in (None, digest):
+        raise ValueError(f"the stores serve other values: fields sha256 {digest}, pinned {pinned}")
+    return digest
+
+
 def write(rows: list[dict], out: Path = OUT, manifest: Path = MANIFEST, **extra) -> str:
     """One JSON object per line, and a manifest with the file's sha256, how it was made and
     any extra fields."""
@@ -145,9 +164,11 @@ def write(rows: list[dict], out: Path = OUT, manifest: Path = MANIFEST, **extra)
 def main() -> None:
     argparse.ArgumentParser(description="Build the era5-forecast-v1 items.").parse_args()
     fields = read_fields()
+    checked = check_fields(fields)
     shape = (data.INITS, len(fields["latitude"]), len(fields["longitude"]))
     rows = with_floors([make_item(*pick, fields) for pick in plan(SEED, PER_GROUP, *shape)])
-    digest = write(rows, floors=floors(rows), floor_binds=floor_binds(rows))
+    extra = {"floors": floors(rows), "floor_binds": floor_binds(rows), "fields_sha256": checked}
+    digest = write(rows, **extra)
     print(f"{len(rows)} items, sha256 {digest}")
 
 

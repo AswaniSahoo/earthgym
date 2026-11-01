@@ -26,5 +26,6 @@
  "floor_binds": {
   "mean_sea_level_pressure": 36,
   "2m_temperature": 36
- }
+ },
+ "fields_sha256": "41cb619bc95f4a3b38073716c036dbaedd746760d5d2a05151df2d68d35e8652"
 }
