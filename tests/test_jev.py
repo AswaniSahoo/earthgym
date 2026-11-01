@@ -61,3 +61,11 @@ def test_budget_refuses_a_call_that_would_cross_the_limit():
     budget.charge(1_000_000)
     assert budget.spent == pytest.approx(0.042)
     assert budget.allows(1_380_952) and not budget.allows(1_400_000)
+
+
+def test_the_env_file_is_found_from_the_checkout_not_a_fixed_path():
+    from pathlib import Path
+
+    module = Path("/elsewhere/rlenv/src/rlenv/climaqa/jev.py")
+    assert jev.repo_root(module) == Path("/elsewhere/rlenv")
+    assert jev.repo_root(Path(jev.__file__).resolve()) / ".env" == jev.ENV_FILE
