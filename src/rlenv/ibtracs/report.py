@@ -212,16 +212,72 @@ def render(s: dict) -> str:
     return "\n".join([*lines, ""])
 
 
+def render_pair(shown: dict, hidden: dict) -> str:
+    """The rules-shown and rules-hidden runs side by side (the ablation in decision 0011)."""
+    k_shown = round(shown["reward"] * shown["n"])
+    lines = [
+        "# ibtracs-storm-v1: rules shown against rules hidden",
+        "",
+        f"Model `{shown['model']}` on the same {shown['n']} items, once with each question's "
+        "rule in the prompt and once without it (`-T rules=false`).",
+        "",
+        "| question | n | accuracy, rules shown | accuracy, rules hidden |",
+        "|---|---|---|---|",
+    ]
+    hidden_by = {r["question"]: r for r in hidden["questions"]}
+    for r in shown["questions"]:
+        if (h := hidden_by.get(r["question"])) is not None:
+            lines.append(
+                f"| {r['question']} | {r['n']} | {r['accuracy']:.3f} | {h['accuracy']:.3f} |"
+            )
+    lines += [
+        f"| all | {shown['n']} | {shown['reward']:.3f} | {hidden['reward']:.3f} |",
+        "",
+        "Wrong answers in the rules-hidden run that equal a careless reading of the rule:",
+        "",
+        "| question | careless reading | misses that match |",
+        "|---|---|---|",
+    ]
+    for r in hidden["questions"]:
+        lines += [f"| {r['question']} | {name} | {c} |" for name, c in r["traps"].items()]
+    rl = (
+        f"With the rules shown the model is right on {k_shown} of {shown['n']} items, so nearly "
+        "every rollout earns the same reward and an RL policy this strong gets almost no signal "
+        "to learn from; that version serves as a regression check, or for weaker models."
+    )
+    if hidden["reward"] < shown["reward"] - 0.1:
+        rl += (
+            f" With the rules hidden, accuracy falls to {hidden['reward']:.3f}: the gap is "
+            "knowledge of the counting conventions, so the rules-hidden version has room to learn."
+        )
+    else:
+        rl += (
+            f" With the rules hidden, accuracy is {hidden['reward']:.3f}, so the model knows the "
+            "conventions too and both versions are near the ceiling for it."
+        )
+    lines += ["", "## What this means for RL", "", rl, ""]
+    return "\n".join(lines)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Report a model run on ibtracs-storm-v1.")
     parser.add_argument("log_dir")
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--hidden", help="log dir of the rules-hidden run: write the pair")
     args = parser.parse_args()
-    logs = [read_eval_log(info) for info in list_eval_logs(args.log_dir)]
-    if [x.status for x in logs] != ["success"]:
-        raise SystemExit(f"want one successful log in {args.log_dir}")
-    s = summarize(logs[0], records())
+
+    def one(path: str) -> dict:
+        logs = [read_eval_log(info) for info in list_eval_logs(path)]
+        if [x.status for x in logs] != ["success"]:
+            raise SystemExit(f"want one successful log in {path}")
+        return summarize(logs[0], records())
+
+    s = one(args.log_dir)
     args.out.parent.mkdir(parents=True, exist_ok=True)
+    if args.hidden:
+        args.out.write_text(render_pair(s, one(args.hidden)), "utf-8")
+        print(f"pair report written to {args.out}")
+        return
     args.out.write_text(render(s), "utf-8")
     args.out.with_suffix(".json").write_text(json.dumps(s, indent=1, default=str), "utf-8")
     print(f"{s['n']} items, accuracy {s['reward']:.3f}, written to {args.out}")

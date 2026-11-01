@@ -83,3 +83,23 @@ def test_render_lists_the_model_the_constant_and_the_careless_readings(log):
     line = "- peak_category: 'category from synoptic rows only' is right on 1 of 1 items"
     assert line in text and "reading the Saffir-Simpson scale" in text
     assert "- ace: '" not in text
+
+
+def summary(reward, accuracies, traps=None):
+    questions = [
+        {"question": q, "n": 100, "accuracy": a, "traps": (traps or {}).get(q, {})}
+        for q, a in accuracies.items()
+    ]
+    return {"model": "m/x", "n": 300, "reward": reward, "questions": questions}
+
+
+def test_pair_report_puts_both_runs_side_by_side_with_a_plain_rl_line():
+    shown = summary(0.997, {"ace": 0.99, "peak_category": 1.0, "hurricane_hours": 1.0})
+    traps = {"ace": {"ACE over every row": 30}}
+    hidden = summary(0.6, {"ace": 0.4, "peak_category": 0.9, "hurricane_hours": 0.5}, traps)
+    text = report.render_pair(shown, hidden)
+    assert "| ace | 100 | 0.990 | 0.400 |" in text and "| all | 300 | 0.997 | 0.600 |" in text
+    assert "| ace | ACE over every row | 30 |" in text
+    assert "almost no signal" in text and "room to learn" in text
+    close = report.render_pair(shown, summary(0.98, {"ace": 0.97}))
+    assert "near the ceiling" in close and "room to learn" not in close
