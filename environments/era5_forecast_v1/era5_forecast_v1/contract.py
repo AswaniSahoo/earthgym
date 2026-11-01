@@ -72,7 +72,7 @@ def reward(
 
 def group(item: dict) -> str:
     """The held-out group: the ISO week of the init time, so forecasts that share the same
-    weather fall on one side of a split."""
+    weather fall on one side of a split (decision 0017)."""
     year, week, _ = datetime.strptime(item["init_time"], "%Y-%m-%dT%H").isocalendar()
     return f"{year}-W{week:02d}"
 

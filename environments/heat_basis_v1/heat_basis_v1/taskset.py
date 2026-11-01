@@ -2,6 +2,7 @@
 
 import json
 from importlib.resources import files
+from typing import Literal
 
 import verifiers.v1 as vf
 
@@ -30,6 +31,7 @@ class HeatTask(vf.Task[HeatData]):
 class HeatConfig(vf.TasksetConfig):
     questions: list[str] = list(contract.QUESTIONS)
     rules: bool = True  # False: the terms-only ablation
+    split: Literal["train", "test"] | None = None  # held out by group (decision 0017)
 
 
 class HeatTaskset(vf.Taskset[HeatTask, HeatConfig]):
@@ -38,6 +40,7 @@ class HeatTaskset(vf.Taskset[HeatTask, HeatConfig]):
             HeatTask(to_data(row, self.config.rules), self.config.task)
             for row in records()
             if row["question"] in self.config.questions
+            and self.config.split in (None, contract.split(row))
         ]
 
 

@@ -2,6 +2,7 @@
 
 import json
 from importlib.resources import files
+from typing import Literal
 
 import verifiers.v1 as vf
 
@@ -31,6 +32,7 @@ class StormTask(vf.Task[StormData]):
 class StormConfig(vf.TasksetConfig):
     questions: list[str] = list(contract.QUESTIONS)
     rules: bool = True  # False: the rules-hidden ablation
+    split: Literal["train", "test"] | None = None  # held out by group (decision 0017)
 
 
 class StormTaskset(vf.Taskset[StormTask, StormConfig]):
@@ -39,6 +41,7 @@ class StormTaskset(vf.Taskset[StormTask, StormConfig]):
             StormTask(to_data(row, self.config.rules), self.config.task)
             for row in records()
             if row["question"] in self.config.questions
+            and self.config.split in (None, contract.split(row))
         ]
 
 

@@ -2,6 +2,7 @@
 
 import json
 from importlib.resources import files
+from typing import Literal
 
 import verifiers.v1 as vf
 
@@ -34,6 +35,7 @@ class ForecastTask(vf.Task[ForecastData]):
 
 class ForecastConfig(vf.TasksetConfig):
     variables: list[str] = list(contract.VARIABLES)
+    split: Literal["train", "test"] | None = None  # held out by group (decision 0017)
 
 
 class ForecastTaskset(vf.Taskset[ForecastTask, ForecastConfig]):
@@ -42,6 +44,7 @@ class ForecastTaskset(vf.Taskset[ForecastTask, ForecastConfig]):
             ForecastTask(to_data(row), self.config.task)
             for row in records()
             if row["variable"] in self.config.variables
+            and self.config.split in (None, contract.split(row))
         ]
 
 

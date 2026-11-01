@@ -5,6 +5,7 @@ The Inspect task and the verifiers taskset both import this module, so they read
 replies and pay the same reward.
 """
 
+import hashlib
 import math
 import re
 
@@ -88,3 +89,14 @@ def answer(reply: str) -> float | None:
 def reward(value: float | None, key: int) -> float:
     """1 for the exact count, else 0."""
     return float(value is not None and value == key)
+
+
+def group(item: dict) -> str:
+    """The held-out group: the season. The four station pairs share stations, so a season's
+    readings at every station fall on one side of a split (decision 0017)."""
+    return str(item["year"])
+
+
+def split(item: dict) -> str:
+    """'test' for about one group in five, picked by a hash of the group key, else 'train'."""
+    return "test" if hashlib.sha256(group(item).encode()).digest()[0] % 5 == 0 else "train"

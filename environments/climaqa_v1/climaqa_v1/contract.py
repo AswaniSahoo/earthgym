@@ -4,6 +4,7 @@ Inspect (rlenv.climaqa.tasks) and verifiers (climaqa_v1.taskset) both import thi
 show the same prompt and count the same replies as correct.
 """
 
+import hashlib
 import re
 
 LETTERS = "ABCD"
@@ -76,3 +77,14 @@ def normalize(text: str) -> str:
 
 def cloze_correct(reply: str, key: str) -> bool:
     return normalize(key) != "" and normalize(reply) == normalize(key)
+
+
+def group(item: dict) -> str:
+    """The held-out group: the item itself, since ClimaQA gives no source passage to group by
+    (decision 0017)."""
+    return item["id"]
+
+
+def split(item: dict) -> str:
+    """'test' for about one group in five, picked by a hash of the group key, else 'train'."""
+    return "test" if hashlib.sha256(group(item).encode()).digest()[0] % 5 == 0 else "train"

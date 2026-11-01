@@ -3,6 +3,7 @@ exact-overlap-filtered; 21 near matches of Silver are unresolved, and `strict` l
 
 import json
 from importlib.resources import files
+from typing import Literal
 
 import verifiers.v1 as vf
 
@@ -46,6 +47,7 @@ class ClimaqaTask(vf.Task[ClimaqaData]):
 class ClimaqaConfig(vf.TasksetConfig):
     kinds: list[str] = ["mcq", "cloze"]
     strict: bool = False  # True: leave out the near matches of Silver
+    split: Literal["train", "test"] | None = None  # held out by group (decision 0017)
 
 
 class ClimaqaTaskset(vf.Taskset[ClimaqaTask, ClimaqaConfig]):
@@ -54,7 +56,9 @@ class ClimaqaTaskset(vf.Taskset[ClimaqaTask, ClimaqaConfig]):
         return [
             ClimaqaTask(to_data(row), self.config.task)
             for row in records()
-            if row["task"] in self.config.kinds and row["id"] not in near
+            if row["task"] in self.config.kinds
+            and row["id"] not in near
+            and self.config.split in (None, contract.split(row))
         ]
 
 
