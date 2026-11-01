@@ -153,6 +153,7 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
         "model": log.eval.model,
         "label": log.eval.model.split("/")[-1],
         "n": len(rewards),
+        "ids": [s.id for s in log.samples or []],
         "parse_failures": parse_failures,
         "errors": errors,
         "rules": log.eval.task_args.get("rules", True),

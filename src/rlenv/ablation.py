@@ -6,7 +6,14 @@ def render_pair(
 ) -> str:
     """Two runs of one environment side by side: the rules shown (the control), and an
     ablation with them left out. The verdict is per question: near the ceiling either way, a
-    convention gap (most misses follow one careless reading), or room to learn."""
+    convention gap (most misses follow one careless reading), or room to learn. The two runs
+    must be of one model over the same items, each item once."""
+    if shown["model"] != hidden["model"]:
+        raise ValueError(f"the runs are of different models: {shown['model']}, {hidden['model']}")
+    if any(len(set(run["ids"])) != len(run["ids"]) for run in (shown, hidden)):
+        raise ValueError("a run repeats an item id")
+    if set(shown["ids"]) != set(hidden["ids"]):
+        raise ValueError("the runs are not over the same items")
     lines = [
         f"# {env}: rules shown against {hidden_name}",
         "",

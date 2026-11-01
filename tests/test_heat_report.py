@@ -115,7 +115,7 @@ def test_render_lists_the_model_the_constant_and_the_careless_readings(log):
 
 
 def test_pair_report_names_the_terms_only_ablation():
-    shown = {"model": "m/x", "n": 300, "reward": 1.0, "questions": []}
+    shown = {"model": "m/x", "n": 300, "reward": 1.0, "questions": [], "ids": ["a"]}
     shown["questions"] = [{"question": "events", "n": 100, "accuracy": 1.0, "traps": {}}]
     hidden = shown | {"reward": 0.7}
     hidden["questions"] = [
@@ -143,9 +143,9 @@ def test_a_terms_only_log_says_so_and_counts_explained_misses(tmp_path):
 
 def test_a_small_drop_that_one_reading_explains_is_a_convention_gap():
     q = {"question": "missed_days", "n": 100, "accuracy": 0.96, "traps": {}, "explained": 0}
-    shown = {"model": "m/x", "n": 100, "reward": 0.96, "questions": [q]}
+    shown = {"model": "m/x", "n": 100, "reward": 0.96, "questions": [q], "ids": ["a"]}
     h = q | {"accuracy": 0.89, "traps": {"missing index days left out": 6}, "explained": 6}
-    text = report.render_pair(shown, {"model": "m/x", "n": 100, "reward": 0.89, "questions": [h]})
+    text = report.render_pair(shown, shown | {"reward": 0.89, "questions": [h]})
     assert "6 of the 11 misses follow a careless reading" in text and "convention gap" in text
     assert "constant offset" not in text and "in a few steps" in text
     assert "an untested guess" in text
@@ -153,16 +153,17 @@ def test_a_small_drop_that_one_reading_explains_is_a_convention_gap():
 
 def test_pair_report_says_where_the_differing_items_sit():
     q = {"question": "missed_days", "n": 100, "accuracy": 0.96, "traps": {}, "explained": 0}
-    shown = {"model": "m/x", "n": 100, "reward": 0.96, "questions": [q]}
+    shown = {"model": "m/x", "n": 100, "reward": 0.96, "questions": [q], "ids": ["a"]}
     where = {"missing index days left out": {"Phoenix Deer Valley Municipal Airport 2019": 8}}
     h = q | {"accuracy": 0.89, "traps": {}, "explained": 7, "where": where}
-    text = report.render_pair(shown, {"model": "m/x", "n": 100, "reward": 0.89, "questions": [h]})
+    text = report.render_pair(shown, shown | {"reward": 0.89, "questions": [h]})
     assert "Phoenix Deer Valley Municipal Airport 2019 (8)" in text
 
 
 def test_heat_pair_report_never_mentions_storms(log):
     s = report.summarize(log, ITEMS)
     assert s["recognized_what"] == "name a season from 2015 to 2024"
+    assert sorted(s["ids"]) == sorted(i["id"] for i in ITEMS)  # the pair report checks these
     assert "storm" not in report.render_pair(s, s)
 
 

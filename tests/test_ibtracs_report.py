@@ -117,6 +117,7 @@ def summary(reward, accuracies, traps=None, explained=None):
         for q, a in accuracies.items()
     ]
     return {"model": "m/x", "n": 300, "reward": reward, "questions": questions} | {
+        "ids": list(range(300)),
         "recognized": 2,
         "recognized_what": "name the storm or its season",
     }
@@ -149,6 +150,7 @@ def test_pair_report_names_a_convention_gap_per_question():
 def test_summary_counts_replies_that_name_the_storm_and_reads_the_rules_flag(log):
     s = report.summarize(log, ITEMS)
     assert (s["recognized"], s["rules"]) == (1, True)
+    assert sorted(s["ids"]) == sorted(i["id"] for i in ITEMS)  # the pair report checks these
     assert s["questions"][0]["explained"] == 1  # the ACE miss equals a careless reading
     assert "1 of 3 replies name the storm or its season" in report.render(s)
 
