@@ -28,7 +28,10 @@ def test_taskset_loads_every_item_with_its_prompt_and_key():
     assert len(loaded) == 300
     for t in loaded:
         assert t.data.prompt == contract.prompt(rows[t.data.id])
-        assert (t.data.question, t.data.key) == (rows[t.data.id]["question"], rows[t.data.id]["key"])
+        assert (t.data.question, t.data.key) == (
+            rows[t.data.id]["question"],
+            rows[t.data.id]["key"],
+        )
 
 
 def test_config_can_restrict_the_taskset_to_one_question():
@@ -57,6 +60,10 @@ def test_probe_takes_the_first_items_of_each_question():
 def test_inspect_task_scores_replies_with_the_contract_reward(tmp_path, reply, expected):
     path = tmp_path / "items.jsonl"
     path.write_text(json.dumps(ROW) + "\n", encoding="utf-8")
-    model = get_model("mockllm/model", custom_outputs=[ModelOutput.from_content("mockllm/model", reply)])
-    log = eval(tasks.ibtracs_storm(path=str(path)), model=model, log_dir=str(tmp_path), display="none")[0]
+    model = get_model(
+        "mockllm/model", custom_outputs=[ModelOutput.from_content("mockllm/model", reply)]
+    )
+    log = eval(
+        tasks.ibtracs_storm(path=str(path)), model=model, log_dir=str(tmp_path), display="none"
+    )[0]
     assert log.results.scores[0].metrics["mean"].value == pytest.approx(expected)
