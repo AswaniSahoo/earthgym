@@ -19,6 +19,23 @@ without waiting between steps.
 5. [x] Final pass: README current, a blog-ready report per phase, a top-level SUMMARY.md of
        the findings with every number traced to a report, the spend ledger final, CI green.
 
+## Now: fix batch 1 (lfx-prep-b7, 2026-11-02; brief in the coordinator's scratchpad)
+
+From the Codex review. TDD, small commits, ruff + pytest + uv lock --check, push, CI green, no
+model calls. Out of scope: README rewrite (collect notes in docs/readme-notes.md), moving
+CLAUDE.md, .claude/, reviews/, LOG.md, WORKBOARD.md, any rename or visibility change.
+
+- [ ] A1 ERA5 midpoint and train-fitted mixture baselines; restate Sonnet against the midpoint
+- [ ] A2 ClimaQA: exact-overlap-filtered wording; strict variant (329) rescored from logs
+- [ ] A3 managed budget wording; rlenv.spend refuses unpriced models
+- [ ] A4 reward against WB2 metrics; hypothesis wording; name OpenCompass and SciEvalKit
+- [ ] B5 jev.py and docs paths repo-relative; B6 radar.md:68 billing detail removed
+- [ ] C7 strict ACE rounding; C8 one answer-line rule; C9 cloze signs and operators
+- [ ] C10 heat key() raises, ERA5 report empty and one-sample runs; C11 pair checks
+- [ ] C: recompute every reported score from logs; record old and new
+- [ ] D12 group keys and split option; D13 pinned NOAA data release (terms decision)
+- [ ] D14 ERA5 content hash; D15 reproduction workflow; D16 per-item results; D17 docs/reproduce.md
+
 ## Rules for this goal
 
 - Technical design choices are ours: Fable reviews them and each goes in a decision record.
