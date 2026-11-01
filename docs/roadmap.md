@@ -18,6 +18,10 @@ the decisions (`docs/decisions/`).
 - My own hand checks: the 30-item ClimaQA sample and the 56 Gold and Silver leak pairs, from
   sheets under `docs/human-checks/`.
 - A README that leads with the claim, the results and the three findings.
+- Independent oracles for the keys (the Codex review's finding 8): today the heat and storm
+  item tests rebuild the items with the same code that made them, which proves consistency, not
+  correctness. Recompute every bundled heat and storm key from the prompt data with separate
+  code, and add archived references for ERA5 temperature and the 24 and 48 h leads.
 
 ## After that
 

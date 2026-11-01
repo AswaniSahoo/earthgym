@@ -77,13 +77,14 @@ Write-up: `reports/heat/2026-11-01-phase-5-writeup.md`.
 
 ## What it means for RL
 
-- The exact-answer environments of Phases 4 and 5 are saturated for a model as strong as
-  Sonnet 5.5: told the rules, it gets nearly every item right, so nearly every rollout earns the
-  same reward and a policy this strong gets almost no signal. Not told them, it still applies
-  NOAA's ACE convention, the Saffir-Simpson scale and the policy's thresholds. What remains is
-  convention: hours at hurricane strength, short by a constant 3 or 6 hours, and a missing
-  index value, which matters only at Deer Valley in 2019. My untested guess is that a policy
-  would take either from the reward in a few steps; no training run has checked it. They serve as regression checks, and for weaker models.
+- The exact-answer environments of Phases 4 and 5 are saturated for a model as strong as Sonnet 5.5:
+  told the rules, it gets nearly every item right, so nearly every rollout earns the same reward and
+  a policy this strong gets almost no signal. Not told them, it still applies NOAA's ACE convention,
+  the Saffir-Simpson scale and the policy's thresholds. What remains is convention: hours at
+  hurricane strength, short by a constant 3 or 6 hours, and a missing index value, which matters
+  only at Deer Valley in 2019. My untested guess is that a policy would take either from the reward
+  in a few steps; no training run has checked it. They serve as regression checks, and for weaker
+  models.
 - The forecasting environment of Phase 3 is far from saturated: the model's 0.116 is no better
   than the midpoint baseline's 0.107, against HRES's 0.30 to 0.67, so there is headroom and no
   skill yet to build on.
