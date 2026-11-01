@@ -4,6 +4,8 @@
  "n": 300,
  "parse_failures": 0,
  "rules": false,
+ "recognized": 0,
+ "recognized_what": "name a season from 2015 to 2024",
  "errors": 0,
  "reward": 0.96,
  "stderr": 0.011332611951597253,
@@ -24,7 +26,11 @@
     "above, not at, the threshold": 0,
     "the site's column": 0
    },
-   "explained": 0
+   "explained": 0,
+   "matched": {},
+   "off_by_one": 1,
+   "gap_days": 0,
+   "where": {}
   },
   {
    "question": "events",
@@ -37,14 +43,28 @@
    "baselines": {
     "trigger days, not events": 0.03,
     "every run, whatever its length": 0.09,
-    "missing days skipped": 0.99
+    "missing days skipped": 0.99,
+    "blocks of k days": 0.38,
+    "runs longer than k": 0.5,
+    "runs of exactly k": 0.3
    },
    "traps": {
     "trigger days, not events": 0,
     "every run, whatever its length": 0,
-    "missing days skipped": 0
+    "missing days skipped": 0,
+    "blocks of k days": 0,
+    "runs longer than k": 0,
+    "runs of exactly k": 0
    },
-   "explained": 0
+   "explained": 0,
+   "matched": {},
+   "off_by_one": 0,
+   "gap_days": 0,
+   "where": {
+    "missing days skipped": {
+     "Phoenix Deer Valley Municipal Airport 2019": 1
+    }
+   }
   },
   {
    "question": "missed_days",
@@ -57,14 +77,43 @@
    "baselines": {
     "both ways": 0.71,
     "every hot site day": 0.02,
-    "missing index days left out": 0.92
+    "missing index days left out": 0.92,
+    "site strictly above the threshold": 0.13,
+    "the other way round": 0.02
    },
    "traps": {
     "both ways": 0,
     "every hot site day": 0,
-    "missing index days left out": 6
+    "missing index days left out": 6,
+    "site strictly above the threshold": 3,
+    "the other way round": 1
    },
-   "explained": 6
+   "explained": 6,
+   "matched": {
+    "missing index days left out": [
+     "missed_days/USW00003184/USC00028499/2019/100",
+     "missed_days/USW00003184/USC00028499/2019/106",
+     "missed_days/USW00003184/USC00028499/2019/107",
+     "missed_days/USW00003184/USC00028499/2019/108",
+     "missed_days/USW00003184/USC00028499/2019/110",
+     "missed_days/USW00003184/USW00023183/2019/113"
+    ],
+    "site strictly above the threshold": [
+     "missed_days/USW00003184/USC00028499/2019/106",
+     "missed_days/USW00003184/USC00028499/2019/110",
+     "missed_days/USW00003184/USW00023183/2019/113"
+    ],
+    "the other way round": [
+     "missed_days/USW00003184/USC00028499/2019/107"
+    ]
+   },
+   "off_by_one": 2,
+   "gap_days": 6,
+   "where": {
+    "missing index days left out": {
+     "Phoenix Deer Valley Municipal Airport 2019": 8
+    }
+   }
   }
  ],
  "tokens": {

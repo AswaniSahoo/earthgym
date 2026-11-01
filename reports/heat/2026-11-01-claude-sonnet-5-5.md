@@ -21,11 +21,16 @@ Accuracy per question, with the best constant answer and each careless reading o
 | events | trigger days, not events | 100 | 0.030 |
 | events | every run, whatever its length | 100 | 0.090 |
 | events | missing days skipped | 100 | 0.990 |
+| events | blocks of k days | 100 | 0.380 |
+| events | runs longer than k | 100 | 0.500 |
+| events | runs of exactly k | 100 | 0.300 |
 | missed_days | model | 100 | 0.960 |
 | missed_days | best constant (3) | 100 | 0.090 |
 | missed_days | both ways | 100 | 0.710 |
 | missed_days | every hot site day | 100 | 0.020 |
 | missed_days | missing index days left out | 100 | 0.920 |
+| missed_days | site strictly above the threshold | 100 | 0.130 |
+| missed_days | the other way round | 100 | 0.020 |
 
 Wrong answers by the model that equal a careless reading of the rule:
 
@@ -36,9 +41,16 @@ Wrong answers by the model that equal a careless reading of the rule:
 | events | trigger days, not events | 0 |
 | events | every run, whatever its length | 0 |
 | events | missing days skipped | 0 |
+| events | blocks of k days | 0 |
+| events | runs longer than k | 0 |
+| events | runs of exactly k | 0 |
 | missed_days | both ways | 1 |
 | missed_days | every hot site day | 0 |
 | missed_days | missing index days left out | 0 |
+| missed_days | site strictly above the threshold | 0 |
+| missed_days | the other way round | 0 |
+
+Matches are by value. Misses off by exactly one: 4 of 4; missed-days misses off by the number of hot site days with no index value: 0.
 
 ## Tokens and cost
 
@@ -55,9 +67,12 @@ Wrong answers by the model that equal a careless reading of the rule:
 
 - One reply per item, with no seed or temperature set, so a rerun gives other replies;
   the run-to-run spread is not measured.
-- The prompt leaves out the year. The station data are public, but a recalled daily
-  series is unlikely; whether any answer was recalled rather than counted is UNKNOWN.
+- The prompt leaves out the year, and 0 of 300 replies name a season from 2015 to 2024.
+- The missed-days question asks the policyholder's side of basis risk only: days the
+  index paid while the site was not hot are not asked.
 - Four Phoenix-area stations, seasons 2015 to 2024. The rules are in the prompt: this run is the control for the terms-only ablation.
 - The cost uses the token counts in the log; the Anthropic Console's bill is not read.
-- events: 'missing days skipped' is right on 99 of 100 items, so on these storms the question mostly tests finding the runs, not the rule's choice of rows (decision 0013).
-- missed_days: 'missing index days left out' is right on 92 of 100 items, so on these storms the question mostly tests comparing the two columns, not the rule's choice of rows (decision 0013).
+- events: 'missing days skipped' is right on 99 of 100 items, so on these seasons the question mostly tests finding the runs, not the rule's choice of days (decision 0013).
+- missed_days: 'missing index days left out' is right on 92 of 100 items, so on these seasons the question mostly tests comparing the two columns, not the rule's choice of days (decision 0013).
+- 'missing days skipped' gives another answer than the key on 1 of 100 events items: Phoenix Deer Valley Municipal Airport 2019 (1).
+- 'missing index days left out' gives another answer than the key on 8 of 100 missed_days items: Phoenix Deer Valley Municipal Airport 2019 (8).
