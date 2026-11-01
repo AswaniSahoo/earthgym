@@ -1,0 +1,93 @@
+{
+ "rows": [
+  {
+   "task": "climaqa_cloze",
+   "model_a": "google/vertex/gemini-3.8-flash",
+   "model_b": "anthropic/claude-sonnet-5-5",
+   "n": 128,
+   "accuracy_a": 0.7421875,
+   "accuracy_b": 0.5078125,
+   "both_right": 62,
+   "both_wrong": 30,
+   "only_a": 33,
+   "only_b": 3,
+   "p": 2.2721360437572002e-07,
+   "same_wrong": [
+    "gold/cloze/102",
+    "gold/cloze/111",
+    "gold/cloze/139",
+    "gold/cloze/26",
+    "gold/cloze/34",
+    "gold/cloze/37",
+    "gold/cloze/4",
+    "gold/cloze/47",
+    "gold/cloze/56",
+    "gold/cloze/66",
+    "gold/cloze/85"
+   ],
+   "multiline_a": 0,
+   "multiline_b": 34,
+   "format_a": 0,
+   "format_b": 18
+  },
+  {
+   "task": "climaqa_mcq",
+   "model_a": "google/vertex/gemini-3.8-flash",
+   "model_b": "anthropic/claude-sonnet-5-5",
+   "n": 222,
+   "accuracy_a": 0.8738738738738738,
+   "accuracy_b": 0.8738738738738738,
+   "both_right": 188,
+   "both_wrong": 22,
+   "only_a": 6,
+   "only_b": 6,
+   "p": 1.0,
+   "same_wrong": [
+    "gold/mcq/102",
+    "gold/mcq/113",
+    "gold/mcq/125",
+    "gold/mcq/130",
+    "gold/mcq/141",
+    "gold/mcq/167",
+    "gold/mcq/187",
+    "gold/mcq/207",
+    "gold/mcq/210",
+    "gold/mcq/232",
+    "gold/mcq/249",
+    "gold/mcq/255",
+    "gold/mcq/277",
+    "gold/mcq/279",
+    "gold/mcq/36",
+    "gold/mcq/50",
+    "gold/mcq/74",
+    "gold/mcq/97"
+   ]
+  }
+ ],
+ "levels": {
+  "climaqa_cloze": {
+   "none": [
+    128,
+    0.7421875,
+    0.5078125
+   ]
+  },
+  "climaqa_mcq": {
+   "BASE": [
+    107,
+    0.9065420560747663,
+    0.897196261682243
+   ],
+   "HYPOTHETICAL": [
+    46,
+    0.8478260869565217,
+    0.8478260869565217
+   ],
+   "REASONING": [
+    69,
+    0.8405797101449275,
+    0.855072463768116
+   ]
+  }
+ }
+}
