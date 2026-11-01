@@ -16,6 +16,8 @@ The Gemini 3.8 Flash runs on Vertex AI are separate and stay as recorded in thei
 
 Rows are added with `uv run python -m rlenv.spend "<run>" <log dir>`.
 
+Final for the Definition of done (2026-11-01): 12 runs, $9.1298 of the $20 cap.
+
 | run | date (UTC) | log | mode | tokens in | cache write | cache read | tokens out | reasoning | cost USD | total USD |
 |---|---|---|---|---|---|---|---|---|---|---|
 | ERA5 probe, 12 items | 2026-10-31 | logs/2026-11-01-era5-claude-sonnet-5-5-probe | batch | 5382 | 0 | 0 | 4102 | 0 | 0.0259 | 0.0259 |
