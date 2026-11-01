@@ -22,7 +22,7 @@ def _midpoint(item: dict) -> float:
 def _paired(paid: dict, by_id: dict) -> dict:
     """The model's reward minus the midpoint's, item by item: mean, standard error, counts."""
     d = [paid[i] - _midpoint(by_id[i]) for i in paid]
-    se = statistics.stdev(d) / len(d) ** 0.5 if len(d) > 1 else 0.0
+    se = statistics.stdev(d) / len(d) ** 0.5 if len(d) > 1 else None
     return {"diff": statistics.fmean(d), "se": se} | {
         "higher": sum(x > 0 for x in d),
         "lower": sum(x < 0 for x in d),
@@ -32,7 +32,9 @@ def _paired(paid: dict, by_id: dict) -> dict:
 
 def summarize(log: EvalLog, items: list[dict]) -> dict:
     """Scores, parse failures, tokens and cost of one run; the model is graded like the
-    baselines, on the items it answered."""
+    baselines, on the items it answered. A run of one item has no standard error."""
+    if not log.samples:
+        raise ValueError("the log has no samples")
     by_id = {r["id"]: r for r in items}
     config = log.eval.model_generate_config.merge(log.plan.config)
     batch = bool(config.batch)
@@ -68,7 +70,7 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
         "parse_failures": parse_failures,
         "errors": errors,
         "reward": statistics.fmean(rewards),
-        "stderr": statistics.stdev(rewards) / len(rewards) ** 0.5,
+        "stderr": statistics.stdev(rewards) / len(rewards) ** 0.5 if len(rewards) > 1 else None,
         "table": baselines.rows(answered, baselines.forecasters(items) | model),
         "paired": _paired(paid, by_id),
         "tokens": t,
@@ -85,16 +87,22 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
 
 
 def _paired_line(p: dict) -> str:
-    verdict = "significant" if abs(p["diff"]) > 2 * p["se"] else "not significant"
+    if p["se"] is None:
+        se, verdict = "n/a", "too few items to test"
+    else:
+        se = f"{p['se']:.4f}"
+        verdict = "significant" if abs(p["diff"]) > 2 * p["se"] else "not significant"
+        verdict += " at two standard errors"
     return (
         f"Against the midpoint (persistence + climatology) / 2, item by item: {p['diff']:+.4f} "
-        f"(SE {p['se']:.4f}); the model is higher on {p['higher']} items, lower on {p['lower']} "
-        f"and tied on {p['tied']}: {verdict} at two standard errors."
+        f"(SE {se}); the model is higher on {p['higher']} items, lower on {p['lower']} "
+        f"and tied on {p['tied']}: {verdict}."
     )
 
 
 def render(s: dict) -> str:
     t, n = s["tokens"], s["n"]
+    se = "n/a, one item" if s["stderr"] is None else f"{s['stderr']:.3f}"
     lines = [
         f"# era5-forecast-v1 on {s['label']}",
         "",
@@ -103,7 +111,7 @@ def render(s: dict) -> str:
         "",
         "## Result",
         "",
-        f"Mean reward {s['reward']:.3f} (stderr {s['stderr']:.3f}) over all {n} items, parse "
+        f"Mean reward {s['reward']:.3f} (stderr {se}) over all {n} items, parse "
         "failures and errors scored 0. The reward is the skill over the better of persistence "
         "and climatology for each item, clipped to [0, 1] (decision 0007).",
         "",

@@ -96,3 +96,16 @@ def test_the_model_is_compared_with_the_midpoint_item_by_item(log):
     assert "Against the midpoint (persistence + climatology) / 2, item by item: +0.0000" in text
     assert "not significant at two standard errors" in text
     assert "| 2m_temperature | 24 | midpoint | 2 |" in text
+
+
+def test_a_run_with_no_samples_is_refused(log):
+    with pytest.raises(ValueError, match="no samples"):
+        report.summarize(log.model_copy(update={"samples": []}), ITEMS)
+
+
+def test_a_one_item_run_has_no_standard_error_and_no_test(log):
+    s = report.summarize(log.model_copy(update={"samples": log.samples[:1]}), ITEMS)
+    assert (s["n"], s["stderr"], s["paired"]["se"]) == (1, None, None)
+    text = report.render(s)
+    assert "(stderr n/a, one item)" in text and "(SE n/a)" in text
+    assert "too few items to test" in text and "significant" not in text
