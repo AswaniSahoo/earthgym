@@ -63,18 +63,22 @@ Write-up: `reports/ibtracs/2026-11-01-phase-4-writeup.md`.
 - The basis risk is in the data: with Scottsdale's airport as the index, the urban core at Sky
   Harbor has 7 to 42 days a season at 110 F that the index misses (decision 0013).
 - On 300 policy questions, Sonnet 5.5 scores 0.987 with the rules in the prompt and 0.960 with
-  the policy terms alone. Missed days drop from 0.96 to 0.89, and 6 of the 11 misses leave out
-  days the index station had no value, the clarifying rule the terms-only prompt drops
+  the policy terms alone. Missed days drop from 0.96 to 0.89: on 7 of the 8 items where a
+  missing index value decides the key, all at Deer Valley in 2019, the model took the other
+  reading of that missing value, which the terms leave open
   (`reports/heat/2026-11-01-rules-shown-vs-terms-only.md`).
+
+Write-up: `reports/heat/2026-11-01-phase-5-writeup.md`.
 
 ## What it means for RL
 
 - The exact-answer environments of Phases 4 and 5 are saturated for a model as strong as
   Sonnet 5.5: told the rules, it gets nearly every item right, so nearly every rollout earns the
   same reward and a policy this strong gets almost no signal. Not told them, it still applies
-  NOAA's ACE convention, the Saffir-Simpson scale and the policy's thresholds; what remains is
-  a matter of convention (hours at hurricane strength, a missing index value), which a policy
-  would close as a constant offset. They serve as regression checks, and for weaker models.
+  NOAA's ACE convention, the Saffir-Simpson scale and the policy's thresholds. What remains is
+  convention: hours at hurricane strength, short by a constant 3 or 6 hours, and a missing
+  index value, which matters only at Deer Valley in 2019. A policy would take either from the
+  reward in a few steps. They serve as regression checks, and for weaker models.
 - The forecasting environment of Phase 3 is far from saturated, with a mean reward of 0.116
   against HRES's 0.30 to 0.67: that is where a policy has room to learn.
 
