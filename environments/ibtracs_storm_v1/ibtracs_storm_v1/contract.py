@@ -11,20 +11,23 @@ QUESTIONS = {  # question: (what is asked, the rule that answers it)
     "ace": (
         "What is this storm's accumulated cyclone energy (ACE), in units of 10^4 kt^2, rounded "
         "to one decimal?",
-        "ACE: take every row at 00, 06, 12 or 18 UTC whose status is TS, HU or SS and whose "
-        "wind is 34 kt or more; square each of those winds, add the squares, and divide the sum "
-        "by 10^4. Rows at any other time do not count.",
+        "ACE: take every row at exactly 00:00, 06:00, 12:00 or 18:00 UTC (a row at 12:30 does "
+        "not count) whose status is TS, HU or SS and whose wind is 34 kt or more; square each "
+        "of those winds, add the squares, and divide the sum by 10^4. Rows at any other time do "
+        "not count.",
     ),
     "peak_category": (
         "What is this storm's peak Saffir-Simpson category?",
         "Peak category: take the highest wind on any row with status HU, at any time, and place "
         "it on the Saffir-Simpson scale: 64 to 82 kt is category 1, 83 to 95 kt is 2, 96 to "
-        "112 kt is 3, 113 to 136 kt is 4, 137 kt or more is 5. A storm with no HU row is 0.",
+        "112 kt is 3, 113 to 136 kt is 4, 137 kt or more is 5. A storm with no HU row at 64 kt "
+        "or more is 0.",
     ),
     "hurricane_hours": (
         "For how many hours was this storm at hurricane strength?",
-        "Hours at hurricane strength: count 6 hours for each row at 00, 06, 12 or 18 UTC whose "
-        "status is HU. Rows at any other time do not count.",
+        "Hours at hurricane strength: count 6 hours for each row at exactly 00:00, 06:00, 12:00 "
+        "or 18:00 UTC (a row at 12:30 does not count) whose status is HU. Rows at any other "
+        "time do not count.",
     ),
 }
 STATUSES = (

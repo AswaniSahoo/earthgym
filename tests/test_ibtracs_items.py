@@ -40,6 +40,7 @@ def test_eligible_keeps_named_storms_of_final_seasons_from_1980_inside_the_basin
 def test_keys_follow_the_reference_rules():
     track = [
         row("A", "2021-08-26 12:00:00", "TS", 50),  # 2500
+        row("A", "2021-08-26 12:30:00", "HU", 80),  # a synoptic hour with minutes: not counted
         row("A", "2021-08-26 15:00:00", "TS", 60),  # 3-hourly
         row("A", "2021-08-26 18:00:00", "HU", 70),  # 4900, 6 h
         row("A", "2021-08-26 23:25:00", "HU", 100),  # landfall row: peak only

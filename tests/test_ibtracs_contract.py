@@ -1,4 +1,7 @@
+import re
+
 from ibtracs_storm_v1 import contract
+from ibtracs_storm_v1.taskset import records
 
 ITEM = {
     "id": "ace/2021239N17281",
@@ -20,12 +23,14 @@ def test_prompt_shows_every_row_without_year_name_or_sid():
 
 def test_each_question_carries_its_own_rule():
     ace = contract.prompt(ITEM)
-    assert "00, 06, 12 or 18 UTC" in ace and "TS, HU or SS" in ace and "34 kt" in ace
+    exact = "at exactly 00:00, 06:00, 12:00 or 18:00 UTC (a row at 12:30 does not count)"
+    assert exact in ace and "TS, HU or SS" in ace and "34 kt" in ace
     assert "10^4" in ace and "one decimal" in ace
     category = contract.prompt(ITEM | {"question": "peak_category"})
     assert "137 kt or more is 5" in category and "any time" in category
+    assert "A storm with no HU row at 64 kt or more is 0" in category
     hours = contract.prompt(ITEM | {"question": "hurricane_hours"})
-    assert "6 hours for each row at 00, 06, 12 or 18 UTC" in hours
+    assert "6 hours for each row " + exact in hours
     assert "squares" not in hours
 
 
@@ -53,7 +58,12 @@ def test_category_and_hours_must_match_exactly():
 
 def test_the_rule_can_be_left_out_for_the_ablation():
     hidden = contract.prompt(ITEM, rules=False)
-    assert "Rule." not in hidden and "00, 06, 12 or 18 UTC" not in hidden
+    assert "Rule." not in hidden and "00:00, 06:00" not in hidden
     assert "08-26 12:00 | TS | 50 | 1006" in hidden and "Statuses:" in hidden
     assert "rounded to one decimal" in hidden  # the question keeps its units and rounding
     assert hidden.rstrip().endswith("'ANSWER: <number>'.")
+
+
+def test_every_status_in_the_items_is_in_the_legend():
+    legend = set(re.findall(r"\b([A-Z]{2}) [a-z]", contract.STATUSES))
+    assert {row[1] for item in records() for row in item["rows"]} <= legend
