@@ -10,6 +10,7 @@ resolution-markers = [
 members = [
     "climaqa-v1",
     "era5-forecast-v1",
+    "ibtracs-storm-v1",
     "rlenv",
 ]
 
@@ -1010,6 +1011,17 @@ sdist = { url = "https://files.pythonhosted.org/packages/b5/3b/2fcef1eabe52aec90
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d4/55/ff47f1b082ecf5f43f4bc1e3b932d68eead171dabbbd1a92666c686301d7/huggingface_hub-2.4.0-py3-none-any.whl", hash = "sha256:42ecfd93ede47bdd333daebbf66a32d7bfe2e18752754fe4d2d4f98a0179d801", size = 857021, upload-time = "2026-10-29T15:30:10.421Z" },
 ]
+
+[[package]]
+name = "ibtracs-storm-v1"
+version = "0.1.0"
+source = { editable = "environments/ibtracs_storm_v1" }
+dependencies = [
+    { name = "verifiers" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "verifiers", specifier = ">=0.4.0,<0.5" }]
 
 [[package]]
 name = "idna"
@@ -3183,6 +3195,7 @@ eval = [
     { name = "anthropic" },
     { name = "climaqa-v1" },
     { name = "era5-forecast-v1" },
+    { name = "ibtracs-storm-v1" },
     { name = "inspect-ai" },
 ]
 
@@ -3207,6 +3220,7 @@ eval = [
     { name = "anthropic", specifier = "==2.3.0" },
     { name = "climaqa-v1", editable = "environments/climaqa_v1" },
     { name = "era5-forecast-v1", editable = "environments/era5_forecast_v1" },
+    { name = "ibtracs-storm-v1", editable = "environments/ibtracs_storm_v1" },
     { name = "inspect-ai", specifier = "==0.3.286" },
 ]
 

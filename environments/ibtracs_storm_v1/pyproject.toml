@@ -1,0 +1,14 @@
+[project]
+name = "ibtracs-storm-v1"
+version = "0.1.0"
+description = "Per-storm North Atlantic cyclone questions from IBTrACS with exact answers: ACE, peak category, hours at hurricane strength."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["verifiers>=0.4.0,<0.5"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["ibtracs_storm_v1"]

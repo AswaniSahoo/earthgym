@@ -31,6 +31,7 @@ eval = [
     "anthropic==2.3.0",
     "climaqa-v1",
     "era5-forecast-v1",
+    "ibtracs-storm-v1",
     "inspect-ai==0.3.286",
 ]
 
@@ -47,8 +48,10 @@ testpaths = ["tests"]
 members = [
     "environments/climaqa_v1",
     "environments/era5_forecast_v1",
+    "environments/ibtracs_storm_v1",
 ]
 
 [tool.uv.sources]
 climaqa-v1 = { workspace = true, editable = true }
 era5-forecast-v1 = { workspace = true, editable = true }
+ibtracs-storm-v1 = { workspace = true, editable = true }
