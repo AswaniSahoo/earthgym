@@ -18,3 +18,4 @@ logs/
 outputs/
 .env*
 *.swp
+.coverage
