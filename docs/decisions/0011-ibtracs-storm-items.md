@@ -44,13 +44,17 @@ Baselines in the report, all exact from the reference code: the most common key 
 ACE over every row (the 3-hourly rows double it), ACE ignoring status (extratropical rows
 count), category from the highest wind ignoring status, and hours over every HU row.
 
-Out, for later: the "rules hidden" ablation (the same items with the rules left out),
-other basins, storms before 1980.
+Out, for later: the "rules hidden" ablation (the same items with the rules left out), a
+rapid-intensification question (NHC's glossary definition, tested on hand-computed tracks
+first), other basins, storms before 1980.
 
 Consequences: answers are exact, so a reply is right or wrong with no judge. The careless
 baselines measure how often each trap changes the answer on these storms. Measured on the
 300 items (`rlenv.ibtracs.report.careless`): ACE over every row is right on 0 of 100, ACE
 ignoring status on 56, hours over every HU row on 1. For peak category the traps barely
 bite: ignoring status is right on all 100, synoptic rows only on 96, so that question is
-mostly a control for reading the scale. Dropping the year
+mostly a control for reading the scale. We keep it (2026-11-01): a rapid-intensification
+count, whose careless readings would fail more often, needs its own verified rule and new
+items, and goes to the later list. The report says on which questions a careless reading
+is right on 90 or more of 100 items. Dropping the year
 does not stop a model from recognizing a famous track; Limits will say so.
