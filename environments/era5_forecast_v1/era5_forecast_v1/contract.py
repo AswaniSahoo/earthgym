@@ -5,6 +5,7 @@ replies and pay the same reward.
 """
 
 import hashlib
+import math
 import re
 from datetime import datetime
 
@@ -36,14 +37,20 @@ def prompt(item: dict) -> str:
     return PROMPT.format(**{**item, "name": name, "unit": unit, "lines": lines})
 
 
-def answer(reply: str) -> float | None:
-    """The number on the last line, wherever it sits in the reply, that is only
-    'ANSWER: <number>' with an optional Pa or K and full stop, as in contract 0004; markdown
-    bold, code marks and the Unicode minus sign are read as plain text. None when no line
-    follows the format."""
+def last_line(reply: str) -> str:
+    """The reply's last non-empty line, with Markdown bold and code marks and the Unicode minus
+    read as plain text: the one line an answer may sit on, as the prompt asks (decision 0016)."""
     plain = reply.replace("*", "").replace("`", "").replace("\u2212", "-")
-    found = ANSWER_LINE.findall(plain)
-    return float(found[-1]) if found else None
+    lines = [line for line in plain.splitlines() if line.strip()]
+    return lines[-1] if lines else ""
+
+
+def answer(reply: str) -> float | None:
+    """The number on the reply's last non-empty line when that line is only the answer line;
+    only finite numbers count. None otherwise."""
+    found = ANSWER_LINE.match(last_line(reply))
+    value = float(found.group(1)) if found else None
+    return value if value is not None and math.isfinite(value) else None
 
 
 def reward(

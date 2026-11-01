@@ -5,6 +5,7 @@ The Inspect task and the verifiers taskset both import this module, so they read
 replies and pay the same reward.
 """
 
+import math
 import re
 
 TRIGGER = (
@@ -68,10 +69,20 @@ def prompt(item: dict, rules: bool = True) -> str:
     )
 
 
+def last_line(reply: str) -> str:
+    """The reply's last non-empty line, with Markdown bold and code marks and the Unicode minus
+    read as plain text: the one line an answer may sit on, as the prompt asks (decision 0016)."""
+    plain = reply.replace("*", "").replace("`", "").replace("\u2212", "-")
+    lines = [line for line in plain.splitlines() if line.strip()]
+    return lines[-1] if lines else ""
+
+
 def answer(reply: str) -> float | None:
-    """The number on the last 'ANSWER: <number>' line, or None."""
-    found = ANSWER_LINE.findall(reply)
-    return float(found[-1]) if found else None
+    """The number on the reply's last non-empty line when that line is only the answer line;
+    only finite numbers count. None otherwise."""
+    found = ANSWER_LINE.match(last_line(reply))
+    value = float(found.group(1)) if found else None
+    return value if value is not None and math.isfinite(value) else None
 
 
 def reward(value: float | None, key: int) -> float:

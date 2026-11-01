@@ -15,7 +15,7 @@ CLOZE_PROMPT = (
     "Fill in the <MASK> in this climate science statement. "
     "Reply with only the missing word or phrase.\n\n{question}"
 )
-ANSWER_LINE = re.compile(r"^\s*ANSWER\s*:\s*\(?([A-D])\)?\s*\.?\s*$", re.MULTILINE | re.IGNORECASE)
+ANSWER_LINE = re.compile(r"^[ \t]*ANSWER[ \t]*:[ \t]*\(?([A-D])\)?[ \t]*\.?[ \t]*$", re.IGNORECASE)
 ARTICLES = re.compile(r"\b(a|an|the)\b")
 
 
@@ -28,11 +28,18 @@ def cloze_prompt(question: str) -> str:
     return CLOZE_PROMPT.format(question=question)
 
 
+def last_line(reply: str) -> str:
+    """The reply's last non-empty line, with Markdown bold and code marks and the Unicode minus
+    read as plain text: the one line an answer may sit on, as the prompt asks (decision 0016)."""
+    plain = reply.replace("*", "").replace("`", "").replace("\u2212", "-")
+    lines = [line for line in plain.splitlines() if line.strip()]
+    return lines[-1] if lines else ""
+
+
 def mcq_choice(reply: str) -> str | None:
-    """The letter on the last line that is only 'ANSWER: X'; markdown bold and code marks are
-    ignored. None when no line follows the format."""
-    found = ANSWER_LINE.findall(reply.replace("*", "").replace("`", ""))
-    return found[-1].upper() if found else None
+    """The letter when the reply's last non-empty line is only 'ANSWER: X'; None otherwise."""
+    found = ANSWER_LINE.match(last_line(reply))
+    return found.group(1).upper() if found else None
 
 
 def mcq_correct(reply: str, key: str) -> bool:
