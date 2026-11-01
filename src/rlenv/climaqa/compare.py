@@ -8,6 +8,7 @@ import json
 from math import comb
 from pathlib import Path
 
+from climaqa_v1 import contract
 from inspect_ai.log import list_eval_logs, read_eval_log
 from inspect_ai.scorer import CORRECT
 
@@ -28,6 +29,23 @@ def outcomes(log) -> dict:
         answer = (score.answer or "").strip().lower()
         out[s.id] = (score.value == CORRECT, answer, s.metadata.get("complexity") or "none")
     return out
+
+
+def multiline(log) -> int:
+    """Replies over more than one line."""
+    return sum(len(s.output.completion.strip().splitlines()) > 1 for s in log.samples or [])
+
+
+def format_misses(log) -> list:
+    """Wrong cloze replies over more than one line whose last line alone would be right: the
+    cloze prompt asks for only the missing word or phrase."""
+    out = []
+    for s in log.samples or []:
+        lines = s.output.completion.strip().splitlines()
+        wrong = next(iter(s.scores.values())).value != CORRECT
+        if wrong and len(lines) > 1 and contract.cloze_correct(lines[-1], s.target):
+            out.append(s.id)
+    return sorted(out, key=str)
 
 
 def compare(a, b) -> dict:
@@ -55,7 +73,16 @@ def compare(a, b) -> dict:
         "only_b": only_b,
         "p": mcnemar(only_a, only_b),
         "same_wrong": same,
-    }
+    } | (
+        {
+            "multiline_a": multiline(a),
+            "multiline_b": multiline(b),
+            "format_a": len(format_misses(a)),
+            "format_b": len(format_misses(b)),
+        }
+        if a.eval.task.endswith("cloze")
+        else {}
+    )
 
 
 def by_level(a, b) -> dict:
@@ -104,6 +131,21 @@ def render(rows: list[dict], levels: dict, dirs: tuple[str, str] = ("", "")) -> 
         k = len(r["same_wrong"])
         ids = ", ".join(str(i) for i in r["same_wrong"])
         lines.append(f"- {r['task']}: {k} item{'s' if k != 1 else ''} ({ids})")
+    cloze = [r for r in rows if "format_a" in r]
+    if cloze:
+        lines += [
+            "",
+            "## Cloze replies that explain first",
+            "",
+            'The cloze prompt says "Reply with only the missing word or phrase." Replies over',
+            "more than one line, and wrong replies whose last line alone is the key:",
+            "",
+            "| task | model | replies over one line | wrong, last line alone right |",
+            "|---|---|---|---|",
+        ]
+        for r in cloze:
+            lines.append(f"| {r['task']} | {a} | {r['multiline_a']} | {r['format_a']} |")
+            lines.append(f"| {r['task']} | {b} | {r['multiline_b']} | {r['format_b']} |")
     lines += [
         "",
         "## Limits",

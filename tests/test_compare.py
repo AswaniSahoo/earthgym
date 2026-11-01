@@ -52,3 +52,23 @@ def test_render_shows_paired_counts_the_test_and_shared_wrong_answers():
     text = compare.render([compare.compare(a, b)], {"climaqa_mcq": compare.by_level(a, b)})
     assert "| climaqa_mcq | 2 | 0.500 | 0.500 | 1 | 1 | 0 | 0 | 1.000 |" in text
     assert "climaqa_mcq: 1 item (2)" in text
+
+
+def replied(sid, right, completion, target="hematite"):
+    s = sample(sid, right, "")
+    s.output, s.target = SimpleNamespace(completion=completion), target
+    return s
+
+
+def test_format_misses_are_wrong_replies_whose_last_line_alone_is_the_key():
+    a = log(
+        "a",
+        [
+            replied(1, False, "Some reasoning.\n\n**hematite**"),
+            replied(2, False, "magnetite"),
+            replied(3, True, "hematite"),
+            replied(4, False, "Reasoning.\nmagnetite"),
+        ],
+    )
+    assert compare.format_misses(a) == [1]
+    assert compare.multiline(a) == 2
