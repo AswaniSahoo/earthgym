@@ -58,7 +58,7 @@ A model run (the key in `.env` as `ANTHROPIC_API_KEY`; decision 0010):
     environments/         one verifiers environment package per phase
     tests/                unit tests on small inline fixtures, no network
     reports/              results per phase, the blog-ready write-ups, spend.md
-    docs/reviews/              one Fable review per phase
+    docs/reviews/        one review per phase
     docs/radar.md         what is new and proven; docs/decisions/ records each choice
 
 ## Phase 1 checks

@@ -91,7 +91,7 @@ def _primary(bucket: str) -> str:
 
 
 def mine() -> dict[str, str]:
-    """The build session's bucket for each miss, from the two miss notes."""
+    """The first sort's bucket for each miss, from the two miss notes."""
     out = {}
     for task, path in expert_sheet.NOTES.items():
         for item, _, bucket, _ in expert_sheet.note_rows(path.read_text("utf-8"), task):
@@ -99,8 +99,8 @@ def mine() -> dict[str, str]:
     return out
 
 
-def fable(review: Path = REVIEW) -> dict[str, str]:
-    """Fable's blind sort of the 33 cloze misses, from the baseline review, section 3."""
+def blind_sort(review: Path = REVIEW) -> dict[str, str]:
+    """The reviewer's blind sort of the 33 cloze misses, from the baseline review, section 3."""
     section = review.read_text("utf-8").split("### 3. Blind sort against the author's sort")[1]
     out = {}
     for line in section.split("\n### ")[0].splitlines():
@@ -168,7 +168,7 @@ def _first_position(sets: dict[str, list[dict]]) -> dict:
 def analyse(
     records: list[dict],
     mine_labels: dict,
-    fable_labels: dict,
+    blind_labels: dict,
     usd_per_input_token: float = jev.USD_PER_INPUT_TOKEN,
 ) -> dict:
     """Agreement, calibration and stability from the fixed-order calls; first-position bias
@@ -201,9 +201,9 @@ def analyse(
             return None, 0
         return kappa([labels[i] for i in shared], [reference[i] for i in shared]), len(shared)
 
-    both = [i for i in fable_labels if mine_labels.get(i) == fable_labels[i] and i in by_item]
+    both = [i for i in blind_labels if mine_labels.get(i) == blind_labels[i] and i in by_item]
     briers = [
-        sum(brier(a["probabilities"], fable_labels[i]) for a in by_item[i]) / len(by_item[i])
+        sum(brier(a["probabilities"], blind_labels[i]) for a in by_item[i]) / len(by_item[i])
         for i in both
     ]
     stable = [stability([a["choice"] for a in answers]) for answers in by_item.values()]
@@ -212,10 +212,10 @@ def analyse(
     out = {"modal": modal, "items": len(by_item), "runs": max(map(len, by_item.values()))}
     for name, reference, labels in [
         ("mine", mine_labels, modal),
-        ("fable", fable_labels, modal),
-        ("mine_fable", fable_labels, mine_labels),
+        ("blind", blind_labels, modal),
+        ("mine_blind", blind_labels, mine_labels),
         ("mine_rotated", mine_labels, rotated_modal),
-        ("fable_rotated", fable_labels, rotated_modal),
+        ("blind_rotated", blind_labels, rotated_modal),
     ]:
         out |= dict(zip((f"kappa_{name}", f"n_{name}"), against(reference, labels), strict=True))
     out |= {"rotated_modal": rotated_modal} | _first_position(sets)
@@ -252,11 +252,11 @@ def render(a: dict) -> str:
     else:
         bias_line = "First-position bias: no rotated-order calls."
     rows = [
-        ("Jev against the build session", "mine"),
-        ("Jev against Fable's blind sort", "fable"),
-        ("Jev, rotation-averaged, against the build session", "mine_rotated"),
-        ("Jev, rotation-averaged, against Fable's blind sort", "fable_rotated"),
-        ("build session against Fable's blind sort", "mine_fable"),
+        ("Jev against the first sort", "mine"),
+        ("Jev against the reviewer's blind sort", "blind"),
+        ("Jev, rotation-averaged, against the first sort", "mine_rotated"),
+        ("Jev, rotation-averaged, against the reviewer's blind sort", "blind_rotated"),
+        ("first sort against the reviewer's blind sort", "mine_blind"),
     ]
     lines = [
         "# Jev as a third reader of the ClimaQA misses",
@@ -296,7 +296,7 @@ def main() -> None:
         print(f"{len(run(rows, jev.load_key()))} calls logged to {LOG}")
         return
     records = [json.loads(line) for line in LOG.read_text("utf-8").splitlines()]
-    REPORT.write_text(render(analyse(records, mine(), fable())), "utf-8")
+    REPORT.write_text(render(analyse(records, mine(), blind_sort())), "utf-8")
     print(f"report written to {REPORT}")
 
 

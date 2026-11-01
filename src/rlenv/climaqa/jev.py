@@ -12,7 +12,7 @@ from pathlib import Path
 URL = "https://api.typesafe.ai/v1/systemone"
 MODEL = "jev-1.14.0"  # pinned, not the jev-latest alias
 USD_PER_INPUT_TOKEN = 0.042 / 1e6  # docs.typesafe.ai/models, 2026-10-31; output is free
-LIMIT_USD = 0.10  # Aswani's cap for the study (0008)
+LIMIT_USD = 0.10  # my cap for the study (0008)
 
 
 def repo_root(module: Path) -> Path:

@@ -1,7 +1,7 @@
 # Spend on the Anthropic key
 
 Every rlenv model run uses Claude Sonnet 5.5 on the Anthropic key, within a managed budget of $20
-in total (Aswani, 2026-11-01; decision 0010). Before each run a small probe projects its cost,
+in total (my rule, 2026-11-01; decision 0010). Before each run a small probe projects its cost,
 and no run was started that would have taken the total past $20. Nothing enforces this when a
 run starts: `tests/test_spend.py` checks after each run that every row's cost matches its
 tokens, that the running total adds up, and that the total stays within $20, and the ledger

@@ -53,7 +53,7 @@ def test_the_ledger_adds_up_and_stays_under_the_cap():
 
 
 def test_no_gemini_or_vertex_client_is_installed():
-    # Aswani, 2026-11-01: no Vertex AI or Gemini calls of any kind (decision 0010)
+    # my rule, 2026-11-01: no Vertex AI or Gemini calls of any kind (decision 0010)
     for name in ("google.genai", "google.auth", "vertexai"):
         with contextlib.suppress(ModuleNotFoundError):
             assert importlib.util.find_spec(name) is None, name

@@ -107,10 +107,10 @@ def test_stability_gives_the_modal_choice_and_pairwise_agreement():
 
 
 def test_reference_labels_come_from_the_miss_notes_and_the_blind_sort():
-    mine, fable = third_reader.mine(), third_reader.fable()
-    assert (len(mine), len(fable)) == (61, 33)
+    mine, blind = third_reader.mine(), third_reader.blind_sort()
+    assert (len(mine), len(blind)) == (61, 33)
     assert set(mine.values()) <= {n for task in jev.BUCKETS.values() for n in task}
-    agree = sum(mine[i] == fable[i] for i in fable)
+    agree = sum(mine[i] == blind[i] for i in blind)
     assert agree == 32  # 31 of 33 at the review; 157 has since moved to the blind sort's label
 
 
@@ -130,13 +130,13 @@ RECORDS = [
     record("m1", "mcq", 2, "key_right", {"key_right": 1.0, "ambiguous": 0.0}, 0.6),
 ]
 MINE = {"c1": SAME, "c2": OTHER, "m1": "key_right"}
-FABLE = {"c1": SAME, "c2": OTHER}
+BLIND = {"c1": SAME, "c2": OTHER}
 
 
 def test_analyse_gives_agreement_calibration_stability_cost_and_latency():
-    a = third_reader.analyse(RECORDS, MINE, FABLE)
+    a = third_reader.analyse(RECORDS, MINE, BLIND)
     assert a["modal"] == {"c1": SAME, "c2": OTHER, "m1": "key_right"} and a["others"] == {}
-    assert (a["kappa_mine"], a["kappa_fable"], a["kappa_mine_fable"]) == (1.0, 1.0, 1.0)
+    assert (a["kappa_mine"], a["kappa_blind"], a["kappa_mine_blind"]) == (1.0, 1.0, 1.0)
     assert a["brier"] == pytest.approx((0.20 + 0.3125) / 2) and a["brier_items"] == 2
     assert a["all_same"] == 2 and a["agreement"] == pytest.approx(2 / 3)
     assert (a["calls"], a["input_tokens"]) == (6, 600)
@@ -145,9 +145,9 @@ def test_analyse_gives_agreement_calibration_stability_cost_and_latency():
 
 
 def test_render_reports_the_headline_numbers():
-    text = third_reader.render(third_reader.analyse(RECORDS, MINE, FABLE))
-    assert "| Jev against the build session | 3 | 1.000 |" in text
-    assert "| Jev against Fable's blind sort | 2 | 1.000 |" in text
+    text = third_reader.render(third_reader.analyse(RECORDS, MINE, BLIND))
+    assert "| Jev against the first sort | 3 | 1.000 |" in text
+    assert "| Jev against the reviewer's blind sort | 2 | 1.000 |" in text
     assert "Brier score where both sorts agree: 0.256 over 2 items" in text
 
 
