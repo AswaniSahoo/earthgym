@@ -8,9 +8,9 @@ from inspect_ai.model import ModelUsage
 from rlenv import spend
 
 
-def log(**usage):
+def log(model="anthropic/claude-sonnet-5-5", **usage):
     stats = {"model_usage": {"m": ModelUsage(**usage)}, "completed_at": "2026-11-01T05:00:00+05:30"}
-    return SimpleNamespace(stats=SimpleNamespace(**stats))
+    return SimpleNamespace(stats=SimpleNamespace(**stats), eval=SimpleNamespace(model=model))
 
 
 def test_cost_prices_each_kind_of_token_at_the_sonnet_5_5_rate():
@@ -57,3 +57,11 @@ def test_no_gemini_or_vertex_client_is_installed():
     for name in ("google.genai", "google.auth", "vertexai"):
         with contextlib.suppress(ModuleNotFoundError):
             assert importlib.util.find_spec(name) is None, name
+
+
+def test_add_refuses_a_log_from_a_model_it_has_no_price_for(tmp_path):
+    ledger = tmp_path / "spend.md"
+    ledger.write_text("# Spend\n\n" + spend.TABLE, "utf-8")
+    with pytest.raises(ValueError, match="no price for mockllm/model"):
+        spend.add("mock", "logs/m", [log(model="mockllm/model", input_tokens=2037)], ledger)
+    assert ledger.read_text("utf-8") == "# Spend\n\n" + spend.TABLE

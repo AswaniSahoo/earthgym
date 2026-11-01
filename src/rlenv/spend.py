@@ -1,5 +1,7 @@
-"""Spend on the Anthropic key: every model run is Claude Sonnet 5.5, capped at $20 in total
-(decision 0010). The ledger is reports/spend.md.
+"""Spend on the Anthropic key: every model run is Claude Sonnet 5.5, within a managed budget of
+$20 in total: a probe projects each run's cost before it starts, and the ledger is checked after
+each run; nothing here stops a run that would pass the budget (decision 0010). The ledger is
+reports/spend.md.
 
 Prices, USD per million tokens for Claude Sonnet 5.5, from Anthropic's pricing page
 (https://platform.claude.com/docs/en/about-claude/pricing), fetched 2026-11-01: base input
@@ -18,9 +20,10 @@ from pathlib import Path
 
 from inspect_ai.log import list_eval_logs, read_eval_log
 
-CAP = 20.0
+CAP = 20.0  # the managed budget, checked after each run (tests/test_spend.py)
 LEDGER = Path("reports/spend.md")
 PRICE = {"input": 2.0, "cache_write": 2.5, "cache_read": 0.10, "output": 10.0}
+PRICED = {"anthropic/claude-sonnet-5-5"}  # the models the prices above belong to
 KINDS = ("input", "cache_write", "cache_read", "output", "reasoning")
 TABLE = (
     "| run | date (UTC) | log | mode | tokens in | cache write | cache read | tokens out "
@@ -74,7 +77,11 @@ def check(text: str) -> float:
 
 
 def add(run: str, log: str, logs, ledger: Path = LEDGER, batch: bool = False) -> float:
-    """Append the run's row to the ledger and return the new total."""
+    """Append the run's row to the ledger and return the new total. A log from a model with no
+    price here (mockllm, say) is refused, so the ledger never records phantom spend."""
+    for x in logs:
+        if x.eval.model not in PRICED:
+            raise ValueError(f"no price for {x.eval.model}: the ledger prices {sorted(PRICED)}")
     text = ledger.read_text("utf-8")
     t = tokens(logs)
     usd = cost(t, batch)
