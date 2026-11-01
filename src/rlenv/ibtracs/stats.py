@@ -14,16 +14,21 @@ SYNOPTIC = ("00:00:00", "06:00:00", "12:00:00", "18:00:00")
 NAMED = {"TS", "HU", "SS"}  # tropical storm, hurricane, subtropical storm
 # NHC's Saffir-Simpson scale in kt (nhc.noaa.gov/aboutsshws.php): 1 is 64-82, ..., 5 is 137+
 CATEGORIES = ((137, 5), (113, 4), (96, 3), (83, 2), (64, 1))
+MPH = ((157, 5), (130, 4), (111, 3), (96, 2), (74, 1))  # the same page's mph thresholds
 
 
 def wind(row: dict) -> int:
     return int(row["USA_WIND"]) if row["USA_WIND"] else 0
 
 
+def scale(peak: int, thresholds: tuple = CATEGORIES) -> int:
+    """A wind on the Saffir-Simpson scale; 0 below category 1."""
+    return next((c for floor, c in thresholds if peak >= floor), 0)
+
+
 def category(rows: list[dict]) -> int:
     """Peak Saffir-Simpson category: the highest wind on any HU row, at any time; 0 if none."""
-    peak = max((wind(r) for r in rows if r["USA_STATUS"] == "HU"), default=0)
-    return next((c for knots, c in CATEGORIES if peak >= knots), 0)
+    return scale(max((wind(r) for r in rows if r["USA_STATUS"] == "HU"), default=0))
 
 
 def hurricane_hours(rows: list[dict]) -> int:

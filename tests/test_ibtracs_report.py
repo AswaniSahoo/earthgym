@@ -16,9 +16,14 @@ def item(question, sid, rows, key):
 
 
 ITEMS = [
-    # ACE: only 12:00 TS 50 counts, 0.25; every row adds the 15:00 60 (0.61); ignoring status
-    # adds the 18:00 EX 40 (0.41)
-    item("ace", "A", [("12:00", "TS", 50), ("15:00", "TS", 60), ("18:00", "EX", 40)], 0.25),
+    # ACE: 00:00 SS 40 and 12:00 TS 50 count, 0.41; every row adds the 15:00 60 (0.77); ignoring
+    # status adds the 18:00 EX 40 (0.57); TS and HU only drops the SS row (0.25)
+    item(
+        "ace",
+        "A",
+        [("00:00", "SS", 40), ("12:00", "TS", 50), ("15:00", "TS", 60), ("18:00", "EX", 40)],
+        0.41,
+    ),
     # peak category 1 from the HU row; the EX row's 100 kt would make it 3
     item("peak_category", "B", [("06:00", "HU", 70), ("12:00", "EX", 100)], 1),
     # hours: 06:00 and 12:00 count, 12; the 09:00 row would make every HU row 18
@@ -29,16 +34,28 @@ ITEMS = [
 
 
 def test_careless_readings_fall_into_each_trap():
-    assert report.careless(ITEMS[0]) == {"ACE over every row": 0.6, "ACE ignoring status": 0.4}
+    assert report.careless(ITEMS[0]) == {
+        "ACE over every row": 0.8,
+        "ACE ignoring status": 0.6,
+        "ACE from TS and HU only": 0.2,  # 0.25 rounded half to even
+    }
     assert report.careless(ITEMS[1]) == {
         "category ignoring status": 3,
         "category from synoptic rows only": 1,
+        "category by the mph thresholds": 0,  # 70 kt is under 74, the mph floor of category 1
     }
     landfall = item("peak_category", "J", [("06:00", "HU", 90), ("17:45", "HU", 96)], 3)
     assert report.careless(landfall)["category from synoptic rows only"] == 2
-    assert report.careless(ITEMS[2]) == {
+
+
+def test_hours_readings_split_on_a_track_with_two_hurricane_spells():
+    rows = [("00:00", "HU", 70), ("03:00", "HU", 70), ("06:00", "TS", 60)]
+    rows += [("09:00", "TS", 60), ("12:00", "HU", 70), ("15:00", "TS", 60)]
+    two = item("hurricane_hours", "K", rows, 12)  # 00:00 and 12:00 count
+    assert report.careless(two) == {
         "hours over every HU row": 18,
-        "elapsed time, first to last HU row": 6,  # 06:00 to 12:00
+        "each row's status holds until the next row": 9,  # 3 + 3 + 3
+        "elapsed time of each hurricane spell": 3,  # 00:00 to 03:00, then 12:00 to 12:00
     }
 
 
@@ -57,7 +74,7 @@ def log(tmp_path_factory):
     path = tmp / "items.jsonl"
     path.write_text("".join(json.dumps(i) + "\n" for i in ITEMS), encoding="utf-8")
     outputs = []
-    for text in ("Adding every row.\nANSWER: 0.6", "ANSWER: 1", "About a day."):
+    for text in ("Adding every row.\nANSWER: 0.8", "ANSWER: 1", "About a day."):
         out = ModelOutput.from_content("mockllm/model", text)
         out.usage = ModelUsage(input_tokens=200, output_tokens=100)
         outputs.append(out)
@@ -72,7 +89,11 @@ def test_summary_scores_each_question_and_names_the_traps_the_misses_fell_into(l
     assert s["reward"] == pytest.approx(1 / 3)
     by = {r["question"]: r for r in s["questions"]}
     assert (by["ace"]["accuracy"], by["peak_category"]["accuracy"]) == (0.0, 1.0)
-    assert by["ace"]["traps"] == {"ACE over every row": 1, "ACE ignoring status": 0}
+    assert by["ace"]["traps"] == {
+        "ACE over every row": 1,
+        "ACE ignoring status": 0,
+        "ACE from TS and HU only": 0,
+    }
     assert s["cost"] == pytest.approx((600 * 2 + 300 * 10) / 1e6)
 
 

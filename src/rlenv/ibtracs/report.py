@@ -23,8 +23,24 @@ TESTS = {  # what a question still tests when its careless reading is right anyw
 }
 
 
-def _category(knots: int) -> int:
-    return next((c for k, c in stats.CATEGORIES if knots >= k), 0)
+def _hours(rows: list) -> dict:
+    """Two duration readings of the hours question: every HU row's status held until the next
+    row, and the elapsed time of each spell of consecutive HU rows."""
+    times = [dt.datetime.fromisoformat(r[0]) for r in rows]
+    hu = [r[1] == "HU" for r in rows]
+    gaps = zip(times, times[1:], hu, strict=False)
+    holds = sum((later - t).total_seconds() / 3600 for t, later, h in gaps if h)
+    spells, start = 0.0, None
+    for i, h in enumerate([*hu, False]):
+        if h and start is None:
+            start = i
+        elif not h and start is not None:
+            spells += (times[i - 1] - times[start]).total_seconds() / 3600
+            start = None
+    return {
+        "each row's status holds until the next row": round(holds),
+        "elapsed time of each hurricane spell": round(spells),
+    }
 
 
 def careless(item: dict) -> dict:
@@ -34,23 +50,22 @@ def careless(item: dict) -> dict:
     if item["question"] == "ace":
         every = sum(w * w for _, s, w, _ in rows if s in stats.NAMED and w >= 34)
         any_status = sum(w * w for _, _, w, _ in synoptic if w >= 34)
+        no_ss = sum(w * w for _, s, w, _ in synoptic if s in ("TS", "HU") and w >= 34)
         return {
             "ACE over every row": round(every / 1e4, 1),
             "ACE ignoring status": round(any_status / 1e4, 1),
+            "ACE from TS and HU only": round(no_ss / 1e4, 1),
         }
     if item["question"] == "peak_category":
+        peak = max((w for _, s, w, _ in rows if s == "HU"), default=0)
         return {
-            "category ignoring status": _category(max(w for _, _, w, _ in rows)),
-            "category from synoptic rows only": _category(
+            "category ignoring status": stats.scale(max(w for _, _, w, _ in rows)),
+            "category from synoptic rows only": stats.scale(
                 max((w for _, s, w, _ in synoptic if s == "HU"), default=0)
             ),
+            "category by the mph thresholds": stats.scale(peak, stats.MPH),
         }
-    hu = [dt.datetime.fromisoformat(time) for time, s, _, _ in rows if s == "HU"]
-    elapsed = (max(hu) - min(hu)).total_seconds() / 3600 if hu else 0
-    return {
-        "hours over every HU row": 6 * len(hu),
-        "elapsed time, first to last HU row": round(elapsed),
-    }
+    return {"hours over every HU row": 6 * sum(r[1] == "HU" for r in rows)} | _hours(rows)
 
 
 def best_constant(items: list[dict]) -> tuple[float, float]:
