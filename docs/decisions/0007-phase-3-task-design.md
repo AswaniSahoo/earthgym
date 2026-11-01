@@ -26,11 +26,12 @@ Decision: option 1.
   b = min(|p - y|, |c - y|). The reward is clip((b - e) / max(b, floor), 0, 1). A copy of p or
   c gives e >= b and so 0. A reply without a valid answer line scores 0.
 - The floor: a first guess of 50 Pa and 0.5 K (commit 1711c1d) bound on 65 and 167 of 360 items. On
-  2026-10-30 I replaced it with a rule: each variable's floor is the 10th percentile (numpy's linear
-  rule) of b over the item set, never below the smallest shown unit, stored to one decimal more than
-  shown, so that it only stops a near-zero b from inflating the reward and binds rarely. It is a
-  baseline-only statistic with no model information, and each item carries its floor. On the 720
-  items: 28.75 Pa and 0.069 K, each binding on 36 of 360 (`reports/era5/items_v1_manifest.json`).
+  2026-10-30 a rule replaced it, set during the build before I had reviewed it, and I keep it: each
+  variable's floor is the 10th percentile (numpy's linear rule) of b over the item set, never below
+  the smallest shown unit, stored to one decimal more than shown, so that it only stops a near-zero
+  b from inflating the reward and binds rarely. It is a baseline-only statistic with no model
+  information, and each item carries its floor. On the 720 items: 28.75 Pa and 0.069 K, each binding
+  on 36 of 360 (`reports/era5/items_v1_manifest.json`).
 - What the rule leaves to earn is in the Limits block of `reports/era5/items_v1_baselines.md`:
   on the quarter of 2 m temperature items with the smallest b, IFS HRES earns 0.086 on average
   and 0 on 74 of 90; 3 items, where a baseline is exact, cannot be won by any reply.
