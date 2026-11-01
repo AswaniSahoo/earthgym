@@ -157,3 +157,9 @@ def test_pair_report_says_where_the_differing_items_sit():
     h = q | {"accuracy": 0.89, "traps": {}, "explained": 7, "where": where}
     text = report.render_pair(shown, {"model": "m/x", "n": 100, "reward": 0.89, "questions": [h]})
     assert "Phoenix Deer Valley Municipal Airport 2019 (8)" in text
+
+
+def test_heat_pair_report_never_mentions_storms(log):
+    s = report.summarize(log, ITEMS)
+    assert s["recognized_what"] == "name a season from 2015 to 2024"
+    assert "storm" not in report.render_pair(s, s)

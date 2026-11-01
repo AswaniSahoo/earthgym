@@ -116,7 +116,10 @@ def summary(reward, accuracies, traps=None, explained=None):
         | {"explained": (explained or {}).get(q, 0)}
         for q, a in accuracies.items()
     ]
-    return {"model": "m/x", "n": 300, "reward": reward, "questions": questions, "recognized": 2}
+    return {"model": "m/x", "n": 300, "reward": reward, "questions": questions} | {
+        "recognized": 2,
+        "recognized_what": "name the storm or its season",
+    }
 
 
 def test_pair_report_puts_both_runs_side_by_side_with_a_plain_rl_line():

@@ -157,6 +157,7 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
         "errors": errors,
         "rules": log.eval.task_args.get("rules", True),
         "recognized": recognized,
+        "recognized_what": "name the storm or its season",
         "reward": statistics.fmean(rewards),
         "stderr": statistics.stdev(rewards) / len(rewards) ** 0.5 if len(rewards) > 1 else 0.0,
         "questions": questions,

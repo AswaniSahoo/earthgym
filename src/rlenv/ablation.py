@@ -62,7 +62,8 @@ def render_pair(
     if "recognized" in shown and "recognized" in hidden:
         lines += [
             "",
-            f"Replies that name the storm or its season: {shown['recognized']} of {shown['n']} "
+            f"Replies that {shown.get('recognized_what', 'name the item')}: "
+            f"{shown['recognized']} of {shown['n']} "
             f"with the rules shown, {hidden['recognized']} {short}.",
         ]
     return "\n".join([*lines, ""])
