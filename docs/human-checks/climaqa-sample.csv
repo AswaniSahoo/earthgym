@@ -1,0 +1,121 @@
+id,question,options,gold_answer,verdict,note
+158,What method is used to determine regions of turbulence in the atmosphere?,"a) Applying the bulk Richardson number criterion to all layers
+b) Estimating statically unstable air using nonlocal methods and then applying the Richardson number criterion
+c) Using the Richardson number criterion to identify dynamically unstable air
+d) Plotting the profile and lifting parcels from relative maximums and lowering from relative minimums",b) Estimating statically unstable air using nonlocal methods and then applying the Richardson number criterion,,
+68,"What determines the shape, known as the habit, that a growing ice crystal takes?","a) Ambient pressure
+b) Ambient conditions like temperature and supersaturation
+c) Aerosol concentration
+d) Geographical location",b) Ambient conditions like temperature and supersaturation,,
+163,What is the main difference between open cells and closed cells in the marine boundary layer?,"a) Open cells produce drizzle, while closed cells are characterized by the absence of drizzle.
+b) Open cells have a circulation opposite to that in closed cells.
+c) Open cells have air rising at the cell boundaries and subsiding in the cell interior, while closed cells have air rising in the middle and subsiding at the cell boundaries.
+d) Open cells have air subsiding at the cell boundaries, while closed cells have air rising at the cell boundaries.","c) Open cells have air rising at the cell boundaries and subsiding in the cell interior, while closed cells have air rising in the middle and subsiding at the cell boundaries.",,
+97,What is one of the challenges faced in simulating the interaction of aerosol with clouds in large-scale models?,"a) Parameterizing the activation process
+b) Ignoring the effect of aerosols on cloud formation
+c) Explicitly calculating aerosol activation for each cloud droplet
+d) Resolving subgrid vertical velocities accurately",a) Parameterizing the activation process,,
+266,What is one of the effects of increases in European aerosol in the mid-high latitudes?,"a) Enhanced convective storms
+b) Reduction in Arctic sea ice
+c) Strengthening of the subtropical jet
+d) Large-scale anomalous cooling",d) Large-scale anomalous cooling,,
+122,What is the main purpose of converting ice-sheet sulfate deposition records to estimates of atmospheric sulfate aerosol burden and stratospheric aerosol optical depth?,"a) To estimate key parameters for past eruptions where direct observations are not available
+b) To directly observe past volcanic eruptions
+c) To measure the spatial distribution of volcanic aerosols in the atmosphere
+d) To calculate the total mass of volcanic SO2 emitted",a) To estimate key parameters for past eruptions where direct observations are not available,,
+17,What is the definition of aerosol optical depth?,"a) The rate at which aerosols are removed from the atmosphere
+b) The total mass of aerosols present in the stratosphere
+c) The speed at which aerosols are transported across different latitudes
+d) The column-integrated aerosol extinction (scattering plus absorption) of radiation at a given wavelength",d) The column-integrated aerosol extinction (scattering plus absorption) of radiation at a given wavelength,,
+216,Do aerosol particles from air pollution warm or cool the climate?,"a) Aerosol particles from air pollution only cool the climate.
+b) Aerosol particles from air pollution only warm the climate.
+c) Aerosol particles from air pollution can either cool or warm the climate.
+d) Aerosol particles from air pollution have no impact on the climate.",c) Aerosol particles from air pollution can either cool or warm the climate.,,
+240,What is the main process responsible for repopulating the particle number distribution globally?,"a) Gas-phase oxidation reactions
+b) Aqueous-phase sulfate production
+c) New particle formation (nucleation)
+d) Aqueous-phase secondary organic aerosol production",c) New particle formation (nucleation),,
+150,Which study focuses on the investigation of the aerosol–cloud–rainfall association over the Indian summer monsoon region?,"a) Phillips, 1956
+b) Paukert et al., 2019
+c) Sarangi et al., 2017
+d) Stallins et al., 2013","c) Sarangi et al., 2017",,
+208,"In kriging analysis, what is the purpose of the Lagrange multipliers for each spatial component in the kriging system?","a) To maximize the estimation variance
+b) To ensure that the weights sum to 0
+c) To introduce bias into the estimation process
+d) To ensure that the estimation variance is minimized",d) To ensure that the estimation variance is minimized,,
+102,"In a hypothetical scenario where CCN concentrations were found to vary significantly based on latitudinal and seasonal factors, how would this impact the understanding of cloud formation?","a) It would suggest that CCN concentrations are not as crucial for cloud formation as previously thought.
+b) It would imply that other factors play a more significant role in cloud formation than CCN concentrations.
+c) It would support the existing knowledge on the importance of CCN in cloud formation.
+d) It would indicate a need to reconsider the role of CCN in cloud nucleation processes.",d) It would indicate a need to reconsider the role of CCN in cloud nucleation processes.,,
+222,What could potentially happen if the vertical velocity field in the region of warm advection in advance of a developing surface low starts sinking instead of rising?,"a) The cyclone would dissipate quickly
+b) The cyclone would change direction unpredictably
+c) The cyclone would weaken gradually
+d) The cyclone would intensify rapidly",a) The cyclone would dissipate quickly,,
+103,How can anthropogenic aerosols affect tropical cyclones in the Western Pacific in a hypothetical scenario where there is a significant increase in aerosol emissions from Asia?,"a) By reducing the precipitation rate of the cyclones.
+b) By causing a decrease in the frequency of tropical cyclones.
+c) By directly increasing the wind speed of the cyclones.
+d) By affecting typhoons through increased rainfall rate and area.",d) By affecting typhoons through increased rainfall rate and area.,,
+57,"In a hypothetical scenario where a document contains the statement 'This page intentionally left blank,' what could be a possible reason for including this statement?","a) To indicate an error in the document
+b) To prevent confusion and show that the blank space is intentional
+c) To provide additional information
+d) To highlight important sections in the document",b) To prevent confusion and show that the blank space is intentional,,
+111,How do warm clouds primarily grow through the process of collision and merging of cloud droplets?,"a) Evaporation
+b) Condensation
+c) Coalescence
+d) Nucleation",c) Coalescence,,
+104,What factor plays a crucial role in the intensification of tropical cyclones by allowing the boundary layer inflow air to absorb large quantities of latent heat from the underlying ocean surface?,"a) The rate of increase of saturation mixing ratio with temperature
+b) The warming of the core in response to heating and moistening of the inflow air
+c) The deflection of the low-level inflow by the Coriolis force
+d) The outward pressure gradient force induced by upward bulging pressure surfaces in the upper troposphere",a) The rate of increase of saturation mixing ratio with temperature,,
+147,"What factor plays a significant role in determining the aerosol retrieval algorithms applied for single-view, broad-swath VNIR imagers when assumptions about particle properties are required?","a) The distance between the satellite and the aerosol layer
+b) The nature of the surface below the aerosol layer
+c) The time of day when the satellite observations are made
+d) The type of aerosol present in the atmosphere",b) The nature of the surface below the aerosol layer,,
+65,"In a hypothetical scenario, if researchers wanted to compare the aerosol life cycle and optical properties using ground- and space-based remote sensing as well as surface in situ observations, which project's evaluation would be most relevant?","a) AeroCom
+b) RFMIP
+c) DAMIP
+d) LongRunMIP",a) AeroCom,,
+209,How do control technologies affect greenhouse gas and air pollutant emissions?,"a) They can result in reductions or increases of some other species, including greenhouse gases
+b) They have no effect on greenhouse gases
+c) They always result in a decrease of all pollutants
+d) They target single pollutants and have no impact on others","a) They can result in reductions or increases of some other species, including greenhouse gases",,
+77,Why is there a large uncertainty in representing aerosol-cloud interactions in climate models?,"a) The large gap between the scale of cloud microphysical processes and the spatial resolution of the models
+b) The complexity of cloud microphysical processes
+c) The variability in aerosol sources across different regions
+d) The lack of observational data to validate the models",a) The large gap between the scale of cloud microphysical processes and the spatial resolution of the models,,
+25,Why is it necessary to estimate subgrid vertical velocities in large-scale models when simulating the interaction of aerosol with clouds?,"a) To account for the dynamical features relevant to aerosol activation
+b) To accurately calculate the activation of aerosols for each cloud droplet
+c) To ignore the effect of aerosols on cloud formation
+d) To resolve subgrid vertical velocities accurately",a) To account for the dynamical features relevant to aerosol activation,,
+8,How did the aerosol-induced cooling over China impact the summer monsoon circulation over South and East Asia during the second half of the twentieth century?,"a) Resulted in anomalously high sea-level pressure over land and anomalously low pressure over the northwest Pacific
+b) Strengthened the Walker Circulation over the Indian Ocean
+c) Caused a further weakening of the summer monsoon
+d) Enhanced the summer monsoon circulation",c) Caused a further weakening of the summer monsoon,,
+138,How can the concept of virtual temperature be used to calculate CAPE?,"a) By integrating the virtual temperature from the LFC to the LNB
+b) By calculating the difference between the virtual temperature of the air parcel and the environment
+c) By replacing the temperature with virtual temperature in the definition of buoyancy force
+d) By using the virtual temperature to determine the area on a tephigram bounded by the air parcel's temperature and the ambient temperature profile",c) By replacing the temperature with virtual temperature in the definition of buoyancy force,,
+56,Which publication provides an assessment of global and regional emissions of trace metals to the atmosphere from anthropogenic sources worldwide and is referenced in the Chapter 8 Aerosol and precursor gas emissions?,"a) An assessment of global and regional emissions of trace metals to the atmosphere from anthropogenic sources worldwide. Environ. Rev. 9, 269–298
+b) A sea spray aerosol flux parameterization encapsulating wave state. Atmos. Chem. Phys. 14, 1837
+c) Contribution of isoprene to chemical budgets: a model tracer study with the NCAR CTM
+d) An updated climatology of surface dimethlysulfide concentrations and emission fluxes in the global ocean. Glob. Biogeochem. Cycles 25","a) An assessment of global and regional emissions of trace metals to the atmosphere from anthropogenic sources worldwide. Environ. Rev. 9, 269–298",,
+173,Which of the following is a component involved in the nucleation process of highly oxidized organic molecules that is likely to be a multicomponent process?,"a) Amines
+b) Ammonia
+c) H2SO4
+d) Organic molecules",d) Organic molecules,,
+221,How does an increase in droplet concentration due to anthropogenic aerosol affect cloud properties and radiative forcing?,"a) Decrease in cloud albedo and decrease in cloud coverage
+b) Increase in cloud albedo and decrease in cloud coverage
+c) Increase in cloud albedo and increase in cloud coverage
+d) Decrease in cloud albedo and increase in cloud coverage",c) Increase in cloud albedo and increase in cloud coverage,,
+203,Why is it more complicated to represent aerosol particles in models compared to cloud particles?,"a) Because aerosol particles carry multiple chemical components, while cloud particles do not
+b) Because aerosol particles are emitted from specific sources, while cloud particles are not
+c) Because aerosol particles are larger in size compared to cloud particles
+d) Because aerosol particles undergo mixing of air masses and microphysical processes, leading to internal mixing of different chemical components","d) Because aerosol particles undergo mixing of air masses and microphysical processes, leading to internal mixing of different chemical components",,
+167,What is the approximate amount of solar radiation absorbed by aerosols in cloud-free conditions at the top of the atmosphere?,"a) 6.3 W m^-2
+b) 4.5 W m^-2
+c) 1.2 W m^-2
+d) 2.8 W m^-2",b) 4.5 W m^-2,,
+11,Who studied motions in rotating systems and provided the first modern definition of kinetic energy and work?,"a) G. G. de Coriolis
+b) Isaac Newton
+c) Albert Einstein
+d) Marie Curie",a) G. G. de Coriolis,,
