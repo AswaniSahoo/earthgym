@@ -10,8 +10,8 @@ status, the wind in kt and the pressure in mb; no name, year or storm id. The ru
 question is in the prompt. The reply must end with a line `ANSWER: <number>`.
 
 Reward per item, from `ibtracs_storm_v1/contract.py`: 1 for a right answer, else 0. ACE is
-right within 0.05 of the exact value, which accepts either rounding to one decimal of a value
-ending in 5; category and hours must match exactly.
+right only at one decimal, as the exact value rounded or, when the exact value is a tie, either
+neighbour; category and hours must match exactly (decision 0016).
 
 The keys come from `src/rlenv/ibtracs/stats.py`, which reproduces NCEI's published North
 Atlantic season numbers (`reports/ibtracs/2026-11-01-ncei-reproduction.md`).

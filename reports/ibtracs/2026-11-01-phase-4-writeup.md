@@ -25,8 +25,9 @@ major, ACE 161.6 and 2 category 5 hurricanes (`reports/ibtracs/2026-11-01-ncei-r
 `ibtracs-storm-v1` has 300 items from 613 eligible North Atlantic storms of 1980 to 2025, drawn
 with seed 2026 (decision 0011): 100 ask a storm's ACE, 100 its peak category, and 100 its hours
 at hurricane strength. The prompt shows every row the archive has for the storm, with no name
-or year, then the rule for the question. Answers are exact: ACE within 0.05 at one decimal,
-category and hours to the integer.
+or year, then the rule for the question. Answers are exact: ACE at one decimal (scored within
+0.05 of the exact value at the time; the stricter rounding rule of decision 0016 gives the same
+scores), category and hours to the integer.
 
 How often each careless reading gets an item right (`reports/ibtracs/2026-11-01-claude-sonnet-5-5.md`,
 baseline rows): ACE summed over every row, 0 of 100 (the 3-hourly rows double it); ACE

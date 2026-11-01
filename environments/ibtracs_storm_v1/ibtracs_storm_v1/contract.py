@@ -95,8 +95,8 @@ def _roundings(key: float) -> set[int]:
 
 def reward(question: str, value: float | None, key: float) -> float:
     """1 for a right answer, else 0. ACE must be the exact value rounded to one decimal, or
-    either neighbour when the exact value ends in 5 at the second decimal (decision 0011);
-    the other questions must match exactly."""
+    either neighbour when the exact value ends in 5 at the second decimal and 0 after it
+    (decision 0016); the other questions must match exactly."""
     if value is None:
         return 0.0
     if question == "ace":

@@ -36,9 +36,11 @@ Items:
   Hours at hurricane strength count 6 for each row at exactly those times with status HU. The
   exact wording landed after the runs (Fable review M1): the runs said "at 00, 06, 12 or 18
   UTC", 9 items turn on rows at a synoptic hour with minutes, and Sonnet 5.5 got all 9 right.
-- Reward 1 or 0. ACE is right when the answer is within 0.05 of the exact value (kept to four
-  decimals): that accepts either rounding of a value that ends in 5 at the second decimal, and
-  the unrounded value, and rejects a wrong rounding. Category and hours must match exactly.
+- Reward 1 or 0. ACE is right only at one decimal: the exact value (kept to four decimals)
+  rounded, or either neighbour when the exact value ends in 5 at the second decimal and 0 after
+  it. Until 2026-11-02 the rule was within 0.05 of the exact value, which also paid two-decimal
+  and unrounded answers; re-grading the runs by the new rule changes no score (decision 0016).
+  Category and hours must match exactly.
   We keep NOAA's one-decimal format (Fable review M2): it can never pay a wrong choice of rows,
   since the smallest qualifying row adds 0.1156, but a single 5 kt misread of one wind still
   pays on 1,578 of 4,026 such perturbations (39 percent, on 97 of 100 items). Asking for two
@@ -46,7 +48,7 @@ Items:
   if exactness is wanted, and it would make a rerun incomparable with these runs. Kept at
   one decimal by lfx-prep-b7 on 2026-11-01, so the runs stay comparable.
 - Answer parser: the last line 'ANSWER: <number>', horizontal space only, an optional full
-  stop, as in Phase 3.
+  stop, as in Phase 3; Markdown emphasis removed and finite numbers only (decision 0016).
 
 Baselines in the report, all exact from the reference code: the most common key per question
 (a constant answer), and the careless readings each rule exists to stop: for ACE, every row
