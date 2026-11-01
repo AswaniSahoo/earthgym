@@ -83,14 +83,24 @@ Plan (2026-11-01, from the radar in docs/radar.md):
 - [x] Stage 2 environment: 300 items (sha256 75fe4ff2), contract, verifiers taskset, Inspect
       task; CI runs vf-validate (300 of 300 valid), a mockllm eval and the wheel build
 - [x] Report module with best-constant and careless-reading baselines; trap rates in 0011
-- [ ] Sonnet 5.5 baseline: probe `uv run python -m rlenv.ibtracs.tasks` (2 per question),
-      then all 300 through the Batch API, within the cap
-- [ ] Fable review of Phase 4 and its fixes
+- [x] Sonnet 5.5 baseline: probe 6 of 6, then 299 of 300 (0.997), $1.3627;
+      reports/ibtracs/2026-11-01-claude-sonnet-5-5.md. Saturated with the rules in the prompt
+- [ ] Fable review of Phase 4 (running) and its fixes; consider the rules-hidden ablation
 
-## Phase 5
+## Phase 5, heat-insurance basis risk (decisions 0012, 0013)
 
-- [ ] Scout radar: launched 2026-11-01 and stopped at the usage limit; check
-      `git diff docs/radar.md`, then launch it again
+- [x] Scout radar: 21 rows added, 6 moved to hold (docs/radar.md)
+- [x] Stage 1: GHCN-Daily Phoenix pinned; NWS Phoenix's 2020, 2023 and 2024 counts reproduced
+      exactly (reports/heat/2026-11-01-nws-phoenix-reproduction.md)
+- [x] Stage 2: heat-basis-v1, 300 items over 2 airport index stations and 2 city-core
+      sites (sha256 9d72cd64); contract, taskset, Inspect task, report, CI
+- [ ] Sonnet 5.5 baseline: probe running, then all 300 within the cap
+- [ ] Fable review of Phase 5 and its fixes
+
+## Final pass
+
+- [x] Blog-ready write-ups: phases 1, 2 and 3 (reports/climaqa/, reports/era5/)
+- [ ] Write-ups for phases 4 and 5; SUMMARY.md; README current; ledger final; CI green
 
 ## Parked: Jev as a third reader of the ClimaQA misses (decision 0008)
 
