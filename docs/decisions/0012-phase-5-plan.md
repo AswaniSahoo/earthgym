@@ -1,7 +1,7 @@
 # 0012: Phase 5 plan, heat-insurance basis risk
 
-Date: 2026-11-01. Status: accepted, our plan under the Definition of done in WORKBOARD.md; the
-Fable review of Phase 5 checks it.
+Date: 2026-11-01. Status: accepted, 2026-11-01: my plan for Phase 5, checked by the Phase 5
+review.
 
 Goal: an environment that asks what a parametric heat policy pays and where it misses the
 heat a policyholder had (basis risk), with every answer computed exactly from station data by
@@ -16,7 +16,7 @@ Stage 1: the published number first.
 
 - Data: GHCN-Daily `by_station/USW00023183.csv.gz` (Phoenix Sky Harbor), 1,479,584 bytes,
   anonymous HTTPS, Last-Modified Sun, 01 Nov 2026 00:01:02 GMT. NCEI publishes no checksum and
-  rewrites the file daily, so we pin our own sha256 with the size and Last-Modified at first
+  rewrites the file daily, so I pin my own sha256 with the size and Last-Modified at first
   fetch, keep the copy under data/ (not in git), and fail on any mismatch. NOAA names no
   licence, only citations (doi:10.7289/V5D21VHZ).
 - Reader: the standard library `gzip` and `csv` modules. TMAX is stored in tenths of a degree
@@ -37,7 +37,7 @@ not; a verifiers taskset and an Inspect task tested on mockllm; then a Claude So
 baseline within the cap.
 
 Out: Indian data (IMD names no licence, the GSOD readme bars passing on non-US derived
-products, ERA5 daily statistics need a Copernicus account: those calls are Aswani's),
+products, ERA5 daily statistics need a Copernicus account: those calls are mine to make later),
 anything over 100 MB, heat index and wet-bulb formulas (on the radar for later).
 
 Tests: inline rows with hand-computed counts; the reproduction tests run when the pinned file

@@ -1,7 +1,7 @@
 # 0013: heat-basis-v1, a parametric heat policy's payouts and basis risk, exact answers
 
-Date: 2026-11-01. Status: accepted, our design under 0012; the Fable review of Phase 5 checks
-it.
+Date: 2026-11-01. Status: accepted, 2026-11-01: my design under decision 0012, checked by the
+Phase 5 review.
 
 Context: stage 1 reproduces NWS Phoenix's published heat counts from the pinned GHCN-Daily file
 (`reports/heat/2026-11-01-nws-phoenix-reproduction.md`). Real heat covers count days at or above
@@ -43,17 +43,17 @@ Baselines in the report, exact from the reference code: the best constant answer
 and careless readings: trigger days strictly above the threshold, or counted on the site's
 column; events counted as trigger days, as every run whatever its length, or with missing days
 skipped; missed days counted both ways, as every hot site day, or with missing index days left
-out. The Fable review (L1) added the readings the terms-only wording leaves open: events as
+out. The Phase 5 review (L1) added the readings the terms-only wording leaves open: events as
 blocks of k days, runs longer than k, runs of exactly k; missed days with the site strictly
 above the threshold, and the other way round (the index hot while a site value is present and
 below the threshold).
 
-Terms-only ablation (2026-11-01, asked for by lfx-prep-b7 when the 6-item probe scored 6 of
-6): the same items with the policy terms alone, worded as a term sheet would put them ("the
-index station's maximum reaches T F", "an event is k or more consecutive trigger days", "the
-insured site's maximum reaches T F but the index station's does not"). The threshold and k
-stay, since the questions need them; the clarifying rules go: at or above, missing values,
-and paying once however long an event lasts. `-T rules=false`, reported side by side.
+Terms-only ablation (2026-11-01, which I asked for when the 6-item probe scored 6 of 6): the same
+items with the policy terms alone, worded as a term sheet would put them ("the index station's
+maximum reaches T F", "an event is k or more consecutive trigger days", "the insured site's maximum
+reaches T F but the index station's does not"). The threshold and k stay, since the questions need
+them; the clarifying rules go: at or above, missing values, and paying once however long an event
+lasts. `-T rules=false`, reported side by side.
 
 Terms-only result (2026-11-01, `reports/heat/2026-11-01-rules-shown-vs-terms-only.md`): 0.960
 against the control's 0.987. Trigger days (0.99) and events (1.00) stay at the ceiling;
@@ -63,7 +63,7 @@ the key, all Deer Valley 2019, took the other reading.
 Out, for later: other cities, heat index or wet-bulb triggers, money amounts and
 deductibles, a pairing whose index has gaps in more than one season, and the insurer's side
 of basis risk (days the index paid while the site was not hot) as a fourth question; the last
-two are design changes for Aswani (Fable review M3).
+two change the design (Phase 5 review, M3).
 
 Consequences: answers are exact, the basis risk is real station data, and the careless
 readings measure how often each rule changes the answer. Measured on the 300 items

@@ -1,7 +1,7 @@
 # 0017: a held-out split by group in every taskset
 
-Date: 2026-11-02. Status: accepted. From the Codex review's finding 2, relayed by lfx-prep-b7 in
-fix batch 1.
+Date: 2026-11-02. Status: accepted, 2026-11-02. From the Codex review's finding 2, which I took
+up in fix batch 1.
 
 Context: items that share their data (one storm's track, one season's station readings, one
 week's weather) make a random split leak, since a policy trained on one item can learn what
@@ -32,9 +32,9 @@ Consequences:
 - The reported model runs cover every item. The ERA5 baselines report already fits the mixture
   weight on `train` and scores it on `test` (`reports/era5/items_v1_baselines.md`).
 - Limits: two ClimaQA items from one textbook passage can fall on different sides, and how many
-  share a passage is UNKNOWN. Weather does not stop at a week boundary: ERA5 inits are at 00
-  and 12 UTC, so a train init and a test init can be 12 hours apart, and one test item's truth
-  is among the values a train item's prompt shows (same cell and variable). Storms of one season
-  share large-scale conditions, though each item shows only its own track. The heat test split is 2 of 10 seasons,
-  55 items.
+  share a passage is UNKNOWN. Weather does not stop at a week boundary: ERA5 inits are at 00 and 12
+  UTC, so a train init and a test init can be 12 hours apart, and one test item's truth is among the
+  values a train item's prompt shows (same cell and variable). Storms of one season share
+  large-scale conditions, though each item shows only its own track. The heat test split is 2 of 10
+  seasons, 55 items.
 - The Inspect tasks still run every item; a split option there is a later change.

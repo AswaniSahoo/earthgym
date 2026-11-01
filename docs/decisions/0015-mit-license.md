@@ -1,7 +1,6 @@
 # 0015: the MIT License for rlenv
 
-Date: 2026-11-02. Status: accepted. Aswani's decision, relayed by lfx-prep-b7: "MIT license for
-rlenv now".
+Date: 2026-11-02. Status: accepted, 2026-11-02: I chose the MIT License.
 
 Decision: a `LICENSE` file at the repo root with the MIT License text from GitHub's licenses
 API (`gh api /licenses/mit`), copyright 2026 Aswani Kumar Sahoo. Every pyproject declares it as
@@ -12,5 +11,5 @@ with `uv build`, uv_build for the root and hatchling 1.33.0 for the four environ
 Consequences: the environment wheels carry the expression but not the text, since a
 `license-files` path may not point above the package's own directory; a copy of `LICENSE` in
 each package would add it. The license covers the code; the bundled and reported data keep their
-sources' terms (README, License). The repo's visibility is unchanged: making it public is a
-separate decision Aswani has not made.
+sources' terms (README, License). The repository stays private: making it public is a
+separate decision I have not made yet.

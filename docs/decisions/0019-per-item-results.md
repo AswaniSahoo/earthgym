@@ -1,7 +1,7 @@
 # 0019: per-item results for every reported run, committed
 
-Date: 2026-11-02. Status: accepted. From the Codex review's finding 5, relayed by lfx-prep-b7 in
-fix batch 1: commit compact per-item results for every reported run, so a stranger can
+Date: 2026-11-02. Status: accepted, 2026-11-02. From the Codex review's finding 5, with my aim
+for fix batch 1: commit compact per-item results for every reported run, so a stranger can
 recompute every published number without new runs, and keep them lean.
 
 Context: the Inspect logs are not in git, so until now no one else could check a published

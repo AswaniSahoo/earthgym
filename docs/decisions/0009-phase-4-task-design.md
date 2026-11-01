@@ -1,9 +1,7 @@
 # 0009: what a Phase 4 task asks
 
-Date: 2026-11-01. Status: accepted 2026-11-01, option 1. Decided by lfx-prep-b7 under
-Aswani's instruction of the same day ("set goal and complete until all and everything is
-completed"), for three reasons it gave: a distinct skill from Phase 3, an exact verifier, and
-real traps.
+Date: 2026-11-01. Status: accepted 2026-11-01: option 1, for three reasons: a distinct skill
+from Phase 3, an exact verifier, and real traps.
 
 Context: stage 1 gave reference code that reproduces NCEI's published North Atlantic season
 numbers from a pinned IBTrACS file (`reports/ibtracs/2026-11-01-ncei-reproduction.md`). The
@@ -32,7 +30,7 @@ tested on mockllm only; no paid run without a yes.
 
 Decision: option 1. The counting rules go in the prompt: only the synoptic rows at 00, 06,
 12 and 18 UTC count, which statuses count, the units (knots), ACE as the sum of
-(v/10^4) * v over the qualifying rows, and rounding to one decimal, with a tolerance we choose
+(v/10^4) * v over the qualifying rows, and rounding to one decimal, with a tolerance I choose
 and test in stage 2. The same items with the rules left out ("rules hidden") are a later
 ablation.
 

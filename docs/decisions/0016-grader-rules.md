@@ -1,7 +1,7 @@
 # 0016: one answer-line rule, ACE by its rounding, cloze signs kept, and guards
 
-Date: 2026-11-02. Status: accepted. From the Codex review's findings 7, 10, 12, 13 and 15,
-relayed by lfx-prep-b7 in fix batch 1.
+Date: 2026-11-02. Status: accepted, 2026-11-02. From the Codex review's findings 7, 10, 12, 13
+and 15, which I took up in fix batch 1.
 
 Context: each contract grew its own answer parser. They differed in where the answer may sit
 (an ERA5 test accepted `ANSWER: 285.5` followed by another line), in which Markdown they strip,

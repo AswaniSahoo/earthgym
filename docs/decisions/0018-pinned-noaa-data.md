@@ -1,13 +1,13 @@
 # 0018: the pinned IBTrACS build as a release asset; the GHCN-Daily files stay local
 
-Date: 2026-11-02. Status: accepted. From the Codex review's finding 1, relayed by lfx-prep-b7 in
-fix batch 1: publish the pinned NOAA files as a GitHub release asset if their terms allow
+Date: 2026-11-02. Status: accepted, 2026-11-02. From the Codex review's finding 1, with my rule
+for fix batch 1: publish the pinned NOAA files as a GitHub release asset if their terms allow
 redistribution, and if the terms are unclear, do not upload and document the limitation.
 
-Context: NCEI publishes no checksum and overwrites its files in place, so our pins are our own
-sha256s, and a stranger can rebuild the items only while NCEI still serves the bytes we pinned.
+Context: NCEI publishes no checksum and overwrites its files in place, so my pins are my own
+sha256s, and a stranger can rebuild the items only while NCEI still serves the bytes I pinned.
 On 2026-11-02 NCEI served `ibtracs.NA.list.v04r01.csv` with `Last-Modified: Sun, 01 Nov 2026
-10:03:22 GMT`, a day after our pin's build (Fri, 30 Oct 2026 04:27:28 GMT), and the bytes were
+10:03:22 GMT`, a day after the pinned build (Fri, 30 Oct 2026 04:27:28 GMT), and the bytes were
 still the pinned ones; the next change to any storm record will change them. The Phoenix Sky
 Harbor station file still had its pinned `Last-Modified` (Sun, 01 Nov 2026 00:01:02 GMT).
 
@@ -54,5 +54,5 @@ Consequences:
   are in `rlenv.heat.data.STATIONS`). Once NCEI rewrites a file with new data, the hash check
   refuses it, and the items cannot be rebuilt from public sources. The published heat numbers
   do not need the station files: they can be recomputed from the committed per-item results.
-- To lift the limit: a statement from NCEI that GHCN-Daily may be redistributed, or Aswani's
+- To lift the limit: a statement from NCEI that GHCN-Daily may be redistributed, or my
   decision to publish the files on another basis.
