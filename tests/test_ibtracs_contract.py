@@ -41,11 +41,16 @@ def test_answer_takes_the_last_answer_line_only():
     assert contract.answer("ANSWER:\n4") is None  # the number must sit on the answer line
 
 
-def test_ace_is_right_within_half_a_step_of_the_exact_value():
+def test_ace_pays_only_the_one_decimal_rounding_of_the_exact_value():
     assert contract.reward("ace", 12.3, 12.345) == 1.0
     assert contract.reward("ace", 12.4, 12.345) == 0.0  # wrong rounding
-    assert contract.reward("ace", 12.3, 12.35) == contract.reward("ace", 12.4, 12.35) == 1.0
-    assert contract.reward("ace", 12.35, 12.35) == 1.0
+    assert (
+        contract.reward("ace", 12.3, 12.35) == contract.reward("ace", 12.4, 12.35) == 1.0
+    )  # a tie
+    assert contract.reward("ace", 12.35, 12.35) == 0.0  # not rounded to one decimal
+    assert contract.reward("ace", 12.295, 12.345) == 0.0  # within 0.05, but not a rounding
+    assert contract.reward("ace", 12.39, 12.345) == 0.0
+    assert contract.reward("ace", 0.1, 0.1225) == 1.0
     assert contract.reward("ace", None, 12.35) == 0.0
 
 

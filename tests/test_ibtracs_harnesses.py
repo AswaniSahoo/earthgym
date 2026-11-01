@@ -45,7 +45,8 @@ def test_reward_pays_one_for_the_right_last_reply():
     def paid(reply):
         return asyncio.run(task.exact(SimpleNamespace(last_reply=reply)))
 
-    assert paid(f"Summing.\nANSWER: {task.data.key}") == 1.0
+    right = min(contract._roundings(task.data.key)) / 10  # the key rounded to one decimal
+    assert paid(f"Summing.\nANSWER: {right:.1f}") == 1.0
     assert paid(f"ANSWER: {task.data.key + 1}") == 0.0
     assert paid(f"{task.data.key}") == 0.0  # no answer line
 

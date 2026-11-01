@@ -49,7 +49,6 @@ NUMBER = r"[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?"
 ANSWER_LINE = re.compile(  # horizontal space only, so the number sits on the answer line
     rf"^[ \t]*ANSWER[ \t]*:[ \t]*({NUMBER})[ \t]*\.?[ \t]*$", re.MULTILINE | re.IGNORECASE
 )
-TOLERANCE = 0.05  # ACE: half a step of one decimal around the exact value (decision 0011)
 
 
 def prompt(item: dict, rules: bool = True) -> str:
@@ -70,11 +69,25 @@ def answer(reply: str) -> float | None:
     return float(found[-1]) if found else None
 
 
+def _tenths(value: float) -> int | None:
+    """value times 10 as an integer, when value has at most one decimal; else None."""
+    tenths = round(value * 10)
+    return tenths if abs(value * 10 - tenths) < 1e-6 else None
+
+
+def _roundings(key: float) -> set[int]:
+    """The one-decimal roundings of an exact ACE key (kept to four decimals), in tenths: one,
+    or both neighbours of a tie."""
+    whole, rest = divmod(round(key * 1e4), 1000)
+    return {whole} if rest < 500 else {whole + 1} if rest > 500 else {whole, whole + 1}
+
+
 def reward(question: str, value: float | None, key: float) -> float:
-    """1 for a right answer, else 0: ACE within TOLERANCE of the exact value (with room for
-    float rounding), the other questions exactly."""
+    """1 for a right answer, else 0. ACE must be the exact value rounded to one decimal, or
+    either neighbour when the exact value ends in 5 at the second decimal (decision 0011);
+    the other questions must match exactly."""
     if value is None:
         return 0.0
     if question == "ace":
-        return float(abs(value - key) <= TOLERANCE + 1e-9)
+        return float(_tenths(value) in _roundings(key))
     return float(value == key)
