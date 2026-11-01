@@ -131,7 +131,7 @@ was called or spent.
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
 - [ ] Name the domain expert for the 0005 review; the sheet is ready:
       reports/climaqa/expert_review_v2.csv
-- [ ] LICENSE for the repo and the environment packages (Fable reviews of phases 2 to 4)
+- [x] LICENSE: MIT, copyright 2026 Aswani Kumar Sahoo (Aswani, 2026-11-02; decision 0015)
 - [ ] Publish the pinned IBTrACS CSV and GHCN-Daily files as release assets, so others can
       rebuild the items (Phase 4 review L7)
 - [ ] inspect_evals Register submission (publishing is Aswani's call): both model runs on

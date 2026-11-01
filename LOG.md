@@ -2,6 +2,13 @@
 
 Newest first. One entry per working session: what changed, what we learned, what is next.
 
+## 2026-11-02, MIT License
+
+- Aswani chose the MIT License for rlenv (relayed by lfx-prep-b7): "MIT license for rlenv
+  now". `LICENSE` at the root (text from GitHub's licenses API), `license = "MIT"` in every
+  pyproject, a License section in the README, decision 0015. The repo's visibility is
+  unchanged; making it public is a separate decision.
+
 ## 2026-11-01, Phase 5 runs and review
 
 - Phase 5 on Sonnet 5.5, the rules-shown control: 296 of 300 (0.987), $1.8801; all four misses
