@@ -44,7 +44,12 @@ Baselines in the report, all exact from the reference code: the most common key 
 ACE over every row (the 3-hourly rows double it), ACE ignoring status (extratropical rows
 count), category from the highest wind ignoring status, and hours over every HU row.
 
-Out, for later: the "rules hidden" ablation (the same items with the rules left out), a
+Rules-hidden ablation (2026-11-01, asked for by lfx-prep-b7 after the rules-shown run scored
+0.997): the same items and prompts without the "Rule." paragraph, so the status legend,
+units, rounding and question stay; `-T rules=false` on the Inspect task, `rules: false` in
+the taskset config. The two runs are reported side by side (`rlenv.ablation`).
+
+Out, for later: a
 rapid-intensification question (NHC's glossary definition, tested on hand-computed tracks
 first), other basins, storms before 1980.
 

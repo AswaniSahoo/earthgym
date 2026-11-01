@@ -45,8 +45,15 @@ column; events counted as trigger days, as every run whatever its length, or wit
 skipped; missed days counted both ways, as every hot site day, or with missing index days left
 out.
 
-Out, for later: other cities, heat index or wet-bulb triggers, money amounts and deductibles,
-the rules-hidden ablation.
+Terms-only ablation (2026-11-01, asked for by lfx-prep-b7 when the 6-item probe scored 6 of
+6): the same items with the policy terms alone, worded as a term sheet would put them ("the
+index station's maximum reaches T F", "an event is k or more consecutive trigger days", "the
+insured site's maximum reaches T F but the index station's does not"). The threshold and k
+stay, since the questions need them; the clarifying rules go: at or above, missing values,
+and paying once however long an event lasts. `-T rules=false`, reported side by side.
+
+Out, for later: other cities, heat index or wet-bulb triggers, money amounts and
+deductibles.
 
 Consequences: answers are exact, the basis risk is real station data, and the careless
 readings measure how often each rule changes the answer. Measured on the 300 items
