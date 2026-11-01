@@ -29,6 +29,7 @@ def test_copying_a_baseline_earns_zero_and_hres_earns_its_skill():
         "climatology": 0.0,
         "always-climatology policy": 0.0,
         "IFS HRES": 0.75,
+        "midpoint": 0.25,  # halfway errs by 0.5 and 1: rewards 0.5 and 0
     }
     assert rows["IFS HRES"]["rmse"] == pytest.approx(math.sqrt(0.125))
     assert rows["always-climatology policy"]["acc"] is None  # no anomaly, no correlation
@@ -58,3 +59,43 @@ def test_limits_show_hres_reward_by_quarter_of_baseline_error_and_the_dead_items
         "Items where a baseline is exact, so no reply can earn a reward: 2m_temperature 1.",
     ]:
         assert line in text
+
+
+def mixed(truth_w, p, c, init):
+    """An item whose truth is the mixture truth_w * p + (1 - truth_w) * c, issued at init."""
+    r = item(truth_w * p + (1 - truth_w) * c, p, c, 0.0)
+    return r | {"init_time": init}
+
+
+def init_in(split):
+    from datetime import datetime, timedelta
+
+    from era5_forecast_v1 import contract
+
+    day = datetime(2020, 1, 1)
+    while contract.split({"init_time": f"{day:%Y-%m-%dT%H}"}) != split:
+        day += timedelta(days=7)
+    return f"{day:%Y-%m-%dT%H}"
+
+
+def test_mixture_weight_maximizes_mean_reward_on_the_items_given():
+    train = [mixed(0.3, 292.0, 289.0, "x"), mixed(0.3, 279.0, 283.0, "x")]
+    assert baselines.mixture_weight(train) == pytest.approx(0.3)
+
+
+def test_the_mixture_is_fitted_on_the_train_split_only():
+    train = [mixed(0.3, 292.0, 289.0, init_in("train")), mixed(0.3, 279.0, 283.0, init_in("train"))]
+    test = [mixed(0.9, 292.0, 289.0, init_in("test"))]
+    names = [n for n in baselines.forecasters(train + test) if n.startswith("mixture")]
+    assert names == ["mixture (w 0.30, fitted on the train split)"]
+
+
+def test_held_out_rewards_are_on_the_test_split_and_render_in_their_own_table():
+    records = [
+        mixed(0.3, 292.0, 289.0, init_in("train")),
+        mixed(0.5, 279.0, 283.0, init_in("test")),
+    ]
+    held = {r["forecast"]: r for r in baselines.held_out(records, baselines.BASELINES)}
+    assert held["midpoint"]["n"] == 1 and held["midpoint"]["reward"] == pytest.approx(1.0)
+    text = baselines.render(baselines.rows(records), records, held=list(held.values()))
+    assert "## Held out" in text and "| midpoint | 1 | 1.000 |" in text

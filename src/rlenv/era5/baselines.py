@@ -5,6 +5,7 @@ uv run python -m rlenv.era5.baselines   # writes reports/era5/items_v1_baselines
 """
 
 import json
+import statistics
 from pathlib import Path
 
 import numpy as np
@@ -18,6 +19,7 @@ BASELINES = {
     "climatology": lambda item: item["climatology"],
     "always-climatology policy": lambda item: contract.answer(f"ANSWER: {item['climatology']}"),
     "IFS HRES": lambda item: item["hres"],
+    "midpoint": lambda item: (item["history"][-1] + item["climatology"]) / 2,
 }
 
 
@@ -53,6 +55,38 @@ def rows(records: list[dict], forecasts: dict = BASELINES) -> list[dict]:
     return out
 
 
+def mixture_weight(train: list[dict]) -> float:
+    """The weight w in w * persistence + (1 - w) * climatology, on a grid of 0.01, that earns
+    the most mean reward on the items given; the smallest of any tie."""
+
+    def paid(w: float) -> float:
+        p = [reward(r, w * r["history"][-1] + (1 - w) * r["climatology"]) for r in train]
+        return statistics.fmean(p)
+
+    return max((k / 100 for k in range(101)), key=paid)
+
+
+def forecasters(records: list[dict]) -> dict:
+    """The baselines and the convex mixture of persistence and climatology, its weight fitted
+    on the train split only, so the test split can score it out of sample."""
+    w = mixture_weight([r for r in records if contract.split(r) == "train"])
+
+    def mixture(item: dict) -> float:
+        return w * item["history"][-1] + (1 - w) * item["climatology"]
+
+    return BASELINES | {f"mixture (w {w:.2f}, fitted on the train split)": mixture}
+
+
+def held_out(records: list[dict], forecasts: dict) -> list[dict]:
+    """Mean reward per forecast on the test split."""
+    test = [r for r in records if contract.split(r) == "test"]
+    return [
+        {"forecast": name, "n": len(test)}
+        | {"reward": statistics.fmean(reward(r, f(r)) for r in test)}
+        for name, f in forecasts.items()
+    ]
+
+
 def quarters(records: list[dict]) -> list[dict]:
     """Per variable, the items ranked by their better-baseline error b and split into four
     equal parts, with what IFS HRES earns in each."""
@@ -74,7 +108,9 @@ def quarters(records: list[dict]) -> list[dict]:
     return out
 
 
-def render(table: list[dict], records: list[dict] | None = None) -> str:
+def render(
+    table: list[dict], records: list[dict] | None = None, held: list[dict] | None = None
+) -> str:
     lines = [
         "# era5-forecast-v1 baseline rows",
         "",
@@ -89,6 +125,19 @@ def render(table: list[dict], records: list[dict] | None = None) -> str:
             f"| {r['variable']} | {r['lead']} | {r['baseline']} | {r['n']} | "
             f"{r['rmse']:.3f} | {acc} | {r['reward']:.3f} |"
         )
+    if held:
+        lines += [
+            "",
+            "## Held out",
+            "",
+            f"Mean reward on the test split ({held[0]['n']} items, one init week in five by a hash "
+            "of the week; era5_forecast_v1/contract.py), where the mixture's weight was not "
+            "fitted:",
+            "",
+            "| forecast | n | mean reward |",
+            "|---|---|---|",
+        ]
+        lines += [f"| {r['forecast']} | {r['n']} | {r['reward']:.3f} |" for r in held]
     if not records:
         return "\n".join([*lines, ""])
     lines += [
@@ -132,7 +181,8 @@ def render(table: list[dict], records: list[dict] | None = None) -> str:
 
 def main() -> None:
     records = [json.loads(line) for line in items.OUT.read_text("utf-8").splitlines()]
-    REPORT.write_text(render(rows(records), records), "utf-8")
+    fs = forecasters(records)
+    REPORT.write_text(render(rows(records, fs), records, held_out(records, fs)), "utf-8")
     print(f"{len(records)} items scored, written to {REPORT}")
 
 
