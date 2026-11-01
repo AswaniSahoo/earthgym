@@ -33,7 +33,7 @@ With the rules shown the model is right on 296 of 300 items. That run is the con
 
 - trigger_days: 1.000 with the rules shown, 0.990 with terms only: near the ceiling either way, so the model fills in this rule itself.
 - events: 1.000 with the rules shown, 1.000 with terms only: near the ceiling either way, so the model fills in this rule itself.
-- missed_days: 0.960 with the rules shown, 0.890 with terms only, and 6 of the 11 misses follow a careless reading of the rule: a convention gap, which a policy would take from the reward in a few steps, not a skill it would learn.
+- missed_days: 0.960 with the rules shown, 0.890 with terms only, and 6 of the 11 misses follow a careless reading of the rule: a convention gap, and, as an untested guess, one a policy would take from the reward in a few steps rather than learn as a skill.
 
 Replies that name a season from 2015 to 2024: 0 of 300 with the rules shown, 0 with terms only.
 

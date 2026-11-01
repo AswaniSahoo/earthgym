@@ -29,6 +29,6 @@ With the rules shown the model is right on 299 of 300 items. That run is the con
 
 - ace: 0.990 with the rules shown, 0.990 hidden: near the ceiling either way, so the model fills in this rule itself.
 - peak_category: 1.000 with the rules shown, 0.990 hidden: near the ceiling either way, so the model fills in this rule itself.
-- hurricane_hours: 1.000 with the rules shown, 0.130 hidden, and 63 of the 87 misses follow a careless reading of the rule: a convention gap, which a policy would close as a constant offset rather than learn as a skill.
+- hurricane_hours: 1.000 with the rules shown, 0.130 hidden, and 63 of the 87 misses follow a careless reading of the rule: a convention gap, and, as an untested guess, one a policy would close as a constant offset rather than learn as a skill.
 
 Replies that name the storm or its season: 2 of 300 with the rules shown, 4 hidden.
