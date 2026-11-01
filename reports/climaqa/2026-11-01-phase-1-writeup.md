@@ -30,7 +30,8 @@ set and Silver, the set the paper fine-tunes on (arXiv 2410.16701v2, A.3.2).
 - The Gold multiple-choice file still holds the 47 items the experts rejected
   (Validation=False), and the freeform file 20 (same report, Inventory). The authors' own
   notebooks keep only the validated items, which matches the paper's counts; any other loader
-  has to filter the same way. Every later ClimaQA score we checked uses the unfiltered file
+  has to filter the same way. The later ClimaQA scores we checked,
+  OpenCompass's and SciEvalKit's, use the unfiltered file
   (`docs/radar.md`, the ClimaQA scores row).
 - 24 Gold cloze items repeat their answer outside the blank (same table,
   cloze.answer_in_question).

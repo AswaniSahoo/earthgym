@@ -9,3 +9,5 @@ Collected during fix batch 1 (2026-11-02); folded into the README rewrite and th
   of Silver unresolved and a strict 329-item variant (`-T strict=true`), not "clean" alone.
 - "with $20 in total as a hard cap": say a managed budget of $20 (probe projections before
   each run, the ledger checked after), not a hard cap (decision 0010).
+- `era5-forecast-v1` row, "graded by the WB2 rules": the reward is a custom clipped skill score;
+  the WB2 rules give the RMSE and ACC reference metrics, not the reward.

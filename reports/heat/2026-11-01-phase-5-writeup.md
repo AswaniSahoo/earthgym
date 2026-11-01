@@ -61,8 +61,8 @@ once with the policy terms alone, worded as a term sheet would put them
 ## What this means for RL
 
 As built, the environment is saturated for a model as strong as Sonnet 5.5, with the rules or
-with the terms alone, and the one gap that remains sits on one station-season. A policy would
-take that convention from the reward in a few steps. Harder versions are in decision 0013's
+with the terms alone, and the one gap that remains sits on one station-season. Our untested guess is that
+a policy would take that convention from the reward in a few steps. Harder versions are in decision 0013's
 later list: an index with gaps in more than one season, the insurer's side of basis risk (days
 the index paid while the site was not hot), money amounts and deductibles, heat index triggers,
 and other cities.

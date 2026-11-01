@@ -1,6 +1,8 @@
 # era5-forecast-v1
 
-Forecast tasks graded against ERA5 by the WeatherBench 2 rules (decision 0007). Each of the 720
+Forecast tasks scored against ERA5 (decision 0007). The reward is our own clipped skill score over
+persistence and climatology; the WeatherBench 2 rules give the area-weighted RMSE and ACC that the
+reports show as reference metrics, not the reward. Each of the 720
 items is one cell of the 64x32 grid, one variable (mean sea level pressure in Pa or 2 m
 temperature in K), one 2020 init and one lead of 24, 48 or 72 h: 120 items per variable and
 lead, seed 20261030. The prompt shows the cell's ERA5 values every 6 hours over the 72 h up to

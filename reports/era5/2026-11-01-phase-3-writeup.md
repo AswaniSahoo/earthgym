@@ -1,4 +1,4 @@
-# Grading a language model's weather forecasts the WeatherBench 2 way
+# Scoring a language model's weather forecasts, with WeatherBench 2 metrics as the check
 
 Phase 3 of rlenv, written up on 2026-11-01. Every number below comes from a report in this
 repo; the source is named next to it.
@@ -39,6 +39,9 @@ clip((b - |f - y|) / max(b, floor), 0, 1), so copying either free forecast earns
 perfect forecast earns 1. Each variable's floor is the 10th percentile of b over the items,
 28.75 Pa and 0.069 K, so a near-perfect free forecast cannot blow up the ratio (decision 0007,
 `reports/era5/items_v1_baselines.md`).
+
+This reward is our own. The WB2 rules give the RMSE and ACC in the tables below as reference
+metrics; they are not the reward.
 
 ## Results
 
