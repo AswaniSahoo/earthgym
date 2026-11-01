@@ -31,7 +31,7 @@ How I run it (Inspect 0.3.286 source paths are under `inspect_ai/`):
 - `google-genai` leaves the eval group and takes `google-auth` with it, so neither a
   `google/...` model nor `anthropic/vertex/...` can run here; `tests/test_spend.py` fails if
   either client comes back. Reading the old Gemini logs needs neither. CI runs only ruff,
-  pytest, `vf-validate --only-noop` and an Inspect eval on `mockllm/model`.
+  pytest, `vf-validate` (the gold and untouched checks) and an Inspect eval on `mockllm/model`.
 - Key: `ANTHROPIC_API_KEY` in `.env` at the repo root (ignored by git, mode 600), added by me.
   The Inspect CLI loads it: `init_dotenv()` (`_cli/main.py:61`) calls
   `find_dotenv(usecwd=True)` (`_util/dotenv.py:23`) and overrides variables already set only

@@ -65,7 +65,10 @@ def test_write_saves_items_as_jsonl_and_a_manifest_with_their_sha256(tmp_path):
 def test_bundled_items_match_their_manifest():
     meta = json.loads(items.MANIFEST.read_text())
     assert hashlib.sha256(items.OUT.read_bytes()).hexdigest() == meta["sha256"]
-    assert len(items.OUT.read_text().splitlines()) == meta["items"] == 720
+    assert len(items.OUT.read_text().splitlines()) == meta["items"] == 648
+    assert (meta["drawn"], meta["gold_dropped"]) == (720, 72)  # decision 0021
+    # the draw before the gold check: the items the 2026-11-01 runs were scored on
+    assert meta["drawn_sha256"].startswith("c4a1dd7c96a0a94d")
 
 
 def floor_row(variable, error):
@@ -88,11 +91,18 @@ def test_floors_never_drop_below_the_smallest_shown_unit_and_are_stored_rounded(
     assert items.floors(uneven) == {T2M: round(0.0123 + 0.4 * (0.0456 - 0.0123), 3)}
 
 
-def test_bundled_floors_follow_the_rule_and_the_manifest_records_them():
+def test_bundled_floors_are_the_draws_and_the_manifest_records_them():
+    # the floors come from all 720 drawn items, before the gold check drops any (0021)
     rows = [json.loads(line) for line in items.OUT.read_text().splitlines()]
-    floors = items.floors(rows)
-    assert all(r["floor"] == pytest.approx(floors[r["variable"]]) for r in rows)
-    assert json.loads(items.MANIFEST.read_text())["floors"] == pytest.approx(floors)
+    floors = json.loads(items.MANIFEST.read_text())["floors"]
+    assert all(r["floor"] == floors[r["variable"]] for r in rows)
+    assert floors == {"mean_sea_level_pressure": 28.75, "2m_temperature": 0.069}
+
+
+def test_the_gold_check_drops_rows_whose_floor_binds():
+    keep = floor_row("2m_temperature", 0.2) | {"floor": 0.1}
+    drop = floor_row("2m_temperature", 0.05) | {"floor": 0.1}
+    assert items.gold_checked([keep, drop]) == [keep]
 
 
 def test_fields_sha256_changes_with_any_value_the_builder_reads():

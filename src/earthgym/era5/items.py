@@ -13,6 +13,7 @@ from datetime import timedelta
 from pathlib import Path
 
 import numpy as np
+from era5_forecast_v1 import contract
 
 from earthgym.era5 import data, scores
 
@@ -127,6 +128,27 @@ def read_fields() -> dict:
     return fields
 
 
+def gold_checked(rows: list[dict]) -> list[dict]:
+    """The rows whose perfect forecast earns the whole reward, the gold check of decision 0021:
+    a row whose better baseline is already closer to the truth than its floor fails it."""
+    return [
+        r
+        for r in rows
+        if contract.reward(r["truth"], r["truth"], r["history"][-1], r["climatology"], r["floor"])
+        == 1.0
+    ]
+
+
+def finish(drawn: list[dict], fields: str) -> tuple[list[dict], dict]:
+    """The gold-checked rows, and the manifest fields that say how they were made; the floors
+    come from the whole draw."""
+    rows = gold_checked(drawn)
+    extra = {"drawn": len(drawn), "drawn_sha256": hashlib.sha256(serialize(drawn)).hexdigest()}
+    extra |= {"gold_dropped": len(drawn) - len(rows)}
+    extra |= {"floors": floors(drawn), "floor_binds": floor_binds(drawn), "fields_sha256": fields}
+    return rows, extra
+
+
 def fields_sha256(fields: dict) -> str:
     """Content hash of every array the builder reads from the stores, so a rebuild can tell a
     store that serves other values under the same pinned metadata."""
@@ -146,13 +168,18 @@ def check_fields(fields: dict, manifest: Path = MANIFEST) -> str:
     return digest
 
 
+def serialize(rows: list[dict]) -> bytes:
+    """The items file's bytes: one JSON object per line, keys sorted."""
+    return "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows).encode("utf-8")
+
+
 def write(rows: list[dict], out: Path = OUT, manifest: Path = MANIFEST, **extra) -> str:
     """One JSON object per line, and a manifest with the file's sha256, how it was made and
     any extra fields."""
-    text = "".join(json.dumps(row, sort_keys=True) + "\n" for row in rows)
+    text = serialize(rows)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(text, "utf-8")
-    digest = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    out.write_bytes(text)
+    digest = hashlib.sha256(text).hexdigest()
     meta = {"version": "v1", "items": len(rows), "sha256": digest, "seed": SEED}
     meta |= {"per_group": PER_GROUP, "variables": VARIABLES, "leads": LEADS}
     meta |= {"history_steps": HISTORY_STEPS, "stores": data.METADATA_SHA256} | extra
@@ -166,8 +193,8 @@ def main() -> None:
     fields = read_fields()
     checked = check_fields(fields)
     shape = (data.INITS, len(fields["latitude"]), len(fields["longitude"]))
-    rows = with_floors([make_item(*pick, fields) for pick in plan(SEED, PER_GROUP, *shape)])
-    extra = {"floors": floors(rows), "floor_binds": floor_binds(rows), "fields_sha256": checked}
+    drawn = with_floors([make_item(*pick, fields) for pick in plan(SEED, PER_GROUP, *shape)])
+    rows, extra = finish(drawn, checked)
     digest = write(rows, **extra)
     print(f"{len(rows)} items, sha256 {digest}")
 

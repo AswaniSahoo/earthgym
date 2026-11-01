@@ -30,9 +30,9 @@ pinned by sha256, and `reports/era5/items_v1_manifest.json` holds the file's sha
 
     uv run python -m earthgym.era5.items
 
-Checked offline on 2026-10-30:
+Checked offline on 2026-10-30, the gold check on 2026-11-02:
 
-    uv run vf-validate era5-forecast-v1 --only-noop --runtime.type subprocess   # 720 of 720 valid
+    uv run vf-validate era5-forecast-v1 --runtime.type subprocess   # gold and untouched, 648 valid
     uv run vf-eval era5-forecast-v1 --dry-run --no-push -m <served model name>
     uv run inspect eval src/earthgym/era5/tasks.py@era5_forecast --model mockllm/model --limit 3
 

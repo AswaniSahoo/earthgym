@@ -100,3 +100,9 @@ def group(item: dict) -> str:
 def split(item: dict) -> str:
     """'test' for about one group in five, picked by a hash of the group key, else 'train'."""
     return "test" if hashlib.sha256(group(item).encode()).digest()[0] % 5 == 0 else "train"
+
+
+def gold(key: int) -> str:
+    """The reference reply for the gold check: the exact count on the answer line (decision
+    0021)."""
+    return f"ANSWER: {key}"

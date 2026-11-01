@@ -3,6 +3,7 @@ exact-overlap-filtered; 21 near matches of Silver are unresolved, and `strict` l
 
 import json
 from importlib.resources import files
+from types import SimpleNamespace
 from typing import Literal
 
 import verifiers.v1 as vf
@@ -42,6 +43,16 @@ class ClimaqaTask(vf.Task[ClimaqaData]):
             else contract.cloze_correct(reply, key)
         )
         return float(ok)
+
+    async def validate(self, runtime) -> bool:
+        """The gold check: the reference reply, through this task's own reward, scores 1.0
+        (decision 0021)."""
+        return (
+            await self.correct(
+                SimpleNamespace(last_reply=contract.gold(self.data.kind, self.data.answer))
+            )
+            == 1.0
+        )
 
 
 class ClimaqaConfig(vf.TasksetConfig):

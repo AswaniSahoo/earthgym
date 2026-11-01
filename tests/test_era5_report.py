@@ -109,3 +109,10 @@ def test_a_one_item_run_has_no_standard_error_and_no_test(log):
     text = report.render(s)
     assert "(stderr n/a, one item)" in text and "(SE n/a)" in text
     assert "too few items to test" in text and "significant" not in text
+
+
+def test_items_that_left_the_set_are_left_out_of_every_number(log):
+    s = report.summarize(log, ITEMS[:2])  # the third item failed a later gold check, say
+    assert (s["n"], s["left_out"], s["parse_failures"]) == (2, 1, 0)
+    assert "1 of them failed the gold check (decision 0021)" in report.render(s)
+    assert report.summarize(log, ITEMS)["left_out"] == 0

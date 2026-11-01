@@ -38,4 +38,5 @@ def test_mslp_items_match_the_pinned_subset_wherever_it_can_see_them():
         if r["lead_hours"] == data.LEAD_HOURS:
             assert r["hres"] == round(float(s["forecast"][k_of[r["init_time"]], i, j]), 1)
             seen["hres"] += 1
-    assert seen == {"truth": 360, "climatology": 360, "history": 2495, "hres": 120}
+    # the 324 MSLP items left after the gold check (0021), 110 of them at 72 h
+    assert seen == {"truth": 324, "climatology": 324, "history": 2253, "hres": 110}

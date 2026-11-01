@@ -1,65 +1,65 @@
 # era5-forecast-v1 on claude-sonnet-5-5
 
-Model `anthropic/claude-sonnet-5-5` on 720 items, scored by era5_forecast_v1/contract.py at commit bbafe0e.
+Model `anthropic/claude-sonnet-5-5` on 648 items, scored by era5_forecast_v1/contract.py at commit bbafe0e. The run answered 720 items; 72 of them failed the gold check (decision 0021) and are left out of every number here.
 
 ## Result
 
-Mean reward 0.116 (stderr 0.009) over all 720 items, parse failures and errors scored 0. The reward is the skill over the better of persistence and climatology for each item, clipped to [0, 1] (decision 0007).
+Mean reward 0.128 (stderr 0.010) over all 648 items, parse failures and errors scored 0. The reward is the skill over the better of persistence and climatology for each item, clipped to [0, 1] (decision 0007).
 
-Replies without a parseable answer line: 0 of 720. Samples that errored: 0.
+Replies without a parseable answer line: 0 of 648. Samples that errored: 0.
 
-Against the midpoint (persistence + climatology) / 2, item by item: +0.0087 (SE 0.0077); the model is higher on 123 items, lower on 92 and tied on 505: not significant at two standard errors.
+Against the midpoint (persistence + climatology) / 2, item by item: +0.0102 (SE 0.0085); the model is higher on 121 items, lower on 89 and tied on 438: not significant at two standard errors.
 
-Area-weighted RMSE and ACC by the WB2 rules, and the mean reward, on the 720 items with a parsed answer, each baseline on the same items:
+Area-weighted RMSE and ACC by the WB2 rules, and the mean reward, on the 648 items with a parsed answer, each baseline on the same items:
 
 | variable | lead h | forecast | n | RMSE | ACC | mean reward |
 |---|---|---|---|---|---|---|
-| mean_sea_level_pressure | 24 | persistence | 120 | 539.344 | 0.643 | 0.000 |
-| mean_sea_level_pressure | 24 | climatology | 120 | 609.904 | n/a | 0.000 |
-| mean_sea_level_pressure | 24 | always-climatology policy | 120 | 609.904 | n/a | 0.000 |
-| mean_sea_level_pressure | 24 | IFS HRES | 120 | 50.509 | 0.997 | 0.594 |
-| mean_sea_level_pressure | 24 | midpoint | 120 | 471.352 | 0.643 | 0.151 |
-| mean_sea_level_pressure | 24 | mixture (w 0.67, fitted on the train split) | 120 | 470.126 | 0.643 | 0.136 |
-| mean_sea_level_pressure | 24 | claude-sonnet-5-5 | 120 | 487.508 | 0.613 | 0.147 |
-| mean_sea_level_pressure | 48 | persistence | 120 | 754.163 | 0.283 | 0.000 |
-| mean_sea_level_pressure | 48 | climatology | 120 | 614.807 | n/a | 0.000 |
-| mean_sea_level_pressure | 48 | always-climatology policy | 120 | 614.807 | n/a | 0.000 |
-| mean_sea_level_pressure | 48 | IFS HRES | 120 | 76.907 | 0.992 | 0.666 |
-| mean_sea_level_pressure | 48 | midpoint | 120 | 607.895 | 0.283 | 0.102 |
-| mean_sea_level_pressure | 48 | mixture (w 0.67, fitted on the train split) | 120 | 643.407 | 0.283 | 0.089 |
-| mean_sea_level_pressure | 48 | claude-sonnet-5-5 | 120 | 586.037 | 0.357 | 0.109 |
-| mean_sea_level_pressure | 72 | persistence | 120 | 967.296 | 0.086 | 0.000 |
-| mean_sea_level_pressure | 72 | climatology | 120 | 726.078 | n/a | 0.000 |
-| mean_sea_level_pressure | 72 | always-climatology policy | 120 | 726.078 | n/a | 0.000 |
-| mean_sea_level_pressure | 72 | IFS HRES | 120 | 139.379 | 0.981 | 0.570 |
-| mean_sea_level_pressure | 72 | midpoint | 120 | 779.265 | 0.086 | 0.081 |
-| mean_sea_level_pressure | 72 | mixture (w 0.67, fitted on the train split) | 120 | 831.293 | 0.086 | 0.098 |
-| mean_sea_level_pressure | 72 | claude-sonnet-5-5 | 120 | 738.092 | 0.147 | 0.091 |
-| 2m_temperature | 24 | persistence | 120 | 1.448 | 0.825 | 0.000 |
-| 2m_temperature | 24 | climatology | 120 | 2.455 | n/a | 0.000 |
-| 2m_temperature | 24 | always-climatology policy | 120 | 2.455 | n/a | 0.000 |
-| 2m_temperature | 24 | IFS HRES | 120 | 0.726 | 0.955 | 0.303 |
-| 2m_temperature | 24 | midpoint | 120 | 1.606 | 0.825 | 0.121 |
-| 2m_temperature | 24 | mixture (w 0.67, fitted on the train split) | 120 | 1.443 | 0.825 | 0.139 |
-| 2m_temperature | 24 | claude-sonnet-5-5 | 120 | 1.405 | 0.821 | 0.136 |
-| 2m_temperature | 48 | persistence | 120 | 2.591 | 0.516 | 0.000 |
-| 2m_temperature | 48 | climatology | 120 | 2.660 | n/a | 0.000 |
-| 2m_temperature | 48 | always-climatology policy | 120 | 2.660 | n/a | 0.000 |
-| 2m_temperature | 48 | IFS HRES | 120 | 0.760 | 0.958 | 0.490 |
-| 2m_temperature | 48 | midpoint | 120 | 2.279 | 0.516 | 0.116 |
-| 2m_temperature | 48 | mixture (w 0.67, fitted on the train split) | 120 | 2.309 | 0.516 | 0.115 |
-| 2m_temperature | 48 | claude-sonnet-5-5 | 120 | 2.198 | 0.564 | 0.126 |
-| 2m_temperature | 72 | persistence | 120 | 2.300 | 0.564 | 0.000 |
-| 2m_temperature | 72 | climatology | 120 | 2.536 | n/a | 0.000 |
-| 2m_temperature | 72 | always-climatology policy | 120 | 2.536 | n/a | 0.000 |
-| 2m_temperature | 72 | IFS HRES | 120 | 0.859 | 0.943 | 0.391 |
-| 2m_temperature | 72 | midpoint | 120 | 2.108 | 0.564 | 0.074 |
-| 2m_temperature | 72 | mixture (w 0.67, fitted on the train split) | 120 | 2.101 | 0.564 | 0.082 |
-| 2m_temperature | 72 | claude-sonnet-5-5 | 120 | 2.126 | 0.560 | 0.087 |
+| mean_sea_level_pressure | 24 | persistence | 100 | 521.810 | 0.707 | 0.000 |
+| mean_sea_level_pressure | 24 | climatology | 100 | 687.087 | n/a | 0.000 |
+| mean_sea_level_pressure | 24 | always-climatology policy | 100 | 687.087 | n/a | 0.000 |
+| mean_sea_level_pressure | 24 | IFS HRES | 100 | 48.406 | 0.998 | 0.709 |
+| mean_sea_level_pressure | 24 | midpoint | 100 | 507.819 | 0.707 | 0.178 |
+| mean_sea_level_pressure | 24 | mixture (w 0.67, fitted on the train split) | 100 | 486.958 | 0.707 | 0.163 |
+| mean_sea_level_pressure | 24 | claude-sonnet-5-5 | 100 | 522.072 | 0.651 | 0.171 |
+| mean_sea_level_pressure | 48 | persistence | 114 | 762.595 | 0.291 | 0.000 |
+| mean_sea_level_pressure | 48 | climatology | 114 | 635.903 | n/a | 0.000 |
+| mean_sea_level_pressure | 48 | always-climatology policy | 114 | 635.903 | n/a | 0.000 |
+| mean_sea_level_pressure | 48 | IFS HRES | 114 | 78.145 | 0.993 | 0.701 |
+| mean_sea_level_pressure | 48 | midpoint | 114 | 623.782 | 0.291 | 0.102 |
+| mean_sea_level_pressure | 48 | mixture (w 0.67, fitted on the train split) | 114 | 656.681 | 0.291 | 0.092 |
+| mean_sea_level_pressure | 48 | claude-sonnet-5-5 | 114 | 598.986 | 0.370 | 0.112 |
+| mean_sea_level_pressure | 72 | persistence | 110 | 1015.280 | 0.086 | 0.000 |
+| mean_sea_level_pressure | 72 | climatology | 110 | 764.512 | n/a | 0.000 |
+| mean_sea_level_pressure | 72 | always-climatology policy | 110 | 764.512 | n/a | 0.000 |
+| mean_sea_level_pressure | 72 | IFS HRES | 110 | 146.291 | 0.982 | 0.622 |
+| mean_sea_level_pressure | 72 | midpoint | 110 | 819.597 | 0.086 | 0.088 |
+| mean_sea_level_pressure | 72 | mixture (w 0.67, fitted on the train split) | 110 | 873.683 | 0.086 | 0.103 |
+| mean_sea_level_pressure | 72 | claude-sonnet-5-5 | 110 | 776.375 | 0.147 | 0.099 |
+| 2m_temperature | 24 | persistence | 106 | 1.540 | 0.818 | 0.000 |
+| 2m_temperature | 24 | climatology | 106 | 2.562 | n/a | 0.000 |
+| 2m_temperature | 24 | always-climatology policy | 106 | 2.562 | n/a | 0.000 |
+| 2m_temperature | 24 | IFS HRES | 106 | 0.758 | 0.955 | 0.342 |
+| 2m_temperature | 24 | midpoint | 106 | 1.691 | 0.818 | 0.134 |
+| 2m_temperature | 24 | mixture (w 0.67, fitted on the train split) | 106 | 1.527 | 0.818 | 0.158 |
+| 2m_temperature | 24 | claude-sonnet-5-5 | 106 | 1.493 | 0.814 | 0.155 |
+| 2m_temperature | 48 | persistence | 109 | 2.745 | 0.474 | 0.000 |
+| 2m_temperature | 48 | climatology | 109 | 2.708 | n/a | 0.000 |
+| 2m_temperature | 48 | always-climatology policy | 109 | 2.708 | n/a | 0.000 |
+| 2m_temperature | 48 | IFS HRES | 109 | 0.723 | 0.964 | 0.528 |
+| 2m_temperature | 48 | midpoint | 109 | 2.384 | 0.474 | 0.128 |
+| 2m_temperature | 48 | mixture (w 0.67, fitted on the train split) | 109 | 2.433 | 0.474 | 0.127 |
+| 2m_temperature | 48 | claude-sonnet-5-5 | 109 | 2.308 | 0.523 | 0.139 |
+| 2m_temperature | 72 | persistence | 109 | 2.451 | 0.558 | 0.000 |
+| 2m_temperature | 72 | climatology | 109 | 2.687 | n/a | 0.000 |
+| 2m_temperature | 72 | always-climatology policy | 109 | 2.687 | n/a | 0.000 |
+| 2m_temperature | 72 | IFS HRES | 109 | 0.865 | 0.949 | 0.430 |
+| 2m_temperature | 72 | midpoint | 109 | 2.243 | 0.558 | 0.081 |
+| 2m_temperature | 72 | mixture (w 0.67, fitted on the train split) | 109 | 2.238 | 0.558 | 0.091 |
+| 2m_temperature | 72 | claude-sonnet-5-5 | 109 | 2.260 | 0.555 | 0.096 |
 
 ## Tokens and cost
 
-322920 input and 257940 output tokens, 0 of the output reasoning; cache writes 0, cache reads 0. Sent through the Batch API, at half price. At the prices in reports/spend.md (Anthropic's pricing page, fetched 2026-11-01): $1.6126, or $0.00224 an item.
+322920 input and 257940 output tokens, 0 of the output reasoning; cache writes 0, cache reads 0. Sent through the Batch API, at half price. At the prices in reports/spend.md (Anthropic's pricing page, fetched 2026-11-01): $1.6126, or $0.00249 an item.
 
 ## Run config
 

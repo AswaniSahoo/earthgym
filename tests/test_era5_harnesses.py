@@ -15,7 +15,7 @@ from earthgym.era5 import tasks
 def test_taskset_loads_every_item_with_its_prompt_and_hidden_fields():
     loaded = ts.ForecastTaskset(ts.ForecastConfig()).load()
     rows = {r["id"]: r for r in ts.records()}
-    assert len(loaded) == 720
+    assert len(loaded) == 648  # 720 drawn, 72 failed the gold check (0021)
     for t in loaded:
         row = rows[t.data.id]
         assert t.data.prompt == contract.prompt(row)
@@ -25,7 +25,7 @@ def test_taskset_loads_every_item_with_its_prompt_and_hidden_fields():
 
 def test_config_can_restrict_the_taskset_to_one_variable():
     loaded = ts.ForecastTaskset(ts.ForecastConfig(variables=["2m_temperature"])).load()
-    assert len(loaded) == 360 and {t.data.variable for t in loaded} == {"2m_temperature"}
+    assert len(loaded) == 324 and {t.data.variable for t in loaded} == {"2m_temperature"}
 
 
 def test_reward_pays_skill_on_the_last_reply_and_nothing_for_a_copy():

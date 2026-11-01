@@ -2,6 +2,7 @@
 
 import json
 from importlib.resources import files
+from types import SimpleNamespace
 from typing import Literal
 
 import verifiers.v1 as vf
@@ -27,6 +28,16 @@ class StormTask(vf.Task[StormData]):
     async def exact(self, trace: vf.Trace) -> float:
         d = self.data
         return contract.reward(d.question, contract.answer(trace.last_reply), d.key)
+
+    async def validate(self, runtime) -> bool:
+        """The gold check: the reference reply, through this task's own reward, scores 1.0
+        (decision 0021)."""
+        return (
+            await self.exact(
+                SimpleNamespace(last_reply=contract.gold(self.data.question, self.data.key))
+            )
+            == 1.0
+        )
 
 
 class StormConfig(vf.TasksetConfig):

@@ -2,6 +2,7 @@
 
 import json
 from importlib.resources import files
+from types import SimpleNamespace
 from typing import Literal
 
 import verifiers.v1 as vf
@@ -31,6 +32,11 @@ class ForecastTask(vf.Task[ForecastData]):
         d = self.data
         forecast = contract.answer(trace.last_reply)
         return contract.reward(forecast, d.truth, d.persistence, d.climatology, d.floor)
+
+    async def validate(self, runtime) -> bool:
+        """The gold check: the reference reply, through this task's own reward, scores 1.0
+        (decision 0021)."""
+        return await self.skill(SimpleNamespace(last_reply=contract.gold(self.data.truth))) == 1.0
 
 
 class ForecastConfig(vf.TasksetConfig):

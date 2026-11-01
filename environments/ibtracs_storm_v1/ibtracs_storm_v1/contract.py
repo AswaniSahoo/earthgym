@@ -114,3 +114,11 @@ def group(item: dict) -> str:
 def split(item: dict) -> str:
     """'test' for about one group in five, picked by a hash of the group key, else 'train'."""
     return "test" if hashlib.sha256(group(item).encode()).digest()[0] % 5 == 0 else "train"
+
+
+def gold(question: str, key: float) -> str:
+    """The reference reply for the gold check: the key as the question asks for it, ACE at one
+    decimal (decision 0021)."""
+    if question == "ace":
+        return f"ANSWER: {min(_roundings(key)) / 10:.1f}"
+    return f"ANSWER: {int(key)}"

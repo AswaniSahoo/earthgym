@@ -2,6 +2,7 @@
 
 import json
 from importlib.resources import files
+from types import SimpleNamespace
 from typing import Literal
 
 import verifiers.v1 as vf
@@ -26,6 +27,11 @@ class HeatTask(vf.Task[HeatData]):
     @vf.reward(weight=1.0)
     async def exact(self, trace: vf.Trace) -> float:
         return contract.reward(contract.answer(trace.last_reply), self.data.key)
+
+    async def validate(self, runtime) -> bool:
+        """The gold check: the reference reply, through this task's own reward, scores 1.0
+        (decision 0021)."""
+        return await self.exact(SimpleNamespace(last_reply=contract.gold(self.data.key))) == 1.0
 
 
 class HeatConfig(vf.TasksetConfig):

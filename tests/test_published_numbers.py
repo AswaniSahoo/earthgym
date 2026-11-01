@@ -22,7 +22,7 @@ R = Path("reports")
 
 def load(env, name):
     head, rows = results.read(R / env / "results" / f"{name}.jsonl")
-    assert head["items_sha256"] == results.items_sha256(env)  # scored on the bundled items
+    assert head["items_sha256"] in results.scored_on(env)  # the bundled items, or their draw
     return head, rows
 
 

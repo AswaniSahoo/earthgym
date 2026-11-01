@@ -26,9 +26,24 @@ ITEMS = {  # environment: (package, bundled items file)
 }
 
 
+MANIFESTS = {  # environment: the manifest of its bundled items
+    "climaqa": Path("reports/climaqa/clean_v1_manifest.json"),
+    "era5": Path("reports/era5/items_v1_manifest.json"),
+    "ibtracs": Path("reports/ibtracs/items_v1_manifest.json"),
+    "heat": Path("reports/heat/items_v1_manifest.json"),
+}
+
+
 def items_sha256(env: str) -> str:
     package, name = ITEMS[env]
     return hashlib.sha256(files(package).joinpath(name).read_bytes()).hexdigest()
+
+
+def scored_on(env: str) -> set[str]:
+    """The items files a run of this environment may have been scored on: the bundled one and,
+    where the gold check dropped items from a draw, that draw (decision 0021)."""
+    drawn = json.loads(MANIFESTS[env].read_text("utf-8")).get("drawn_sha256")
+    return {items_sha256(env)} | ({drawn} if drawn else set())
 
 
 def header(log, items: str = "") -> dict:

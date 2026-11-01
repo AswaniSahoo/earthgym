@@ -1,7 +1,7 @@
 {
  "version": "v1",
- "items": 720,
- "sha256": "c4a1dd7c96a0a94d3b70843ae0931670e92be7f3edec851807aa2f7b2dfb28e0",
+ "items": 648,
+ "sha256": "b0ae4063f42307db66d0e10fdb76bb2468ea0fccc70cbcd4738948ba6050758e",
  "seed": 20261030,
  "per_group": 120,
  "variables": [
@@ -19,6 +19,9 @@
   "hres/2016-2022-0012-64x32_equiangular_conservative.zarr": "62811c8101885386acc33e3fe49641af74936d87eb2409ecf47dc193a777db9a",
   "era5-hourly-climatology/1990-2019_6h_64x32_equiangular_conservative.zarr": "f876a07f4c65d5375abad6bca5bb5af3eb115ff6aedc9c125dfeccc2e187c474"
  },
+ "drawn": 720,
+ "drawn_sha256": "c4a1dd7c96a0a94d3b70843ae0931670e92be7f3edec851807aa2f7b2dfb28e0",
+ "gold_dropped": 72,
  "floors": {
   "mean_sea_level_pressure": 28.75,
   "2m_temperature": 0.069

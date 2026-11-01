@@ -34,7 +34,7 @@ def rows(log: EvalLog, items: list[dict] | None = None) -> list[dict]:
     """The run's per-item results (earthgym.results); items defaults to the bundled set."""
     by_id = {r["id"]: r for r in (records() if items is None else items)}
     for s in log.samples or []:
-        if s.metadata["truth"] != by_id[s.id]["truth"]:
+        if s.id in by_id and s.metadata["truth"] != by_id[s.id]["truth"]:
             raise ValueError(f"{s.id}: the log's truth differs from the item's")
     return [results.row(s) for s in log.samples or []]
 
@@ -51,6 +51,10 @@ def from_results(head: dict, rows: list[dict], items: list[dict]) -> dict:
     if not rows:
         raise ValueError("the log has no samples")
     by_id = {r["id"]: r for r in items}
+    run_n = len(rows)
+    rows = [r for r in rows if r["id"] in by_id]  # items since dropped (decision 0021) leave
+    if not rows:
+        raise ValueError("no sample of the run is in the item set")
     batch = bool(head["settings"].get("batch"))
     forecasts, rewards, item_costs, paid = {}, [], [], {}
     parse_failures = errors = 0
@@ -76,6 +80,7 @@ def from_results(head: dict, rows: list[dict], items: list[dict]) -> dict:
         "label": label,
         "n": len(rewards),
         "parsed": len(forecasts),
+        "left_out": run_n - len(rows),
         "parse_failures": parse_failures,
         "errors": errors,
         "reward": statistics.fmean(rewards),
@@ -109,6 +114,16 @@ def _paired_line(p: dict) -> str:
     )
 
 
+def _left_out(s: dict) -> str:
+    k = s.get("left_out", 0)
+    if not k:
+        return ""
+    return (
+        f" The run answered {s['n'] + k} items; {k} of them failed the gold check (decision "
+        "0021) and are left out of every number here."
+    )
+
+
 def render(s: dict) -> str:
     t, n = s["tokens"], s["n"]
     se = "n/a, one item" if s["stderr"] is None else f"{s['stderr']:.3f}"
@@ -116,7 +131,7 @@ def render(s: dict) -> str:
         f"# era5-forecast-v1 on {s['label']}",
         "",
         f"Model `{s['model']}` on {n} items, scored by era5_forecast_v1/contract.py at commit "
-        f"{s['commit']}.",
+        f"{s['commit']}.{_left_out(s)}",
         "",
         "## Result",
         "",
