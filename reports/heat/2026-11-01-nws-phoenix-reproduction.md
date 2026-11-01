@@ -10,7 +10,7 @@ Date: 2026-11-01. Code: `src/rlenv/heat/data.py` and `src/rlenv/heat/stats.py`. 
 | 2023 | days with a high of 110 F or more | 55 | 55 |
 | 2023 | days with a high of 100 F or more | 133 | 133 |
 | 2023 | days with a high of 90 F or more | 185 | 185 |
-| 2023 | highest temperature and date | 119 F, 19 Jul | 119, 07/19 |
+| 2023 | highest temperature and dates | 119 F, first on 19 Jul (also 20 and 25 Jul) | 119, 07/19 (also 07/20 and 07/25) |
 | 2023 | longest stretch of 110 F days | 31, 30 Jun to 30 Jul | 31 (30 Jun 2023 - 30 Jul 2023) |
 | 2024 | days with a high of 110 F or more | 70 | 70 |
 | 2024 | longest stretch of 100 F days | 113, 27 May to 16 Sep | 113 (27 May 2024 - 16 Sep 2024) |
@@ -19,7 +19,8 @@ Date: 2026-11-01. Code: `src/rlenv/heat/data.py` and `src/rlenv/heat/stats.py`. 
 Published values, read on the live pages on 2026-11-01: NWS Phoenix's climate summary for 2023
 (weather.gov/psr/yearinreview2023: "DAYS MAX >= 110 55", "DAYS MAX >= 100 133", "DAYS MAX >= 90
 185", "HIGHEST 119 07/19") and the Phoenix column of its extreme temperatures page
-(weather.gov/psr/ExtremeTemps, period of record 1896 to 2025).
+(weather.gov/psr/ExtremeTemps, period of record 1896 to 2025). The two pages give different
+record periods: the 2023 summary says "CLIMATE RECORD PERIOD 1895 TO 2024".
 
 ## Config
 

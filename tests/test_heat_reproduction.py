@@ -22,6 +22,7 @@ def tmax():
 
 def test_2023_climate_summary(tmax):
     # "DAYS MAX >= 110 55", "DAYS MAX >= 100 133", "DAYS MAX >= 90 185", "HIGHEST 119 07/19"
+    # (the page also lists 07/20 and 07/25; `highest` returns the first date)
     assert [stats.days_at_or_above(tmax, 2023, f) for f in (110, 100, 90)] == [55, 133, 185]
     assert stats.highest(tmax, 2023) == (119, "2023-07-19")
 
