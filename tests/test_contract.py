@@ -39,3 +39,18 @@ def test_cloze_correct_is_squad_style_exact_match(reply, key, correct):
 def test_mcq_prompt_lists_lettered_options_and_the_answer_line_rule():
     text = contract.mcq_prompt("Why?", ["w", "x", "y", "z"])
     assert "A) w\nB) x\nC) y\nD) z" in text and "ANSWER: X" in text
+
+
+def test_normalize_keeps_signs_decimals_and_operators():
+    assert contract.normalize("-2") == "-2" != contract.normalize("2")
+    assert contract.normalize("\u22122") == "-2"
+    assert contract.normalize("0.5") == "0.5" and contract.normalize("x^2") == "x^2"
+    assert contract.normalize("10^4 W/m^2") == "10^4 w/m^2"
+    assert contract.normalize("a+b") == "a+b"  # an article only as a word of its own
+    assert contract.normalize("**hematite**") == "hematite"  # Markdown bold is not an operator
+
+
+def test_normalize_still_splits_hyphenated_words_and_drops_trailing_punctuation():
+    assert contract.normalize("ice-nucleating") == "ice nucleating"
+    assert contract.normalize("500-hPa") == "500 hpa"
+    assert contract.normalize("The aerosol.") == "aerosol"

@@ -16,7 +16,7 @@ CLOZE_PROMPT = (
     "Reply with only the missing word or phrase.\n\n{question}"
 )
 ANSWER_LINE = re.compile(r"^[ \t]*ANSWER[ \t]*:[ \t]*\(?([A-D])\)?[ \t]*\.?[ \t]*$", re.IGNORECASE)
-ARTICLES = re.compile(r"\b(a|an|the)\b")
+ARTICLES = {"a", "an", "the"}
 
 
 def mcq_prompt(question: str, options: list[str]) -> str:
@@ -46,10 +46,32 @@ def mcq_correct(reply: str, key: str) -> bool:
     return mcq_choice(reply) == key
 
 
+OPERATORS = set("+/^=<>")  # not *, which marks Markdown bold
+
+
+def _kept(text: str, i: int) -> bool:
+    """Whether the punctuation at i carries meaning: an operator, a decimal point between
+    digits, or a minus sign before a number (not a hyphen inside a word)."""
+    c = text[i]
+    prev = text[i - 1] if i else " "
+    nxt = text[i + 1] if i + 1 < len(text) else " "
+    if c in OPERATORS:
+        return True
+    if c == "." and prev.isdigit() and nxt.isdigit():
+        return True
+    return c == "-" and nxt.isdigit() and not (prev.isalnum() or prev in "._")
+
+
 def normalize(text: str) -> str:
-    """SQuAD-style: casefold, punctuation to spaces (so hyphens split), drop a/an/the."""
-    text = re.sub(r"[^\w\s]", " ", text.casefold())
-    return " ".join(ARTICLES.sub(" ", text).split())
+    """SQuAD-style: casefold, drop a/an/the, and turn punctuation into spaces (so hyphenated
+    words split), except what carries meaning in a science answer: an operator, a decimal point
+    between digits, and a minus sign before a number (decision 0016)."""
+    text = text.casefold().replace("\u2212", "-")
+    chars = (
+        c if c.isalnum() or c.isspace() or c == "_" or _kept(text, i) else " "
+        for i, c in enumerate(text)
+    )
+    return " ".join(w for w in "".join(chars).split() if w not in ARTICLES)
 
 
 def cloze_correct(reply: str, key: str) -> bool:
