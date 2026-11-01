@@ -2,24 +2,25 @@
 
 Forecast tasks scored against ERA5 (decision 0007). The reward is a custom clipped skill score over
 persistence and climatology; the WeatherBench 2 rules give the area-weighted RMSE and ACC that the
-reports show as reference metrics, not the reward. Each of the 720
-items is one cell of the 64x32 grid, one variable (mean sea level pressure in Pa or 2 m
-temperature in K), one 2020 init and one lead of 24, 48 or 72 h: 120 items per variable and
-lead, seed 20261030. The prompt shows the cell's ERA5 values every 6 hours over the 72 h up to
-the init and the ERA5 1990 to 2019 climatology at the valid time. The reply must end with a line
+reports show as reference metrics, not the reward. Each of the 648 items is one cell of the 64x32
+grid, one variable (mean sea level pressure in Pa or 2 m temperature in K), one 2020 init and one
+lead of 24, 48 or 72 h: 720 drawn, 120 per variable and lead, seed 20261030, of which 648 pass the
+gold check (decision 0021). The prompt shows the cell's ERA5 values every 6 hours over the 72 h up
+to the init and the ERA5 1990 to 2019 climatology at the valid time. The reply must end with a line
 `ANSWER: <number>`.
 
-Reward per item, from `era5_forecast_v1/contract.py`: with truth y, persistence p (the value at
-the init), climatology c and forecast f, let b = min(|p - y|, |c - y|). The reward is
-clip((b - |f - y|) / max(b, floor), 0, 1). Each variable's floor is the 10th percentile of b
-over the items, 28.75 Pa and 0.069 K, and binds on 36 of 360 items each. Copying either
-baseline from the prompt earns 0. The baseline is picked with the truth known, so where one of
-the two is nearly exact little skill is left to earn, and 3 temperature items cannot be won
-(Limits in `reports/era5/items_v1_baselines.md`). Baseline rows for these items, IFS HRES included, are in
-`reports/era5/items_v1_baselines.md`.
+Reward per item, from `era5_forecast_v1/contract.py`: with truth y, persistence p (the value at the
+init), climatology c and forecast f, let b = min(|p - y|, |c - y|). The reward is clip((b - |f - y|)
+/ max(b, floor), 0, 1). Each variable's floor is the 10th percentile of b over the 720 drawn items,
+28.75 Pa and 0.069 K. A perfect forecast earns b / floor where the floor binds, so the 72 items
+where it did (36 per variable, 3 of them unwinnable) failed the gold check and left the set; on the
+648 that remain a perfect forecast earns 1. Copying either baseline from the prompt earns 0. The
+baseline is picked with the truth known, so where one of the two is nearly exact little skill is
+left to earn (Limits in `reports/era5/items_v1_baselines.md`). Baseline rows for these items, IFS
+HRES included, are in `reports/era5/items_v1_baselines.md`.
 
 A held-out split keeps each ISO week of init times on one side: `ForecastConfig(split="train")`
-loads 601 items and `split="test"` 119 (decision 0017).
+loads 546 items and `split="test"` 102 (decision 0017).
 
 The grader behind the items reproduces two published WeatherBench 2 scores exactly
 (`reports/era5/2026-10-30-wb2-reproduction.md`).

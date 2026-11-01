@@ -36,11 +36,12 @@ Write-up: `reports/climaqa/2026-11-01-phase-2-writeup.md`.
 - The grader reproduces WB2's published scores for IFS HRES mean sea level pressure at 72 h:
   RMSE 133.890547 Pa, ACC 0.981878, bias -0.406578 Pa
   (`reports/era5/2026-10-30-wb2-reproduction.md`).
-- On 720 ERA5 point forecasts, Claude Sonnet 5.5 earns a mean reward of 0.1161; the midpoint
-  of persistence and climatology, a trivial statistical forecast, earns 0.1074. Item by item
-  the model is ahead by +0.0087 (SE 0.0077), which is not significant: on this task the model
-  shows no measurable skill over a trivial statistical forecast. IFS HRES earns 0.30 to 0.67
-  per variable and lead, so the environment has headroom. The model used no extended thinking
+- On the 648 ERA5 point forecasts that pass the gold check (720 drawn; decision 0021), Claude
+  Sonnet 5.5 earns a mean reward of 0.1277; the midpoint of persistence and climatology, a
+  trivial statistical forecast, earns 0.1175. Item by item the model is ahead by +0.0102 (SE
+  0.0085), which is not significant: on this task the model shows no measurable skill over a
+  trivial statistical forecast. IFS HRES earns 0.34 to 0.71 per variable and lead, so the
+  environment has headroom. The model used no extended thinking
   (`reports/era5/2026-11-01-claude-sonnet-5-5.md`; baselines, with a mixture fitted on a train
   split, in `reports/era5/items_v1_baselines.md`).
 
@@ -83,11 +84,11 @@ Write-up: `reports/heat/2026-11-01-phase-5-writeup.md`.
   the Saffir-Simpson scale and the policy's thresholds. What remains is convention: hours at
   hurricane strength, short by a constant 3 or 6 hours, and a missing index value, which matters
   only at Deer Valley in 2019. My untested guess is that a policy would take either from the reward
-  in a few steps; no training run has checked it. They serve as regression checks, and for weaker
-  models.
-- The forecasting environment of Phase 3 is far from saturated: the model's 0.116 is no better
-  than the midpoint baseline's 0.107, against HRES's 0.30 to 0.67, so there is headroom and no
-  skill yet to build on.
+  in a few steps; no training run has checked it. I keep them as the controls for the ablations and
+  for small-model curricula.
+- The forecasting environment of Phase 3 is far from saturated: the model's 0.128 is no better
+  than the midpoint baseline's 0.118, against HRES's 0.34 to 0.71 per variable and lead, so there
+  is headroom and no skill yet to build on.
 
 ## Spend
 

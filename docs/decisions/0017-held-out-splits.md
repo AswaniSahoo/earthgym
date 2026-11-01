@@ -16,7 +16,7 @@ as before.
 | environment | group | train items (groups) | test items (groups) |
 |---|---|---|---|
 | climaqa-v1 | the item, since ClimaQA gives no source passage | 269 (269) | 81 (81) |
-| era5-forecast-v1 | the ISO week of the init time | 601 (43) | 119 (10) |
+| era5-forecast-v1 | the ISO week of the init time | 546 (43) | 102 (10) |
 | ibtracs-storm-v1 | the storm (IBTrACS SID) | 233 (233) | 67 (67) |
 | heat-basis-v1 | the season | 245 (8) | 55 (2: 2017 and 2020) |
 
@@ -33,8 +33,9 @@ Consequences:
   weight on `train` and scores it on `test` (`reports/era5/items_v1_baselines.md`).
 - Limits: two ClimaQA items from one textbook passage can fall on different sides, and how many
   share a passage is UNKNOWN. Weather does not stop at a week boundary: ERA5 inits are at 00 and 12
-  UTC, so a train init and a test init can be 12 hours apart, and one test item's truth is among the
-  values a train item's prompt shows (same cell and variable). Storms of one season share
-  large-scale conditions, though each item shows only its own track. The heat test split is 2 of 10
-  seasons, 55 items.
+  UTC, so a train init and a test init can be 12 hours apart. On the 720 drawn items one test item's
+  truth was among the values a train item's prompt shows (same cell and variable); that item failed
+  the gold check (decision 0021), and among the 648 that remain none does. Storms of one season
+  share large-scale conditions, though each item shows only its own track. The heat test split is 2
+  of 10 seasons, 55 items.
 - The Inspect tasks still run every item; a split option there is a later change.

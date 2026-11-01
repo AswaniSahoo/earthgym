@@ -31,10 +31,14 @@ Decision: option 1.
   the smallest shown unit, stored to one decimal more than shown, so that it only stops a near-zero
   b from inflating the reward and binds rarely. It is a baseline-only statistic with no model
   information, and each item carries its floor. On the 720 items: 28.75 Pa and 0.069 K, each binding
-  on 36 of 360 (`reports/era5/items_v1_manifest.json`).
-- What the rule leaves to earn is in the Limits block of `reports/era5/items_v1_baselines.md`:
-  on the quarter of 2 m temperature items with the smallest b, IFS HRES earns 0.086 on average
-  and 0 on 74 of 90; 3 items, where a baseline is exact, cannot be won by any reply.
+  on 36 of 360 (`reports/era5/items_v1_manifest.json`). Where it binds a perfect forecast earns
+  b / floor, below 1, so those 72 items failed the gold check on 2026-11-02 and left the set
+  (decision 0021); it binds on none of the 648 that remain.
+- What the rule leaves to earn is in the Limits block of `reports/era5/items_v1_baselines.md`.
+  On the 720 drawn items, the quarter of 2 m temperature items with the smallest b gave IFS HRES
+  0.086 on average and 0 on 74 of 90, and 3 items, where a baseline is exact, could not be won by
+  any reply. On the 648 items that pass the gold check, that quarter gives HRES 0.163 and 0 on 53
+  of 81, and every item can be won.
 - The eval reports WB2-graded RMSE and ACC over the items with area weights, and baseline rows
   for persistence, climatology, an always-climatology policy run through the parser and the
   reward (its mean reward must be 0), and IFS HRES at the same cells.

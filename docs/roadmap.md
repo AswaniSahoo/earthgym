@@ -5,14 +5,9 @@ the decisions (`docs/decisions/`).
 
 ## Before the repository goes public
 
-- I read and confirm the decision records, 0001 to 0020, from the plain-language digest in
-  `docs/human-checks/decisions.md`. Until then `docs/how-built.md` overstates my review: its
-  wording changes to match what I agree with, change or question.
-- A gold check for every environment: each item's reference answer must score 1.0, and items
-  that fail it leave the set (the market review found 3 ERA5 items that no forecast can win).
-- Say plainly that IBTrACS and heat, with their rules shown, are saturated for a frontier model
-  (0.997 and 0.987). I keep them as the controls for the rules-hidden and terms-only ablations
-  and for small-model curricula.
+- I read and confirm every decision record, 0001 onward, from the plain-language digest in
+  `docs/human-checks/decisions.md`. Until then `docs/how-built.md` overstates my review: its wording
+  changes to match what I agree with, change or question.
 - Evidence from small open models, at no API cost: two instruct models from different
   families, 8 samples per item, on all four environments. For each: the mean reward, the share
   of items whose reward varies across the 8 samples, and pass@1 against pass@8.

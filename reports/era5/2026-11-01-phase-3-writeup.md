@@ -3,6 +3,12 @@
 Phase 3 of earthgym, written up on 2026-11-01. Every number below comes from a report in this
 repo; the source is named next to it.
 
+Update, 2026-11-02: the gold check (decision 0021) dropped the 72 of the 720 items where a
+perfect forecast cannot earn the whole reward, because the floor binds. The numbers below are
+the 720-item ones of 2026-11-01. On the 648 items that remain, Sonnet 5.5 earns 0.1277, the
+midpoint 0.1175, a difference of +0.0102 (SE 0.0085), still not significant, and IFS HRES 0.34
+to 0.71 per variable and lead (`reports/era5/2026-11-01-claude-sonnet-5-5.md`).
+
 ## The question
 
 People ask language models about the weather all the time. How good is a model's own
