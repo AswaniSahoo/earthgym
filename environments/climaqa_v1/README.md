@@ -15,7 +15,8 @@ A held-out split by item, since ClimaQA gives no source passage to group by:
 
 Rewards follow `climaqa_v1/contract.py`, the same contract the Inspect tasks use: an MCQ reply
 must end with a line that is only `ANSWER: X`; a cloze reply must equal the key after SQuAD-style
-normalization (case, punctuation and articles ignored).
+normalization (case, articles and punctuation ignored, except signs, decimal points between
+digits and the operators + / ^ = < >; decision 0016).
 
 Regenerate the bundled file from the repo root:
 
