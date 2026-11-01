@@ -1,0 +1,71 @@
+[
+ {
+  "task": "climaqa_cloze",
+  "model": "anthropic/claude-sonnet-5-5",
+  "created": "2026-11-01T00:43:51+00:00",
+  "started": "2026-11-01T00:50:39+00:00",
+  "completed": "2026-11-01T00:56:39+00:00",
+  "n": 128,
+  "accuracy": 0.5078125,
+  "stderr": 0.0443624091458791,
+  "format_failures": null,
+  "letters": null,
+  "key_longest": null,
+  "by_complexity": {
+   "none": {
+    "n": 128,
+    "accuracy": 0.5078125
+   }
+  },
+  "inspect_ai": "0.3.286",
+  "commit": "f4db6e8",
+  "generate_config": "batch 100",
+  "tokens": {
+   "input": 13339,
+   "output": 9604,
+   "reasoning": 5144
+  },
+  "log": "2026-11-01T00-43-51-00-00_climaqa-cloze_PSt74BjC4tMRMTXDk4RD5x.eval"
+ },
+ {
+  "task": "climaqa_mcq",
+  "model": "anthropic/claude-sonnet-5-5",
+  "created": "2026-11-01T00:43:51+00:00",
+  "started": "2026-11-01T00:43:51+00:00",
+  "completed": "2026-11-01T00:50:39+00:00",
+  "n": 222,
+  "accuracy": 0.8738738738738738,
+  "stderr": 0.022332161986243763,
+  "format_failures": 2,
+  "letters": {
+   "A": 60,
+   "B": 51,
+   "C": 51,
+   "D": 60
+  },
+  "key_longest": 82,
+  "by_complexity": {
+   "BASE": {
+    "n": 107,
+    "accuracy": 0.897196261682243
+   },
+   "HYPOTHETICAL": {
+    "n": 46,
+    "accuracy": 0.8478260869565217
+   },
+   "REASONING": {
+    "n": 69,
+    "accuracy": 0.855072463768116
+   }
+  },
+  "inspect_ai": "0.3.286",
+  "commit": "f4db6e8",
+  "generate_config": "batch 100",
+  "tokens": {
+   "input": 38912,
+   "output": 62254,
+   "reasoning": 2869
+  },
+  "log": "2026-11-01T00-43-51-00-00_climaqa-mcq_TjRQNh8StVCd8PTSaACzfX.eval"
+ }
+]
