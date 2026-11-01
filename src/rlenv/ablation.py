@@ -2,7 +2,7 @@
 
 
 def render_pair(
-    shown: dict, hidden: dict, env: str, hidden_name: str, flag: str, short: str
+    shown: dict, hidden: dict, env: str, hidden_name: str, flag: str, short: str, clause: str
 ) -> str:
     """Two runs of one environment side by side: the rules shown (the control), and an
     ablation with them left out. The verdict is per question: near the ceiling either way, a
@@ -55,8 +55,7 @@ def render_pair(
         elif h.get("explained", 0) > misses / 2:
             lines.append(
                 f"{head}, and {h['explained']} of the {misses} misses follow a careless reading of "
-                "the rule: a convention gap, which a policy would close as a constant offset "
-                "rather than learn as a skill."
+                f"the rule: a convention gap, {clause}."
             )
         else:
             lines.append(f"{head}: room to learn.")
