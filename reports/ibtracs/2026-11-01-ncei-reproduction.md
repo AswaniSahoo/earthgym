@@ -12,10 +12,13 @@ e640dc7. Tests: `tests/test_ibtracs_reproduction.py`.
 | 2020 | named storms, major hurricanes | 30, 7 | 30, 7 |
 | 2024 | named storms, hurricanes, major hurricanes | 18, 11, 5 | 18, 11, 5 |
 | 2024 | ACE (1e4 kt^2) | 161.58 | 161.6 |
+| 2024 | category 5 hurricanes (137 kt or more as HU) | 2 | 2 |
 
 Published values: NCEI's annual tropical cyclone reports (`ncei.noaa.gov/access/monitoring/
 monthly-report/tropical-cyclones/202413` and `/202513`) and NHC's 2024 season summary, as the
-Phase 4 radar records them (`docs/radar.md`). Not anchored here, from the same code: 2005 has
+Phase 4 radar records them (`docs/radar.md`). The category 5 count is the North Atlantic
+"Category 5 Cyclone (137 kts)" cell of the 202413 summary table, reproduced at commit 2a9802f
+(`stats.category`, NHC's Saffir-Simpson thresholds). Not anchored here, from the same code: 2005 has
 28 named storms and 2020 has 14 hurricanes.
 
 ## Config
