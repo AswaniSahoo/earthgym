@@ -2,6 +2,22 @@
 
 Newest first. One entry per working session: what changed, what we learned, what is next.
 
+## 2026-11-01, clean ClimaQA v1 on Sonnet 5.5
+
+- Probe of 16 items (8 per task, seeded shuffle) for $0.0172, then all 350 through the Batch
+  API for $0.4123 (projected $0.44, $0.60 at two standard errors). MCQ 0.874 (stderr 0.022,
+  2 format failures), cloze 0.508 (stderr 0.044).
+- Against Gemini 3.8 Flash, item by item: MCQ ties at 0.874 (6 items each only one model got
+  right, McNemar p 1.0); cloze 0.742 against 0.508 (33 only Gemini, 3 only Sonnet, p < 0.001).
+- Finding: the cloze prompt says "Reply with only the missing word or phrase". Sonnet wrote
+  more than one line on 34 of 128 replies, Gemini on none; on 18 of Sonnet's 63 misses the last
+  line alone is the key. Part of the gap is format, but crediting those 18 would give 0.648,
+  still below Gemini. The contract stays as it is; the comparison reports both.
+- Both models gave the same wrong answer on 18 MCQ and 11 cloze items: candidates for a wrong
+  key, for the expert review of decision 0005.
+- Peak category stays in Phase 4 (lfx-prep-b7 offered a swap for a rapid-intensification
+  question); the report says where a careless reading is right anyway.
+
 ## 2026-11-01, ERA5 on Sonnet 5.5 and Phase 4 stage 2
 
 - ERA5 through the Batch API: a 12-item probe ($0.0259, mean reward 0.282), then all 720 from

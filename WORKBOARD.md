@@ -8,8 +8,9 @@ Aswani: "set goal and complete until all and everything is completed". Work thro
 without waiting between steps.
 
 1. [x] ERA5: the Sonnet 5.5 run (12-item probe, then all 720) and its report.
-2. [ ] ClimaQA clean v1 on Sonnet 5.5, plus a comparison report against the Gemini 3.8 Flash
-       baseline.
+2. [x] ClimaQA clean v1 on Sonnet 5.5, plus a comparison report against the Gemini 3.8 Flash
+       baseline: reports/climaqa/runs/2026-11-01-claude-sonnet-5-5.md and
+       reports/climaqa/2026-11-01-sonnet-vs-gemini.md.
 3. [ ] Phase 4 complete: stage 2 environment (verifiers taskset and Inspect task, tests on
        mockllm), a Sonnet 5.5 baseline within the cap, a Fable review, and every fix landed.
 4. [ ] Phase 5 complete: heat-insurance basis-risk environment, in the same pattern. Scout
@@ -113,6 +114,8 @@ was called or spent.
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
 - [ ] Name the domain expert for the 0005 review; the sheet is ready:
       reports/climaqa/expert_review_v2.csv
+- [ ] inspect_evals Register submission (publishing is Aswani's call): both model runs on
+      clean ClimaQA v1 now exist, Gemini 3.8 Flash and Claude Sonnet 5.5
 
 ## Done
 
