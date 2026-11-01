@@ -48,5 +48,9 @@ Out, for later: the "rules hidden" ablation (the same items with the rules left 
 other basins, storms before 1980.
 
 Consequences: answers are exact, so a reply is right or wrong with no judge. The careless
-baselines measure how often each trap changes the answer on these storms. Dropping the year
+baselines measure how often each trap changes the answer on these storms. Measured on the
+300 items (`rlenv.ibtracs.report.careless`): ACE over every row is right on 0 of 100, ACE
+ignoring status on 56, hours over every HU row on 1. For peak category the traps barely
+bite: ignoring status is right on all 100, synoptic rows only on 96, so that question is
+mostly a control for reading the scale. Dropping the year
 does not stop a model from recognizing a famous track; Limits will say so.
