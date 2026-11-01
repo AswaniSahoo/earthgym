@@ -80,3 +80,19 @@ def test_render_shows_the_model_row_parse_failures_and_limits(log):
     assert "| 2m_temperature | 24 | model | 2 | 0.354 | 0.976 | 0.375 |" in text
     assert "Replies without a parseable answer line: 1 of 3" in text
     assert "## Limits" in text
+
+
+def test_the_model_is_compared_with_the_midpoint_item_by_item(log):
+    s = report.summarize(log, ITEMS)
+    # midpoint 290.5 earns 0.25 on all three items; the model 0.25, 0.5 and 0
+    assert s["paired"] == {
+        "diff": pytest.approx(0.0),
+        "se": pytest.approx(0.25 / 3**0.5),
+        "higher": 1,
+        "lower": 1,
+        "tied": 1,
+    }
+    text = report.render(s)
+    assert "Against the midpoint (persistence + climatology) / 2, item by item: +0.0000" in text
+    assert "not significant at two standard errors" in text
+    assert "| 2m_temperature | 24 | midpoint | 2 |" in text

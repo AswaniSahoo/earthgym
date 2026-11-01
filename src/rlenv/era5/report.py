@@ -15,13 +15,28 @@ from rlenv import spend
 from rlenv.era5 import baselines
 
 
+def _midpoint(item: dict) -> float:
+    return baselines.reward(item, baselines.BASELINES["midpoint"](item))
+
+
+def _paired(paid: dict, by_id: dict) -> dict:
+    """The model's reward minus the midpoint's, item by item: mean, standard error, counts."""
+    d = [paid[i] - _midpoint(by_id[i]) for i in paid]
+    se = statistics.stdev(d) / len(d) ** 0.5 if len(d) > 1 else 0.0
+    return {"diff": statistics.fmean(d), "se": se} | {
+        "higher": sum(x > 0 for x in d),
+        "lower": sum(x < 0 for x in d),
+        "tied": sum(x == 0 for x in d),
+    }
+
+
 def summarize(log: EvalLog, items: list[dict]) -> dict:
     """Scores, parse failures, tokens and cost of one run; the model is graded like the
     baselines, on the items it answered."""
     by_id = {r["id"]: r for r in items}
     config = log.eval.model_generate_config.merge(log.plan.config)
     batch = bool(config.batch)
-    forecasts, rewards, item_costs = {}, [], []
+    forecasts, rewards, item_costs, paid = {}, [], [], {}
     parse_failures = errors = 0
     for s in log.samples or []:
         if s.metadata["truth"] != by_id[s.id]["truth"]:
@@ -30,9 +45,11 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
         if s.error or not s.scores:
             errors += 1
             rewards.append(0.0)
+            paid[s.id] = 0.0
             continue
         score = next(iter(s.scores.values()))
         rewards.append(float(score.value))
+        paid[s.id] = float(score.value)
         if score.answer:
             forecasts[s.id] = float(score.answer)
         else:
@@ -52,7 +69,8 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
         "errors": errors,
         "reward": statistics.fmean(rewards),
         "stderr": statistics.stdev(rewards) / len(rewards) ** 0.5,
-        "table": baselines.rows(answered, baselines.BASELINES | model),
+        "table": baselines.rows(answered, baselines.forecasters(items) | model),
+        "paired": _paired(paid, by_id),
         "tokens": t,
         "batch": batch,
         "cost": spend.cost(t, batch),
@@ -64,6 +82,15 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
         "completed": log.stats.completed_at,
         "log": Path(log.location).name,
     }
+
+
+def _paired_line(p: dict) -> str:
+    verdict = "significant" if abs(p["diff"]) > 2 * p["se"] else "not significant"
+    return (
+        f"Against the midpoint (persistence + climatology) / 2, item by item: {p['diff']:+.4f} "
+        f"(SE {p['se']:.4f}); the model is higher on {p['higher']} items, lower on {p['lower']} "
+        f"and tied on {p['tied']}: {verdict} at two standard errors."
+    )
 
 
 def render(s: dict) -> str:
@@ -82,6 +109,8 @@ def render(s: dict) -> str:
         "",
         f"Replies without a parseable answer line: {s['parse_failures']} of {n}. Samples that "
         f"errored: {s['errors']}.",
+        "",
+        _paired_line(s["paired"]),
         "",
         f"Area-weighted RMSE and ACC by the WB2 rules, and the mean reward, on the {s['parsed']} "
         "items with a parsed answer, each baseline on the same items:",
