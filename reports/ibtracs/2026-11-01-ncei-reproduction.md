@@ -1,7 +1,8 @@
 # Reproducing NCEI's North Atlantic season numbers from IBTrACS
 
 Date: 2026-11-01. Code: `src/rlenv/ibtracs/data.py` and `src/rlenv/ibtracs/stats.py` at commit
-e640dc7. Tests: `tests/test_ibtracs_reproduction.py`.
+e640dc7 (`stats.category` added at 2a9802f; every number holds at the later commits).
+Tests: `tests/test_ibtracs_reproduction.py`.
 
 ## Result
 
@@ -34,8 +35,9 @@ Phase 4 radar records them (`docs/radar.md`). The category 5 count is the North 
   18 UTC while `USA_STATUS` is TS, HU or SS and the wind is at least 34 kt, times 1e-4; the
   3-hourly interpolated rows are left out, because summing them doubles ACE. A named storm,
   hurricane or major hurricane has a row at 34 kt with that status, or 64 or 96 kt as HU.
-  Spur tracks are left out, and only rows with `BASIN` NA count (counting every row of each
-  storm gives the same numbers for these four seasons).
+  Spur tracks are left out, and only rows with `BASIN` NA count. Counting every row of each
+  storm gives the same numbers for these four seasons, and so does keeping the spur tracks
+  (checked on 1933, 2005, 2020, 2024 and 2025), so the anchors exercise neither rule.
 - Commands:
 
       uv run python -m rlenv.ibtracs.data      # about 58 MB, anonymous HTTPS
