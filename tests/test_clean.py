@@ -109,3 +109,15 @@ def test_main_writes_the_set_and_its_manifest(tmp_path, monkeypatch):
     clean.main()
     assert len((out / "climaqa_clean_v1.jsonl").read_text().splitlines()) == 1
     assert json.loads((reports / "clean_v1_manifest.json").read_text())["kept"] == {"mcq": 1}
+
+
+def test_near_matches_are_the_kept_items_with_a_near_match_finding():
+    report = {
+        "findings": [
+            {"check": "leak.near_match", "split": "gold/mcq", "item": "3", "detail": "jaccard 0.9"},
+            {"check": "leak.near_match", "split": "gold/cloze", "item": "9", "detail": "x"},
+            {"check": "dup.question", "split": "gold/mcq", "item": "4", "detail": "x"},
+        ]
+    }
+    kept = [{"id": "gold/mcq/3"}, {"id": "gold/mcq/4"}]
+    assert clean.near_matches(report, kept) == ["gold/mcq/3"]

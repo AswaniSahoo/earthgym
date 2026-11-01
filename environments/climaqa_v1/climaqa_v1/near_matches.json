@@ -1,0 +1,27 @@
+{
+ "source": "reports/climaqa/findings.json, check leak.near_match",
+ "n": 21,
+ "ids": [
+  "gold/cloze/1",
+  "gold/cloze/18",
+  "gold/cloze/22",
+  "gold/cloze/88",
+  "gold/cloze/91",
+  "gold/cloze/99",
+  "gold/cloze/106",
+  "gold/cloze/152",
+  "gold/cloze/157",
+  "gold/mcq/32",
+  "gold/mcq/63",
+  "gold/mcq/117",
+  "gold/mcq/157",
+  "gold/mcq/169",
+  "gold/mcq/183",
+  "gold/mcq/187",
+  "gold/mcq/200",
+  "gold/mcq/213",
+  "gold/mcq/234",
+  "gold/mcq/263",
+  "gold/mcq/286"
+ ]
+}
