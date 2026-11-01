@@ -45,5 +45,16 @@ def render_pair(shown: dict, hidden: dict, env: str, hidden_name: str, flag: str
             f" With {hidden_name}, accuracy is {hidden['reward']:.3f}, so the model fills in the "
             "left-out rules itself and both versions are near the ceiling for it."
         )
-    lines += ["", "## What this means for RL", "", rl, ""]
+    lines += ["", "## What this means for RL", "", rl]
+    for r in hidden["questions"]:  # misses that follow one reading may be a fair convention
+        misses = r["n"] - round(r["accuracy"] * r["n"])
+        for name, c in r["traps"].items():
+            if misses >= 5 and c >= misses / 4:
+                lines += [
+                    "",
+                    f"On {r['question']}, {c} of the {misses} wrong answers equal '{name}'. With "
+                    "the rule left out, that can follow a convention other than ours, so this "
+                    "part of the gap measures which convention the model picks, not its skill.",
+                ]
+    lines.append("")
     return "\n".join(lines)

@@ -106,3 +106,12 @@ def test_pair_report_puts_both_runs_side_by_side_with_a_plain_rl_line():
     assert "almost no signal" in text and "room to learn" in text
     close = report.render_pair(shown, summary(0.98, {"ace": 0.97}))
     assert "near the ceiling" in close and "room to learn" not in close
+
+
+def test_pair_report_says_when_misses_follow_another_convention():
+    shown = summary(0.997, {"hurricane_hours": 1.0})
+    traps = {"hurricane_hours": {"elapsed time, first to last HU row": 41}}
+    hidden = summary(0.13, {"hurricane_hours": 0.13}, traps)
+    text = report.render_pair(shown, hidden)
+    assert "On hurricane_hours, 41 of the 87 wrong answers equal" in text
+    assert "a convention other than ours" in text
