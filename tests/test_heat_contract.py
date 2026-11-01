@@ -40,3 +40,13 @@ def test_answer_takes_the_last_answer_line_and_the_reward_is_exact():
     assert contract.answer("13 days") is None
     assert contract.reward(13.0, 13) == 1.0
     assert contract.reward(12.0, 13) == contract.reward(None, 13) == 0.0
+
+
+def test_terms_only_keeps_the_threshold_and_k_and_drops_the_clarifying_rules():
+    events = contract.prompt(ITEM, rules=False)
+    assert "reaches 110 F" in events and "3 or more consecutive trigger days" in events
+    for clause in ("at or above", "missing", "pays once", "Rule."):
+        assert clause not in events
+    missed = contract.prompt(ITEM | {"question": "missed_days", "k": None}, rules=False)
+    assert "insured site's maximum reaches 110 F" in missed and "missing" not in missed
+    assert "05-02 | - | 108" in missed  # the data still show the gap

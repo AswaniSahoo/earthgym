@@ -29,18 +29,22 @@ class HeatTask(vf.Task[HeatData]):
 
 class HeatConfig(vf.TasksetConfig):
     questions: list[str] = list(contract.QUESTIONS)
+    rules: bool = True  # False: the terms-only ablation
 
 
 class HeatTaskset(vf.Taskset[HeatTask, HeatConfig]):
     def load(self) -> list[HeatTask]:
         return [
-            HeatTask(to_data(row), self.config.task)
+            HeatTask(to_data(row, self.config.rules), self.config.task)
             for row in records()
             if row["question"] in self.config.questions
         ]
 
 
-def to_data(row: dict) -> HeatData:
+def to_data(row: dict, rules: bool = True) -> HeatData:
     return HeatData(
-        id=row["id"], prompt=contract.prompt(row), question=row["question"], key=row["key"]
+        id=row["id"],
+        prompt=contract.prompt(row, rules),
+        question=row["question"],
+        key=row["key"],
     )

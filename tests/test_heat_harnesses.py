@@ -69,3 +69,12 @@ def test_inspect_task_scores_replies_with_the_contract_reward(tmp_path, reply, e
     task = tasks.heat_basis(path=str(path))
     log = eval(task, model=model, log_dir=str(tmp_path), display="none")[0]
     assert log.results.scores[0].metrics["mean"].value == pytest.approx(expected)
+
+
+def test_terms_only_reaches_both_harnesses(tmp_path):
+    loaded = ts.HeatTaskset(ts.HeatConfig(rules=False)).load()
+    assert len(loaded) == 300 and not any("Rule." in t.data.prompt for t in loaded)
+    path = tmp_path / "items.jsonl"
+    path.write_text(json.dumps(ITEM) + "\n", encoding="utf-8")
+    sample = tasks.samples(str(path), rules=False)[0]
+    assert sample.input == contract.prompt(ITEM, rules=False)

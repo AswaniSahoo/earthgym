@@ -19,6 +19,14 @@ RULES = {
     "{threshold} F while the index station's maximum is not; a missing index value counts as "
     "not at or above the threshold. A missing site value is never a missed day.",
 }
+TERMS = {  # the terms-only ablation: a term sheet's wording, with no clarifying rules
+    "trigger_days": "A trigger day is a day on which the index station's maximum reaches "
+    "{threshold} F.",
+    "events": "A trigger day is a day on which the index station's maximum reaches {threshold} "
+    "F. An event is {k} or more consecutive trigger days.",
+    "missed_days": "A missed day is a day on which the insured site's maximum reaches "
+    "{threshold} F but the index station's does not.",
+}
 QUESTIONS = {
     "trigger_days": "How many trigger days did the index station have from 1 May to 30 September?",
     "events": "How many events did the policy pay for?",
@@ -30,7 +38,7 @@ PROMPT = (
     "September. Below are both stations' daily maximum temperatures in whole degrees F from "
     "GHCN-Daily, with the year left out; a dash means no value.\n\n"
     "date | index: {index_name} | site: {site_name}\n{rows}\n\n"
-    "Rule. {rule}\n\n"
+    "{rule}\n\n"
     "{question} The last line of your response must be 'ANSWER: <number>'."
 )
 NUMBER = r"[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?"
@@ -43,12 +51,14 @@ def _cell(value: int | None) -> str:
     return "-" if value is None else str(value)
 
 
-def prompt(item: dict) -> str:
-    """The task text: both stations' maxima over the window and the rule for the question;
-    never the key or the year."""
+def prompt(item: dict, rules: bool = True) -> str:
+    """The task text: both stations' maxima over the window and the rule for the question, or
+    for the terms-only ablation the policy terms alone; never the key or the year."""
     triples = zip(item["dates"], item["index_f"], item["site_f"], strict=True)
     rows = "\n".join(f"{d} | {_cell(i)} | {_cell(s)}" for d, i, s in triples)
-    rule = RULES[item["question"]].format(threshold=item["threshold"], k=item["k"])
+    text = (RULES if rules else TERMS)[item["question"]]
+    rule = text.format(threshold=item["threshold"], k=item["k"])
+    rule = f"Rule. {rule}" if rules else f"Policy terms. {rule}"
     return PROMPT.format(
         index_name=item["index_name"],
         site_name=item["site_name"],
