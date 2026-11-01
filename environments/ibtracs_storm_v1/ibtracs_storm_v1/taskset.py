@@ -30,18 +30,22 @@ class StormTask(vf.Task[StormData]):
 
 class StormConfig(vf.TasksetConfig):
     questions: list[str] = list(contract.QUESTIONS)
+    rules: bool = True  # False: the rules-hidden ablation
 
 
 class StormTaskset(vf.Taskset[StormTask, StormConfig]):
     def load(self) -> list[StormTask]:
         return [
-            StormTask(to_data(row), self.config.task)
+            StormTask(to_data(row, self.config.rules), self.config.task)
             for row in records()
             if row["question"] in self.config.questions
         ]
 
 
-def to_data(row: dict) -> StormData:
+def to_data(row: dict, rules: bool = True) -> StormData:
     return StormData(
-        id=row["id"], prompt=contract.prompt(row), question=row["question"], key=row["key"]
+        id=row["id"],
+        prompt=contract.prompt(row, rules),
+        question=row["question"],
+        key=row["key"],
     )

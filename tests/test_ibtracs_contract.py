@@ -49,3 +49,11 @@ def test_category_and_hours_must_match_exactly():
     assert contract.reward("peak_category", 2.0, 3) == 0.0
     assert contract.reward("hurricane_hours", 48, 48) == 1.0
     assert contract.reward("hurricane_hours", 47.9, 48) == 0.0
+
+
+def test_the_rule_can_be_left_out_for_the_ablation():
+    hidden = contract.prompt(ITEM, rules=False)
+    assert "Rule." not in hidden and "00, 06, 12 or 18 UTC" not in hidden
+    assert "08-26 12:00 | TS | 50 | 1006" in hidden and "Statuses:" in hidden
+    assert "rounded to one decimal" in hidden  # the question keeps its units and rounding
+    assert hidden.rstrip().endswith("'ANSWER: <number>'.")

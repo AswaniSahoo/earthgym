@@ -39,7 +39,7 @@ PROMPT = (
     "maximum sustained winds in knots (kt); pressure is the minimum central pressure in mb, and "
     "a dash means no value.\n\n"
     "time | status | wind (kt) | pressure (mb)\n{rows}\n\n"
-    "{statuses}\n\nRule. {rule}\n\n"
+    "{statuses}\n\n{rule}"
     "{question} The last line of your response must be 'ANSWER: <number>'."
 )
 NUMBER = r"[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?"
@@ -49,14 +49,15 @@ ANSWER_LINE = re.compile(  # horizontal space only, so the number sits on the an
 TOLERANCE = 0.05  # ACE: half a step of one decimal around the exact value (decision 0011)
 
 
-def prompt(item: dict) -> str:
-    """The task text: the storm's rows and the rule for the question; never the key, the
-    name, the year or the SID."""
+def prompt(item: dict, rules: bool = True) -> str:
+    """The task text: the storm's rows and the rule for the question (left out for the
+    rules-hidden ablation); never the key, the name, the year or the SID."""
     question, rule = QUESTIONS[item["question"]]
     lines = "\n".join(
         f"{time[5:16]} | {status} | {wind} | {'-' if pressure is None else pressure}"
         for time, status, wind, pressure in item["rows"]
     )
+    rule = f"Rule. {rule}\n\n" if rules else ""
     return PROMPT.format(rows=lines, statuses=STATUSES, rule=rule, question=question)
 
 

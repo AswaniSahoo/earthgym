@@ -18,14 +18,14 @@ from inspect_ai.solver import TaskState, generate
 HIDDEN = ("question", "key", "sid", "season", "name")
 
 
-def samples(path: str | None) -> MemoryDataset:
+def samples(path: str | None, rules: bool = True) -> MemoryDataset:
     """The bundled items unless a JSONL path is given (tests)."""
     rows = (
         records() if path is None else [json.loads(x) for x in Path(path).read_text().splitlines()]
     )
     out = [
         Sample(
-            input=contract.prompt(row),
+            input=contract.prompt(row, rules),
             target=str(row["key"]),
             id=row["id"],
             metadata={k: row[k] for k in HIDDEN},
@@ -60,8 +60,9 @@ def storm_scorer():
 
 
 @task
-def ibtracs_storm(path: str | None = None) -> Task:
-    return Task(dataset=samples(path), solver=generate(), scorer=storm_scorer())
+def ibtracs_storm(path: str | None = None, rules: bool = True) -> Task:
+    """rules=False (`-T rules=false`) leaves the rule out of every prompt: the ablation."""
+    return Task(dataset=samples(path, rules), solver=generate(), scorer=storm_scorer())
 
 
 if __name__ == "__main__":

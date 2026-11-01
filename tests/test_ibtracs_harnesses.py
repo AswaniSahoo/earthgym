@@ -67,3 +67,12 @@ def test_inspect_task_scores_replies_with_the_contract_reward(tmp_path, reply, e
         tasks.ibtracs_storm(path=str(path)), model=model, log_dir=str(tmp_path), display="none"
     )[0]
     assert log.results.scores[0].metrics["mean"].value == pytest.approx(expected)
+
+
+def test_rules_hidden_reaches_both_harnesses(tmp_path):
+    hidden = ts.StormTaskset(ts.StormConfig(rules=False)).load()
+    assert len(hidden) == 300 and not any("Rule." in t.data.prompt for t in hidden)
+    path = tmp_path / "items.jsonl"
+    path.write_text(json.dumps(ROW) + "\n", encoding="utf-8")
+    sample = tasks.samples(str(path), rules=False)[0]
+    assert "Rule." not in sample.input and sample.input == contract.prompt(ROW, rules=False)
