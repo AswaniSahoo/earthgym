@@ -114,6 +114,9 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
                     name: sum(answers[i["id"]] == careless(i)[name] for i in misses)
                     for name in names
                 },
+                "explained": sum(
+                    any(answers[i["id"]] == careless(i)[name] for name in names) for i in misses
+                ),
             }
         )
     rewards = list(paid.values())
@@ -125,9 +128,10 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
         "label": log.eval.model.split("/")[-1],
         "n": len(rewards),
         "parse_failures": parse_failures,
+        "rules": log.eval.task_args.get("rules", True),
         "errors": errors,
         "reward": statistics.fmean(rewards),
-        "stderr": statistics.stdev(rewards) / len(rewards) ** 0.5,
+        "stderr": statistics.stdev(rewards) / len(rewards) ** 0.5 if len(rewards) > 1 else 0.0,
         "questions": questions,
         "tokens": t,
         "batch": batch,
@@ -145,7 +149,7 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
 def render(s: dict) -> str:
     t, n = s["tokens"], s["n"]
     lines = [
-        f"# heat-basis-v1 on {s['label']}",
+        f"# heat-basis-v1 on {s['label']}{'' if s['rules'] else ' (terms only)'}",
         "",
         f"Model `{s['model']}` on {n} items, scored by heat_basis_v1/contract.py at commit "
         f"{s['commit']}.",
@@ -205,8 +209,12 @@ def render(s: dict) -> str:
         "  the run-to-run spread is not measured.",
         "- The prompt leaves out the year. The station data are public, but a recalled daily",
         "  series is unlikely; whether any answer was recalled rather than counted is UNKNOWN.",
-        "- Four Phoenix-area stations, seasons 2015 to 2024, with the rules in the prompt; the",
-        "  rules-hidden ablation is not run here.",
+        "- Four Phoenix-area stations, seasons 2015 to 2024. "
+        + (
+            "The rules are in the prompt: this run is the control for the terms-only ablation."
+            if s["rules"]
+            else "The prompt gives the policy terms alone; the rules-shown run is the control."
+        ),
         "- The cost uses the token counts in the log; the Anthropic Console's bill is not read.",
     ]
     for r in s[
@@ -225,7 +233,9 @@ def render(s: dict) -> str:
 def render_pair(shown: dict, hidden: dict) -> str:
     """The rules-shown and terms-only runs side by side (the ablation in decision 0013)."""
     flag = "the policy terms alone (`-T rules=false`)"
-    return ablation.render_pair(shown, hidden, "heat-basis-v1", "terms only", flag)
+    return ablation.render_pair(
+        shown, hidden, "heat-basis-v1", "terms only", flag, "with terms only"
+    )
 
 
 def main() -> None:

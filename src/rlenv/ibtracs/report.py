@@ -6,6 +6,7 @@ uv run python -m rlenv.ibtracs.report <log dir> --out reports/ibtracs/<date>-<mo
 import argparse
 import datetime as dt
 import json
+import re
 import statistics
 from pathlib import Path
 
@@ -68,6 +69,15 @@ def careless(item: dict) -> dict:
     return {"hours over every HU row": 6 * sum(r[1] == "HU" for r in rows)} | _hours(rows)
 
 
+def names_storm(reply: str, meta: dict) -> bool:
+    """Whether a reply names the storm or its season, words the prompt leaves out."""
+    name, season = meta.get("name", ""), str(meta.get("season", ""))
+    named = name not in ("", "UNNAMED", "NOT_NAMED") and re.search(
+        rf"\b{re.escape(name)}\b", reply, re.I
+    )
+    return bool(named or (season and re.search(rf"\b{season}\b", reply)))
+
+
 def best_constant(items: list[dict]) -> tuple[float, float]:
     """The single answer right on the most items of one question, and its accuracy."""
     question, keys = items[0]["question"], [i["key"] for i in items]
@@ -87,10 +97,11 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
     config = log.eval.model_generate_config.merge(log.plan.config)
     batch = bool(config.batch)
     answers, paid, item_costs = {}, {}, []
-    parse_failures = errors = 0
+    parse_failures = errors = recognized = 0
     for s in log.samples or []:
         if s.metadata["key"] != by_id[s.id]["key"]:
             raise ValueError(f"{s.id}: the log's key differs from the item's")
+        recognized += names_storm(s.output.completion, s.metadata)
         item_costs.append(spend.cost(spend.count([s.model_usage]), batch))
         if s.error or not s.scores:
             errors += 1
@@ -125,6 +136,13 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
                     )
                     for name in names
                 },
+                "explained": sum(
+                    any(
+                        contract.reward(q, answers[i["id"]], careless(i)[name]) == 1.0
+                        for name in names
+                    )
+                    for i in misses
+                ),
             }
         )
     rewards = list(paid.values())
@@ -137,8 +155,10 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
         "n": len(rewards),
         "parse_failures": parse_failures,
         "errors": errors,
+        "rules": log.eval.task_args.get("rules", True),
+        "recognized": recognized,
         "reward": statistics.fmean(rewards),
-        "stderr": statistics.stdev(rewards) / len(rewards) ** 0.5,
+        "stderr": statistics.stdev(rewards) / len(rewards) ** 0.5 if len(rewards) > 1 else 0.0,
         "questions": questions,
         "tokens": t,
         "batch": batch,
@@ -156,10 +176,11 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
 def render(s: dict) -> str:
     t, n = s["tokens"], s["n"]
     lines = [
-        f"# ibtracs-storm-v1 on {s['label']}",
+        f"# ibtracs-storm-v1 on {s['label']}{'' if s['rules'] else ' (rules hidden)'}",
         "",
         f"Model `{s['model']}` on {n} items, scored by ibtracs_storm_v1/contract.py at commit "
-        f"{s['commit']}.",
+        f"{s['commit']}"
+        + ("." if s["rules"] else ", with each question's rule left out of the prompt."),
         "",
         "## Result",
         "",
@@ -214,10 +235,14 @@ def render(s: dict) -> str:
         "",
         "- One reply per item, with no seed or temperature set, so a rerun gives other replies;",
         "  the run-to-run spread is not measured.",
-        "- The prompt leaves out the name and year, but a model can still recognize a famous",
-        "  track; whether any answer was recalled rather than counted is UNKNOWN.",
-        "- North Atlantic storms from 1980 to 2025 only, with the rules in the prompt; the",
-        "  rules-hidden ablation is not run here.",
+        f"- The prompt leaves out the name and year, yet {s['recognized']} of {n} replies name the "
+        "storm or its season: a model can recognize a famous track.",
+        "- North Atlantic storms from 1980 to 2025 only. "
+        + (
+            "The rules are in the prompt: this run is the control for the rules-hidden ablation."
+            if s["rules"]
+            else "Each rule is left out of the prompt; the rules-shown run is the control."
+        ),
         "- The cost uses the token counts in the log; the Anthropic Console's bill is not read.",
     ]
     for r in s[
@@ -236,7 +261,12 @@ def render(s: dict) -> str:
 def render_pair(shown: dict, hidden: dict) -> str:
     """The rules-shown and rules-hidden runs side by side (the ablation in decision 0011)."""
     return ablation.render_pair(
-        shown, hidden, "ibtracs-storm-v1", "rules hidden", "the rule left out (`-T rules=false`)"
+        shown,
+        hidden,
+        "ibtracs-storm-v1",
+        "rules hidden",
+        "the rule left out (`-T rules=false`)",
+        "hidden",
     )
 
 

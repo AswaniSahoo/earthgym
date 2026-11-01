@@ -1,10 +1,12 @@
 """Side-by-side report of a rules-shown run and its ablation (decisions 0011 and 0013)."""
 
 
-def render_pair(shown: dict, hidden: dict, env: str, hidden_name: str, flag: str) -> str:
-    """Two runs of one environment side by side: the rules shown, and an ablation with them
-    left out (decisions 0011 and 0013)."""
-    k_shown = round(shown["reward"] * shown["n"])
+def render_pair(
+    shown: dict, hidden: dict, env: str, hidden_name: str, flag: str, short: str
+) -> str:
+    """Two runs of one environment side by side: the rules shown (the control), and an
+    ablation with them left out. The verdict is per question: near the ceiling either way, a
+    convention gap (most misses follow one careless reading), or room to learn."""
     lines = [
         f"# {env}: rules shown against {hidden_name}",
         "",
@@ -15,11 +17,13 @@ def render_pair(shown: dict, hidden: dict, env: str, hidden_name: str, flag: str
         "|---|---|---|---|",
     ]
     hidden_by = {r["question"]: r for r in hidden["questions"]}
-    for r in shown["questions"]:
-        if (h := hidden_by.get(r["question"])) is not None:
-            lines.append(
-                f"| {r['question']} | {r['n']} | {r['accuracy']:.3f} | {h['accuracy']:.3f} |"
-            )
+    pairs = [
+        (r, hidden_by[r["question"]]) for r in shown["questions"] if r["question"] in hidden_by
+    ]
+    lines += [
+        f"| {r['question']} | {r['n']} | {r['accuracy']:.3f} | {h['accuracy']:.3f} |"
+        for r, h in pairs
+    ]
     lines += [
         f"| all | {shown['n']} | {shown['reward']:.3f} | {hidden['reward']:.3f} |",
         "",
@@ -30,31 +34,36 @@ def render_pair(shown: dict, hidden: dict, env: str, hidden_name: str, flag: str
     ]
     for r in hidden["questions"]:
         lines += [f"| {r['question']} | {name} | {c} |" for name, c in r["traps"].items()]
-    rl = (
-        f"With the rules shown the model is right on {k_shown} of {shown['n']} items, so nearly "
-        "every rollout earns the same reward and an RL policy this strong gets almost no signal "
-        "to learn from; that version serves as a regression check, or for weaker models."
-    )
-    if hidden["reward"] < shown["reward"] - 0.1:
-        rl += (
-            f" With {hidden_name}, accuracy falls to {hidden['reward']:.3f}: the gap is what the "
-            f"left-out rules carry, so the {hidden_name} version has room to learn."
-        )
-    else:
-        rl += (
-            f" With {hidden_name}, accuracy is {hidden['reward']:.3f}, so the model fills in the "
-            "left-out rules itself and both versions are near the ceiling for it."
-        )
-    lines += ["", "## What this means for RL", "", rl]
-    for r in hidden["questions"]:  # misses that follow one reading may be a fair convention
-        misses = r["n"] - round(r["accuracy"] * r["n"])
-        for name, c in r["traps"].items():
-            if misses >= 5 and c >= misses / 4:
-                lines += [
-                    "",
-                    f"On {r['question']}, {c} of the {misses} wrong answers equal '{name}'. With "
-                    "the rule left out, that can follow a convention other than ours, so this "
-                    "part of the gap measures which convention the model picks, not its skill.",
-                ]
-    lines.append("")
-    return "\n".join(lines)
+    k_shown = round(shown["reward"] * shown["n"])
+    lines += [
+        "",
+        "## What this means for RL",
+        "",
+        f"With the rules shown the model is right on {k_shown} of {shown['n']} items. That run "
+        "is the control: nearly every rollout earns the same reward, so an RL policy this "
+        f"strong gets almost no signal to learn from. Per question, against {hidden_name}:",
+        "",
+    ]
+    for r, h in pairs:
+        misses = h["n"] - round(h["accuracy"] * h["n"])
+        head = f"- {r['question']}: {r['accuracy']:.3f} with the rules shown, "
+        head += f"{h['accuracy']:.3f} {short}"
+        if r["accuracy"] - h["accuracy"] < 0.1:
+            lines.append(
+                f"{head}: near the ceiling either way, so the model fills in this rule itself."
+            )
+        elif h.get("explained", 0) > misses / 2:
+            lines.append(
+                f"{head}, and {h['explained']} of the {misses} misses follow a careless reading of "
+                "the rule: a convention gap, which a policy would close as a constant offset "
+                "rather than learn as a skill."
+            )
+        else:
+            lines.append(f"{head}: room to learn.")
+    if "recognized" in shown and "recognized" in hidden:
+        lines += [
+            "",
+            f"Replies that name the storm or its season: {shown['recognized']} of {shown['n']} "
+            f"with the rules shown, {hidden['recognized']} {short}.",
+        ]
+    return "\n".join([*lines, ""])

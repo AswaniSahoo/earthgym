@@ -101,3 +101,17 @@ def test_pair_report_names_the_terms_only_ablation():
     text = report.render_pair(shown, hidden)
     assert "# heat-basis-v1: rules shown against terms only" in text
     assert "| events | 100 | 1.000 | 0.700 |" in text and "room to learn" in text
+
+
+def test_a_terms_only_log_says_so_and_counts_explained_misses(tmp_path):
+    path = tmp_path / "items.jsonl"
+    path.write_text(json.dumps(ITEMS[0]) + "\n", encoding="utf-8")
+    model = get_model("mockllm/model", custom_outputs=[ModelOutput.from_content("m", "ANSWER: 3")])
+    hidden = eval(
+        tasks.heat_basis(path=str(path), rules=False), model=model, log_dir=str(tmp_path)
+    )[0]
+    s = report.summarize(hidden, ITEMS)
+    assert s["rules"] is False and s["questions"][0]["explained"] == 1  # 3 is the site's column
+    text = report.render(s)
+    assert text.startswith("# heat-basis-v1 on model (terms only)")
+    assert "the rules-shown run is the control" in text and "not run here" not in text

@@ -74,7 +74,8 @@ def log(tmp_path_factory):
     path = tmp / "items.jsonl"
     path.write_text("".join(json.dumps(i) + "\n" for i in ITEMS), encoding="utf-8")
     outputs = []
-    for text in ("Adding every row.\nANSWER: 0.8", "ANSWER: 1", "About a day."):
+    replies = ("Adding every row.\nANSWER: 0.8", "This is Hurricane Test.\nANSWER: 1", "A day.")
+    for text in replies:
         out = ModelOutput.from_content("mockllm/model", text)
         out.usage = ModelUsage(input_tokens=200, output_tokens=100)
         outputs.append(out)
@@ -109,12 +110,13 @@ def test_render_lists_the_model_the_constant_and_the_careless_readings(log):
     assert "- ace: '" not in text
 
 
-def summary(reward, accuracies, traps=None):
+def summary(reward, accuracies, traps=None, explained=None):
     questions = [
         {"question": q, "n": 100, "accuracy": a, "traps": (traps or {}).get(q, {})}
+        | {"explained": (explained or {}).get(q, 0)}
         for q, a in accuracies.items()
     ]
-    return {"model": "m/x", "n": 300, "reward": reward, "questions": questions}
+    return {"model": "m/x", "n": 300, "reward": reward, "questions": questions, "recognized": 2}
 
 
 def test_pair_report_puts_both_runs_side_by_side_with_a_plain_rl_line():
@@ -129,10 +131,30 @@ def test_pair_report_puts_both_runs_side_by_side_with_a_plain_rl_line():
     assert "near the ceiling" in close and "room to learn" not in close
 
 
-def test_pair_report_says_when_misses_follow_another_convention():
-    shown = summary(0.997, {"hurricane_hours": 1.0})
-    traps = {"hurricane_hours": {"elapsed time, first to last HU row": 41}}
-    hidden = summary(0.13, {"hurricane_hours": 0.13}, traps)
+def test_pair_report_names_a_convention_gap_per_question():
+    shown = summary(0.997, {"ace": 0.99, "hurricane_hours": 1.0})
+    traps = {"hurricane_hours": {"each row's status holds until the next row": 41}}
+    hidden = summary(0.56, {"ace": 0.99, "hurricane_hours": 0.13}, traps, {"hurricane_hours": 57})
     text = report.render_pair(shown, hidden)
-    assert "On hurricane_hours, 41 of the 87 wrong answers equal" in text
-    assert "a convention other than ours" in text
+    assert "- ace: 0.990 with the rules shown, 0.990 hidden: near the ceiling either way" in text
+    assert "57 of the 87 misses follow a careless reading" in text and "convention gap" in text
+    assert "room to learn" not in text
+    assert "name the storm or its season: 2 of 300 with the rules shown, 2 hidden" in text
+
+
+def test_summary_counts_replies_that_name_the_storm_and_reads_the_rules_flag(log):
+    s = report.summarize(log, ITEMS)
+    assert (s["recognized"], s["rules"]) == (1, True)
+    assert s["questions"][0]["explained"] == 1  # the ACE miss equals a careless reading
+    assert "1 of 3 replies name the storm or its season" in report.render(s)
+
+
+def test_a_rules_hidden_log_says_so_in_its_report(tmp_path):
+    path = tmp_path / "items.jsonl"
+    path.write_text(json.dumps(ITEMS[1]) + "\n", encoding="utf-8")
+    model = get_model("mockllm/model", custom_outputs=[ModelOutput.from_content("m", "ANSWER: 1")])
+    task = tasks.ibtracs_storm(path=str(path), rules=False)
+    hidden = eval(task, model=model, log_dir=str(tmp_path), display="none")[0]
+    text = report.render(report.summarize(hidden, ITEMS))
+    assert text.startswith("# ibtracs-storm-v1 on model (rules hidden)")
+    assert "the rules-shown run is the control" in text and "not run here" not in text
