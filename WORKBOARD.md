@@ -85,7 +85,10 @@ Plan (2026-11-01, from the radar in docs/radar.md):
 - [x] Report module with best-constant and careless-reading baselines; trap rates in 0011
 - [x] Sonnet 5.5 baseline: probe 6 of 6, then 299 of 300 (0.997), $1.3627;
       reports/ibtracs/2026-11-01-claude-sonnet-5-5.md. Saturated with the rules in the prompt
-- [ ] Fable review of Phase 4 (running) and its fixes; consider the rules-hidden ablation
+- [ ] Rules-hidden ablation (lfx-prep-b7): probe 4 of 6 (hours answers 3 h short: elapsed
+      time), full 300 running into logs/2026-11-01-ibtracs-hidden-claude-sonnet-5-5; then
+      `uv run python -m rlenv.ibtracs.report <shown> --hidden <hidden> --out <pair>.md`
+- [ ] Fable review of Phase 4 (running) and its fixes
 
 ## Phase 5, heat-insurance basis risk (decisions 0012, 0013)
 
@@ -94,7 +97,8 @@ Plan (2026-11-01, from the radar in docs/radar.md):
       exactly (reports/heat/2026-11-01-nws-phoenix-reproduction.md)
 - [x] Stage 2: heat-basis-v1, 300 items over 2 airport index stations and 2 city-core
       sites (sha256 9d72cd64); contract, taskset, Inspect task, report, CI
-- [ ] Sonnet 5.5 baseline: probe running, then all 300 within the cap
+- [ ] Sonnet 5.5 baseline: probe 6 of 6 ($0.0394); all 300 next (projected $1.97 to $2.53)
+- [ ] Terms-only ablation (`-T rules=false`): probe, then all 300, then the pair report
 - [ ] Fable review of Phase 5 and its fixes
 
 ## Final pass
