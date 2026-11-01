@@ -23,6 +23,7 @@ Accuracy per question, with the best constant answer and each careless reading o
 | hurricane_hours | model | 100 | 1.000 |
 | hurricane_hours | best constant (12) | 100 | 0.120 |
 | hurricane_hours | hours over every HU row | 100 | 0.010 |
+| hurricane_hours | elapsed time, first to last HU row | 100 | 0.010 |
 
 Wrong answers by the model that equal a careless reading of the rule:
 
@@ -33,6 +34,7 @@ Wrong answers by the model that equal a careless reading of the rule:
 | peak_category | category ignoring status | 0 |
 | peak_category | category from synoptic rows only | 0 |
 | hurricane_hours | hours over every HU row | 0 |
+| hurricane_hours | elapsed time, first to last HU row | 0 |
 
 ## Tokens and cost
 

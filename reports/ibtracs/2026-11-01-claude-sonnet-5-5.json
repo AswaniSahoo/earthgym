@@ -50,10 +50,12 @@
     0.12
    ],
    "baselines": {
-    "hours over every HU row": 0.01
+    "hours over every HU row": 0.01,
+    "elapsed time, first to last HU row": 0.01
    },
    "traps": {
-    "hours over every HU row": 0
+    "hours over every HU row": 0,
+    "elapsed time, first to last HU row": 0
    }
   }
  ],
