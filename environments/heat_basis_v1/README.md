@@ -7,7 +7,9 @@ Harbor and Tempe ASU), 20.7 to 32.3 km away. Each of the 300 items is one season
 2024, a cover window of 1 May to 30 September, a whole-degree threshold from 100 to 115 F and
 one question: the index station's trigger days, the events the policy pays (runs of at least
 2 to 5 consecutive trigger days), or the missed days, when the site was at or above the
-threshold and the index was not: the basis risk. 100 items per question, seed 2026.
+threshold and the index was not: the policyholder's side of basis risk (days the index paid
+while the site was not hot are not asked). 100 items per question, seed 2026. The
+missing-value rules change a key only at Deer Valley in 2019, the one index season with gaps.
 
 The prompt shows both stations' daily maxima in whole degrees F, a dash for a missing value,
 the year left out, and the rule for the question. The reply must end with `ANSWER: <number>`.

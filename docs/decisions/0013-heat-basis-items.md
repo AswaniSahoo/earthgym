@@ -43,7 +43,10 @@ Baselines in the report, exact from the reference code: the best constant answer
 and careless readings: trigger days strictly above the threshold, or counted on the site's
 column; events counted as trigger days, as every run whatever its length, or with missing days
 skipped; missed days counted both ways, as every hot site day, or with missing index days left
-out.
+out. The Fable review (L1) added the readings the terms-only wording leaves open: events as
+blocks of k days, runs longer than k, runs of exactly k; missed days with the site strictly
+above the threshold, and the other way round (the index hot while a site value is present and
+below the threshold).
 
 Terms-only ablation (2026-11-01, asked for by lfx-prep-b7 when the 6-item probe scored 6 of
 6): the same items with the policy terms alone, worded as a term sheet would put them ("the
@@ -52,8 +55,15 @@ insured site's maximum reaches T F but the index station's does not"). The thres
 stay, since the questions need them; the clarifying rules go: at or above, missing values,
 and paying once however long an event lasts. `-T rules=false`, reported side by side.
 
+Terms-only result (2026-11-01, `reports/heat/2026-11-01-rules-shown-vs-terms-only.md`): 0.960
+against the control's 0.987. Trigger days (0.99) and events (1.00) stay at the ceiling;
+missed days fall from 0.96 to 0.89, and 7 of the 8 items where a missing index value decides
+the key, all Deer Valley 2019, took the other reading.
+
 Out, for later: other cities, heat index or wet-bulb triggers, money amounts and
-deductibles.
+deductibles, a pairing whose index has gaps in more than one season, and the insurer's side
+of basis risk (days the index paid while the site was not hot) as a fourth question; the last
+two are design changes for Aswani (Fable review M3).
 
 Consequences: answers are exact, the basis risk is real station data, and the careless
 readings measure how often each rule changes the answer. Measured on the 300 items
@@ -61,4 +71,8 @@ readings measure how often each rule changes the answer. Measured on the 300 ite
 right on 7 of 100 trigger-day items and the site's column on 3; for events, trigger days
 on 3, every run on 9, missing days skipped on 99; for missed days, every hot site day on 2,
 both ways on 71, missing index days left out on 92. The airport index stations have few
-gaps, so the missing-value rules rarely change an answer; the report says so.
+gaps: in the ten windows one day at Scottsdale (2022-09-12), one at Deer Valley (2017-09-20)
+and 21 at Deer Valley in 2019. So the missing-index rule changes 8 of the 100 missed-days keys
+and the missing-day rule 1 of the 100 events keys, all Deer Valley 2019, and another seed
+could draw none; the reports name the place. The missed-days question asks the
+policyholder's side of basis risk only.
