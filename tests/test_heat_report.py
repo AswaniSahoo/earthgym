@@ -163,3 +163,8 @@ def test_heat_pair_report_never_mentions_storms(log):
     s = report.summarize(log, ITEMS)
     assert s["recognized_what"] == "name a season from 2015 to 2024"
     assert "storm" not in report.render_pair(s, s)
+
+
+def test_a_log_from_other_items_is_refused(log):
+    with pytest.raises(ValueError, match="differs"):
+        report.summarize(log, [i | {"key": -1} for i in ITEMS])

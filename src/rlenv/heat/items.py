@@ -30,7 +30,11 @@ MANIFEST = Path("reports/heat/items_v1_manifest.json")
 
 
 def _spec(question: str, index: str, site: str, year: int, f: int, k: int | None) -> dict:
-    return {"question": question, "index": index, "site": site, "year": year} | {
+    return {
+        "question": question,
+        "index": index,
+        "site": site,
+        "year": year,
         "threshold": f,
         "k": k,
     }
