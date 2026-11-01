@@ -12,7 +12,7 @@ from heat_basis_v1 import contract
 from heat_basis_v1.taskset import records
 from inspect_ai.log import EvalLog, list_eval_logs, read_eval_log
 
-from rlenv import spend
+from rlenv import ablation, spend
 
 TESTS = {  # what a question still tests when its careless reading is right anyway
     "trigger_days": "counting the hot days",
@@ -222,16 +222,31 @@ def render(s: dict) -> str:
     return "\n".join([*lines, ""])
 
 
+def render_pair(shown: dict, hidden: dict) -> str:
+    """The rules-shown and terms-only runs side by side (the ablation in decision 0013)."""
+    flag = "the policy terms alone (`-T rules=false`)"
+    return ablation.render_pair(shown, hidden, "heat-basis-v1", "terms only", flag)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Report a model run on heat-basis-v1.")
     parser.add_argument("log_dir")
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--hidden", help="log dir of the terms-only run: write the pair")
     args = parser.parse_args()
-    logs = [read_eval_log(info) for info in list_eval_logs(args.log_dir)]
-    if [x.status for x in logs] != ["success"]:
-        raise SystemExit(f"want one successful log in {args.log_dir}")
-    s = summarize(logs[0], records())
+
+    def one(path: str) -> dict:
+        logs = [read_eval_log(info) for info in list_eval_logs(path)]
+        if [x.status for x in logs] != ["success"]:
+            raise SystemExit(f"want one successful log in {path}")
+        return summarize(logs[0], records())
+
+    s = one(args.log_dir)
     args.out.parent.mkdir(parents=True, exist_ok=True)
+    if args.hidden:
+        args.out.write_text(render_pair(s, one(args.hidden)), "utf-8")
+        print(f"pair report written to {args.out}")
+        return
     args.out.write_text(render(s), "utf-8")
     args.out.with_suffix(".json").write_text(json.dumps(s, indent=1, default=str), "utf-8")
     print(f"{s['n']} items, accuracy {s['reward']:.3f}, written to {args.out}")

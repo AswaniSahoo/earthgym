@@ -89,3 +89,15 @@ def test_render_lists_the_model_the_constant_and_the_careless_readings(log):
     assert "| trigger_days | the site's column | 1 | 0.000 |" in text
     assert "| events | best constant (2) | 1 | 1.000 |" in text
     assert "## Limits" in text
+
+
+def test_pair_report_names_the_terms_only_ablation():
+    shown = {"model": "m/x", "n": 300, "reward": 1.0, "questions": []}
+    shown["questions"] = [{"question": "events", "n": 100, "accuracy": 1.0, "traps": {}}]
+    hidden = shown | {"reward": 0.7}
+    hidden["questions"] = [
+        {"question": "events", "n": 100, "accuracy": 0.7, "traps": {"trigger days, not events": 5}}
+    ]
+    text = report.render_pair(shown, hidden)
+    assert "# heat-basis-v1: rules shown against terms only" in text
+    assert "| events | 100 | 1.000 | 0.700 |" in text and "room to learn" in text

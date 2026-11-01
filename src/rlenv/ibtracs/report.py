@@ -12,7 +12,7 @@ from ibtracs_storm_v1 import contract
 from ibtracs_storm_v1.taskset import records
 from inspect_ai.log import EvalLog, list_eval_logs, read_eval_log
 
-from rlenv import spend
+from rlenv import ablation, spend
 from rlenv.ibtracs import stats
 
 TESTS = {  # what a question still tests when its careless reading is right anyway
@@ -214,49 +214,9 @@ def render(s: dict) -> str:
 
 def render_pair(shown: dict, hidden: dict) -> str:
     """The rules-shown and rules-hidden runs side by side (the ablation in decision 0011)."""
-    k_shown = round(shown["reward"] * shown["n"])
-    lines = [
-        "# ibtracs-storm-v1: rules shown against rules hidden",
-        "",
-        f"Model `{shown['model']}` on the same {shown['n']} items, once with each question's "
-        "rule in the prompt and once without it (`-T rules=false`).",
-        "",
-        "| question | n | accuracy, rules shown | accuracy, rules hidden |",
-        "|---|---|---|---|",
-    ]
-    hidden_by = {r["question"]: r for r in hidden["questions"]}
-    for r in shown["questions"]:
-        if (h := hidden_by.get(r["question"])) is not None:
-            lines.append(
-                f"| {r['question']} | {r['n']} | {r['accuracy']:.3f} | {h['accuracy']:.3f} |"
-            )
-    lines += [
-        f"| all | {shown['n']} | {shown['reward']:.3f} | {hidden['reward']:.3f} |",
-        "",
-        "Wrong answers in the rules-hidden run that equal a careless reading of the rule:",
-        "",
-        "| question | careless reading | misses that match |",
-        "|---|---|---|",
-    ]
-    for r in hidden["questions"]:
-        lines += [f"| {r['question']} | {name} | {c} |" for name, c in r["traps"].items()]
-    rl = (
-        f"With the rules shown the model is right on {k_shown} of {shown['n']} items, so nearly "
-        "every rollout earns the same reward and an RL policy this strong gets almost no signal "
-        "to learn from; that version serves as a regression check, or for weaker models."
+    return ablation.render_pair(
+        shown, hidden, "ibtracs-storm-v1", "rules hidden", "the rule left out (`-T rules=false`)"
     )
-    if hidden["reward"] < shown["reward"] - 0.1:
-        rl += (
-            f" With the rules hidden, accuracy falls to {hidden['reward']:.3f}: the gap is "
-            "knowledge of the counting conventions, so the rules-hidden version has room to learn."
-        )
-    else:
-        rl += (
-            f" With the rules hidden, accuracy is {hidden['reward']:.3f}, so the model knows the "
-            "conventions too and both versions are near the ceiling for it."
-        )
-    lines += ["", "## What this means for RL", "", rl, ""]
-    return "\n".join(lines)
 
 
 def main() -> None:
