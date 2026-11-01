@@ -8,6 +8,8 @@ Mean reward 0.116 (stderr 0.009) over all 720 items, parse failures and errors s
 
 Replies without a parseable answer line: 0 of 720. Samples that errored: 0.
 
+Against the midpoint (persistence + climatology) / 2, item by item: +0.0087 (SE 0.0077); the model is higher on 123 items, lower on 92 and tied on 505: not significant at two standard errors.
+
 Area-weighted RMSE and ACC by the WB2 rules, and the mean reward, on the 720 items with a parsed answer, each baseline on the same items:
 
 | variable | lead h | forecast | n | RMSE | ACC | mean reward |
@@ -16,31 +18,43 @@ Area-weighted RMSE and ACC by the WB2 rules, and the mean reward, on the 720 ite
 | mean_sea_level_pressure | 24 | climatology | 120 | 609.904 | n/a | 0.000 |
 | mean_sea_level_pressure | 24 | always-climatology policy | 120 | 609.904 | n/a | 0.000 |
 | mean_sea_level_pressure | 24 | IFS HRES | 120 | 50.509 | 0.997 | 0.594 |
+| mean_sea_level_pressure | 24 | midpoint | 120 | 471.352 | 0.643 | 0.151 |
+| mean_sea_level_pressure | 24 | mixture (w 0.67, fitted on the train split) | 120 | 470.126 | 0.643 | 0.136 |
 | mean_sea_level_pressure | 24 | claude-sonnet-5-5 | 120 | 487.508 | 0.613 | 0.147 |
 | mean_sea_level_pressure | 48 | persistence | 120 | 754.163 | 0.283 | 0.000 |
 | mean_sea_level_pressure | 48 | climatology | 120 | 614.807 | n/a | 0.000 |
 | mean_sea_level_pressure | 48 | always-climatology policy | 120 | 614.807 | n/a | 0.000 |
 | mean_sea_level_pressure | 48 | IFS HRES | 120 | 76.907 | 0.992 | 0.666 |
+| mean_sea_level_pressure | 48 | midpoint | 120 | 607.895 | 0.283 | 0.102 |
+| mean_sea_level_pressure | 48 | mixture (w 0.67, fitted on the train split) | 120 | 643.407 | 0.283 | 0.089 |
 | mean_sea_level_pressure | 48 | claude-sonnet-5-5 | 120 | 586.037 | 0.357 | 0.109 |
 | mean_sea_level_pressure | 72 | persistence | 120 | 967.296 | 0.086 | 0.000 |
 | mean_sea_level_pressure | 72 | climatology | 120 | 726.078 | n/a | 0.000 |
 | mean_sea_level_pressure | 72 | always-climatology policy | 120 | 726.078 | n/a | 0.000 |
 | mean_sea_level_pressure | 72 | IFS HRES | 120 | 139.379 | 0.981 | 0.570 |
+| mean_sea_level_pressure | 72 | midpoint | 120 | 779.265 | 0.086 | 0.081 |
+| mean_sea_level_pressure | 72 | mixture (w 0.67, fitted on the train split) | 120 | 831.293 | 0.086 | 0.098 |
 | mean_sea_level_pressure | 72 | claude-sonnet-5-5 | 120 | 738.092 | 0.147 | 0.091 |
 | 2m_temperature | 24 | persistence | 120 | 1.448 | 0.825 | 0.000 |
 | 2m_temperature | 24 | climatology | 120 | 2.455 | n/a | 0.000 |
 | 2m_temperature | 24 | always-climatology policy | 120 | 2.455 | n/a | 0.000 |
 | 2m_temperature | 24 | IFS HRES | 120 | 0.726 | 0.955 | 0.303 |
+| 2m_temperature | 24 | midpoint | 120 | 1.606 | 0.825 | 0.121 |
+| 2m_temperature | 24 | mixture (w 0.67, fitted on the train split) | 120 | 1.443 | 0.825 | 0.139 |
 | 2m_temperature | 24 | claude-sonnet-5-5 | 120 | 1.405 | 0.821 | 0.136 |
 | 2m_temperature | 48 | persistence | 120 | 2.591 | 0.516 | 0.000 |
 | 2m_temperature | 48 | climatology | 120 | 2.660 | n/a | 0.000 |
 | 2m_temperature | 48 | always-climatology policy | 120 | 2.660 | n/a | 0.000 |
 | 2m_temperature | 48 | IFS HRES | 120 | 0.760 | 0.958 | 0.490 |
+| 2m_temperature | 48 | midpoint | 120 | 2.279 | 0.516 | 0.116 |
+| 2m_temperature | 48 | mixture (w 0.67, fitted on the train split) | 120 | 2.309 | 0.516 | 0.115 |
 | 2m_temperature | 48 | claude-sonnet-5-5 | 120 | 2.198 | 0.564 | 0.126 |
 | 2m_temperature | 72 | persistence | 120 | 2.300 | 0.564 | 0.000 |
 | 2m_temperature | 72 | climatology | 120 | 2.536 | n/a | 0.000 |
 | 2m_temperature | 72 | always-climatology policy | 120 | 2.536 | n/a | 0.000 |
 | 2m_temperature | 72 | IFS HRES | 120 | 0.859 | 0.943 | 0.391 |
+| 2m_temperature | 72 | midpoint | 120 | 2.108 | 0.564 | 0.074 |
+| 2m_temperature | 72 | mixture (w 0.67, fitted on the train split) | 120 | 2.101 | 0.564 | 0.082 |
 | 2m_temperature | 72 | claude-sonnet-5-5 | 120 | 2.126 | 0.560 | 0.087 |
 
 ## Tokens and cost

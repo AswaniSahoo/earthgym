@@ -47,6 +47,24 @@
   {
    "variable": "mean_sea_level_pressure",
    "lead": 24,
+   "baseline": "midpoint",
+   "n": 120,
+   "rmse": 471.3523055378098,
+   "acc": 0.6425298138343258,
+   "reward": 0.15059254342079256
+  },
+  {
+   "variable": "mean_sea_level_pressure",
+   "lead": 24,
+   "baseline": "mixture (w 0.67, fitted on the train split)",
+   "n": 120,
+   "rmse": 470.1261790153523,
+   "acc": 0.6425298138343253,
+   "reward": 0.13583564411998114
+  },
+  {
+   "variable": "mean_sea_level_pressure",
+   "lead": 24,
    "baseline": "claude-sonnet-5-5",
    "n": 120,
    "rmse": 487.5078641558053,
@@ -88,6 +106,24 @@
    "rmse": 76.90735428246307,
    "acc": 0.9922499143525116,
    "reward": 0.66616258109122
+  },
+  {
+   "variable": "mean_sea_level_pressure",
+   "lead": 48,
+   "baseline": "midpoint",
+   "n": 120,
+   "rmse": 607.8954815742613,
+   "acc": 0.2833924588102847,
+   "reward": 0.10160973914625608
+  },
+  {
+   "variable": "mean_sea_level_pressure",
+   "lead": 48,
+   "baseline": "mixture (w 0.67, fitted on the train split)",
+   "n": 120,
+   "rmse": 643.406577820356,
+   "acc": 0.2833924588102846,
+   "reward": 0.08860894950117247
   },
   {
    "variable": "mean_sea_level_pressure",
@@ -137,6 +173,24 @@
   {
    "variable": "mean_sea_level_pressure",
    "lead": 72,
+   "baseline": "midpoint",
+   "n": 120,
+   "rmse": 779.2650908857274,
+   "acc": 0.08619347338448465,
+   "reward": 0.08104464839907365
+  },
+  {
+   "variable": "mean_sea_level_pressure",
+   "lead": 72,
+   "baseline": "mixture (w 0.67, fitted on the train split)",
+   "n": 120,
+   "rmse": 831.2934249495146,
+   "acc": 0.08619347338448559,
+   "reward": 0.09790102463885951
+  },
+  {
+   "variable": "mean_sea_level_pressure",
+   "lead": 72,
    "baseline": "claude-sonnet-5-5",
    "n": 120,
    "rmse": 738.0923198449951,
@@ -178,6 +232,24 @@
    "rmse": 0.7259463379372699,
    "acc": 0.9552737873353956,
    "reward": 0.3033079776604309
+  },
+  {
+   "variable": "2m_temperature",
+   "lead": 24,
+   "baseline": "midpoint",
+   "n": 120,
+   "rmse": 1.606217903274308,
+   "acc": 0.8245264242746363,
+   "reward": 0.12130537419549459
+  },
+  {
+   "variable": "2m_temperature",
+   "lead": 24,
+   "baseline": "mixture (w 0.67, fitted on the train split)",
+   "n": 120,
+   "rmse": 1.443435239501136,
+   "acc": 0.8245264242746358,
+   "reward": 0.13923723551835057
   },
   {
    "variable": "2m_temperature",
@@ -227,6 +299,24 @@
   {
    "variable": "2m_temperature",
    "lead": 48,
+   "baseline": "midpoint",
+   "n": 120,
+   "rmse": 2.2794989028339105,
+   "acc": 0.5161777158756481,
+   "reward": 0.11593562403642028
+  },
+  {
+   "variable": "2m_temperature",
+   "lead": 48,
+   "baseline": "mixture (w 0.67, fitted on the train split)",
+   "n": 120,
+   "rmse": 2.308763006993533,
+   "acc": 0.516177715875645,
+   "reward": 0.11491522039564292
+  },
+  {
+   "variable": "2m_temperature",
+   "lead": 48,
    "baseline": "claude-sonnet-5-5",
    "n": 120,
    "rmse": 2.1982345166761146,
@@ -272,6 +362,24 @@
   {
    "variable": "2m_temperature",
    "lead": 72,
+   "baseline": "midpoint",
+   "n": 120,
+   "rmse": 2.108029386966339,
+   "acc": 0.5639970708817486,
+   "reward": 0.07393626850705652
+  },
+  {
+   "variable": "2m_temperature",
+   "lead": 72,
+   "baseline": "mixture (w 0.67, fitted on the train split)",
+   "n": 120,
+   "rmse": 2.1008157688845017,
+   "acc": 0.5639970708817503,
+   "reward": 0.08221494036631681
+  },
+  {
+   "variable": "2m_temperature",
+   "lead": 72,
    "baseline": "claude-sonnet-5-5",
    "n": 120,
    "rmse": 2.1255219900651676,
@@ -279,6 +387,13 @@
    "reward": 0.08707845744060597
   }
  ],
+ "paired": {
+  "diff": 0.008717703859381564,
+  "se": 0.007677607355133391,
+  "higher": 123,
+  "lower": 92,
+  "tied": 505
+ },
  "tokens": {
   "input": 322920,
   "cache_write": 0,
