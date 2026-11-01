@@ -256,7 +256,7 @@ CSV and the published values are on NCEI's pages today. Three things are incompl
 wrong: the Limits line "whether any answer was recalled rather than counted is UNKNOWN" is
 answerable from the same log (two replies identify the storm and year, both also compute); the
 reproduction says the basin rule is not exercised by the anchors but not that the spur rule is
-not either; and `LOG.md:8` and `WORKBOARD.md:86` give the run as $1.3627 where the ledger and
+not either; and `docs/log.md:8` and `WORKBOARD.md:86` give the run as $1.3627 where the ledger and
 the report give $1.3626 (the difference of two rounded running totals). 0011's "4,082 blank
 winds in named storms over all seasons" counts NA rows only (4,084 over all rows); the
 sentence does not say which. `WORKBOARD.md:88-90` still says the 300-item hidden run is
@@ -308,7 +308,7 @@ review checks the design).
 **M3. The saturated run is recorded as the baseline, and the recall question it leaves UNKNOWN
 is answered by its own log.**
 `WORKBOARD.md:86` ("Sonnet 5.5 baseline ... Saturated with the rules in the prompt"),
-`LOG.md:7-10`, and the report's Limits (`report.py:196-197`: "whether any answer was recalled
+`docs/log.md:7-10`, and the report's Limits (`report.py:196-197`: "whether any answer was recalled
 rather than counted is UNKNOWN"). The run proves the keys, the contract and both harnesses on a
 real model, which is worth having, and it measures nothing about the model (section 2). The
 log shows two replies naming the storm and year (Charley 2004, Wilma 2005), both peak items,
@@ -403,7 +403,7 @@ hold the line.
 
 **L5. Record drift.**
 `README.md:16` says "the Sonnet 5.5 baseline is next" after the run and its report landed
-(20ae417). `LOG.md:8` and `WORKBOARD.md:86` say $1.3627; the ledger and the report say $1.3626
+(20ae417). `docs/log.md:8` and `WORKBOARD.md:86` say $1.3627; the ledger and the report say $1.3626
 (1.36262685), the 0.0001 being the difference of two rounded running totals. 0011 line 20:
 "4,082 blank winds in named storms over all seasons" is the count over NA rows (4,084 over all
 rows of those storms); say "NA rows". The reproduction report names commit e640dc7 for

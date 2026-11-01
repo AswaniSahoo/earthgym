@@ -20,7 +20,7 @@ reader's sort:
 Both splits feed the RL reward (`ClimaqaTask.correct` in
 `environments/climaqa_v1/climaqa_v1/taskset.py`), so a policy would be rewarded for guessing the
 source's word, and in 2 MCQ items for picking a wrong key. The baseline review
-(`reviews/phase-2-climaqa-port.md`, Baseline review, M4) also lists kept items that test the
+(`docs/reviews/phase-2-climaqa-port.md`, Baseline review, M4) also lists kept items that test the
 source document (gold/mcq/56, 132, 215; gold/cloze/59, 144) and the two cloze keys that are a
 parenthesised abbreviation (gold/cloze/8, 22). gold/mcq/167 and 207 ask the same question.
 

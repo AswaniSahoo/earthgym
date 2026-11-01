@@ -152,7 +152,7 @@ Spot checks against the raw data:
 | Reproducibility | 9 | Four files pinned by sha256 with size and Last-Modified, the manifest with the station hashes and the seed, a test that rebuilds the 300 items byte for byte, reports that rebuild byte for byte from the logs, logs that name clean commits, `--cache-prompt false` on both full runs (Phase 4's L1), and the live file still equal to the pin at review time. Gaps: the source files exist only on this machine and NCEI rewrites them daily; the GHCN version string is not recorded beside the pins (L5). |
 | CI/CD | 8 | Green on every Phase 5 push, actions pinned by commit, `--locked --all-groups`, `vf-validate`, the mockllm eval and the wheel build for this environment (`ci.yml:31-35`), `hatchling` pinned (0014). Still: no license field, the data-backed tests cannot run in CI by design, and the mockllm step sees only one question's prompts (L4). |
 | Research rigor | 7 | Eight published numbers reproduced and verified live, the whole-degree equivalence proved on every value used, the distances and gap counts checked, the trap rates measured and recorded in 0013, the control named as such, the ablation designed and run the same day with the threshold and k kept, every cost setting verified at the source, the Limits honest that two rules rarely bite. Against that: the pair report and SUMMARY read the missed-days gap as a constant offset and neither says it rests on one station-season (M1, M3), 0013 says the missing-value rules "rarely" bite where the data say "only in Deer Valley 2019" (M3), the trap table counts a coincidence and misses the slip signature that explains half the misses (M4), the recall UNKNOWN is answerable from the logs (L2), and the reproduction quotes one of the page's three dates for the 2023 high (L3). |
-| Readiness to publish | 7 | The package is sound: 300 of 300 valid, both harnesses on one contract, the wheel builds with its data, both runs done, reported and paired, the spend within the cap. Not yet: M1 and M2 are wrong sentences in published reports, the README's phase row and the workboard are behind the results and LOG.md has no entry for either run (M5), the environment README does not say that the basis risk is one-sided and the missing-value rules are carried by one season (M3), and LICENSE is still absent. |
+| Readiness to publish | 7 | The package is sound: 300 of 300 valid, both harnesses on one contract, the wheel builds with its data, both runs done, reported and paired, the spend within the cap. Not yet: M1 and M2 are wrong sentences in published reports, the README's phase row and the workboard are behind the results and docs/log.md has no entry for either run (M5), the environment README does not say that the basis risk is one-sided and the missing-value rules are carried by one season (M3), and LICENSE is still absent. |
 
 ## 2. Plain answers to the four questions
 
@@ -305,9 +305,9 @@ matched ids in the JSON; a test with one off-by-one mockllm reply.
 **M5. Records behind the results.**
 `README.md:17`: "the terms-only run and the review are next" (the run, its report and the pair
 landed at e3a48a3 and 87a951a). `WORKBOARD.md:100-102`: the baseline and the terms-only
-ablation boxes are open after both ran. `LOG.md`: no entry records the Phase 5 full run
+ablation boxes are open after both ran. `docs/log.md`: no entry records the Phase 5 full run
 (0.987, $1.8801), the terms-only run (0.960, $1.9036) or the pair; the newest Phase 5 lines are
-the build and the trap rates (LOG.md:33-49) and the pgrep bug (LOG.md:5-13). Smallest fix: one
+the build and the trap rates (docs/log.md:33-49) and the pgrep bug (docs/log.md:5-13). Smallest fix: one
 line each.
 
 ### Low
@@ -397,5 +397,5 @@ for a check and deserves one sentence in its docstring.
   and that the index never under-records the airports (0 missed days the other way on every Sky
   Harbor pair at 110 F).
 - The reproduction's "119, 07/19" as the published value, when the page lists three dates.
-- README.md:17 and WORKBOARD.md:100-102 as written, and a LOG.md with no entry for the runs.
+- README.md:17 and WORKBOARD.md:100-102 as written, and a docs/log.md with no entry for the runs.
 - The environment wheel without a license field and the repo without a LICENSE.

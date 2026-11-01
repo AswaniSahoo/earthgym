@@ -135,7 +135,7 @@ explains it, but say "split-level defect" where the leak is counted so no reader
 questions are bad questions.
 
 **L8. Packaging and README gaps.**
-No LICENSE file and no `license` field in `pyproject.toml`. `README.md:31` lists `reviews/`,
+No LICENSE file and no `license` field in `pyproject.toml`. `README.md:31` lists `docs/reviews/`,
 which did not exist before this file. The README does not mention that the paper cites
 `UCSD-GENIE/ClimaQA` and that the name now redirects to `Rose-STL-Lab/ClimaQA`, nor that the
 dataset is apache-2.0, which is what makes the 30 verbatim items in `review_sample.csv`
@@ -179,7 +179,7 @@ pairs (read both rows, decide same-answer or contradiction), the 27 near-match p
 silver `dup.answer_differs` groups, items 227 and 236, and the 24 gold cloze giveaways. FFQ needs
 its own sample; free-text keys are the hardest to verify and have none.
 
-Write-up: a narrative in `reports/climaqa/` or `reviews/` with method, numbers, limitations, and
+Write-up: a narrative in `reports/climaqa/` or `docs/reviews/` with method, numbers, limitations, and
 a dated "verified at" line per external claim (paper v2 of 9 Mar 2025, dataset revision
 `3f084a02` of 2025-03-17, notebooks at the genie-climaqa push of 2025-03-14).
 

@@ -5,7 +5,7 @@ relayed by lfx-prep-b7; the run settings below are ours.
 
 Context: the ERA5 baseline was approved on Gemini 3.8 Flash on Vertex AI with a guard of 1.5
 million tokens. The 10-item probe (`logs/2026-11-01-era5-probe/`, all MSLP at 24 h) projected
-1,731,960 tokens for the 720 items, so the full run stopped (LOG.md, 2026-11-01).
+1,731,960 tokens for the 720 items, so the full run stopped (docs/log.md, 2026-11-01).
 
 Decision, in Aswani's words as relayed on 2026-11-01:
 

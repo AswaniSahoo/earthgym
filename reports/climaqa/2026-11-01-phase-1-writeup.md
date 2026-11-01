@@ -40,7 +40,7 @@ set and Silver, the set the paper fine-tunes on (arXiv 2410.16701v2, A.3.2).
 
 A gap between 292 multiple-choice rows and the paper's 245 first looked like a defect. The
 Validation column and the authors' notebooks showed it is the 47 expert-rejected items. A
-claim about someone else's data is checked at the source before it is made (LOG.md,
+claim about someone else's data is checked at the source before it is made (docs/log.md,
 2026-10-30).
 
 ## Limits

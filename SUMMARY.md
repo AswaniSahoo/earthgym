@@ -100,4 +100,4 @@ recorded in their reports.
 - One run per model and condition, with no seed: the run-to-run spread is not measured, and
   one Phase 4 storm drew two different hours answers from the same model.
 - One model on the Anthropic key; the Gemini numbers come from runs that cannot be repeated.
-- Every review is in `reviews/`; the choices are in `docs/decisions/`.
+- Every review is in `docs/reviews/`; the choices are in `docs/decisions/`.

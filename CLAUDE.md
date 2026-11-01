@@ -11,7 +11,7 @@ Verifiable evals and RL environments for climate and earth science. Owner: Aswan
    No code without a test that needed it.
 4. Run: experiments write a dated report under `reports/` with the exact config (model, dataset
    revision, prompt, seed) and results, so each one can become a blog post.
-5. Review: the `reviewer` agent (Fable) writes `reviews/phase-N-<name>.md`: ratings, verified
+5. Review: the `reviewer` agent (Fable) writes `docs/reviews/phase-N-<name>.md`: ratings, verified
    issues, what is missing. Fixes land test-first before the phase closes.
 
 ## Rules
@@ -30,6 +30,6 @@ Verifiable evals and RL environments for climate and earth science. Owner: Aswan
     src/rlenv/<phase>/   code, one package per phase
     tests/               unit tests, small inline fixtures, no network
     reports/             results of audits and experiments
-    reviews/             one review per phase
+    docs/reviews/             one review per phase
     docs/radar.md        what is new and proven, in adopt / trial / assess / hold rings
     docs/decisions/      why we chose what we chose

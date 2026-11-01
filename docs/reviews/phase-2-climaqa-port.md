@@ -276,7 +276,7 @@ no sample errors, no empty replies). Recomputed from the samples and matched to 
 correct counts (95 of 128, 194 of 222), accuracy, stderr (from `results`), n and accuracy per
 complexity level (BASE 97 of 107, HYPOTHETICAL 39 of 46, REASONING 58 of 69), per-sample token
 sums against `stats.model_usage` (equal: 7355 / 93511 / 93278 and 24284 / 121121 / 108017, so
-LOG.md's 89.2 and 99.8 percent reasoning shares are right), MCQ format failures (all 222 replies
+docs/log.md's 89.2 and 99.8 percent reasoning shares are right), MCQ format failures (all 222 replies
 end in a line the contract parses), `eval.revision` (3c70706, dirty) and the generate config
 (every field None in both `eval.model_generate_config` and `plan.config`). All 350 logged inputs
 equal `contract.mcq_prompt` or `contract.cloze_prompt` over the bundled jsonl, all 350 targets
@@ -285,7 +285,7 @@ the manifest and the report (`5f345d8e...`). `uv run python -m rlenv.climaqa.rep
 logs/2026-10-30-gemini-3.8-flash --out <scratch>` reproduced the committed `.md` and `.json` byte
 for byte. A blind sort of the 33 cloze misses was written to
 `/tmp/claude-1000/-data-rlenv/4d714d75-e1d0-4566-82bd-f40bd67e6f3a/scratchpad/blind_sort.md`
-before the author's note, LOG.md or WORKBOARD.md were opened; the table below is the durable
+before the author's note, docs/log.md or WORKBOARD.md were opened; the table below is the durable
 record. Six MCQ misses were read by eye against the jsonl (gold/mcq/102, 110, 113, 125, 130, 132).
 The AMS Glossary sentence quoted in the note for item 47 is verbatim at
 glossary.ametsoc.org/wiki/Coagulation, sense 1. The DOI cited for item 72 resolves (via
@@ -319,7 +319,7 @@ Brenguier et al. 1994 review), 59 (line 64) and 144 (line 82, the geostatistics 
 series analysis was conducted to fit a sinusoidal curve to the seasonal variation" is a standard
 method and nothing in the sentence rules it out, so by the note's definitions it is "other
 correct word, debatable" until the study's method is cited. The label propagates to line 31,
-line 43 ("1 clear"), LOG.md:21 ("1 is a clear model error (157)"), WORKBOARD.md:16 and
+line 43 ("1 clear"), docs/log.md:21 ("1 is a clear model error (157)"), WORKBOARD.md:16 and
 `docs/decisions/0005-cloze-in-clean-set-v2.md:10` ("Only 1 to 8 are wrong"). Smallest fix:
 relabel 157 "other, debatable" (or cite the source that shows a spline fit and keep it), and
 change the five counts to 0 to 8 wrong, 25 other correct words (8 debatable).
@@ -338,7 +338,7 @@ error, cited from 0005 before Aswani decides it.
 
 **M3. The run is not reproducible as recorded, and the report does not say so.**
 `2026-10-30-gemini-3.8-flash.md:25-26` records `3c70706 (dirty)` and `provider defaults`; the
-report says nothing about what either means. LOG.md:14-16 does ("a rerun need not match") but a
+report says nothing about what either means. docs/log.md:14-16 does ("a rerun need not match") but a
 reader of the report alone cannot know that no temperature, seed or max_tokens was set, which
 section 3 item 4 above asked for before the first run. What the dirty state could have touched is
 UNKNOWN (inspect records only the flag); what it did not change is verified: `environments/` and
@@ -484,7 +484,7 @@ either reader will call clear.
 
 ### 5. What I would not publish yet, and why
 
-- "1 clear model error" (note line 31, 43; LOG.md:21; WORKBOARD.md:16; 0005 line 10). The
+- "1 clear model error" (note line 31, 43; docs/log.md:21; WORKBOARD.md:16; 0005 line 10). The
   supportable sentence is "0 to 1 clear, up to 9 debatable".
 - 0.805 as a rescored cloze accuracy. It depends on eight aliases no expert has approved and on
   142 counting as a synonym.

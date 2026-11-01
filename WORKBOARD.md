@@ -23,7 +23,7 @@ without waiting between steps.
 
 From the Codex review. TDD, small commits, ruff + pytest + uv lock --check, push, CI green, no
 model calls. Out of scope: README rewrite (collect notes in docs/readme-notes.md), moving
-CLAUDE.md, .claude/, reviews/, LOG.md, WORKBOARD.md, any rename or visibility change.
+CLAUDE.md, .claude/, docs/reviews/, docs/log.md, WORKBOARD.md, any rename or visibility change.
 
 - [x] A1 ERA5 midpoint and train-fitted mixture baselines; restate Sonnet against the midpoint
 - [x] A2 ClimaQA: exact-overlap-filtered wording; strict variant (329) rescored from logs
@@ -104,7 +104,7 @@ Plan (2026-11-01, from the radar in docs/radar.md):
       reports/ibtracs/2026-11-01-claude-sonnet-5-5.md. Saturated with the rules in the prompt
 - [x] Rules-hidden ablation (lfx-prep-b7): 0.703; ACE and peak 0.99 either way, hours a
       convention test; reports/ibtracs/2026-11-01-rules-shown-vs-hidden.md
-- [x] Fable review of Phase 4 (reviews/phase-4-ibtracs-storms.md): M1 to M5 and L1 to L6
+- [x] Fable review of Phase 4 (docs/reviews/phase-4-ibtracs-storms.md): M1 to M5 and L1 to L6
       landed; L7 (publish the pinned CSV as a release asset) and the LICENSE wait for Aswani
 
 ## Phase 5, heat-insurance basis risk (decisions 0012, 0013)
@@ -117,7 +117,7 @@ Plan (2026-11-01, from the radar in docs/radar.md):
 - [x] Rules-shown control: probe 6 of 6, then 296 of 300 (0.987), $1.8801
 - [x] Terms-only ablation (`-T rules=false`): probe 5 of 6, then 0.960, $1.9036;
       reports/heat/2026-11-01-rules-shown-vs-terms-only.md
-- [x] Fable review of Phase 5 (reviews/phase-5-heat-basis.md): M1 to M5 and L1 to L4 landed;
+- [x] Fable review of Phase 5 (docs/reviews/phase-5-heat-basis.md): M1 to M5 and L1 to L4 landed;
       L5 (release asset) and L6 (LICENSE) wait for Aswani
 
 ## Final pass

@@ -9,7 +9,7 @@ climate and earth science.
 
 How to work:
 - Start from what the next phase needs (read `CLAUDE.md`, `README.md` and the latest file in
-  `reviews/`), then search: GitHub releases and repos with `gh`, papers, project pages, benchmark
+  `docs/reviews/`), then search: GitHub releases and repos with `gh`, papers, project pages, benchmark
   leaderboards.
 - Read the primary source. For a benchmark number, open the page itself (Firecrawl CLI scrape,
   Jina Reader with `curl -s https://r.jina.ai/<URL>`, or Aswani's Chrome read-only through one

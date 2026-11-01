@@ -4,7 +4,7 @@ Date: 2026-10-31. Status: accepted (Aswani chose the study; relayed by the coord
 on 2026-10-31).
 
 Context: two sorts of the 2026-10-30 Gemini 3.8 Flash misses exist, the build session's (the
-two miss notes) and Fable's blind sort of the 33 cloze misses (`reviews/phase-2-climaqa-port.md`,
+two miss notes) and Fable's blind sort of the 33 cloze misses (`docs/reviews/phase-2-climaqa-port.md`,
 Baseline review, section 3). The expert review sheet `reports/climaqa/expert_review_v2.csv`
 holds 83 rows: 61 misses, 2 flagged items and 20 sampled correct answers. TypeSafe's Jev answers
 typed questions about a `state` with probabilities (`POST https://api.typesafe.ai/v1/systemone`;

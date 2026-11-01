@@ -16,7 +16,7 @@ from rlenv.climaqa import expert_sheet, jev
 
 RUNS = 5  # identical calls per item, for stability
 LOG = Path("logs/2026-10-31-jev/responses.jsonl")  # raw responses, not in git
-REVIEW = Path("reviews/phase-2-climaqa-port.md")
+REVIEW = Path("docs/reviews/phase-2-climaqa-port.md")
 REPORT = Path("reports/climaqa/runs/2026-10-31-jev-third-reader.md")
 FIRST_ESTIMATE = 2000  # input tokens assumed for the first call, before any usage is known
 LABELS = {  # the miss notes' bucket names, as the item-level options Jev chooses from

@@ -48,7 +48,7 @@ once with them left out (`reports/ibtracs/2026-11-01-rules-shown-vs-hidden.md`):
 | all 300 | 0.997 | 0.703 |
 
 - Told the rules, the model counts storm tracks almost perfectly; its one miss is a slip in
-  the arithmetic (`reviews/phase-4-ibtracs-storms.md`).
+  the arithmetic (`docs/reviews/phase-4-ibtracs-storms.md`).
 - Not told them, it still applies NOAA's ACE convention and the Saffir-Simpson scale: ACE and
   category stay at 0.99.
 - Only hours fall, and 63 of the 87 misses follow a duration reading instead of our 6 hours per

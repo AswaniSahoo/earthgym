@@ -17,7 +17,7 @@ NOTES = {
     "mcq": Path("reports/climaqa/runs/2026-10-30-gemini-3.8-flash-mcq-misses.md"),
     "cloze": Path("reports/climaqa/runs/2026-10-30-gemini-3.8-flash-cloze-misses.md"),
 }
-EXTRAS = {  # baseline review M4 (reviews/phase-2-climaqa-port.md), kept items that were hits
+EXTRAS = {  # baseline review M4 (docs/reviews/phase-2-climaqa-port.md), kept items that were hits
     "gold/mcq/56": "tests the source document (baseline review M4)",
     "gold/mcq/215": "tests the source document (baseline review M4)",
 }

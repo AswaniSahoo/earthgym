@@ -75,7 +75,7 @@ Spot checks against the raw data, all at b5c5edf:
 - The floor as of HEAD: `np.percentile(b, 10)` over the 360 better-baseline errors per
   variable equals every item's `floor` and the manifest (28.749999999989814 Pa,
   0.06899999999999408 K); it binds (b below the floor) on 36 and 36 items as 0007, the README
-  and the manifest say; the old 50 Pa and 0.5 K bind on 65 and 167, as LOG.md says. Three
+  and the manifest say; the old 50 Pa and 0.5 K bind on 65 and 167, as docs/log.md says. Three
   2 m temperature items have b equal to 0.
 - The expert sheet against the Gemini logs on this machine (`logs/2026-10-30-gemini-3.8-flash`,
   350 samples read with `inspect_ai.log`): the 20 sampled hits are hits and the 61 misses are
@@ -199,7 +199,7 @@ tested.
 `reports/era5/2026-10-30-wb2-reproduction.md:3-4` names commit 2d97668 for `scores.py` and
 `data.py`, which changed in 3b2a5a7 and 3713c87 (48 insertions; the numbers still hold at
 HEAD, verified). Line 12 marks the bias "not checked (UNKNOWN)", yet the same file holds
-`bias.mean_sea_level_pressure` -0.40657755779113947 and ours matches to 1.2e-15 Pa. `LOG.md:10`
+`bias.mean_sea_level_pressure` -0.40657755779113947 and ours matches to 1.2e-15 Pa. `docs/log.md:10`
 and `WORKBOARD.md:30` say "12.0 MB" for a subset that is 17,997,770 bytes (18.0 MB, as the
 report's line 39 says) since the climatology joined it in 4501ad1. Smallest fix: name the
 commit the numbers were last verified at, fill the bias row with the file's value, and fix the
