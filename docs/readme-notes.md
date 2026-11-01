@@ -7,3 +7,5 @@ Collected during fix batch 1 (2026-11-02); folded into the README rewrite and th
   (`reports/era5/2026-11-01-claude-sonnet-5-5.md`).
 - Phase 2 row and the `climaqa-v1` table row: say exact-overlap-filtered, with 21 near matches
   of Silver unresolved and a strict 329-item variant (`-T strict=true`), not "clean" alone.
+- "with $20 in total as a hard cap": say a managed budget of $20 (probe projections before
+  each run, the ledger checked after), not a hard cap (decision 0010).

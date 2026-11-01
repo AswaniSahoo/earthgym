@@ -75,6 +75,11 @@ How we run it (Inspect 0.3.286 source paths are under `inspect_ai/`):
   lead (`uv run python -m rlenv.era5.tasks`), sent through the Batch API so it tests the
   full run's path.
 
+How the budget is kept (2026-11-02, from the Codex review's finding 11): the $20 is a managed
+budget, not an enforced cap. Probes projected each run's cost before it started, and the
+ledger is checked after each run; nothing stops a run that would pass $20 when it starts.
+`rlenv.spend` refuses logs from models it has no price for.
+
 Consequences:
 
 - Thinking is adaptive, so tokens per item vary from item to item and from run to run; the

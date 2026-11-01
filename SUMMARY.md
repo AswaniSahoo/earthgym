@@ -90,7 +90,8 @@ Write-up: `reports/heat/2026-11-01-phase-5-writeup.md`.
 
 ## Spend
 
-$9.1298 of the $20 cap on the Anthropic key over 12 runs, probes included, all through the
+$9.1298 of a managed $20 budget on the Anthropic key over 12 runs (a probe projected each run's
+cost before it started; the ledger is checked after each run), probes included, all through the
 Batch API (`reports/spend.md`). The Gemini 3.8 Flash runs on Vertex AI are separate and stay as
 recorded in their reports.
 

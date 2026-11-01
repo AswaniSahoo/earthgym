@@ -1,9 +1,11 @@
 # Spend on the Anthropic key
 
-Every rlenv model run uses Claude Sonnet 5.5 on the Anthropic key, with a hard cap of $20 in
-total (Aswani, 2026-11-01; decision 0010). Before each run a small probe projects its cost,
-and no run starts that would take the total past the cap. `tests/test_spend.py` checks every
-row's cost against its tokens, the running total, and the cap.
+Every rlenv model run uses Claude Sonnet 5.5 on the Anthropic key, within a managed budget of $20
+in total (Aswani, 2026-11-01; decision 0010). Before each run a small probe projects its cost,
+and no run was started that would have taken the total past $20. Nothing enforces this when a
+run starts: `tests/test_spend.py` checks after each run that every row's cost matches its
+tokens, that the running total adds up, and that the total stays within $20, and the ledger
+refuses logs from models it has no price for.
 
 Prices, USD per million tokens for Claude Sonnet 5.5, from Anthropic's pricing page
 (https://platform.claude.com/docs/en/about-claude/pricing), fetched 2026-11-01: base input
@@ -16,7 +18,7 @@ The Gemini 3.8 Flash runs on Vertex AI are separate and stay as recorded in thei
 
 Rows are added with `uv run python -m rlenv.spend "<run>" <log dir>`.
 
-Final for the Definition of done (2026-11-01): 12 runs, $9.1298 of the $20 cap.
+Final for the Definition of done (2026-11-01): 12 runs, $9.1298 of the $20 budget.
 
 | run | date (UTC) | log | mode | tokens in | cache write | cache read | tokens out | reasoning | cost USD | total USD |
 |---|---|---|---|---|---|---|---|---|---|---|
