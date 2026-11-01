@@ -1,0 +1,9 @@
+{"task": "climaqa_mcq", "task_args": {"path": null}, "model": "anthropic/claude-sonnet-5-5", "items_sha256": "5f345d8e234b65a310b8de47f1d99059b47c6e2429c5f22b80b154ef6b698464", "created": "2026-11-01T00:32:01+00:00", "started": "2026-11-01T00:32:01+00:00", "completed": "2026-11-01T00:37:14+00:00", "commit": "bf24d34", "settings": {"batch": 100}, "inspect_ai": "0.3.286", "tokens": {"input": 1416, "cache_write": 0, "cache_read": 0, "output": 2451, "reasoning": 0}, "log": "2026-11-01T00-32-01-00-00_climaqa-mcq_ZtDZ2DdTYBXLLY7oKJbxxL.eval", "log_dir": "logs/2026-11-01-climaqa-claude-sonnet-5-5-probe"}
+{"id": "gold/mcq/119", "answer": "C", "reward": 1.0, "tokens": [209, 0, 0, 211, 0], "complexity": "HYPOTHETICAL", "key": "C", "key_longest": false}
+{"id": "gold/mcq/231", "answer": "C", "reward": 1.0, "tokens": [160, 0, 0, 157, 0], "complexity": "BASE", "key": "C", "key_longest": true}
+{"id": "gold/mcq/247", "answer": "C", "reward": 1.0, "tokens": [266, 0, 0, 547, 0], "complexity": "REASONING", "key": "C", "key_longest": false}
+{"id": "gold/mcq/266", "answer": "A", "reward": 1.0, "tokens": [138, 0, 0, 483, 0], "complexity": "BASE", "key": "A", "key_longest": false}
+{"id": "gold/mcq/275", "answer": "C", "reward": 1.0, "tokens": [200, 0, 0, 230, 0], "complexity": "BASE", "key": "C", "key_longest": true}
+{"id": "gold/mcq/53", "answer": "A", "reward": 1.0, "tokens": [128, 0, 0, 397, 0], "complexity": "BASE", "key": "A", "key_longest": true}
+{"id": "gold/mcq/57", "answer": "B", "reward": 1.0, "tokens": [152, 0, 0, 132, 0], "complexity": "HYPOTHETICAL", "key": "B", "key_longest": true}
+{"id": "gold/mcq/77", "answer": "B", "reward": 1.0, "tokens": [163, 0, 0, 294, 0], "complexity": "REASONING", "key": "B", "key_longest": true}

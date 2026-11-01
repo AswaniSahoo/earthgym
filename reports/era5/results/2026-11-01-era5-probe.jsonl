@@ -1,0 +1,11 @@
+{"task": "era5_forecast", "task_args": {"path": null}, "model": "google/vertex/gemini-3.8-flash", "items_sha256": "c4a1dd7c96a0a94d3b70843ae0931670e92be7f3edec851807aa2f7b2dfb28e0", "created": "2026-10-31T21:39:28+00:00", "started": "2026-10-31T21:39:28+00:00", "completed": "2026-10-31T21:40:01+00:00", "commit": "c725bc3", "settings": {}, "inspect_ai": "0.3.286", "tokens": {"input": 4893, "cache_write": 0, "cache_read": 0, "output": 19162, "reasoning": 16235}, "log": "2026-10-31T21-39-28-00-00_era5-forecast_PiXfsemUcPBk3SFpC7g64C.eval", "log_dir": "logs/2026-11-01-era5-probe"}
+{"id": "mean_sea_level_pressure/2020-01-20T00/24h/8-56", "answer": "101150.0", "reward": 0.0, "tokens": [490, 0, 0, 2513, 2173]}
+{"id": "mean_sea_level_pressure/2020-04-22T12/24h/0-54", "answer": "100310.0", "reward": 0.661097852028634, "tokens": [482, 0, 0, 1702, 1307]}
+{"id": "mean_sea_level_pressure/2020-05-14T00/24h/7-42", "answer": "99250.0", "reward": 0.12099301036395321, "tokens": [479, 0, 0, 2118, 1824]}
+{"id": "mean_sea_level_pressure/2020-06-19T12/24h/24-44", "answer": "101260.0", "reward": 0.8882175226585386, "tokens": [492, 0, 0, 1719, 1390]}
+{"id": "mean_sea_level_pressure/2020-07-29T12/24h/22-51", "answer": "101810.0", "reward": 0.0, "tokens": [492, 0, 0, 1750, 1482]}
+{"id": "mean_sea_level_pressure/2020-09-21T12/24h/10-25", "answer": "101870.0", "reward": 0.0, "tokens": [492, 0, 0, 1963, 1701]}
+{"id": "mean_sea_level_pressure/2020-10-06T00/24h/13-6", "answer": "101355.0", "reward": 0.0, "tokens": [491, 0, 0, 1380, 1153]}
+{"id": "mean_sea_level_pressure/2020-10-13T12/24h/21-60", "answer": "101590.0", "reward": 0.0, "tokens": [492, 0, 0, 1973, 1641]}
+{"id": "mean_sea_level_pressure/2020-10-29T12/24h/10-47", "answer": "102510.0", "reward": 0.8909004287756321, "tokens": [492, 0, 0, 1643, 1341]}
+{"id": "mean_sea_level_pressure/2020-11-20T12/24h/26-17", "answer": "102990.0", "reward": 0.0, "tokens": [491, 0, 0, 2401, 2223]}

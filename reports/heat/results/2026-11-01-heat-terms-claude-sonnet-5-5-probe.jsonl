@@ -1,0 +1,7 @@
+{"task": "heat_basis", "task_args": {"path": null, "rules": false}, "model": "anthropic/claude-sonnet-5-5", "items_sha256": "9d72cd645114e2cae15ed678386d06b817d0e52350b7575149814688cf5b3fba", "created": "2026-11-01T01:47:51+00:00", "started": "2026-11-01T01:47:51+00:00", "completed": "2026-11-01T01:50:44+00:00", "commit": "b81449e", "settings": {"cache_prompt": false, "batch": 100}, "inspect_ai": "0.3.286", "tokens": {"input": 12325, "cache_write": 0, "cache_read": 0, "output": 4600, "reasoning": 2817}, "log": "2026-11-01T01-47-51-00-00_heat-basis_kCatmvXTDguaQ3pR5kcvN8.eval", "log_dir": "logs/2026-11-01-heat-terms-claude-sonnet-5-5-probe"}
+{"id": "events/USW00003184/USC00028499/2017/107/4", "answer": "2.0", "reward": 1.0, "tokens": [2060, 0, 0, 887, 550], "recognized": false}
+{"id": "events/USW00003192/USW00023183/2020/115/2", "answer": "0.0", "reward": 1.0, "tokens": [2082, 0, 0, 541, 201], "recognized": false}
+{"id": "missed_days/USW00003184/USC00028499/2018/100", "answer": "15.0", "reward": 1.0, "tokens": [2030, 0, 0, 1174, 805], "recognized": false}
+{"id": "missed_days/USW00003184/USC00028499/2019/107", "answer": "3.0", "reward": 0.0, "tokens": [1991, 0, 0, 815, 504], "recognized": false}
+{"id": "trigger_days/USW00003184/USW00023183/2015/103", "answer": "58.0", "reward": 1.0, "tokens": [2086, 0, 0, 797, 614], "recognized": false}
+{"id": "trigger_days/USW00003192/USW00023183/2018/112", "answer": "5.0", "reward": 1.0, "tokens": [2076, 0, 0, 386, 143], "recognized": false}

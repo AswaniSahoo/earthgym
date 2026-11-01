@@ -1,0 +1,7 @@
+{"task": "ibtracs_storm", "task_args": {"path": null, "rules": false}, "model": "anthropic/claude-sonnet-5-5", "items_sha256": "75fe4ff21694afe17e0336cf5e669ba8f8f6d4a84a9d48e4b451b75bf888f12b", "created": "2026-11-01T01:25:19+00:00", "started": "2026-11-01T01:25:19+00:00", "completed": "2026-11-01T01:31:02+00:00", "commit": "560448f", "settings": {"batch": 100}, "inspect_ai": "0.3.286", "tokens": {"input": 24, "cache_write": 9935, "cache_read": 0, "output": 4722, "reasoning": 2826}, "log": "2026-11-01T01-25-19-00-00_ibtracs-storm_L6V4kDsy4NmRkxqwFiqgD5.eval", "log_dir": "logs/2026-11-01-ibtracs-hidden-claude-sonnet-5-5-probe"}
+{"id": "ace/1988221N30270", "answer": "1.1", "reward": 1.0, "tokens": [4, 755, 0, 723, 359], "recognized": false}
+{"id": "ace/2000255N31289", "answer": "8.5", "reward": 1.0, "tokens": [4, 1389, 0, 1122, 616], "recognized": false}
+{"id": "hurricane_hours/2000273N16277", "answer": "75.0", "reward": 0.0, "tokens": [4, 1520, 0, 1435, 1071], "recognized": false}
+{"id": "hurricane_hours/2001327N31309", "answer": "63.0", "reward": 0.0, "tokens": [4, 2077, 0, 859, 576], "recognized": false}
+{"id": "peak_category/1992230N11325", "answer": "5.0", "reward": 1.0, "tokens": [4, 2161, 0, 360, 204], "recognized": false}
+{"id": "peak_category/2005289N18282", "answer": "5.0", "reward": 1.0, "tokens": [4, 2033, 0, 223, 0], "recognized": true}

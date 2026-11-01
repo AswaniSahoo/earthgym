@@ -1,0 +1,13 @@
+{"task": "era5_forecast", "task_args": {"path": null}, "model": "anthropic/claude-sonnet-5-5", "items_sha256": "c4a1dd7c96a0a94d3b70843ae0931670e92be7f3edec851807aa2f7b2dfb28e0", "created": "2026-10-31T22:48:33+00:00", "started": "2026-10-31T22:48:33+00:00", "completed": "2026-10-31T22:54:35+00:00", "commit": "dc30b0e", "settings": {"batch": 100}, "inspect_ai": "0.3.286", "tokens": {"input": 5382, "cache_write": 0, "cache_read": 0, "output": 4102, "reasoning": 0}, "log": "2026-10-31T22-48-33-00-00_era5-forecast_3mwW4PGanWPCjUNPTcLKvh.eval", "log_dir": "logs/2026-11-01-era5-claude-sonnet-5-5-probe"}
+{"id": "2m_temperature/2020-01-06T00/48h/14-15", "answer": "299.75", "reward": 0.0, "tokens": [437, 0, 0, 355, 0]}
+{"id": "2m_temperature/2020-02-19T00/24h/6-4", "answer": "275.9", "reward": 0.8999999999999432, "tokens": [437, 0, 0, 327, 0]}
+{"id": "2m_temperature/2020-05-18T12/72h/12-17", "answer": "297.1", "reward": 0.0, "tokens": [437, 0, 0, 323, 0]}
+{"id": "2m_temperature/2020-07-28T12/24h/24-8", "answer": "305.6", "reward": 0.0, "tokens": [437, 0, 0, 324, 0]}
+{"id": "2m_temperature/2020-09-25T00/72h/31-44", "answer": "264.3", "reward": 0.0, "tokens": [437, 0, 0, 339, 0]}
+{"id": "2m_temperature/2020-12-14T12/48h/15-26", "answer": "300.1", "reward": 0.5714285714285134, "tokens": [437, 0, 0, 302, 0]}
+{"id": "mean_sea_level_pressure/2020-01-31T12/72h/12-45", "answer": "101660.0", "reward": 0.0, "tokens": [460, 0, 0, 440, 0]}
+{"id": "mean_sea_level_pressure/2020-03-08T12/48h/27-17", "answer": "101350.0", "reward": 0.0, "tokens": [460, 0, 0, 388, 0]}
+{"id": "mean_sea_level_pressure/2020-04-22T12/24h/0-54", "answer": "100200.0", "reward": 0.6825775656324866, "tokens": [460, 0, 0, 336, 0]}
+{"id": "mean_sea_level_pressure/2020-05-18T12/72h/20-0", "answer": "101200.0", "reward": 0.607894736842067, "tokens": [460, 0, 0, 363, 0]}
+{"id": "mean_sea_level_pressure/2020-10-06T00/24h/13-6", "answer": "101355.0", "reward": 0.0, "tokens": [460, 0, 0, 281, 0]}
+{"id": "mean_sea_level_pressure/2020-12-26T12/48h/19-48", "answer": "101800.0", "reward": 0.6181015452538632, "tokens": [460, 0, 0, 324, 0]}

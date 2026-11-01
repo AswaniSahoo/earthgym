@@ -10,7 +10,7 @@ from era5_forecast_v1.taskset import records as era5_items
 from heat_basis_v1.taskset import records as heat_items
 from ibtracs_storm_v1.taskset import records as ibtracs_items
 
-from rlenv import results
+from rlenv import results, spend
 from rlenv.climaqa import compare
 from rlenv.climaqa import report as climaqa_report
 from rlenv.era5 import report as era5_report
@@ -76,3 +76,25 @@ def test_the_climaqa_comparison_re_renders_from_the_results():
     assert compare.render(rows, levels, dirs, strict) == out.with_suffix(".md").read_text("utf-8")
     record = json.dumps({"rows": rows, "strict": strict, "levels": levels}, indent=1, default=str)
     assert record == out.with_suffix(".json").read_text("utf-8")
+
+
+def test_every_ledger_row_has_the_tokens_of_its_committed_results():
+    heads = [results.read(p)[0] for p in sorted(R.glob("*/results/*.jsonl"))]
+    rows = 0
+    for line in spend.LEDGER.read_text("utf-8").splitlines():
+        if not line.startswith("| ") or line.startswith("| run "):
+            continue
+        cells = [c.strip() for c in line.strip("| ").split(" | ")]
+        found = [h for h in heads if h["log_dir"] == cells[2]]  # ClimaQA: one file per task
+        assert found, cells[0]
+        assert [sum(h["tokens"][k] for h in found) for k in spend.KINDS] == [
+            int(c) for c in cells[4:9]
+        ], cells[0]
+        rows += 1
+    assert rows == 12
+
+
+def test_the_gemini_era5_probe_projects_the_tokens_decision_0010_gives():
+    head, rows = load("era5", "2026-11-01-era5-probe")
+    tokens = head["tokens"]["input"] + head["tokens"]["output"]
+    assert (len(rows), tokens * 720 // len(rows)) == (10, 1_731_960)
