@@ -1,12 +1,20 @@
 # Clean ClimaQA v1: anthropic/claude-sonnet-5-5 against google/vertex/gemini-3.8-flash
 
 Each item paired across the two runs. McNemar's exact test on the items only one model
-got right, two-sided.
+got right, two-sided. Clean set v1 is exact-overlap-filtered: 21 near matches of Silver
+stay in, unresolved, and the strict variant below leaves them out.
 
 | task | n | accuracy google/vertex/gemini-3.8-flash | accuracy anthropic/claude-sonnet-5-5 | both right | both wrong | only google/vertex/gemini-3.8-flash | only anthropic/claude-sonnet-5-5 | McNemar p |
 |---|---|---|---|---|---|---|---|---|
 | climaqa_cloze | 128 | 0.742 | 0.508 | 62 | 30 | 33 | 3 | 0.000 |
 | climaqa_mcq | 222 | 0.874 | 0.874 | 188 | 22 | 6 | 6 | 1.000 |
+
+## Strict variant: the near matches of Silver left out
+
+| task | n | accuracy google/vertex/gemini-3.8-flash | accuracy anthropic/claude-sonnet-5-5 | both right | both wrong | only google/vertex/gemini-3.8-flash | only anthropic/claude-sonnet-5-5 | McNemar p |
+|---|---|---|---|---|---|---|---|---|
+| climaqa_cloze | 119 | 0.739 | 0.513 | 58 | 28 | 30 | 3 | 0.000 |
+| climaqa_mcq | 210 | 0.871 | 0.871 | 177 | 21 | 6 | 6 | 1.000 |
 
 ## Accuracy by complexity
 

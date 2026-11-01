@@ -1,6 +1,6 @@
 # ClimaQA baseline
 
-Clean set v1, sha256 `5f345d8e234b65a310b8de47f1d99059b47c6e2429c5f22b80b154ef6b698464`, scored by climaqa_v1/contract.py.
+Clean set v1 (exact-overlap-filtered; 21 near matches of Silver unresolved), sha256 `5f345d8e234b65a310b8de47f1d99059b47c6e2429c5f22b80b154ef6b698464`, scored by climaqa_v1/contract.py.
 
 | task | model | n | accuracy | stderr | format failures |
 |---|---|---|---|---|---|
