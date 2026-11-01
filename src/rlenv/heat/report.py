@@ -301,7 +301,10 @@ def render(s: dict) -> str:
 def render_pair(shown: dict, hidden: dict) -> str:
     """The rules-shown and terms-only runs side by side (the ablation in decision 0013)."""
     flag = "the policy terms alone (`-T rules=false`)"
-    clause = "which a policy would take from the reward in a few steps, not a skill it would learn"
+    clause = (
+        "and, as an untested guess, one a policy would take from the reward in a few steps "
+        "rather than learn as a skill"
+    )
     text = ablation.render_pair(
         shown, hidden, "heat-basis-v1", "terms only", flag, "with terms only", clause
     )

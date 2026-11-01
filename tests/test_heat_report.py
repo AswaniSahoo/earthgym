@@ -148,6 +148,7 @@ def test_a_small_drop_that_one_reading_explains_is_a_convention_gap():
     text = report.render_pair(shown, {"model": "m/x", "n": 100, "reward": 0.89, "questions": [h]})
     assert "6 of the 11 misses follow a careless reading" in text and "convention gap" in text
     assert "constant offset" not in text and "in a few steps" in text
+    assert "an untested guess" in text
 
 
 def test_pair_report_says_where_the_differing_items_sit():

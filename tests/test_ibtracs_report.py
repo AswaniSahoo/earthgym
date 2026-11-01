@@ -141,6 +141,7 @@ def test_pair_report_names_a_convention_gap_per_question():
     text = report.render_pair(shown, hidden)
     assert "- ace: 0.990 with the rules shown, 0.990 hidden: near the ceiling either way" in text
     assert "57 of the 87 misses follow a careless reading" in text and "convention gap" in text
+    assert "an untested guess" in text
     assert "room to learn" not in text
     assert "name the storm or its season: 2 of 300 with the rules shown, 2 hidden" in text
 

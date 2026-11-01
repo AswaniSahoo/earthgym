@@ -268,7 +268,8 @@ def render_pair(shown: dict, hidden: dict) -> str:
         "rules hidden",
         "the rule left out (`-T rules=false`)",
         "hidden",
-        "which a policy would close as a constant offset rather than learn as a skill",
+        "and, as an untested guess, one a policy would close as a constant offset rather than "
+        "learn as a skill",
     )
 
 
