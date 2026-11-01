@@ -49,4 +49,9 @@ Out, for later: other cities, heat index or wet-bulb triggers, money amounts and
 the rules-hidden ablation.
 
 Consequences: answers are exact, the basis risk is real station data, and the careless
-readings measure how often each rule changes the answer.
+readings measure how often each rule changes the answer. Measured on the 300 items
+(`rlenv.heat.report.careless`, items sha256 9d72cd64): strictly above the threshold is
+right on 7 of 100 trigger-day items and the site's column on 3; for events, trigger days
+on 3, every run on 9, missing days skipped on 99; for missed days, every hot site day on 2,
+both ways on 71, missing index days left out on 92. The airport index stations have few
+gaps, so the missing-value rules rarely change an answer; the report says so.
