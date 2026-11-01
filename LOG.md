@@ -2,6 +2,16 @@
 
 Newest first. One entry per working session: what changed, what we learned, what is next.
 
+## 2026-11-01, a wait that could not end
+
+- Bug, found by lfx-prep-b7: the wait for the Phase 5 terms-only probe was
+  `while pgrep -f "inspect eval src/rlenv/heat"; do sleep 10; done`, and `pgrep -f` matched
+  the waiting shell's own command line, which holds the same text, so the loop never ended
+  (2 hours). The same pattern in the one-off checks reported "probe still running" at 07:19,
+  07:21 and 07:23, when the probe had finished at 07:20. Waits now use the run's own
+  completion notice (`run_in_background`), a PID, or a pattern that cannot match itself
+  (`pgrep -f "[i]nspect eval ..."`).
+
 ## 2026-11-01, Phase 4 ablation and review
 
 - Rules-hidden ablation on the same 300 items: 0.703 against the control's 0.997. ACE and
