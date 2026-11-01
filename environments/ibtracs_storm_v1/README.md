@@ -1,5 +1,9 @@
 # ibtracs-storm-v1
 
+Saturated for a frontier model with the rules shown: Claude Sonnet 5.5 gets 299 of 300 items
+right (0.997). I keep this version as the control for the rules-hidden ablation (0.703) and for
+small-model curricula (`reports/ibtracs/2026-11-01-rules-shown-vs-hidden.md`).
+
 Per-storm questions about North Atlantic tropical cyclones from IBTrACS, with exact answers
 (decisions 0009 and 0011). Each of the 300 items is one storm from the 1980 to 2025 seasons and
 one question: its accumulated cyclone energy (100 items), its peak Saffir-Simpson category (100)

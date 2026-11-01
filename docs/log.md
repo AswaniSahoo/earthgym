@@ -135,7 +135,7 @@ Newest first. One entry per working session: what changed, what I learned, what 
 
 - ERA5 through the Batch API: a 12-item probe ($0.0259, mean reward 0.282), then all 720 from
   bbafe0e: 720 parsed, 0 errors, mean reward 0.116 (stderr 0.009), $1.6126 against a
-  projection of $1.55 to $1.64. IFS HRES earns 0.30 to 0.67 per cell. The model beats
+  projection of $1.55 to $1.64. IFS HRES earns 0.30 to 0.67 per variable and lead. The model beats
   persistence RMSE at every lead but trails climatology for MSLP at 72 h (738.1 against 726.1
   Pa). No reply used extended thinking: 0 reasoning tokens, about 360 output tokens an item.
   Report: reports/era5/2026-11-01-claude-sonnet-5-5.md.

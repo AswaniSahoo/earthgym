@@ -1,5 +1,9 @@
 # heat-basis-v1
 
+Saturated for a frontier model with the rules shown: Claude Sonnet 5.5 gets 296 of 300 items
+right (0.987). I keep this version as the control for the terms-only ablation (0.960) and for
+small-model curricula (`reports/heat/2026-11-01-rules-shown-vs-terms-only.md`).
+
 Questions about a parametric heat policy over real station data, with exact answers (decisions
 0012 and 0013). The index stations are two Phoenix-area airports (Scottsdale Municipal and
 Phoenix Deer Valley Municipal); the insured sites are in the hotter urban core (Phoenix Sky
