@@ -4,6 +4,7 @@ uv run python -m rlenv.ibtracs.report <log dir> --out reports/ibtracs/<date>-<mo
 """
 
 import argparse
+import datetime as dt
 import json
 import statistics
 from pathlib import Path
@@ -44,7 +45,12 @@ def careless(item: dict) -> dict:
                 max((w for _, s, w, _ in synoptic if s == "HU"), default=0)
             ),
         }
-    return {"hours over every HU row": 6 * sum(s == "HU" for _, s, _, _ in rows)}
+    hu = [dt.datetime.fromisoformat(time) for time, s, _, _ in rows if s == "HU"]
+    elapsed = (max(hu) - min(hu)).total_seconds() / 3600 if hu else 0
+    return {
+        "hours over every HU row": 6 * len(hu),
+        "elapsed time, first to last HU row": round(elapsed),
+    }
 
 
 def best_constant(items: list[dict]) -> tuple[float, float]:

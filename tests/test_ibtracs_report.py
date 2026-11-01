@@ -36,7 +36,10 @@ def test_careless_readings_fall_into_each_trap():
     }
     landfall = item("peak_category", "J", [("06:00", "HU", 90), ("17:45", "HU", 96)], 3)
     assert report.careless(landfall)["category from synoptic rows only"] == 2
-    assert report.careless(ITEMS[2]) == {"hours over every HU row": 18}
+    assert report.careless(ITEMS[2]) == {
+        "hours over every HU row": 18,
+        "elapsed time, first to last HU row": 6,  # 06:00 to 12:00
+    }
 
 
 def test_best_constant_is_the_single_answer_right_most_often():
