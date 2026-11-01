@@ -64,3 +64,16 @@ def test_prompt_gives_history_and_climatology_but_never_the_truth_or_hres():
     for shown in ["290.12", "288.47", "289.05", "24 hours", "2020-07-02T00", "K", "ANSWER:"]:
         assert shown in text
     assert "291.33" not in text and "290.88" not in text
+
+
+def test_items_group_by_the_iso_week_of_the_init_and_split_by_a_hash_of_it():
+    from collections import Counter
+
+    from era5_forecast_v1.taskset import records
+
+    assert contract.group({"init_time": "2020-07-01T00"}) == "2020-W27"
+    week = [{"init_time": "2020-07-01T00"}, {"init_time": "2020-07-03T12"}]
+    assert contract.split(week[0]) == contract.split(week[1])
+    counts = Counter(contract.split(r) for r in records())
+    assert set(counts) == {"train", "test"}
+    assert 0.1 < counts["test"] / sum(counts.values()) < 0.35

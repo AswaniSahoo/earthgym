@@ -4,7 +4,9 @@ The Inspect task and the verifiers taskset both import this module, so they read
 replies and pay the same reward.
 """
 
+import hashlib
 import re
+from datetime import datetime
 
 VARIABLES = {  # WB2 name: (name in the prompt, unit); each item carries its reward floor
     "mean_sea_level_pressure": ("mean sea level pressure", "Pa"),
@@ -59,3 +61,15 @@ def reward(
     if scale == 0:
         return 0.0  # a baseline is exact and there is no floor: no skill left to earn
     return min(1.0, max(0.0, (baseline - abs(forecast - truth)) / scale))
+
+
+def group(item: dict) -> str:
+    """The held-out group: the ISO week of the init time, so forecasts that share the same
+    weather fall on one side of a split."""
+    year, week, _ = datetime.strptime(item["init_time"], "%Y-%m-%dT%H").isocalendar()
+    return f"{year}-W{week:02d}"
+
+
+def split(item: dict) -> str:
+    """'test' for about one group in five, picked by a hash of the group key, else 'train'."""
+    return "test" if hashlib.sha256(group(item).encode()).digest()[0] % 5 == 0 else "train"
