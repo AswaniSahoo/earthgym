@@ -3,7 +3,8 @@
 uv run python -m rlenv.ibtracs.data   # about 58 MB over anonymous HTTPS, writes data/ibtracs/
 
 NCEI publishes no checksum and overwrites its files in place (docs/radar.md), so the pin is
-our own sha256 of the build we fetched, and the copy under data/ is the one we keep. IBTrACS
+our own sha256 of the build we fetched, and the copy under data/ is the one we keep. The same
+build is an asset of the repo's data-v1 release, which fetch tries first (decision 0018). IBTrACS
 terms: "full and open access", WMO Resolution 40 for commercial use. Cite Knapp, Kruk,
 Levinson, Diamond and Neumann (2010), BAMS 91, doi:10.1175/2009BAMS2755.1, and Gahtan et al.
 (2024), IBTrACS Version 4r01, NOAA NCEI, doi:10.25921/82ty-9e16 (docs/radar.md).
@@ -20,6 +21,8 @@ URL = (
     "ibtracs/v04r01/access/csv/ibtracs.NA.list.v04r01.csv"
 )
 PATH = Path("data/ibtracs/ibtracs.NA.list.v04r01.csv")
+# the same build, kept as an asset of the repo's data-v1 release (decision 0018)
+MIRROR = "https://github.com/AswaniSahoo/rlenv/releases/download/data-v1/ibtracs.NA.list.v04r01.csv"
 SHA256 = "666681be5b12caf5bad7a511bae5f6e5fa8b03789f7f6dd00ee2f0aaa41c2c97"  # 2026-10-30 build
 SIZE, LAST_MODIFIED = 57_593_323, "Fri, 30 Oct 2026 04:27:28 GMT"  # HEAD, 2026-11-01
 
@@ -29,16 +32,24 @@ def _sha256(raw: bytes) -> str:
 
 
 def fetch(path: Path = PATH, opener=urllib.request.urlopen) -> Path:
-    """The pinned file: kept if the copy on disk matches, else downloaded and checked."""
+    """The pinned file: kept if the copy on disk matches, else downloaded from the release
+    mirror or, failing that, from NCEI, and kept only if its sha256 is the pin."""
     if path.exists() and _sha256(path.read_bytes()) == SHA256:
         return path
-    with opener(URL, timeout=300) as response:
-        raw = response.read()
-    if (got := _sha256(raw)) != SHA256:
-        raise ValueError(f"NCEI now serves another build: sha256 {got}, pinned {SHA256}")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(raw)
-    return path
+    failures = []
+    for url in (MIRROR, URL):
+        try:
+            with opener(url, timeout=300) as response:
+                raw = response.read()
+        except OSError as error:  # urllib's URLError and HTTPError are OSErrors
+            failures.append(f"{url}: {error}")
+            continue
+        if (got := _sha256(raw)) == SHA256:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(raw)
+            return path
+        failures.append(f"{url}: another build, sha256 {got}")
+    raise ValueError(f"no source serves the pinned build {SHA256}: " + "; ".join(failures))
 
 
 def read(path: Path = PATH, columns: tuple[str, ...] = ()) -> list[dict]:

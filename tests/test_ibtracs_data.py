@@ -1,5 +1,6 @@
 import hashlib
 import io
+import urllib.error
 
 import pytest
 
@@ -21,25 +22,41 @@ class Body(io.BytesIO):
         return False
 
 
-def opener_for(payload, calls):
+def opener_for(payloads, calls):
+    """An opener that serves each URL its payload, or raises 404 for a URL it lacks."""
+
     def opener(url, timeout):
         calls.append(url)
-        return Body(payload)
+        if url not in payloads:
+            raise urllib.error.HTTPError(url, 404, "Not Found", None, None)
+        return Body(payloads[url])
 
     return opener
 
 
-def test_fetch_keeps_a_download_only_if_it_matches_the_pinned_sha256(tmp_path, monkeypatch):
+def test_fetch_takes_the_release_mirror_first_and_checks_its_sha256(tmp_path, monkeypatch):
     payload, calls = CSV.encode(), []
-    path = tmp_path / "na.csv"
-    monkeypatch.setattr(data, "SHA256", "0" * 64)
-    with pytest.raises(ValueError, match="sha256"):
-        data.fetch(path, opener=opener_for(payload, calls))
-    assert not path.exists()
     monkeypatch.setattr(data, "SHA256", hashlib.sha256(payload).hexdigest())
-    assert data.fetch(path, opener=opener_for(payload, calls)).read_bytes() == payload
-    data.fetch(path, opener=opener_for(payload, calls))  # a good copy is not fetched again
-    assert len(calls) == 2
+    path = data.fetch(tmp_path / "na.csv", opener=opener_for({data.MIRROR: payload}, calls))
+    assert path.read_bytes() == payload and calls == [data.MIRROR]
+    data.fetch(path, opener=opener_for({}, calls))  # a good copy is not fetched again
+    assert calls == [data.MIRROR]
+
+
+def test_fetch_falls_back_to_ncei_when_the_mirror_is_out_of_reach(tmp_path, monkeypatch):
+    payload, calls = CSV.encode(), []
+    monkeypatch.setattr(data, "SHA256", hashlib.sha256(payload).hexdigest())
+    path = data.fetch(tmp_path / "na.csv", opener=opener_for({data.URL: payload}, calls))
+    assert path.read_bytes() == payload and calls == [data.MIRROR, data.URL]
+
+
+def test_fetch_keeps_nothing_unless_a_source_serves_the_pinned_build(tmp_path, monkeypatch):
+    payload, calls = CSV.encode(), []
+    monkeypatch.setattr(data, "SHA256", "0" * 64)
+    with pytest.raises(ValueError, match="no source serves the pinned build") as error:
+        data.fetch(tmp_path / "na.csv", opener=opener_for({data.URL: payload}, calls))
+    assert "404" in str(error.value) and hashlib.sha256(payload).hexdigest() in str(error.value)
+    assert not (tmp_path / "na.csv").exists()
 
 
 def test_read_skips_the_units_row_and_strips_single_space_blanks(tmp_path):
