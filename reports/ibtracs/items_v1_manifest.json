@@ -1,0 +1,13 @@
+{
+ "file": "ibtracs_storm_v1.jsonl",
+ "n": 300,
+ "sha256": "75fe4ff21694afe17e0336cf5e669ba8f8f6d4a84a9d48e4b451b75bf888f12b",
+ "questions": {
+  "ace": 100,
+  "peak_category": 100,
+  "hurricane_hours": 100
+ },
+ "source_sha256": "666681be5b12caf5bad7a511bae5f6e5fa8b03789f7f6dd00ee2f0aaa41c2c97",
+ "seed": 2026,
+ "storms": 613
+}

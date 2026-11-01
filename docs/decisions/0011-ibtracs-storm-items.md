@@ -18,7 +18,10 @@ Items:
 - Three questions, one per storm, 100 storms each, drawn with a seeded sample (seed 2026): ACE
   over the named storms; peak Saffir-Simpson category and hours at hurricane strength over the
   storms with an HU row at 64 kt or more, since a storm that never was a hurricane answers 0
-  to both.
+  to both. ACE is drawn first, from all 613 eligible storms, so its sample keeps the
+  population's share of hurricanes (median 56 rows against 53 for all eligible named storms);
+  the other two draw from the hurricanes left. Items: 300, sha256 75fe4ff2
+  (`reports/ibtracs/items_v1_manifest.json`).
 - Prompt: every row of the storm in archive order (the 3-hourly interpolated rows and the
   extra rows at other times, such as landfall, stay in), with time as month, day and UTC
   hour, status, wind (kt) and pressure (mb). No name, year, SID, latitude or longitude, so a
