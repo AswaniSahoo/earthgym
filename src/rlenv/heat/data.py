@@ -24,6 +24,21 @@ STATIONS = {  # station: (sha256, size, Last-Modified), each fetched 2026-11-01
         1_479_584,
         "Sun, 01 Nov 2026 00:01:02 GMT",
     ),
+    "USC00028499": (  # Tempe ASU
+        "4fc9e28dc9ca2dec6039fa9f2b77ea5c823b76787b555b05e74dbd890030c806",
+        641_705,
+        "Sun, 01 Nov 2026 00:16:27 GMT",
+    ),
+    "USW00003192": (  # Scottsdale Municipal Airport
+        "96dd31bc57392a1e34f2bfcb636f5b3df774674e7e7ebb05390361595e3645de",
+        339_841,
+        "Sun, 01 Nov 2026 00:09:39 GMT",
+    ),
+    "USW00003184": (  # Phoenix Deer Valley Municipal Airport
+        "d92c5b9f75b9160ac6c8d4e706ae6a39f3685e7637580bc71981c6ed6c347e56",
+        391_089,
+        "Sun, 01 Nov 2026 00:09:39 GMT",
+    ),
 }
 
 
