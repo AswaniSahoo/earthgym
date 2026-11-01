@@ -2,6 +2,21 @@
 
 Newest first. One entry per working session: what changed, what we learned, what is next.
 
+## 2026-11-01, Phase 5 runs and review
+
+- Phase 5 on Sonnet 5.5, the rules-shown control: 296 of 300 (0.987), $1.8801; all four misses
+  are one extra day on missed days. Terms-only ablation: 0.960, $1.9036. Trigger days and events
+  stay at the ceiling; missed days fall from 0.96 to 0.89, and 7 of the 8 items where a missing
+  index value decides the key, all Deer Valley 2019, took the other reading.
+- Fable review of Phase 5 (correctness 9, publish-readiness 7): the heat reports said "storms"
+  and "rows" (Phase 4 wording), now seasons and days; the pair report called the missed-days
+  gap a constant offset, now a convention a policy would take from the reward; the reports name
+  Deer Valley 2019 as the only place the missing-value rules change a key, count misses off by
+  one (4 of 4 in the control) and replies that name a season (0 of 600), and carry five more
+  careless readings; CI's smoke runs now cover every question type.
+- Lesson: a template written for one phase carried its nouns into the next; a test now asserts
+  the heat reports never say "storm".
+
 ## 2026-11-01, a wait that could not end
 
 - Bug, found by lfx-prep-b7: the wait for the Phase 5 terms-only probe was

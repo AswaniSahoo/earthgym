@@ -13,7 +13,7 @@ without waiting between steps.
        reports/climaqa/2026-11-01-sonnet-vs-gemini.md.
 3. [x] Phase 4 complete: stage 2 environment (verifiers taskset and Inspect task, tests on
        mockllm), a Sonnet 5.5 baseline within the cap, a Fable review, and every fix landed.
-4. [ ] Phase 5 complete: heat-insurance basis-risk environment, in the same pattern. Scout
+4. [x] Phase 5 complete: heat-insurance basis-risk environment, in the same pattern. Scout
        radar first, a published number reproduced before the environment, then the
        environment, a baseline within the cap, a Fable review and the fixes.
 5. [ ] Final pass: README current, a blog-ready report per phase, a top-level SUMMARY.md of
@@ -97,9 +97,11 @@ Plan (2026-11-01, from the radar in docs/radar.md):
       exactly (reports/heat/2026-11-01-nws-phoenix-reproduction.md)
 - [x] Stage 2: heat-basis-v1, 300 items over 2 airport index stations and 2 city-core
       sites (sha256 9d72cd64); contract, taskset, Inspect task, report, CI
-- [ ] Sonnet 5.5 baseline: probe 6 of 6 ($0.0394); all 300 next (projected $1.97 to $2.53)
-- [ ] Terms-only ablation (`-T rules=false`): probe, then all 300, then the pair report
-- [ ] Fable review of Phase 5 and its fixes
+- [x] Rules-shown control: probe 6 of 6, then 296 of 300 (0.987), $1.8801
+- [x] Terms-only ablation (`-T rules=false`): probe 5 of 6, then 0.960, $1.9036;
+      reports/heat/2026-11-01-rules-shown-vs-terms-only.md
+- [x] Fable review of Phase 5 (reviews/phase-5-heat-basis.md): M1 to M5 and L1 to L4 landed;
+      L5 (release asset) and L6 (LICENSE) wait for Aswani
 
 ## Final pass
 

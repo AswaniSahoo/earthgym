@@ -14,7 +14,7 @@ ClimaQA. Later phases write new papers (environments) whose answers a program ca
 | 2 | Clean ClimaQA port (Inspect task, verifiers environment), Gemini 3.8 Flash baseline | done; v2 waits on the expert review (0005); the Jev third-reader study is built and parked (no key) |
 | 3 | ERA5 forecast-score environment, graded against weatherbench2 | done; Claude Sonnet 5.5 earns a mean reward of 0.116, IFS HRES 0.30 to 0.67 per cell (`reports/era5/2026-11-01-claude-sonnet-5-5.md`) |
 | 4 | IBTrACS cyclone analytics environment | done: `ibtracs-storm-v1`, 300 per-storm questions with exact answers. With the rules in the prompt (the control) Sonnet 5.5 scores 0.997; with them hidden 0.703, where ACE and peak category stay at 0.99 and hours become a convention test (`reports/ibtracs/2026-11-01-rules-shown-vs-hidden.md`) |
-| 5 | Heat-insurance basis-risk environment | built: `heat-basis-v1`, 300 policy questions over Phoenix-area stations, after reproducing NWS Phoenix's heat counts; Sonnet 5.5 scores 0.987 with the rules shown; the terms-only run and the review are next |
+| 5 | Heat-insurance basis-risk environment | done: `heat-basis-v1`, 300 policy questions over Phoenix-area stations, after reproducing NWS Phoenix's heat counts. With the rules shown (the control) Sonnet 5.5 scores 0.987; with the policy terms alone 0.960, where missed days fall to 0.89 on how a missing index value is read (`reports/heat/2026-11-01-rules-shown-vs-terms-only.md`) |
 
 Every model run uses Claude Sonnet 5.5 on the Anthropic key, with $20 in total as a hard cap;
 the spend is in `reports/spend.md` (decision 0010). No Vertex AI or Gemini calls are made from
