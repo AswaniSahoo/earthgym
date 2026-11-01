@@ -29,7 +29,7 @@ Decision:
   list of weaknesses names "large irrelevant state"). The model is pinned to `jev-1.14.0`, not
   an alias. The client is plain `urllib`, so no new dependency. Raw responses stay under
   `logs/`, which is not in git.
-- The key comes from `TYPESAFE_API_KEY` or `/data/rlenv/.env` (gitignored since 6473926); it
+- The key comes from `TYPESAFE_API_KEY` or `.env` at the repo root (gitignored since 6473926); it
   is never printed, logged or committed.
 - Spend: real calls up to $0.10 in total, Aswani's cap, at $0.042 per million input tokens with
   output free (docs.typesafe.ai/models, read 2026-10-31). The runner stops before the cap.

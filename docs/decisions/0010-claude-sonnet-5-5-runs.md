@@ -33,7 +33,7 @@ How we run it (Inspect 0.3.286 source paths are under `inspect_ai/`):
   `google/...` model nor `anthropic/vertex/...` can run here; `tests/test_spend.py` fails if
   either client comes back. Reading the old Gemini logs needs neither. CI runs only ruff,
   pytest, `vf-validate --only-noop` and an Inspect eval on `mockllm/model`.
-- Key: `ANTHROPIC_API_KEY` in `/data/rlenv/.env` (ignored by git, mode 600), added by Aswani.
+- Key: `ANTHROPIC_API_KEY` in `.env` at the repo root (ignored by git, mode 600), added by Aswani.
   The Inspect CLI loads it: `init_dotenv()` (`_cli/main.py:61`) calls
   `find_dotenv(usecwd=True)` (`_util/dotenv.py:23`) and overrides variables already set only
   inside VS Code (line 20). This shell sets no ANTHROPIC variable. The key is never printed
