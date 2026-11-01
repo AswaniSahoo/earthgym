@@ -5,6 +5,11 @@ expert-validated Gold split, with the items found verbatim in Silver (the paper'
 the defective items and the items that give their answer away removed. Source: Rose-STL-Lab/ClimaQA at revision 3f084a0, Apache-2.0,
 arXiv 2410.16701.
 
+The filter removes exact overlaps only. 21 kept items (12 MCQ, 9 cloze) are near matches of
+Silver that no human has ruled on yet; their ids are in `climaqa_v1/near_matches.json`. The
+strict variant leaves them out, 329 items: `ClimaqaConfig(strict=True)` in the taskset, or
+`-T strict=true` on the Inspect tasks.
+
 Rewards follow `climaqa_v1/contract.py`, the same contract the Inspect tasks use: an MCQ reply
 must end with a line that is only `ANSWER: X`; a cloze reply must equal the key after SQuAD-style
 normalization (case, punctuation and articles ignored).

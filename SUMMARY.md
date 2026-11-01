@@ -16,10 +16,12 @@ blog-ready write-ups tell each phase's story.
 
 Write-up: `reports/climaqa/2026-11-01-phase-1-writeup.md`.
 
-## Phase 2: a clean ClimaQA, and two models on it
+## Phase 2: a filtered ClimaQA, and two models on it
 
-- Clean set v1 keeps 350 items, 222 multiple choice and 128 cloze
-  (`reports/climaqa/clean_v1_manifest.json`).
+- Clean set v1 keeps 350 items, 222 multiple choice and 128 cloze, after removing exact overlaps
+  with Silver; 21 near matches stay in, unresolved (`reports/climaqa/clean_v1_manifest.json`).
+  On the strict variant without them, 329 items, the scores barely move: multiple choice 0.871
+  for both models, cloze 0.739 against 0.513 (`reports/climaqa/2026-11-01-sonnet-vs-gemini.md`).
 - Multiple choice: Gemini 3.8 Flash and Claude Sonnet 5.5 both score 0.874 and tie item for
   item (6 items each that only one model got right, McNemar p 1.0). Cloze: 0.742 against
   0.508; on 18 of Sonnet's 63 misses the last line alone is the key, and crediting those

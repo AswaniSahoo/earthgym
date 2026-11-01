@@ -1,7 +1,7 @@
 [project]
 name = "climaqa-v1"
 version = "0.1.0"
-description = "ClimaQA clean set v0 (validated Gold MCQ and cloze, leaks removed) with exact rewards."
+description = "ClimaQA clean set v1: validated Gold MCQ and cloze, exact-overlap-filtered (21 near matches of Silver unresolved; a strict variant leaves them out), with exact rewards."
 license = "MIT"
 requires-python = ">=3.11"
 dependencies = ["verifiers>=0.4.0,<0.5"]

@@ -1,4 +1,4 @@
-# A clean ClimaQA, and what two models score on it
+# A filtered ClimaQA, and what two models score on it
 
 Phase 2 of rlenv, written up on 2026-11-01. Every number below comes from a file in this repo;
 the source is named next to it.
@@ -10,7 +10,9 @@ Clean set v1 keeps 350 Gold items, 222 multiple choice and 128 cloze, at the pin
 experts rejected it (47), it leaks from Silver (26, plus 2 across tasks), its cloze answer
 appears outside the blank (24), or its options are broken (2 "all or none of the above", 5
 with the answer in the question, 1 with duplicate options); an item can have more than one
-reason. One answer contract scores both harnesses, the Inspect tasks and the verifiers
+reason. The filter removes exact overlaps only: 21 kept items are near matches of Silver that
+no human has ruled on, and a strict variant of 329 items leaves them out. One answer contract
+scores both harnesses, the Inspect tasks and the verifiers
 taskset: a multiple-choice reply must end with a line `ANSWER: X`; a cloze reply must be the
 missing word or phrase, matched after case, punctuation and articles are folded
 (`environments/climaqa_v1/climaqa_v1/contract.py`).
@@ -33,6 +35,9 @@ wrote more than one line on 34 of its 128 replies, often explaining first and en
 word in bold; Gemini never did. On 18 of Sonnet's 63 misses the last line alone is the key.
 Crediting those 18 would still leave Sonnet at 0.648, below Gemini's 0.742, so not all of the
 gap is format.
+
+On the strict variant the picture holds: multiple choice 0.871 for both models over 210
+items, cloze 0.739 against 0.513 over 119 (same report, strict table).
 
 ## Where both models agree and are both wrong
 
