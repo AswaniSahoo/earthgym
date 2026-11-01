@@ -15,6 +15,12 @@ from inspect_ai.log import EvalLog, list_eval_logs, read_eval_log
 from rlenv import spend
 from rlenv.ibtracs import stats
 
+TESTS = {  # what a question still tests when its careless reading is right anyway
+    "ace": "summing the squares",
+    "peak_category": "reading the Saffir-Simpson scale",
+    "hurricane_hours": "counting the rows",
+}
+
 
 def _category(knots: int) -> int:
     return next((c for k, c in stats.CATEGORIES if knots >= k), 0)
@@ -192,9 +198,18 @@ def render(s: dict) -> str:
         "- North Atlantic storms from 1980 to 2025 only, with the rules in the prompt; the",
         "  rules-hidden ablation is not run here.",
         "- The cost uses the token counts in the log; the Anthropic Console's bill is not read.",
-        "",
     ]
-    return "\n".join(lines)
+    for r in s[
+        "questions"
+    ]:  # a careless reading that is mostly right shows a trap that rarely bites
+        for name, acc in r["baselines"].items():
+            if acc >= 0.9:
+                lines.append(
+                    f"- {r['question']}: '{name}' is right on {round(acc * r['n'])} of {r['n']} "
+                    f"items, so on these storms the question mostly tests {TESTS[r['question']]}, "
+                    "not the rule's choice of rows (decision 0011)."
+                )
+    return "\n".join([*lines, ""])
 
 
 def main() -> None:

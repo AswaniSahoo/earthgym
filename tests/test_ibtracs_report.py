@@ -79,3 +79,7 @@ def test_render_lists_the_model_the_constant_and_the_careless_readings(log):
     assert "| ace | ACE over every row | 1 | 0.000 |" in text
     assert "| peak_category | best constant (1) | 1 | 1.000 |" in text
     assert "## Limits" in text
+    # a careless reading right on most items means the question tests something else
+    line = "- peak_category: 'category from synoptic rows only' is right on 1 of 1 items"
+    assert line in text and "reading the Saffir-Simpson scale" in text
+    assert "- ace: '" not in text
