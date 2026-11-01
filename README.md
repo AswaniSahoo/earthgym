@@ -12,9 +12,13 @@ ClimaQA. Later phases write new papers (environments) whose answers a program ca
 |---|---|---|
 | 1 | ClimaQA audit: integrity checks, paper cross-check, human hand-check sample | done; hand-checks wait |
 | 2 | Clean ClimaQA port (Inspect task, verifiers environment), Gemini 3.8 Flash baseline | done; v2 waits on the expert review (0005); the Jev third-reader study is built and parked (no key) |
-| 3 | ERA5 forecast-score environment, graded against weatherbench2 | done; the first model run waits for Aswani |
-| 4 | IBTrACS cyclone analytics environment | in progress |
-| 5 | Heat-insurance basis-risk environment | planned |
+| 3 | ERA5 forecast-score environment, graded against weatherbench2 | done; Claude Sonnet 5.5 earns a mean reward of 0.116, IFS HRES 0.30 to 0.67 per cell (`reports/era5/2026-11-01-claude-sonnet-5-5.md`) |
+| 4 | IBTrACS cyclone analytics environment | stage 2 built: `ibtracs-storm-v1`, 300 per-storm questions with exact answers; the Sonnet 5.5 baseline is next |
+| 5 | Heat-insurance basis-risk environment | radar check running |
+
+Every model run uses Claude Sonnet 5.5 on the Anthropic key, with $20 in total as a hard cap;
+the spend is in `reports/spend.md` (decision 0010). No Vertex AI or Gemini calls are made from
+2026-11-01; the earlier Gemini results stay as recorded.
 
 ## Run
 
