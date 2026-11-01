@@ -3,19 +3,17 @@ from types import SimpleNamespace
 import pytest
 from inspect_ai.scorer import CORRECT, INCORRECT, Score
 
-from rlenv.climaqa import compare
+from rlenv.climaqa import compare, report
 
 
 def sample(sid, right, answer, level="BASE"):
-    score = Score(value=CORRECT if right else INCORRECT, answer=answer)
-    return SimpleNamespace(
-        id=sid, scores={"contract_scorer": score}, metadata={"complexity": level}
-    )
+    """One row of per-item results (rlenv.results)."""
+    return {"id": sid, "reward": 1.0 if right else 0.0, "answer": answer, "complexity": level}
 
 
 def log(model, samples):
-    spec = SimpleNamespace(task="climaqa_mcq", model=model)
-    return SimpleNamespace(eval=spec, samples=samples)
+    """A run: its header and its rows."""
+    return {"task": "climaqa_mcq", "model": model}, samples
 
 
 def test_mcnemar_is_the_exact_two_sided_binomial_test_on_discordant_pairs():
@@ -54,22 +52,27 @@ def test_render_shows_paired_counts_the_test_and_shared_wrong_answers():
     assert "climaqa_mcq: 1 item (2)" in text
 
 
-def replied(sid, right, completion, target="hematite"):
-    s = sample(sid, right, "")
-    s.output, s.target = SimpleNamespace(completion=completion), target
-    return s
+def cloze(sid, right, completion, target="hematite"):
+    """A cloze sample as a log holds it, for the flags report.rows reads from the reply."""
+    return SimpleNamespace(
+        id=sid,
+        scores={"s": Score(value=CORRECT if right else INCORRECT, answer="")},
+        error=None,
+        model_usage={},
+        metadata={"task": "cloze", "complexity": "BASE"},
+        target=target,
+        output=SimpleNamespace(completion=completion),
+    )
 
 
 def test_format_misses_are_wrong_replies_whose_last_line_alone_is_the_key():
-    a = log(
-        "a",
-        [
-            replied(1, False, "Some reasoning.\n\n**hematite**"),
-            replied(2, False, "magnetite"),
-            replied(3, True, "hematite"),
-            replied(4, False, "Reasoning.\nmagnetite"),
-        ],
-    )
+    samples = [
+        cloze(1, False, "Some reasoning.\n\n**hematite**"),
+        cloze(2, False, "magnetite"),
+        cloze(3, True, "hematite"),
+        cloze(4, False, "Reasoning.\nmagnetite"),
+    ]
+    a = ({"task": "climaqa_cloze", "model": "a"}, report.rows(SimpleNamespace(samples=samples)))
     assert compare.format_misses(a) == [1]
     assert compare.multiline(a) == 2
 

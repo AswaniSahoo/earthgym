@@ -1,4 +1,5 @@
-"""Paired comparison of two models on clean ClimaQA v1, item by item, from their Inspect logs.
+"""Paired comparison of two models on clean ClimaQA v1, item by item, from their per-item
+results (rlenv.results): a run is its header and its rows, read from a log or a committed file.
 
 uv run python -m rlenv.climaqa.compare <log dir a> <log dir b> --out reports/climaqa/<name>.md
 """
@@ -8,10 +9,11 @@ import json
 from math import comb
 from pathlib import Path
 
-from climaqa_v1 import contract
 from climaqa_v1.taskset import near_matches
 from inspect_ai.log import list_eval_logs, read_eval_log
-from inspect_ai.scorer import CORRECT
+
+from rlenv import results
+from rlenv.climaqa import report
 
 
 def mcnemar(b: int, c: int) -> float:
@@ -22,31 +24,25 @@ def mcnemar(b: int, c: int) -> float:
     return min(1.0, 2 * sum(comb(n, k) for k in range(min(b, c) + 1)) / 2**n)
 
 
-def outcomes(log) -> dict:
-    """Per sample id: right or not, the answer given (lower case) and the complexity level."""
-    out = {}
-    for s in log.samples or []:
-        score = next(iter(s.scores.values()))
-        answer = (score.answer or "").strip().lower()
-        out[s.id] = (score.value == CORRECT, answer, s.metadata.get("complexity") or "none")
-    return out
+def outcomes(run) -> dict:
+    """Per item id: right or not, the answer given (lower case) and the complexity level."""
+    return {
+        r["id"]: (r["reward"] == 1.0, (r["answer"] or "").strip().lower(), r["complexity"])
+        for r in run[1]
+    }
 
 
-def multiline(log) -> int:
+def multiline(run) -> int:
     """Replies over more than one line."""
-    return sum(len(s.output.completion.strip().splitlines()) > 1 for s in log.samples or [])
+    return sum(r["lines"] > 1 for r in run[1])
 
 
-def format_misses(log) -> list:
+def format_misses(run) -> list:
     """Wrong cloze replies over more than one line whose last line alone would be right: the
     cloze prompt asks for only the missing word or phrase."""
-    out = []
-    for s in log.samples or []:
-        lines = s.output.completion.strip().splitlines()
-        wrong = next(iter(s.scores.values())).value != CORRECT
-        if wrong and len(lines) > 1 and contract.cloze_correct(lines[-1], s.target):
-            out.append(s.id)
-    return sorted(out, key=str)
+    rows = run[1]
+    hits = [r["id"] for r in rows if r["reward"] != 1.0 and r["lines"] > 1 and r["last_line_right"]]
+    return sorted(hits, key=str)
 
 
 def compare(a, b, exclude: frozenset | set = frozenset()) -> dict:
@@ -64,9 +60,9 @@ def compare(a, b, exclude: frozenset | set = frozenset()) -> dict:
     only_b = sum(y and not x for x, y in pairs)
     same = [i for i in ids if not oa[i][0] and not ob[i][0] and oa[i][1] and oa[i][1] == ob[i][1]]
     return {
-        "task": a.eval.task.split("/")[-1],
-        "model_a": a.eval.model,
-        "model_b": b.eval.model,
+        "task": a[0]["task"],
+        "model_a": a[0]["model"],
+        "model_b": b[0]["model"],
         "n": len(ids),
         "accuracy_a": sum(right_a) / len(ids),
         "accuracy_b": sum(right_b) / len(ids),
@@ -83,7 +79,7 @@ def compare(a, b, exclude: frozenset | set = frozenset()) -> dict:
             "format_a": len(format_misses(a)),
             "format_b": len(format_misses(b)),
         }
-        if a.eval.task.endswith("cloze")
+        if a[0]["task"].endswith("cloze")
         else {}
     )
 
@@ -188,7 +184,8 @@ def main() -> None:
 
     def logs(path: str) -> dict:
         found = (read_eval_log(info) for info in list_eval_logs(path))
-        return {x.eval.task.split("/")[-1]: x for x in found if x.status == "success"}
+        ok = (x for x in found if x.status == "success")
+        return {x.eval.task.split("/")[-1]: (results.header(x), report.rows(x)) for x in ok}
 
     la, lb = logs(args.a), logs(args.b)
     tasks = [t for t in sorted(la) if t in lb]

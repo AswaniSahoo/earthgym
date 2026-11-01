@@ -6,59 +6,73 @@ uv run python -m rlenv.climaqa.report <log dir> --out reports/climaqa/runs/<name
 import argparse
 import json
 import re
-from collections import Counter, defaultdict
+import statistics
+from collections import defaultdict
 from collections.abc import Sequence
 from pathlib import Path
 
+from climaqa_v1 import contract
 from inspect_ai.log import EvalLog, list_eval_logs, read_eval_log
-from inspect_ai.scorer import CORRECT
+
+from rlenv import results
 
 OPTION = re.compile(r"^([A-D])\) (.*)$", re.MULTILINE)  # option lines of contract.mcq_prompt
 
 
+def rows(log: EvalLog) -> list[dict]:
+    """The run's per-item results (rlenv.results), with what the reports read from each
+    sample: its complexity; for MCQ the key and whether it is the longest option; for cloze the
+    reply's line count and whether its last line alone is right."""
+    out = []
+    for s in log.samples or []:
+        r = results.row(s) | {"complexity": s.metadata.get("complexity") or "none"}
+        if s.metadata.get("task") == "mcq":
+            options = dict(OPTION.findall(str(s.input)))
+            key = options.pop(s.target, "")
+            longest = all(len(key) > len(text) for text in options.values())
+            r |= {"key": s.target, "key_longest": longest}
+        else:
+            lines = s.output.completion.strip().splitlines()
+            right = bool(lines) and contract.cloze_correct(lines[-1], s.target)
+            r |= {"lines": len(lines), "last_line_right": right}
+        out.append(r)
+    return out
+
+
 def summarize(log: EvalLog) -> dict:
+    return from_results(results.header(log), rows(log))
+
+
+def from_results(head: dict, rows: list[dict]) -> dict:
+    """The summary of a run from its per-item results, read from a log or from the committed
+    file (rlenv.results)."""
     by_level: dict[str, list[bool]] = defaultdict(list)
-    format_failures, key_longest, mcq = 0, 0, False
-    letters: Counter[str] = Counter()
-    for sample in log.samples or []:
-        score = next(iter(sample.scores.values()))
-        by_level[sample.metadata.get("complexity") or "none"].append(score.value == CORRECT)
-        if sample.metadata.get("task") == "mcq":
-            mcq = True
-            format_failures += not score.answer  # no clean 'ANSWER: X' line
-            letters[sample.target] += 1
-            options = dict(OPTION.findall(str(sample.input)))
-            key = options.pop(sample.target, "")
-            key_longest += all(len(key) > len(text) for text in options.values())
-    metrics = log.results.scores[0].metrics
-    rev = log.eval.revision
-    # eval-level settings override the model's own, as in Model._resolve_config
-    config = log.eval.model_generate_config.merge(log.plan.config).model_dump(exclude_none=True)
-    usage = log.stats.model_usage.values()
+    for r in rows:
+        by_level[r["complexity"]].append(r["reward"] == 1.0)
+    mcq = [r for r in rows if "key" in r]
+    rewards = [r["reward"] for r in rows]
+    t, settings = head["tokens"], head["settings"]
     return {
-        "task": log.eval.task.split("/")[-1],
-        "model": log.eval.model,
-        "created": log.eval.created,
-        "started": log.stats.started_at,
-        "completed": log.stats.completed_at,
-        "n": len(log.samples or []),
-        "accuracy": metrics["accuracy"].value,
-        "stderr": metrics["stderr"].value,
-        "format_failures": format_failures if mcq else None,  # only MCQ has an answer format
-        "letters": {k: letters[k] for k in "ABCD"} if mcq else None,
-        "key_longest": key_longest if mcq else None,
+        "task": head["task"],
+        "model": head["model"],
+        "created": head["created"],
+        "started": head["started"],
+        "completed": head["completed"],
+        "n": len(rows),
+        "accuracy": statistics.fmean(rewards),
+        "stderr": statistics.stdev(rewards) / len(rewards) ** 0.5,
+        "format_failures": sum(not r["answer"] for r in mcq) if mcq else None,
+        "letters": {k: sum(r["key"] == k for r in mcq) for k in "ABCD"} if mcq else None,
+        "key_longest": sum(r["key_longest"] for r in mcq) if mcq else None,
         "by_complexity": {
             k: {"n": len(v), "accuracy": sum(v) / len(v)} for k, v in sorted(by_level.items())
         },
-        "inspect_ai": log.eval.packages.get("inspect_ai", ""),
-        "commit": f"{rev.commit}{' (dirty)' if rev.dirty else ''}" if rev else "unknown",
-        "generate_config": ", ".join(f"{k} {v}" for k, v in config.items()) or "provider defaults",
-        "tokens": {
-            "input": sum(u.input_tokens for u in usage),
-            "output": sum(u.output_tokens for u in usage),
-            "reasoning": sum(u.reasoning_tokens or 0 for u in usage),
-        },
-        "log": Path(log.location).name,
+        "inspect_ai": head["inspect_ai"],
+        "commit": head["commit"],
+        "generate_config": ", ".join(f"{k} {v}" for k, v in settings.items())
+        or "provider defaults",
+        "tokens": {k: t[k] for k in ("input", "output", "reasoning")},
+        "log": head["log"],
     }
 
 
@@ -146,7 +160,9 @@ def main() -> None:
     )
     args = parser.parse_args()
     logs = [read_eval_log(info) for info in list_eval_logs(str(args.log_dir))]
-    summaries = [summarize(log) for log in logs if log.status == "success"]
+    summaries = sorted(
+        (summarize(log) for log in logs if log.status == "success"), key=lambda s: s["task"]
+    )
     sha256 = json.loads(args.manifest.read_text())["sha256"]
     args.out.parent.mkdir(parents=True, exist_ok=True)
     notes = sorted(p.name for p in args.out.parent.glob(f"{args.out.stem}-*misses.md"))

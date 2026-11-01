@@ -11,7 +11,7 @@ from pathlib import Path
 from era5_forecast_v1.taskset import records
 from inspect_ai.log import EvalLog, list_eval_logs, read_eval_log
 
-from rlenv import spend
+from rlenv import results, spend
 from rlenv.era5 import baselines
 
 
@@ -30,40 +30,49 @@ def _paired(paid: dict, by_id: dict) -> dict:
     }
 
 
-def summarize(log: EvalLog, items: list[dict]) -> dict:
-    """Scores, parse failures, tokens and cost of one run; the model is graded like the
-    baselines, on the items it answered. A run of one item has no standard error."""
-    if not log.samples:
-        raise ValueError("the log has no samples")
-    by_id = {r["id"]: r for r in items}
-    config = log.eval.model_generate_config.merge(log.plan.config)
-    batch = bool(config.batch)
-    forecasts, rewards, item_costs, paid = {}, [], [], {}
-    parse_failures = errors = 0
+def rows(log: EvalLog, items: list[dict] | None = None) -> list[dict]:
+    """The run's per-item results (rlenv.results); items defaults to the bundled set."""
+    by_id = {r["id"]: r for r in (records() if items is None else items)}
     for s in log.samples or []:
         if s.metadata["truth"] != by_id[s.id]["truth"]:
             raise ValueError(f"{s.id}: the log's truth differs from the item's")
-        item_costs.append(spend.cost(spend.count([s.model_usage]), batch))
-        if s.error or not s.scores:
+    return [results.row(s) for s in log.samples or []]
+
+
+def summarize(log: EvalLog, items: list[dict]) -> dict:
+    """Scores, parse failures, tokens and cost of one run; the model is graded like the
+    baselines, on the items it answered. A run of one item has no standard error."""
+    return from_results(results.header(log), rows(log, items), items)
+
+
+def from_results(head: dict, rows: list[dict], items: list[dict]) -> dict:
+    """The summary of a run from its per-item results, read from a log or from the committed
+    file (rlenv.results)."""
+    if not rows:
+        raise ValueError("the log has no samples")
+    by_id = {r["id"]: r for r in items}
+    batch = bool(head["settings"].get("batch"))
+    forecasts, rewards, item_costs, paid = {}, [], [], {}
+    parse_failures = errors = 0
+    for r in rows:
+        item_costs.append(spend.cost(dict(zip(spend.KINDS, r["tokens"], strict=True)), batch))
+        if r.get("error"):
             errors += 1
             rewards.append(0.0)
-            paid[s.id] = 0.0
+            paid[r["id"]] = 0.0
             continue
-        score = next(iter(s.scores.values()))
-        rewards.append(float(score.value))
-        paid[s.id] = float(score.value)
-        if score.answer:
-            forecasts[s.id] = float(score.answer)
+        rewards.append(r["reward"])
+        paid[r["id"]] = r["reward"]
+        if r["answer"]:
+            forecasts[r["id"]] = float(r["answer"])
         else:
             parse_failures += 1
-    label = log.eval.model.split("/")[-1]
+    label = head["model"].split("/")[-1]
     answered = [by_id[i] for i in forecasts]
     model = {label: lambda item: forecasts[item["id"]]}
-    t = spend.tokens([log])
-    rev = log.eval.revision
-    settings = config.model_dump(exclude_none=True)
+    t, settings = head["tokens"], head["settings"]
     return {
-        "model": log.eval.model,
+        "model": head["model"],
         "label": label,
         "n": len(rewards),
         "parsed": len(forecasts),
@@ -77,12 +86,12 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
         "batch": batch,
         "cost": spend.cost(t, batch),
         "item_costs": item_costs,
-        "commit": f"{rev.commit}{' (dirty)' if rev.dirty else ''}" if rev else "unknown",
+        "commit": head["commit"],
         "generate_config": ", ".join(f"{k} {v}" for k, v in settings.items()) or "none",
-        "inspect_ai": log.eval.packages.get("inspect_ai", ""),
-        "started": log.stats.started_at,
-        "completed": log.stats.completed_at,
-        "log": Path(log.location).name,
+        "inspect_ai": head["inspect_ai"],
+        "started": head["started"],
+        "completed": head["completed"],
+        "log": head["log"],
     }
 
 

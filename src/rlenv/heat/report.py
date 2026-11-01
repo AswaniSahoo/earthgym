@@ -13,7 +13,7 @@ from heat_basis_v1 import contract
 from heat_basis_v1.taskset import records
 from inspect_ai.log import EvalLog, list_eval_logs, read_eval_log
 
-from rlenv import ablation, spend
+from rlenv import ablation, results, spend
 
 MISSING = ("missing days skipped", "missing index days left out")  # the missing-value rules
 YEAR = re.compile(r"\b20(1[5-9]|2[0-4])\b")  # a season the prompt leaves out
@@ -111,27 +111,41 @@ def best_constant(items: list[dict]) -> tuple[float, float]:
     return best, keys.count(best) / len(keys)
 
 
-def summarize(log: EvalLog, items: list[dict]) -> dict:
-    """Accuracy per question with the baselines, the traps the misses fell into, tokens and
-    cost of one run."""
-    by_id = {i["id"]: i for i in items}
-    config = log.eval.model_generate_config.merge(log.plan.config)
-    batch = bool(config.batch)
-    answers, paid, item_costs = {}, {}, []
-    parse_failures = errors = recognized = 0
+def rows(log: EvalLog, items: list[dict] | None = None) -> list[dict]:
+    """The run's per-item results (rlenv.results), with whether each reply names a season; items
+    defaults to the bundled set."""
+    by_id = {i["id"]: i for i in (records() if items is None else items)}
+    out = []
     for s in log.samples or []:
         if s.metadata["key"] != by_id[s.id]["key"]:
             raise ValueError(f"{s.id}: the log's key differs from the item's")
-        recognized += bool(YEAR.search(s.output.completion))
-        item_costs.append(spend.cost(spend.count([s.model_usage]), batch))
-        if s.error or not s.scores:
+        out.append(results.row(s) | {"recognized": bool(YEAR.search(s.output.completion))})
+    return out
+
+
+def summarize(log: EvalLog, items: list[dict]) -> dict:
+    """Accuracy per question with the baselines, the traps the misses fell into, tokens and
+    cost of one run."""
+    return from_results(results.header(log), rows(log, items), items)
+
+
+def from_results(head: dict, rows: list[dict], items: list[dict]) -> dict:
+    """The summary of a run from its per-item results, read from a log or from the committed
+    file (rlenv.results)."""
+    by_id = {i["id"]: i for i in items}
+    batch = bool(head["settings"].get("batch"))
+    answers, paid, item_costs = {}, {}, []
+    parse_failures = errors = recognized = 0
+    for r in rows:
+        recognized += r["recognized"]
+        item_costs.append(spend.cost(dict(zip(spend.KINDS, r["tokens"], strict=True)), batch))
+        if r.get("error"):
             errors += 1
-            answers[s.id], paid[s.id] = None, 0.0
+            answers[r["id"]], paid[r["id"]] = None, 0.0
             continue
-        score = next(iter(s.scores.values()))
-        answers[s.id] = float(score.answer) if score.answer else None
-        paid[s.id] = float(score.value)
-        parse_failures += answers[s.id] is None
+        answers[r["id"]] = float(r["answer"]) if r["answer"] else None
+        paid[r["id"]] = r["reward"]
+        parse_failures += answers[r["id"]] is None
     questions = []
     for q in contract.QUESTIONS:
         group = [by_id[i] for i in paid if by_id[i]["question"] == q]
@@ -170,16 +184,14 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
             }
         )
     rewards = list(paid.values())
-    t = spend.tokens([log])
-    rev = log.eval.revision
-    settings = config.model_dump(exclude_none=True)
+    t, settings = head["tokens"], head["settings"]
     return {
-        "model": log.eval.model,
-        "label": log.eval.model.split("/")[-1],
+        "model": head["model"],
+        "label": head["model"].split("/")[-1],
         "n": len(rewards),
-        "ids": [s.id for s in log.samples or []],
+        "ids": [r["id"] for r in rows],
         "parse_failures": parse_failures,
-        "rules": log.eval.task_args.get("rules", True),
+        "rules": head["task_args"].get("rules", True),
         "recognized": recognized,
         "recognized_what": "name a season from 2015 to 2024",
         "errors": errors,
@@ -190,12 +202,12 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
         "batch": batch,
         "cost": spend.cost(t, batch),
         "item_costs": item_costs,
-        "commit": f"{rev.commit}{' (dirty)' if rev.dirty else ''}" if rev else "unknown",
+        "commit": head["commit"],
         "generate_config": ", ".join(f"{k} {v}" for k, v in settings.items()) or "none",
-        "inspect_ai": log.eval.packages.get("inspect_ai", ""),
-        "started": log.stats.started_at,
-        "completed": log.stats.completed_at,
-        "log": Path(log.location).name,
+        "inspect_ai": head["inspect_ai"],
+        "started": head["started"],
+        "completed": head["completed"],
+        "log": head["log"],
     }
 
 
