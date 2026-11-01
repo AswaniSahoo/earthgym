@@ -53,3 +53,14 @@ def test_cloze_task_scores_with_the_shared_contract(tmp_path):
     task = tasks.climaqa_cloze(path=write_set(tmp_path))
     assert accuracy(task, "the evaporation", tmp_path) == 1.0
     assert accuracy(task, "condensation", tmp_path) == 0.0
+
+
+def test_the_inspect_tasks_take_the_strict_variant_too():
+    from climaqa_v1.taskset import near_matches
+
+    from rlenv.climaqa import tasks
+
+    for kind in ("mcq", "cloze"):
+        full, strict = tasks.samples(kind, None), tasks.samples(kind, None, strict=True)
+        assert len(full) - len(strict) == sum(i.startswith(f"gold/{kind}/") for i in near_matches())
+        assert not {s.id for s in strict} & near_matches()

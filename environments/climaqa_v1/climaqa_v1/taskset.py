@@ -1,4 +1,5 @@
-"""ClimaQA clean set v1 as a verifiers v1 taskset: MCQ and cloze with exact rewards."""
+"""ClimaQA clean set v1 as a verifiers v1 taskset: MCQ and cloze with exact rewards. The set is
+exact-overlap-filtered; 21 near matches of Silver are unresolved, and `strict` leaves them out."""
 
 import json
 from importlib.resources import files
@@ -8,12 +9,19 @@ import verifiers.v1 as vf
 from climaqa_v1 import contract
 
 DATA_FILE = "climaqa_clean_v1.jsonl"
+NEAR_MATCHES = "near_matches.json"
 
 
 def records() -> list[dict]:
     """The bundled clean set, one dict per item; shared with the Inspect tasks."""
     lines = files("climaqa_v1").joinpath(DATA_FILE).read_text("utf-8").splitlines()
     return [json.loads(line) for line in lines]
+
+
+def near_matches() -> set[str]:
+    """Ids of the kept items that are near matches of Silver (rlenv.climaqa.clean)."""
+    text = files("climaqa_v1").joinpath(NEAR_MATCHES).read_text("utf-8")
+    return set(json.loads(text)["ids"])
 
 
 class ClimaqaData(vf.TaskData):
@@ -37,14 +45,16 @@ class ClimaqaTask(vf.Task[ClimaqaData]):
 
 class ClimaqaConfig(vf.TasksetConfig):
     kinds: list[str] = ["mcq", "cloze"]
+    strict: bool = False  # True: leave out the near matches of Silver
 
 
 class ClimaqaTaskset(vf.Taskset[ClimaqaTask, ClimaqaConfig]):
     def load(self) -> list[ClimaqaTask]:
+        near = near_matches() if self.config.strict else set()
         return [
             ClimaqaTask(to_data(row), self.config.task)
             for row in records()
-            if row["task"] in self.config.kinds
+            if row["task"] in self.config.kinds and row["id"] not in near
         ]
 
 

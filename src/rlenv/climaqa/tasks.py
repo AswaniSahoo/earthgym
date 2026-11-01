@@ -7,21 +7,23 @@ import json
 from pathlib import Path
 
 from climaqa_v1 import contract
-from climaqa_v1.taskset import records
+from climaqa_v1.taskset import near_matches, records
 from inspect_ai import Task, task
 from inspect_ai.dataset import MemoryDataset, Sample
 from inspect_ai.scorer import CORRECT, INCORRECT, Score, Target, accuracy, scorer, stderr
 from inspect_ai.solver import TaskState, generate
 
 
-def samples(kind: str, path: str | None) -> MemoryDataset:
-    """Items of one kind; the bundled clean set unless a JSONL path is given (tests)."""
+def samples(kind: str, path: str | None, strict: bool = False) -> MemoryDataset:
+    """Items of one kind; the bundled clean set unless a JSONL path is given (tests). strict
+    leaves out the near matches of Silver."""
     rows = (
         records() if path is None else [json.loads(x) for x in Path(path).read_text().splitlines()]
     )
+    near = near_matches() if strict else set()
     out = []
     for row in rows:
-        if row["task"] != kind:
+        if row["task"] != kind or row["id"] in near:
             continue
         prompt = (
             contract.mcq_prompt(row["question"], row["options"])
@@ -47,10 +49,10 @@ def contract_scorer():
 
 
 @task
-def climaqa_mcq(path: str | None = None) -> Task:
-    return Task(dataset=samples("mcq", path), solver=generate(), scorer=contract_scorer())
+def climaqa_mcq(path: str | None = None, strict: bool = False) -> Task:
+    return Task(dataset=samples("mcq", path, strict), solver=generate(), scorer=contract_scorer())
 
 
 @task
-def climaqa_cloze(path: str | None = None) -> Task:
-    return Task(dataset=samples("cloze", path), solver=generate(), scorer=contract_scorer())
+def climaqa_cloze(path: str | None = None, strict: bool = False) -> Task:
+    return Task(dataset=samples("cloze", path, strict), solver=generate(), scorer=contract_scorer())

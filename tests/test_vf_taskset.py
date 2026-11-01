@@ -26,3 +26,13 @@ def test_reward_uses_the_contract_on_the_last_reply():
     wrong = SimpleNamespace(last_reply=task.data.answer)  # bare letter breaks the format
     assert asyncio.run(task.correct(right)) == 1.0
     assert asyncio.run(task.correct(wrong)) == 0.0
+
+
+def test_the_strict_variant_leaves_out_the_near_matches():
+    from climaqa_v1 import taskset as ts
+
+    full = ts.ClimaqaTaskset(ts.ClimaqaConfig()).load()
+    strict = ts.ClimaqaTaskset(ts.ClimaqaConfig(strict=True)).load()
+    near = ts.near_matches()
+    assert (len(full), len(near), len(strict)) == (350, 21, 329)
+    assert not {t.data.id for t in strict} & near
