@@ -77,6 +77,14 @@ def row(sample) -> dict:
     return {"id": sample.id, "answer": score.answer or "", "reward": reward, "tokens": tokens}
 
 
+def with_epochs(log, rows: list[dict]) -> list[dict]:
+    """The rows of a run with several samples per item, each tagged with its sample (Inspect's
+    epoch); a one-sample run's rows stay as they are."""
+    if (log.eval.config.epochs or 1) < 2:
+        return rows
+    return [r | {"epoch": s.epoch} for r, s in zip(rows, log.samples, strict=True)]
+
+
 def write(path: Path, head: dict, rows: list[dict]) -> None:
     lines = [json.dumps(x, default=str) for x in (head, *rows)]  # keys keep their order
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -101,7 +109,8 @@ def main() -> None:
         if log.status != "success":
             continue
         head = header(log, items_sha256(args.env)) | {"log_dir": args.log_dir}
-        rows = report.rows(log)
+        head |= {"epochs": log.eval.config.epochs or 1}
+        rows = with_epochs(log, report.rows(log))
         kind = f"-{head['task'].split('_')[-1]}" if args.env == "climaqa" else ""
         write(out / f"{args.name}{kind}.jsonl", head, rows)
         print(f"{len(rows)} items written to {out / f'{args.name}{kind}.jsonl'}")

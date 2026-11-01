@@ -35,3 +35,16 @@ def test_results_round_trip_through_one_json_line_per_item(tmp_path):
     results.write(path, head, rows)
     assert len(path.read_text("utf-8").splitlines()) == 2
     assert results.read(path) == (head, rows)
+
+
+def test_rows_of_a_multi_sample_run_carry_their_epoch():
+    log = SimpleNamespace(
+        eval=SimpleNamespace(config=SimpleNamespace(epochs=2)),
+        samples=[SimpleNamespace(epoch=1), SimpleNamespace(epoch=2)],
+    )
+    assert results.with_epochs(log, [{"id": "a"}, {"id": "a"}]) == [
+        {"id": "a", "epoch": 1},
+        {"id": "a", "epoch": 2},
+    ]
+    one = SimpleNamespace(eval=SimpleNamespace(config=SimpleNamespace(epochs=None)), samples=[])
+    assert results.with_epochs(one, [{"id": "a"}]) == [{"id": "a"}]
