@@ -76,3 +76,11 @@ def test_rules_hidden_reaches_both_harnesses(tmp_path):
     path.write_text(json.dumps(ROW) + "\n", encoding="utf-8")
     sample = tasks.samples(str(path), rules=False)[0]
     assert "Rule." not in sample.input and sample.input == contract.prompt(ROW, rules=False)
+
+
+def test_both_harnesses_pay_the_same_on_every_item():
+    for task in ts.StormTaskset(ts.StormConfig()).load():
+        d = task.data
+        for reply in (f"ANSWER: {d.key}", f"ANSWER: {d.key + 2}", "no answer"):
+            paid = asyncio.run(task.exact(SimpleNamespace(last_reply=reply)))
+            assert paid == contract.reward(d.question, contract.answer(reply), d.key)
