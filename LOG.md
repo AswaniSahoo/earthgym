@@ -2,6 +2,29 @@
 
 Newest first. One entry per working session: what changed, what we learned, what is next.
 
+## 2026-11-01, ERA5 on Sonnet 5.5 and Phase 4 stage 2
+
+- ERA5 through the Batch API: a 12-item probe ($0.0259, mean reward 0.282), then all 720 from
+  bbafe0e: 720 parsed, 0 errors, mean reward 0.116 (stderr 0.009), $1.6126 against a
+  projection of $1.55 to $1.64. IFS HRES earns 0.30 to 0.67 per cell. The model beats
+  persistence RMSE at every lead but trails climatology for MSLP at 72 h (738.1 against 726.1
+  Pa). No reply used extended thinking: 0 reasoning tokens, about 360 output tokens an item.
+  Report: reports/era5/2026-11-01-claude-sonnet-5-5.md.
+- Inspect sends `thinking: {"type": "adaptive"}` itself (`apply_thinking_block_binding`);
+  decision 0010 first said it did not, and is corrected. The stage 1 IBTrACS report put the
+  458 provisional rows in 2025 and 2026; all of them are in 2026, corrected.
+- Phase 4 stage 2: 0009 accepted, 0011 records the design. 300 items from 613 eligible storms
+  (seed 2026). The first draw gave the hurricanes to category and hours first and left ACE
+  with weaker storms (median 42.5 rows); ACE now draws first (median 56, all storms 53). The
+  category rule reproduces NCEI's 2024 count of two category 5 hurricanes.
+- Trap rates on the items: ACE over every row is right on 0 of 100, ACE ignoring status on
+  56, hours over every HU row on 1; for peak category, ignoring status is right on 100 and
+  synoptic rows only on 96, so that question is mostly a control.
+- Lesson: a gate chained with `;` after `grep ... && echo` let the commits run although ruff
+  had failed, and pushed a commit that failed CI (944d248, fixed forward in 9341972). Gates
+  now wrap the commit in `if ...; then ...; fi`.
+- The tool layer again wrote `\u2212` as the literal character; rewritten as escapes.
+
 ## 2026-11-01, Claude Sonnet 5.5 runs
 
 - Aswani moved every model run to Claude Sonnet 5.5 on the Anthropic key, first with "use

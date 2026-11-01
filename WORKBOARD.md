@@ -34,7 +34,7 @@ without waiting between steps.
 - Test-first, small one-line commits, pushes as approved, every number checked against its
   source. Every turn ends with done, next, blocked and the remaining budget.
 
-## Now: ERA5 on Claude Sonnet 5.5 (decision 0010)
+## ERA5 on Claude Sonnet 5.5 (decision 0010): done
 
 - [x] `anthropic==2.3.0` pinned in the eval group (Inspect 0.3.286 needs 2.0.0 or newer)
 - [x] Balanced probe ids: `uv run python -m rlenv.era5.tasks` (2 per variable and lead)
@@ -79,10 +79,12 @@ Plan (2026-11-01, from the radar in docs/radar.md):
       NCEI anchors reproduced; reports/ibtracs/2026-11-01-ncei-reproduction.md
 - [x] 0009 accepted; 0011 records the stage 2 design (300 items, seed 2026, tolerance 0.05)
 - [x] stats.category, stats.hurricane_hours; NCEI's 2024 count of 2 category 5 reproduced
-- [ ] Stage 2 environment, test-first: tests/test_ibtracs_items.py is written and red
-      (uncommitted); next src/rlenv/ibtracs/items.py, then the env package. Run uv sync only
-      after the ERA5 run has ended
-- [ ] Sonnet 5.5 baseline within the cap, then the Fable review and its fixes
+- [x] Stage 2 environment: 300 items (sha256 75fe4ff2), contract, verifiers taskset, Inspect
+      task; CI runs vf-validate (300 of 300 valid), a mockllm eval and the wheel build
+- [x] Report module with best-constant and careless-reading baselines; trap rates in 0011
+- [ ] Sonnet 5.5 baseline: probe `uv run python -m rlenv.ibtracs.tasks` (2 per question),
+      then all 300 through the Batch API, within the cap
+- [ ] Fable review of Phase 4 and its fixes
 
 ## Phase 5
 
