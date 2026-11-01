@@ -57,6 +57,12 @@ RMSE and mean reward per variable and lead (`reports/era5/2026-11-01-claude-sonn
 
 What the table says:
 
+- A trivial statistical forecast does about as well. The midpoint of persistence and
+  climatology earns a mean reward of 0.1074 against the model's 0.1161; item by item the
+  model is ahead by +0.0087 (SE 0.0077), not significant at two standard errors, and a mixture
+  weighted 0.67 toward persistence, fitted on a train split, does no better on the test split
+  (`reports/era5/items_v1_baselines.md`). On this task the model shows no measurable skill
+  over a trivial statistical forecast, so the environment has headroom.
 - The model beats both free forecasts in RMSE everywhere except MSLP at 72 h, where it is a
   little worse than climatology (738.1 against 726.1 Pa).
 - The margins are small. At 24 h its temperature RMSE is 1.405 K against persistence's
