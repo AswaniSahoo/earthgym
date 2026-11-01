@@ -43,7 +43,8 @@ Items:
   since the smallest qualifying row adds 0.1156, but a single 5 kt misread of one wind still
   pays on 1,578 of 4,026 such perturbations (39 percent, on 97 of 100 items). Asking for two
   decimals with a tolerance of 0.005 would catch every such misread; it is a one-line change
-  if exactness is wanted, and it would make a rerun incomparable with these runs.
+  if exactness is wanted, and it would make a rerun incomparable with these runs. Kept at
+  one decimal by lfx-prep-b7 on 2026-11-01, so the runs stay comparable.
 - Answer parser: the last line 'ANSWER: <number>', horizontal space only, an optional full
   stop, as in Phase 3.
 
@@ -67,7 +68,8 @@ most are short by exactly 3 or 6 hours. We report the hidden hours as a conventi
 a skill test, and do not rerun them with a unit sentence. Neither version gives an RL policy
 of this strength a skill signal on ACE or peak category.
 
-Out, for later: a rapid-intensification question (NHC's glossary definition, tested on
+Out, for later: ACE to two decimals with a tolerance of 0.005 (the Fable review's M2), a
+rapid-intensification question (NHC's glossary definition, tested on
 hand-computed tracks first), the 13 storms that cross into another basin (with the rule that
 only NA rows count), spur tracks, season-level items, other basins, storms before 1980. The
 population carries two of the reproduction's rules, the synoptic hours and the statuses; the
