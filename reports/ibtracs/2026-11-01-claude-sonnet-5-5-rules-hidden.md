@@ -1,6 +1,6 @@
-# ibtracs-storm-v1 on claude-sonnet-5-5
+# ibtracs-storm-v1 on claude-sonnet-5-5 (rules hidden)
 
-Model `anthropic/claude-sonnet-5-5` on 300 items, scored by ibtracs_storm_v1/contract.py at commit 3d11eef.
+Model `anthropic/claude-sonnet-5-5` on 300 items, scored by ibtracs_storm_v1/contract.py at commit 3d11eef, with each question's rule left out of the prompt.
 
 ## Result
 
@@ -16,14 +16,17 @@ Accuracy per question, with the best constant answer and each careless reading o
 | ace | best constant (0.5) | 100 | 0.050 |
 | ace | ACE over every row | 100 | 0.000 |
 | ace | ACE ignoring status | 100 | 0.560 |
+| ace | ACE from TS and HU only | 100 | 0.910 |
 | peak_category | model | 100 | 0.990 |
 | peak_category | best constant (1) | 100 | 0.350 |
 | peak_category | category ignoring status | 100 | 1.000 |
 | peak_category | category from synoptic rows only | 100 | 0.960 |
+| peak_category | category by the mph thresholds | 100 | 0.300 |
 | hurricane_hours | model | 100 | 0.130 |
 | hurricane_hours | best constant (12) | 100 | 0.120 |
 | hurricane_hours | hours over every HU row | 100 | 0.010 |
-| hurricane_hours | elapsed time, first to last HU row | 100 | 0.010 |
+| hurricane_hours | each row's status holds until the next row | 100 | 0.360 |
+| hurricane_hours | elapsed time of each hurricane spell | 100 | 0.000 |
 
 Wrong answers by the model that equal a careless reading of the rule:
 
@@ -31,10 +34,13 @@ Wrong answers by the model that equal a careless reading of the rule:
 |---|---|---|
 | ace | ACE over every row | 0 |
 | ace | ACE ignoring status | 0 |
+| ace | ACE from TS and HU only | 0 |
 | peak_category | category ignoring status | 0 |
 | peak_category | category from synoptic rows only | 0 |
+| peak_category | category by the mph thresholds | 0 |
 | hurricane_hours | hours over every HU row | 0 |
-| hurricane_hours | elapsed time, first to last HU row | 41 |
+| hurricane_hours | each row's status holds until the next row | 15 |
+| hurricane_hours | elapsed time of each hurricane spell | 48 |
 
 ## Tokens and cost
 
@@ -51,10 +57,9 @@ Wrong answers by the model that equal a careless reading of the rule:
 
 - One reply per item, with no seed or temperature set, so a rerun gives other replies;
   the run-to-run spread is not measured.
-- The prompt leaves out the name and year, but a model can still recognize a famous
-  track; whether any answer was recalled rather than counted is UNKNOWN.
-- North Atlantic storms from 1980 to 2025 only, with the rules in the prompt; the
-  rules-hidden ablation is not run here.
+- The prompt leaves out the name and year, yet 4 of 300 replies name the storm or its season: a model can recognize a famous track.
+- North Atlantic storms from 1980 to 2025 only. Each rule is left out of the prompt; the rules-shown run is the control.
 - The cost uses the token counts in the log; the Anthropic Console's bill is not read.
+- ace: 'ACE from TS and HU only' is right on 91 of 100 items, so on these storms the question mostly tests summing the squares, not the rule's choice of rows (decision 0011).
 - peak_category: 'category ignoring status' is right on 100 of 100 items, so on these storms the question mostly tests reading the Saffir-Simpson scale, not the rule's choice of rows (decision 0011).
 - peak_category: 'category from synoptic rows only' is right on 96 of 100 items, so on these storms the question mostly tests reading the Saffir-Simpson scale, not the rule's choice of rows (decision 0011).

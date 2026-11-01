@@ -4,6 +4,8 @@
  "n": 300,
  "parse_failures": 0,
  "errors": 0,
+ "rules": true,
+ "recognized": 2,
  "reward": 0.9966666666666667,
  "stderr": 0.003333333333333333,
  "questions": [
@@ -17,12 +19,15 @@
    ],
    "baselines": {
     "ACE over every row": 0.0,
-    "ACE ignoring status": 0.56
+    "ACE ignoring status": 0.56,
+    "ACE from TS and HU only": 0.91
    },
    "traps": {
     "ACE over every row": 0,
-    "ACE ignoring status": 0
-   }
+    "ACE ignoring status": 0,
+    "ACE from TS and HU only": 0
+   },
+   "explained": 0
   },
   {
    "question": "peak_category",
@@ -34,12 +39,15 @@
    ],
    "baselines": {
     "category ignoring status": 1.0,
-    "category from synoptic rows only": 0.96
+    "category from synoptic rows only": 0.96,
+    "category by the mph thresholds": 0.3
    },
    "traps": {
     "category ignoring status": 0,
-    "category from synoptic rows only": 0
-   }
+    "category from synoptic rows only": 0,
+    "category by the mph thresholds": 0
+   },
+   "explained": 0
   },
   {
    "question": "hurricane_hours",
@@ -51,12 +59,15 @@
    ],
    "baselines": {
     "hours over every HU row": 0.01,
-    "elapsed time, first to last HU row": 0.01
+    "each row's status holds until the next row": 0.36,
+    "elapsed time of each hurricane spell": 0.0
    },
    "traps": {
     "hours over every HU row": 0,
-    "elapsed time, first to last HU row": 0
-   }
+    "each row's status holds until the next row": 0,
+    "elapsed time of each hurricane spell": 0
+   },
+   "explained": 0
   }
  ],
  "tokens": {
