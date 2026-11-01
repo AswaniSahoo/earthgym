@@ -149,8 +149,9 @@ was called or spent.
 - [ ] Name the domain expert for the 0005 review; the sheet is ready:
       reports/climaqa/expert_review_v2.csv
 - [x] LICENSE: MIT, copyright 2026 Aswani Kumar Sahoo (Aswani, 2026-11-02; decision 0015)
-- [ ] Publish the pinned IBTrACS CSV and GHCN-Daily files as release assets, so others can
-      rebuild the items (Phase 4 review L7)
+- [x] Publish the pinned IBTrACS CSV as a release asset, so others can rebuild the items
+      (Phase 4 review L7): release `data-v1`, 2026-11-02 (decision 0018). The GHCN-Daily files
+      stay local: NOAA names no licence for them.
 - [ ] inspect_evals Register submission (publishing is Aswani's call): both model runs on
       clean ClimaQA v1 now exist, Gemini 3.8 Flash and Claude Sonnet 5.5
 

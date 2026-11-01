@@ -28,7 +28,8 @@ Phase 4 radar records them (`docs/radar.md`). The category 5 count is the North 
   57,593,323 bytes, Last-Modified Fri, 30 Oct 2026 04:27:28 GMT, sha256
   `666681be5b12caf5bad7a511bae5f6e5fa8b03789f7f6dd00ee2f0aaa41c2c97`. NCEI publishes no
   checksum and overwrites the file in place, so the pin is ours and the copy under
-  `data/ibtracs/` (not in git) is the one kept; a newer build fails the pin.
+  `data/ibtracs/` (not in git) is the one kept; a newer build fails the pin. Since 2026-11-02
+  the same build is also an asset of the repo's `data-v1` release (decision 0018).
 - Reader: the standard library `csv` module; the second header row (units) skipped; every cell
   stripped, since a blank is a single space.
 - Rules (NOAA CPC, by way of the radar): ACE is the sum of squared `USA_WIND` at 00, 06, 12 and

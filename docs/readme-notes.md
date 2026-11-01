@@ -11,3 +11,9 @@ Collected during fix batch 1 (2026-11-02); folded into the README rewrite and th
   each run, the ledger checked after), not a hard cap (decision 0010).
 - `era5-forecast-v1` row, "graded by the WB2 rules": the reward is a custom clipped skill score;
   the WB2 rules give the RMSE and ACC reference metrics, not the reward.
+- `ibtracs-storm-v1` row: ACE pays only its one-decimal rounding, or either neighbour at an
+  exact tie, not any answer within 0.05 (decision 0016).
+- Each environment row: a held-out split by group, `split="train"` or `"test"` in the taskset
+  config (decision 0017).
+- License section: the pinned IBTrACS build is the `data-v1` release asset; the GHCN-Daily
+  station files are not published, since NOAA names no licence for them (decision 0018).

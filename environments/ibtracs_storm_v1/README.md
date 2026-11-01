@@ -20,7 +20,9 @@ The keys come from `src/rlenv/ibtracs/stats.py`, which reproduces NCEI's publish
 Atlantic season numbers (`reports/ibtracs/2026-11-01-ncei-reproduction.md`).
 
 Rebuild the items from the repo root, after `uv run python -m rlenv.ibtracs.data` has fetched
-the pinned 57.6 MB CSV (the items' sha256 is in `reports/ibtracs/items_v1_manifest.json`):
+the pinned 57.6 MB CSV, from the repo's `data-v1` release or, failing that, from NCEI while it
+still serves the pinned build (decision 0018; the items' sha256 is in
+`reports/ibtracs/items_v1_manifest.json`):
 
     uv run python -m rlenv.ibtracs.items
 

@@ -77,7 +77,7 @@ API's half price and without prompt caching (`reports/spend.md`).
 - One run per condition, no seed: the run-to-run spread is not measured.
 - Four stations in one metro area, ten seasons, and the policyholder's side of basis risk only.
 - NOAA names no licence for GHCN-Daily, and the pinned station files live only on this machine,
-  since NCEI rewrites them daily; publishing them as a release asset is Aswani's call.
+  since NCEI rewrites them daily; with the terms unclear they are not published (decision 0018).
 
 ## Reproduce
 
