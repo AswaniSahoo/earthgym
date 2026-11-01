@@ -20,19 +20,46 @@ Every model run uses Claude Sonnet 5.5 on the Anthropic key, with $20 in total a
 the spend is in `reports/spend.md` (decision 0010). No Vertex AI or Gemini calls are made from
 2026-11-01; the earlier Gemini results stay as recorded.
 
+## Environments
+
+| package | phase | what an item asks | reward |
+|---|---|---|---|
+| `climaqa-v1` | 2 | a clean ClimaQA question, multiple choice or cloze | exact match |
+| `era5-forecast-v1` | 3 | a 24 to 72 h point forecast of ERA5 pressure or temperature | skill over persistence and climatology, graded by the WB2 rules |
+| `ibtracs-storm-v1` | 4 | a storm's ACE, peak category or hours at hurricane strength | exact answer |
+| `heat-basis-v1` | 5 | a heat policy's trigger days, payout events or missed days | exact answer |
+
+Each package is a verifiers v1 taskset; each has an Inspect task beside it in `src/rlenv/`, scored
+by the same contract module.
+
 ## Run
 
-    uv sync
-    uv run python -m rlenv.climaqa.audit   # downloads the pinned CSVs to data/, writes reports/climaqa/
-    uv run pytest
+    uv sync --all-groups
+    uv run pytest                                  # no network; the reproduction tests skip without data
+    uv run python -m rlenv.climaqa.audit           # Phase 1: pinned CSVs to data/, reports/climaqa/
+    uv run python -m rlenv.era5.baselines          # Phase 3: baseline rows
+    uv run python -m rlenv.ibtracs.data            # Phase 4: the pinned 57.6 MB IBTrACS CSV
+    uv run python -m rlenv.heat.data               # Phase 5: the pinned GHCN-Daily station files
+
+A model run (the key in `.env` as `ANTHROPIC_API_KEY`; decision 0010):
+
+    uv run inspect eval src/rlenv/ibtracs/tasks.py@ibtracs_storm \
+        --model anthropic/claude-sonnet-5-5 --batch --cache-prompt false [-T rules=false]
+    uv run python -m rlenv.spend "<run>" <log dir> # adds the run to reports/spend.md
 
 ## Layout
 
-    src/rlenv/climaqa/data.py     pinned download (revision + sha256) and CSV loading
-    src/rlenv/climaqa/checks.py   pure integrity checks: rows in, findings out
-    src/rlenv/climaqa/audit.py    runs the checks, writes findings.json, SUMMARY.md, review_sample.csv
-    tests/                        unit tests on small inline fixtures, no network
-    reviews/                      one review per phase: rating, gaps, decisions
+    src/rlenv/climaqa/    Phases 1 and 2: audit, clean set, Inspect tasks, reports, comparison
+    src/rlenv/era5/       Phase 3: WB2 scoring rules, items, baselines, Inspect task, report
+    src/rlenv/ibtracs/    Phase 4: pinned IBTrACS, NOAA counts, items, Inspect task, report
+    src/rlenv/heat/       Phase 5: pinned GHCN-Daily, NWS counts, policy rules, items, task, report
+    src/rlenv/spend.py    the Anthropic spend ledger and its checks
+    src/rlenv/ablation.py the rules-shown run beside its ablation
+    environments/         one verifiers environment package per phase
+    tests/                unit tests on small inline fixtures, no network
+    reports/              results per phase, the blog-ready write-ups, spend.md
+    reviews/              one Fable review per phase
+    docs/radar.md         what is new and proven; docs/decisions/ records each choice
 
 ## Phase 1 checks
 
