@@ -2,6 +2,21 @@
 
 Newest first. One entry per working session: what changed, what I learned, what is next.
 
+## 2026-11-02, batch 2: ownership and the name
+
+- Ownership: the decision records, this log, the summary, the write-ups, `CLAUDE.md` and the
+  agent files now speak in my voice, and the session names are gone. The reviews moved to
+  `docs/reviews/` and the log here; the workboard is gone, and its open items are in
+  `docs/roadmap.md`. `docs/how-built.md` says how the repository was built: with Claude Code
+  under my direction, which design calls are mine, and how the work was checked. The reviews
+  stay as their reviewer wrote them.
+- Where a record shows a choice was not mine at the time, it still says so: the ERA5 reward
+  floor (2026-10-30, below).
+- Renamed to earthgym (decision 0020), since rlenv is taken on PyPI: the package, the entry
+  points, CI and the docs follow. The repository stays private.
+- Next: the gold check and honest labels for the saturated environments, then the small
+  open-model runs.
+
 ## 2026-11-02, fix batch 1 (the Codex review)
 
 - Claims: ERA5 now has the midpoint (persistence + climatology) / 2 and a convex mixture fitted
