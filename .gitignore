@@ -11,6 +11,8 @@ wheels/
 
 # Local data and tool caches
 data/
+.tools/
+.models/
 .ruff_cache/
 .pytest_cache/
 logs/

@@ -41,3 +41,24 @@ def test_an_errored_sample_earns_zero_and_unequal_sample_counts_are_refused():
     assert (s["mean_reward"], s["varies"]) == (0.5, 1.0)
     with pytest.raises(ValueError, match="same number of samples"):
         samples.summary(rows({"a": [1.0, 0.0], "b": [1.0]}))
+
+
+def run(model, rewards_by_item):
+    return {"model": model, "epochs": 8, "settings": {"temperature": 0.7}}, rows(rewards_by_item)
+
+
+def test_the_report_gives_each_model_and_each_question_its_own_row():
+    a = run("m/one", {"ace/1": [1.0] * 8, "hours/2": [0.0, 1.0] * 4})
+    b = run("m/two", {"ace/1": [0.0] * 8, "hours/2": [0.0] * 8})
+    text = samples.render("ibtracs", [a, b], date="2026-11-02")
+    assert "| m/one | 2 | 8 | 0.750 | 0.500 | 0.750 | 1.000 |" in text
+    assert "| m/two | 2 | 8 | 0.000 | 0.000 | 0.000 | 0.000 |" in text
+    assert "| m/one | hours | 1 | 8 | 0.500 | 1.000 | 0.500 | 1.000 |" in text
+    assert "temperature 0.7" in text and "a sample passes at reward 1" in text
+
+
+def test_a_forecast_sample_passes_when_it_beats_the_better_baseline():
+    a = run("m/one", {"2m_temperature/x": [0.0] * 7 + [0.4]})
+    text = samples.render("era5", [a], date="2026-11-02")
+    assert "a sample passes at a reward above 0" in text
+    assert "| m/one | 1 | 8 | 0.050 | 1.000 | 0.125 | 1.000 |" in text
