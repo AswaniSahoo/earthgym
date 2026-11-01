@@ -1,0 +1,17 @@
+{
+ "file": "heat_basis_v1.jsonl",
+ "n": 300,
+ "sha256": "9d72cd645114e2cae15ed678386d06b817d0e52350b7575149814688cf5b3fba",
+ "questions": {
+  "trigger_days": 100,
+  "events": 100,
+  "missed_days": 100
+ },
+ "stations": {
+  "USW00003192": "96dd31bc57392a1e34f2bfcb636f5b3df774674e7e7ebb05390361595e3645de",
+  "USW00003184": "d92c5b9f75b9160ac6c8d4e706ae6a39f3685e7637580bc71981c6ed6c347e56",
+  "USW00023183": "8c0de135bbafa0d0264069ddacf8d5acfed61cd9bef3af0aa7ef27f78b077eed",
+  "USC00028499": "4fc9e28dc9ca2dec6039fa9f2b77ea5c823b76787b555b05e74dbd890030c806"
+ },
+ "seed": 2026
+}
