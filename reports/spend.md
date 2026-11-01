@@ -22,3 +22,4 @@ Rows are added with `uv run python -m rlenv.spend "<run>" <log dir>`.
 | ERA5 full run, 720 items | 2026-10-31 | logs/2026-11-01-era5-claude-sonnet-5-5 | batch | 322920 | 0 | 0 | 257940 | 0 | 1.6126 | 1.6385 |
 | ClimaQA probe, 16 items | 2026-11-01 | logs/2026-11-01-climaqa-claude-sonnet-5-5-probe | batch | 2237 | 0 | 0 | 2990 | 342 | 0.0172 | 1.6557 |
 | ClimaQA clean v1, 350 items | 2026-11-01 | logs/2026-11-01-climaqa-claude-sonnet-5-5 | batch | 52251 | 644 | 0 | 71858 | 8013 | 0.4123 | 2.0680 |
+| Phase 4 probe, 6 items | 2026-11-01 | logs/2026-11-01-ibtracs-claude-sonnet-5-5-probe | batch | 24 | 10477 | 0 | 2293 | 732 | 0.0246 | 2.0926 |
