@@ -1,0 +1,14 @@
+[project]
+name = "heat-basis-v1"
+version = "0.1.0"
+description = "A parametric heat policy's trigger days, payout events and basis risk over Phoenix-area GHCN-Daily stations, with exact answers."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["verifiers>=0.4.0,<0.5"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["heat_basis_v1"]

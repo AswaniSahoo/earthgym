@@ -10,6 +10,7 @@ resolution-markers = [
 members = [
     "climaqa-v1",
     "era5-forecast-v1",
+    "heat-basis-v1",
     "ibtracs-storm-v1",
     "rlenv",
 ]
@@ -900,6 +901,17 @@ sdist = { url = "https://files.pythonhosted.org/packages/01/ee/02a2c011bdab74c6f
 wheels = [
     { url = "https://files.pythonhosted.org/packages/04/4b/29cac41a4d98d144bf5f6d33995617b185d14b22401f75ca86f384e87ff1/h11-0.16.0-py3-none-any.whl", hash = "sha256:63cf8bbe7522de3bf65932fda1d9c2772064ffb3dae62d55932da54b31cb6c86", size = 37515, upload-time = "2025-04-24T03:35:24.344Z" },
 ]
+
+[[package]]
+name = "heat-basis-v1"
+version = "0.1.0"
+source = { editable = "environments/heat_basis_v1" }
+dependencies = [
+    { name = "verifiers" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "verifiers", specifier = ">=0.4.0,<0.5" }]
 
 [[package]]
 name = "hf-xet"
@@ -3195,6 +3207,7 @@ eval = [
     { name = "anthropic" },
     { name = "climaqa-v1" },
     { name = "era5-forecast-v1" },
+    { name = "heat-basis-v1" },
     { name = "ibtracs-storm-v1" },
     { name = "inspect-ai" },
 ]
@@ -3220,6 +3233,7 @@ eval = [
     { name = "anthropic", specifier = "==2.3.0" },
     { name = "climaqa-v1", editable = "environments/climaqa_v1" },
     { name = "era5-forecast-v1", editable = "environments/era5_forecast_v1" },
+    { name = "heat-basis-v1", editable = "environments/heat_basis_v1" },
     { name = "ibtracs-storm-v1", editable = "environments/ibtracs_storm_v1" },
     { name = "inspect-ai", specifier = "==0.3.286" },
 ]
