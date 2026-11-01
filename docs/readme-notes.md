@@ -17,3 +17,6 @@ Collected during fix batch 1 (2026-11-02); folded into the README rewrite and th
   config (decision 0017).
 - License section: the pinned IBTrACS build is the `data-v1` release asset; the GHCN-Daily
   station files are not published, since NOAA names no licence for them (decision 0018).
+- Reproduce section: point to `docs/reproduce.md` (rebuild the data, recompute the published
+  numbers from `reports/<env>/results/`, run fresh evals), and name the weekly `reproduce`
+  workflow beside `ci` (decision 0019).

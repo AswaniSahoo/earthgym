@@ -2,6 +2,36 @@
 
 Newest first. One entry per working session: what changed, what we learned, what is next.
 
+## 2026-11-02, fix batch 1 (the Codex review)
+
+- Claims: ERA5 now has the midpoint (persistence + climatology) / 2 and a convex mixture fitted
+  on the train split (w 0.67). Sonnet 5.5's 0.1161 against the midpoint's 0.1074 is +0.0087
+  (SE 0.0077), not significant: on this task the model shows no measurable skill over a trivial
+  statistical forecast, so the environment has headroom. ClimaQA clean v1 is exact-overlap-
+  filtered with 21 near matches unresolved; the strict variant (329 items) gives MCQ 0.871 for
+  both models and cloze 0.739 for Gemini, 0.513 for Sonnet. The $20 is a managed budget, and
+  `rlenv.spend` refuses logs it has no price for. The reward and the WB2 metrics are kept
+  apart, the "few steps" line is an untested guess, and OpenCompass and SciEvalKit are named.
+- Graders (decision 0016): ACE pays only its one-decimal rounding, one answer-line rule in every
+  contract, cloze keeps signs, decimals and operators, and guards on the heat key, empty and
+  one-item ERA5 runs and pair reports. Re-grading all 2,620 logged replies changes no score.
+- Reproducibility: a held-out split by group in every taskset (0017); the pinned IBTrACS build
+  as the `data-v1` release asset, the GHCN-Daily files not, their terms being unclear (0018);
+  the ERA5 arrays hashed into the manifest; per-item results for every reported run and probe,
+  from which every report re-renders byte for byte (0019); a weekly reproduce workflow, green
+  on its first run; `docs/reproduce.md`.
+- Lesson: NCEI's IBTrACS file had a new Last-Modified but the pinned bytes; downloading it
+  before writing decision 0018 kept "already rewritten" out of the record.
+- Lesson: decision 0017 first said an ERA5 train and test init could be 6 hours apart; the data
+  says 12, with one test truth inside a train prompt. Fixed in the next commit: measure a limit
+  before stating it.
+- Lesson: the first fresh-clone test ran the newest uv (0.13.6), which keeps its own cache
+  buckets, so `uv sync` began to download the whole environment; it was stopped with 276 MB
+  unpacked in the cache, and how much crossed the network is UNKNOWN. The rerun used the
+  installed uv with `UV_OFFLINE=1`. Stopping it, a `pkill -f` on the script's name also matched
+  the command running it: the self-matching pattern of 2026-11-01 again. Kill by PID.
+- Next: the README rewrite from `docs/readme-notes.md`; the repo's visibility is Aswani's call.
+
 ## 2026-11-02, MIT License
 
 - Aswani chose the MIT License for rlenv (relayed by lfx-prep-b7): "MIT license for rlenv
