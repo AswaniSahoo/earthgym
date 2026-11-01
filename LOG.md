@@ -2,6 +2,24 @@
 
 Newest first. One entry per working session: what changed, what we learned, what is next.
 
+## 2026-11-01, Phase 4 baseline and Phase 5 build
+
+- Phase 4 on Sonnet 5.5: probe 6 of 6, then 299 of 300 (0.997; ACE 0.99, category and hours
+  1.00), $1.3627. With the rules in the prompt the environment is saturated for this model;
+  lfx-prep-b7 asked for the rules-hidden ablation, now built as a switch (`-T rules=false`)
+  with a side-by-side report.
+- Phase 5 radar (scout): 21 rows added, 6 moved to hold (every non-Claude model under 0010).
+  First published number: NWS Phoenix's heat counts. From the pinned GHCN-Daily file for
+  Sky Harbor (NCEI rewrites it daily, so the sha256 is ours), every anchor reproduces exactly:
+  2023 55 days at 110 F or more, 133 at 100, 185 at 90, high 119 F on 19 Jul, a 31-day 110 F run
+  from 30 Jun to 30 Jul; 2024 70 days at 110 F and a 113-day 100 F run; 2020 145 days at 100 F.
+- Phase 5 design: Sky Harbor is the hottest station around, so with it as the index almost no
+  heat was missed; the airports (Scottsdale, Deer Valley) are the index and the core (Sky
+  Harbor, Tempe ASU) the insured sites, 20.7 to 32.3 km apart, which gives 7 to 42 missed days
+  a season at 110 F. heat-basis-v1: 300 items, trigger days, events and missed days.
+- Trap rates in Phase 5: the at-or-above, column and run-length rules change most answers;
+  the missing-value rules rarely do, since the airport stations have few gaps.
+
 ## 2026-11-01, clean ClimaQA v1 on Sonnet 5.5
 
 - Probe of 16 items (8 per task, seeded shuffle) for $0.0172, then all 350 through the Batch
