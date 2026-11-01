@@ -13,6 +13,9 @@ Reward per item, from `ibtracs_storm_v1/contract.py`: 1 for a right answer, else
 right only at one decimal, as the exact value rounded or, when the exact value is a tie, either
 neighbour; category and hours must match exactly (decision 0016).
 
+A held-out split by storm: `StormConfig(split="train")` loads 233 items and `split="test"` 67
+(decision 0017).
+
 The keys come from `src/rlenv/ibtracs/stats.py`, which reproduces NCEI's published North
 Atlantic season numbers (`reports/ibtracs/2026-11-01-ncei-reproduction.md`).
 

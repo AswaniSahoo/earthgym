@@ -18,6 +18,9 @@ the two is nearly exact little skill is left to earn, and 3 temperature items ca
 (Limits in `reports/era5/items_v1_baselines.md`). Baseline rows for these items, IFS HRES included, are in
 `reports/era5/items_v1_baselines.md`.
 
+A held-out split keeps each ISO week of init times on one side: `ForecastConfig(split="train")`
+loads 601 items and `split="test"` 119 (decision 0017).
+
 The grader behind the items reproduces two published WeatherBench 2 scores exactly
 (`reports/era5/2026-10-30-wb2-reproduction.md`).
 

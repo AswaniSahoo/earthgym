@@ -15,6 +15,10 @@ The prompt shows both stations' daily maxima in whole degrees F, a dash for a mi
 the year left out, and the rule for the question. The reply must end with `ANSWER: <number>`.
 The reward is 1 for the exact count, else 0 (`heat_basis_v1/contract.py`).
 
+A held-out split by season, so every station's readings for a season fall on one side:
+`HeatConfig(split="train")` loads 245 items and `split="test"` 55, the 2017 and 2020 seasons
+(decision 0017).
+
 The counting code reproduces NWS Phoenix's published heat counts from the same GHCN-Daily
 files (`reports/heat/2026-11-01-nws-phoenix-reproduction.md`). Rebuild the items from the repo
 root (about 2.9 MB of pinned station files; the items' sha256 is in

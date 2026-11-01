@@ -10,6 +10,9 @@ Silver that no human has ruled on yet; their ids are in `climaqa_v1/near_matches
 strict variant leaves them out, 329 items: `ClimaqaConfig(strict=True)` in the taskset, or
 `-T strict=true` on the Inspect tasks.
 
+A held-out split by item, since ClimaQA gives no source passage to group by:
+`ClimaqaConfig(split="train")` loads 269 items and `split="test"` 81 (decision 0017).
+
 Rewards follow `climaqa_v1/contract.py`, the same contract the Inspect tasks use: an MCQ reply
 must end with a line that is only `ANSWER: X`; a cloze reply must equal the key after SQuAD-style
 normalization (case, punctuation and articles ignored).
