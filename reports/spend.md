@@ -26,3 +26,4 @@ Rows are added with `uv run python -m rlenv.spend "<run>" <log dir>`.
 | Phase 4 ibtracs-storm-v1, 300 items | 2026-11-01 | logs/2026-11-01-ibtracs-claude-sonnet-5-5 | batch | 1685 | 539944 | 2137 | 137181 | 48487 | 1.3626 | 3.4553 |
 | Phase 5 probe, 6 items | 2026-11-01 | logs/2026-11-01-heat-claude-sonnet-5-5-probe | batch | 24 | 12447 | 0 | 4764 | 2725 | 0.0394 | 3.4947 |
 | Phase 4 rules-hidden probe, 6 items | 2026-11-01 | logs/2026-11-01-ibtracs-hidden-claude-sonnet-5-5-probe | batch | 24 | 9935 | 0 | 4722 | 2826 | 0.0361 | 3.5307 |
+| Phase 4 rules-hidden, 300 items | 2026-11-01 | logs/2026-11-01-ibtracs-hidden-claude-sonnet-5-5 | batch | 2090 | 512499 | 2077 | 227435 | 124643 | 1.7800 | 5.3107 |
