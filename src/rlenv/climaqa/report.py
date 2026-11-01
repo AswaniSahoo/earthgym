@@ -68,7 +68,8 @@ def render(
     lines = [
         "# ClimaQA baseline",
         "",
-        f"Clean set v1, sha256 `{set_sha256}`, scored by climaqa_v1/contract.py.",
+        f"Clean set v1 (exact-overlap-filtered; 21 near matches of Silver unresolved), sha256 "
+        f"`{set_sha256}`, scored by climaqa_v1/contract.py.",
         "",
         "| task | model | n | accuracy | stderr | format failures |",
         "|---|---|---|---|---|---|",

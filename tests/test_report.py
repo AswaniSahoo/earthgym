@@ -68,6 +68,7 @@ def test_summary_counts_accuracy_complexity_and_format_failures(tmp_path):
 def test_render_lists_each_task_with_its_model_and_the_set_checksum(tmp_path):
     text = report.render([report.summarize(run(tmp_path, "ANSWER: B"))], set_sha256="abc123")
     assert "| climaqa_mcq | mockllm/model | 2 | 0.500 |" in text and "abc123" in text
+    assert "exact-overlap-filtered; 21 near matches of Silver unresolved" in text
 
 
 def test_render_gives_n_and_accuracy_per_complexity_level(tmp_path):
