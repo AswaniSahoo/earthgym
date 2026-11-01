@@ -2,10 +2,28 @@
 
 Newest first. One entry per working session: what changed, what we learned, what is next.
 
+## 2026-11-01, Phase 4 ablation and review
+
+- Rules-hidden ablation on the same 300 items: 0.703 against the control's 0.997. ACE and
+  peak category stay at 0.99 with the rule left out; hours fall to 0.13, and 63 of the 87
+  misses follow a duration reading (status held until the next row, or the elapsed time of each
+  spell), since 6 hours per 6-hourly row is our convention. Same storm, two runs: Keith 2000
+  drew 75 in the probe and 71 in the full run. $1.7800.
+- Fable review of Phase 4 (correctness 9, publish-readiness 6): the rule wording now says
+  "at exactly 00:00, 06:00, 12:00 or 18:00 UTC" (9 items turn on it; the runs used the old
+  words and Sonnet got all 9 right); the one-decimal ACE format stays, with its 39 percent slack
+  on single 5 kt misreads stated; reports count the replies that name the storm (2 shown, 4
+  hidden) instead of UNKNOWN; the hidden report says it is the hidden run; the pair report
+  judges each question; new careless readings (no SS, mph thresholds, status held, spell
+  time); tests rebuild the bundled items from the pinned files; hatchling pinned (0014);
+  `--cache-prompt false` from the Phase 5 full runs on (about 10 percent of input cost).
+- Lesson: a diagnostic reading (first to last HU row) looked right on the probe's numbers but
+  spanned the gaps between spells; the reviewer's recomputation from the raw rows caught it.
+
 ## 2026-11-01, Phase 4 baseline and Phase 5 build
 
-- Phase 4 on Sonnet 5.5: probe 6 of 6, then 299 of 300 (0.997; ACE 0.99, category and hours
-  1.00), $1.3627. With the rules in the prompt the environment is saturated for this model;
+- Phase 4 on Sonnet 5.5, the rules-shown control: probe 6 of 6, then 299 of 300 (0.997; ACE
+  0.99, category and hours 1.00), $1.3626. With the rules in the prompt the environment is saturated for this model;
   lfx-prep-b7 asked for the rules-hidden ablation, now built as a switch (`-T rules=false`)
   with a side-by-side report.
 - Phase 5 radar (scout): 21 rows added, 6 moved to hold (every non-Claude model under 0010).

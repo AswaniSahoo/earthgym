@@ -11,7 +11,7 @@ without waiting between steps.
 2. [x] ClimaQA clean v1 on Sonnet 5.5, plus a comparison report against the Gemini 3.8 Flash
        baseline: reports/climaqa/runs/2026-11-01-claude-sonnet-5-5.md and
        reports/climaqa/2026-11-01-sonnet-vs-gemini.md.
-3. [ ] Phase 4 complete: stage 2 environment (verifiers taskset and Inspect task, tests on
+3. [x] Phase 4 complete: stage 2 environment (verifiers taskset and Inspect task, tests on
        mockllm), a Sonnet 5.5 baseline within the cap, a Fable review, and every fix landed.
 4. [ ] Phase 5 complete: heat-insurance basis-risk environment, in the same pattern. Scout
        radar first, a published number reproduced before the environment, then the
@@ -83,12 +83,12 @@ Plan (2026-11-01, from the radar in docs/radar.md):
 - [x] Stage 2 environment: 300 items (sha256 75fe4ff2), contract, verifiers taskset, Inspect
       task; CI runs vf-validate (300 of 300 valid), a mockllm eval and the wheel build
 - [x] Report module with best-constant and careless-reading baselines; trap rates in 0011
-- [x] Sonnet 5.5 baseline: probe 6 of 6, then 299 of 300 (0.997), $1.3627;
+- [x] Rules-shown control on Sonnet 5.5: probe 6 of 6, then 299 of 300 (0.997), $1.3626;
       reports/ibtracs/2026-11-01-claude-sonnet-5-5.md. Saturated with the rules in the prompt
-- [ ] Rules-hidden ablation (lfx-prep-b7): probe 4 of 6 (hours answers 3 h short: elapsed
-      time), full 300 running into logs/2026-11-01-ibtracs-hidden-claude-sonnet-5-5; then
-      `uv run python -m rlenv.ibtracs.report <shown> --hidden <hidden> --out <pair>.md`
-- [ ] Fable review of Phase 4 (running) and its fixes
+- [x] Rules-hidden ablation (lfx-prep-b7): 0.703; ACE and peak 0.99 either way, hours a
+      convention test; reports/ibtracs/2026-11-01-rules-shown-vs-hidden.md
+- [x] Fable review of Phase 4 (reviews/phase-4-ibtracs-storms.md): M1 to M5 and L1 to L6
+      landed; L7 (publish the pinned CSV as a release asset) and the LICENSE wait for Aswani
 
 ## Phase 5, heat-insurance basis risk (decisions 0012, 0013)
 
@@ -128,6 +128,9 @@ was called or spent.
 - [ ] reports/climaqa/review_sample.csv: 30 validated Gold MCQ items
 - [ ] Name the domain expert for the 0005 review; the sheet is ready:
       reports/climaqa/expert_review_v2.csv
+- [ ] LICENSE for the repo and the environment packages (Fable reviews of phases 2 to 4)
+- [ ] Publish the pinned IBTrACS CSV and GHCN-Daily files as release assets, so others can
+      rebuild the items (Phase 4 review L7)
 - [ ] inspect_evals Register submission (publishing is Aswani's call): both model runs on
       clean ClimaQA v1 now exist, Gemini 3.8 Flash and Claude Sonnet 5.5
 
