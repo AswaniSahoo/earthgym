@@ -48,7 +48,7 @@ def render_pair(
         misses = h["n"] - round(h["accuracy"] * h["n"])
         head = f"- {r['question']}: {r['accuracy']:.3f} with the rules shown, "
         head += f"{h['accuracy']:.3f} {short}"
-        if r["accuracy"] - h["accuracy"] < 0.1:
+        if r["accuracy"] - h["accuracy"] < 0.05:  # within five points: no real drop
             lines.append(
                 f"{head}: near the ceiling either way, so the model fills in this rule itself."
             )

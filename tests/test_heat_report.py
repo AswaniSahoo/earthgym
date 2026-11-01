@@ -115,3 +115,11 @@ def test_a_terms_only_log_says_so_and_counts_explained_misses(tmp_path):
     text = report.render(s)
     assert text.startswith("# heat-basis-v1 on model (terms only)")
     assert "the rules-shown run is the control" in text and "not run here" not in text
+
+
+def test_a_small_drop_that_one_reading_explains_is_a_convention_gap():
+    q = {"question": "missed_days", "n": 100, "accuracy": 0.96, "traps": {}, "explained": 0}
+    shown = {"model": "m/x", "n": 100, "reward": 0.96, "questions": [q]}
+    h = q | {"accuracy": 0.89, "traps": {"missing index days left out": 6}, "explained": 6}
+    text = report.render_pair(shown, {"model": "m/x", "n": 100, "reward": 0.89, "questions": [h]})
+    assert "6 of the 11 misses follow a careless reading" in text and "convention gap" in text
