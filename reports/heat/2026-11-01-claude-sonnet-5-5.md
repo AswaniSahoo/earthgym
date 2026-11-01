@@ -57,8 +57,7 @@ Wrong answers by the model that equal a careless reading of the rule:
   the run-to-run spread is not measured.
 - The prompt leaves out the year. The station data are public, but a recalled daily
   series is unlikely; whether any answer was recalled rather than counted is UNKNOWN.
-- Four Phoenix-area stations, seasons 2015 to 2024, with the rules in the prompt; the
-  rules-hidden ablation is not run here.
+- Four Phoenix-area stations, seasons 2015 to 2024. The rules are in the prompt: this run is the control for the terms-only ablation.
 - The cost uses the token counts in the log; the Anthropic Console's bill is not read.
 - events: 'missing days skipped' is right on 99 of 100 items, so on these storms the question mostly tests finding the runs, not the rule's choice of rows (decision 0013).
 - missed_days: 'missing index days left out' is right on 92 of 100 items, so on these storms the question mostly tests comparing the two columns, not the rule's choice of rows (decision 0013).

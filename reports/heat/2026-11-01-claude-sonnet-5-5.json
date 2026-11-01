@@ -3,6 +3,7 @@
  "label": "claude-sonnet-5-5",
  "n": 300,
  "parse_failures": 0,
+ "rules": true,
  "errors": 0,
  "reward": 0.9866666666666667,
  "stderr": 0.0066331375354149675,
@@ -22,7 +23,8 @@
    "traps": {
     "above, not at, the threshold": 0,
     "the site's column": 0
-   }
+   },
+   "explained": 0
   },
   {
    "question": "events",
@@ -41,7 +43,8 @@
     "trigger days, not events": 0,
     "every run, whatever its length": 0,
     "missing days skipped": 0
-   }
+   },
+   "explained": 0
   },
   {
    "question": "missed_days",
@@ -60,7 +63,8 @@
     "both ways": 1,
     "every hot site day": 0,
     "missing index days left out": 0
-   }
+   },
+   "explained": 1
   }
  ],
  "tokens": {
