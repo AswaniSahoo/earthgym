@@ -9,6 +9,7 @@ from math import comb
 from pathlib import Path
 
 from climaqa_v1 import contract
+from climaqa_v1.taskset import near_matches
 from inspect_ai.log import list_eval_logs, read_eval_log
 from inspect_ai.scorer import CORRECT
 
@@ -48,12 +49,14 @@ def format_misses(log) -> list:
     return sorted(out, key=str)
 
 
-def compare(a, b) -> dict:
+def compare(a, b, exclude: frozenset | set = frozenset()) -> dict:
     """Paired counts, both accuracies, the exact McNemar p-value, and the items both models
-    answered with the same wrong answer."""
+    answered with the same wrong answer; items in exclude are left out (the strict variant)."""
     oa, ob = outcomes(a), outcomes(b)
     if set(oa) != set(ob):
         raise ValueError("the logs are not over the same items")
+    oa = {i: v for i, v in oa.items() if i not in exclude}
+    ob = {i: v for i, v in ob.items() if i not in exclude}
     ids = sorted(oa, key=str)
     right_a, right_b = [oa[i][0] for i in ids], [ob[i][0] for i in ids]
     pairs = list(zip(right_a, right_b, strict=True))
@@ -97,14 +100,8 @@ def by_level(a, b) -> dict:
     }
 
 
-def render(rows: list[dict], levels: dict, dirs: tuple[str, str] = ("", "")) -> str:
-    a, b = (rows[0]["model_a"], rows[0]["model_b"]) if rows else ("a", "b")
+def _table(rows: list[dict], a: str, b: str) -> list[str]:
     lines = [
-        f"# Clean ClimaQA v1: {b} against {a}",
-        "",
-        "Each item paired across the two runs. McNemar's exact test on the items only one model",
-        "got right, two-sided.",
-        "",
         f"| task | n | accuracy {a} | accuracy {b} | both right | both wrong | only {a} | "
         f"only {b} | McNemar p |",
         "|---|---|---|---|---|---|---|---|---|",
@@ -115,6 +112,28 @@ def render(rows: list[dict], levels: dict, dirs: tuple[str, str] = ("", "")) -> 
             f"{r['both_right']} | {r['both_wrong']} | {r['only_a']} | {r['only_b']} | "
             f"{r['p']:.3f} |"
         )
+    return lines
+
+
+def render(
+    rows: list[dict],
+    levels: dict,
+    dirs: tuple[str, str] = ("", ""),
+    strict: list[dict] | None = None,
+) -> str:
+    a, b = (rows[0]["model_a"], rows[0]["model_b"]) if rows else ("a", "b")
+    lines = [
+        f"# Clean ClimaQA v1: {b} against {a}",
+        "",
+        "Each item paired across the two runs. McNemar's exact test on the items only one model",
+        "got right, two-sided. Clean set v1 is exact-overlap-filtered: 21 near matches of Silver",
+        "stay in, unresolved, and the strict variant below leaves them out.",
+        "",
+        *_table(rows, a, b),
+    ]
+    if strict:
+        lines += ["", "## Strict variant: the near matches of Silver left out", ""]
+        lines += _table(strict, a, b)
     lines += ["", "## Accuracy by complexity", "", f"| task | level | n | {a} | {b} |"]
     lines.append("|---|---|---|---|---|")
     for task, by in levels.items():
@@ -174,9 +193,10 @@ def main() -> None:
     la, lb = logs(args.a), logs(args.b)
     tasks = [t for t in sorted(la) if t in lb]
     rows = [compare(la[t], lb[t]) for t in tasks]
+    strict = [compare(la[t], lb[t], exclude=near_matches()) for t in tasks]
     levels = {t: by_level(la[t], lb[t]) for t in tasks}
-    args.out.write_text(render(rows, levels, (args.a, args.b)), "utf-8")
-    record = {"rows": rows, "levels": levels}
+    args.out.write_text(render(rows, levels, (args.a, args.b), strict), "utf-8")
+    record = {"rows": rows, "strict": strict, "levels": levels}
     args.out.with_suffix(".json").write_text(json.dumps(record, indent=1, default=str), "utf-8")
     print(f"{len(rows)} tasks compared, written to {args.out}")
 

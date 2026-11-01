@@ -72,3 +72,19 @@ def test_format_misses_are_wrong_replies_whose_last_line_alone_is_the_key():
     )
     assert compare.format_misses(a) == [1]
     assert compare.multiline(a) == 2
+
+
+def test_compare_can_leave_items_out_for_the_strict_variant():
+    a = log("a", [sample(1, True, "A"), sample(2, False, "B"), sample(3, True, "C")])
+    b = log("b", [sample(1, False, "B"), sample(2, False, "B"), sample(3, True, "C")])
+    r = compare.compare(a, b, exclude={1})
+    assert (r["n"], r["only_a"], r["both_wrong"], r["both_right"]) == (2, 0, 1, 1)
+
+
+def test_render_adds_the_strict_variant_beside_the_full_set():
+    a = log("a", [sample(1, True, "A"), sample(2, False, "B")])
+    b = log("b", [sample(1, True, "A"), sample(2, True, "B")])
+    rows, strict = [compare.compare(a, b)], [compare.compare(a, b, exclude={2})]
+    text = compare.render(rows, {}, strict=strict)
+    assert "## Strict variant: the near matches of Silver left out" in text
+    assert "| climaqa_mcq | 1 | 1.000 | 1.000 | 1 | 0 | 0 | 0 | 1.000 |" in text
