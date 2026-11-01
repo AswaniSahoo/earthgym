@@ -16,7 +16,7 @@ without waiting between steps.
 4. [x] Phase 5 complete: heat-insurance basis-risk environment, in the same pattern. Scout
        radar first, a published number reproduced before the environment, then the
        environment, a baseline within the cap, a Fable review and the fixes.
-5. [ ] Final pass: README current, a blog-ready report per phase, a top-level SUMMARY.md of
+5. [x] Final pass: README current, a blog-ready report per phase, a top-level SUMMARY.md of
        the findings with every number traced to a report, the spend ledger final, CI green.
 
 ## Rules for this goal
@@ -106,7 +106,8 @@ Plan (2026-11-01, from the radar in docs/radar.md):
 ## Final pass
 
 - [x] Blog-ready write-ups: phases 1, 2 and 3 (reports/climaqa/, reports/era5/)
-- [ ] Write-ups for phases 4 and 5; SUMMARY.md; README current; ledger final; CI green
+- [x] Write-ups for phases 4 and 5; SUMMARY.md; README current; ledger final ($9.1298 of
+      $20, 12 runs); CI green at 71ab6a8
 
 ## Parked: Jev as a third reader of the ClimaQA misses (decision 0008)
 
