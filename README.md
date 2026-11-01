@@ -81,3 +81,11 @@ paper's counts; any other loader has to filter the same way.
 `reports/climaqa/review_sample.csv` holds 10 validated Gold MCQ items per complexity level
 (seed 20261030). Fill `verdict` with one of: ok, wrong_key, ambiguous, multiple_correct,
 out_of_scope, and say why in `note`.
+
+## License
+
+MIT, copyright 2026 Aswani Kumar Sahoo: see `LICENSE`. The license covers the code in this repo
+and in the environment packages. The data the packages and reports carry keep their sources'
+terms: ClimaQA under Apache-2.0, ERA5 under CC BY 4.0, IBTrACS with "full and open access" and
+WMO Resolution 40 for commercial use, and GHCN-Daily, for which NOAA names no licence
+(`docs/radar.md`, decisions 0008 and 0012).
