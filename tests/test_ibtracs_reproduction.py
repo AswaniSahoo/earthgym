@@ -6,10 +6,10 @@ import hashlib
 
 import pytest
 
-from rlenv.ibtracs import data, stats
+from earthgym.ibtracs import data, stats
 
 pytestmark = pytest.mark.skipif(
-    not data.PATH.exists(), reason="no pinned file; run uv run python -m rlenv.ibtracs.data"
+    not data.PATH.exists(), reason="no pinned file; run uv run python -m earthgym.ibtracs.data"
 )
 
 

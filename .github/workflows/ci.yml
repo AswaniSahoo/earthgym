@@ -20,16 +20,16 @@ jobs:
       - run: uv run pytest -q
       - run: uv run vf-validate era5-forecast-v1 --only-noop --runtime.type subprocess
       - run: >-
-          uv run inspect eval src/rlenv/era5/tasks.py@era5_forecast --model mockllm/model
+          uv run inspect eval src/earthgym/era5/tasks.py@era5_forecast --model mockllm/model
           --limit 3 --log-dir "$RUNNER_TEMP/inspect" --display none
       - run: uv build environments/era5_forecast_v1 --out-dir "$RUNNER_TEMP/wheels"
       - run: uv run vf-validate ibtracs-storm-v1 --only-noop --runtime.type subprocess
       - run: >-
-          uv run inspect eval src/rlenv/ibtracs/tasks.py@ibtracs_storm --model mockllm/model
-          --sample-id "$(uv run python -m rlenv.ibtracs.tasks)" --log-dir "$RUNNER_TEMP/inspect" --display none
+          uv run inspect eval src/earthgym/ibtracs/tasks.py@ibtracs_storm --model mockllm/model
+          --sample-id "$(uv run python -m earthgym.ibtracs.tasks)" --log-dir "$RUNNER_TEMP/inspect" --display none
       - run: uv build environments/ibtracs_storm_v1 --out-dir "$RUNNER_TEMP/wheels"
       - run: uv run vf-validate heat-basis-v1 --only-noop --runtime.type subprocess
       - run: >-
-          uv run inspect eval src/rlenv/heat/tasks.py@heat_basis --model mockllm/model
-          --sample-id "$(uv run python -m rlenv.heat.tasks)" --log-dir "$RUNNER_TEMP/inspect" --display none
+          uv run inspect eval src/earthgym/heat/tasks.py@heat_basis --model mockllm/model
+          --sample-id "$(uv run python -m earthgym.heat.tasks)" --log-dir "$RUNNER_TEMP/inspect" --display none
       - run: uv build environments/heat_basis_v1 --out-dir "$RUNNER_TEMP/wheels"

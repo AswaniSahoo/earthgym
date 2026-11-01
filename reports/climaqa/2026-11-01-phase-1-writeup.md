@@ -1,6 +1,6 @@
 # Checking a climate science benchmark before trusting it
 
-Phase 1 of rlenv, written up on 2026-11-01. Every number below comes from a file in this repo;
+Phase 1 of earthgym, written up on 2026-11-01. Every number below comes from a file in this repo;
 the source is named next to it.
 
 ## The question
@@ -51,5 +51,5 @@ claim about someone else's data is checked at the source before it is made (docs
 
 ## Reproduce
 
-    uv run python -m rlenv.climaqa.audit   # downloads the pinned CSVs, writes reports/climaqa/
+    uv run python -m earthgym.climaqa.audit   # downloads the pinned CSVs, writes reports/climaqa/
     uv run pytest

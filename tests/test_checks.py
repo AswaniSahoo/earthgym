@@ -1,4 +1,4 @@
-from rlenv.climaqa import checks
+from earthgym.climaqa import checks
 
 OPTS = checks.SEP.join(
     [

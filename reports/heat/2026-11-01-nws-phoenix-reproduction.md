@@ -1,6 +1,6 @@
 # Reproducing NWS Phoenix's published heat counts from GHCN-Daily
 
-Date: 2026-11-01. Code: `src/rlenv/heat/data.py` and `src/rlenv/heat/stats.py`. Tests:
+Date: 2026-11-01. Code: `src/earthgym/heat/data.py` and `src/earthgym/heat/stats.py`. Tests:
 `tests/test_heat_reproduction.py`.
 
 ## Result
@@ -36,7 +36,7 @@ record periods: the 2023 summary says "CLIMATE RECORD PERIOD 1895 TO 2024".
   433. A run is consecutive calendar days; a missing day ends it.
 - Commands:
 
-      uv run python -m rlenv.heat.data      # about 1.5 MB, anonymous HTTPS
+      uv run python -m earthgym.heat.data      # about 1.5 MB, anonymous HTTPS
       uv run pytest tests/test_heat_reproduction.py
 
 ## Limits

@@ -1,6 +1,6 @@
 # Where a heat policy misses the heat: an exact-answer basis-risk environment
 
-Phase 5 of rlenv, written up on 2026-11-01. Every number below comes from a file in this repo;
+Phase 5 of earthgym, written up on 2026-11-01. Every number below comes from a file in this repo;
 the source is named next to it.
 
 ## The question
@@ -81,11 +81,11 @@ API's half price and without prompt caching (`reports/spend.md`).
 
 ## Reproduce
 
-    uv run python -m rlenv.heat.data             # the pinned station files, about 2.9 MB
+    uv run python -m earthgym.heat.data             # the pinned station files, about 2.9 MB
     uv run pytest tests/test_heat_reproduction.py
-    uv run inspect eval src/rlenv/heat/tasks.py@heat_basis \
+    uv run inspect eval src/earthgym/heat/tasks.py@heat_basis \
         --model anthropic/claude-sonnet-5-5 --batch --cache-prompt false [-T rules=false]
-    uv run python -m rlenv.heat.report <shown log dir> --hidden <terms log dir> --out <pair>.md
+    uv run python -m earthgym.heat.report <shown log dir> --hidden <terms log dir> --out <pair>.md
 
 Sources: GHCN-Daily (NOAA NCEI, doi:10.7289/V5D21VHZ); NWS Phoenix's 2023 climate summary and
 its extreme temperatures page.

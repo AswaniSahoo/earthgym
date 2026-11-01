@@ -1,6 +1,6 @@
 # Scoring a language model's weather forecasts, with WeatherBench 2 metrics as the check
 
-Phase 3 of rlenv, written up on 2026-11-01. Every number below comes from a report in this
+Phase 3 of earthgym, written up on 2026-11-01. Every number below comes from a report in this
 repo; the source is named next to it.
 
 ## The question
@@ -100,10 +100,10 @@ probe, balanced over variable and lead, projected $1.55 to $1.64 before the run 
 ## Reproduce
 
     uv run pytest tests/test_era5_reproduction.py   # the WB2 numbers (pinned subset)
-    uv run python -m rlenv.era5.baselines            # the baseline rows
-    uv run inspect eval src/rlenv/era5/tasks.py@era5_forecast \
+    uv run python -m earthgym.era5.baselines            # the baseline rows
+    uv run inspect eval src/earthgym/era5/tasks.py@era5_forecast \
         --model anthropic/claude-sonnet-5-5 --batch
-    uv run python -m rlenv.era5.report <log dir> --out <report>.md
+    uv run python -m earthgym.era5.report <log dir> --out <report>.md
 
 Sources: WeatherBench 2 (arXiv 2308.15560v2; JAMES 16(6) e2023MS004019, 2024, CC BY 4.0) and
 its published results, as listed in `docs/radar.md`; ERA5 (Copernicus, CC BY 4.0); IFS HRES forecasts as served by WB2.

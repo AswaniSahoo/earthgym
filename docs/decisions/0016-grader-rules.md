@@ -29,9 +29,9 @@ Decision:
   `+ / ^ = < >`, a decimal point between digits, and a minus sign before a number that is not
   inside a word. `*` is not kept, since models use it for bold. Articles drop only as whole
   words, so `a+b` stays. Hyphenated words still split.
-- Guards: `rlenv.heat.items.key` raises on an unknown question; `rlenv.era5.report` refuses a run
+- Guards: `earthgym.heat.items.key` raises on an unknown question; `earthgym.era5.report` refuses a run
   with no samples and gives a one-item run no standard error and no significance test;
-  `rlenv.ablation.render_pair` refuses two runs of different models, a run that repeats an item
+  `earthgym.ablation.render_pair` refuses two runs of different models, a run that repeats an item
   id, and runs over different items.
 
 Consequences:

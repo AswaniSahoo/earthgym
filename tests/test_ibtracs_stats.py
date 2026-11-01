@@ -1,6 +1,6 @@
 import pytest
 
-from rlenv.ibtracs import stats
+from earthgym.ibtracs import stats
 
 
 def row(sid, time, status, wind, basin="NA", track="main", season="2024"):

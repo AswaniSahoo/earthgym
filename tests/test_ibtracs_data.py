@@ -4,7 +4,7 @@ import urllib.error
 
 import pytest
 
-from rlenv.ibtracs import data
+from earthgym.ibtracs import data
 
 CSV = (
     "SID,SEASON,BASIN,NAME,ISO_TIME,USA_WIND\n"

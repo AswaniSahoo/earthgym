@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from rlenv.climaqa import jev, third_reader
+from earthgym.climaqa import jev, third_reader
 
 MCQ_ROW = {
     "id": "gold/mcq/36",

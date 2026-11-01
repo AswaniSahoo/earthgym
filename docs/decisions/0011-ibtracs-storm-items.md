@@ -60,7 +60,7 @@ time of each hurricane spell. The last three readings came with the Phase 4 revi
 Rules-hidden ablation (2026-11-01, which I asked for after the rules-shown run scored 0.997): the
 same items and prompts without the "Rule." paragraph, so the status legend, units, rounding and
 question stay; `-T rules=false` on the Inspect task, `rules: false` in the taskset config. The two
-runs are reported side by side (`rlenv.ablation`).
+runs are reported side by side (`earthgym.ablation`).
 
 Rules-hidden result (2026-11-01, `reports/ibtracs/2026-11-01-rules-shown-vs-hidden.md`):
 0.703 against 0.997. ACE (0.99) and peak category (0.99) stay at the ceiling with the rule
@@ -79,7 +79,7 @@ basin and spur rules are exercised by no item and no anchor (Phase 4 review, L2)
 
 Consequences: answers are exact, so a reply is right or wrong with no judge. The careless
 baselines measure how often each trap changes the answer on these storms. Measured on the
-300 items (`rlenv.ibtracs.report.careless`): ACE over every row is right on 0 of 100, ACE
+300 items (`earthgym.ibtracs.report.careless`): ACE over every row is right on 0 of 100, ACE
 ignoring status on 56, hours over every HU row on 1. For peak category the traps barely
 bite: ignoring status is right on all 100, synoptic rows only on 96, so that question is
 mostly a control for reading the scale. I keep it (2026-11-01): a rapid-intensification

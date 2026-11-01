@@ -3,7 +3,7 @@ from types import SimpleNamespace
 from inspect_ai.model import ModelUsage
 from inspect_ai.scorer import CORRECT, INCORRECT, Score
 
-from rlenv import results
+from earthgym import results
 
 
 def sample(sid, value, answer, error=None):

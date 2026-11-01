@@ -20,7 +20,7 @@ def records() -> list[dict]:
 
 
 def near_matches() -> set[str]:
-    """Ids of the kept items that are near matches of Silver (rlenv.climaqa.clean)."""
+    """Ids of the kept items that are near matches of Silver (earthgym.climaqa.clean)."""
     text = files("climaqa_v1").joinpath(NEAR_MATCHES).read_text("utf-8")
     return set(json.loads(text)["ids"])
 
@@ -72,7 +72,7 @@ def to_data(row: dict) -> ClimaqaData:
             answer=row["answer"],
             key_text=row["answer"],
         )
-    options = row["options"]  # shuffled once, per item id, by rlenv.climaqa.clean
+    options = row["options"]  # shuffled once, per item id, by earthgym.climaqa.clean
     return ClimaqaData(
         id=row["id"],
         prompt=contract.mcq_prompt(row["question"], options),

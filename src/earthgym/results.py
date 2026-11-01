@@ -3,7 +3,7 @@ be recomputed without the logs, which are not in git (decision 0019). Each file 
 for the run (model, task, settings, tokens, the items' sha256) and one per item (id, the answer
 the scorer parsed, the reward and the tokens, plus the few flags a report reads from the reply).
 
-uv run python -m rlenv.results <env> <log dir> <name>   # writes reports/<env>/results/<name>.jsonl
+uv run python -m earthgym.results <env> <log dir> <name>  # reports/<env>/results/<name>.jsonl
 """
 
 import argparse
@@ -16,7 +16,7 @@ from pathlib import Path
 from inspect_ai.log import list_eval_logs, read_eval_log
 from inspect_ai.scorer import CORRECT
 
-from rlenv import spend
+from earthgym import spend
 
 ITEMS = {  # environment: (package, bundled items file)
     "climaqa": ("climaqa_v1", "climaqa_clean_v1.jsonl"),
@@ -79,7 +79,7 @@ def main() -> None:
     parser.add_argument("log_dir")
     parser.add_argument("name", help="the report's file name without .md")
     args = parser.parse_args()
-    report = importlib.import_module(f"rlenv.{args.env}.report")
+    report = importlib.import_module(f"earthgym.{args.env}.report")
     out = Path("reports") / args.env / "results"
     for info in list_eval_logs(args.log_dir):
         log = read_eval_log(info)

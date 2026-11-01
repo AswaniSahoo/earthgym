@@ -4,7 +4,7 @@ import pytest
 from inspect_ai import eval
 from inspect_ai.model import ModelOutput, ModelUsage, get_model
 
-from rlenv.heat import report, tasks
+from earthgym.heat import report, tasks
 
 
 def item(question, index_f, site_f, key, threshold=110, k=None):

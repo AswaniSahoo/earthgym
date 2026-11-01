@@ -24,7 +24,7 @@ files (`reports/heat/2026-11-01-nws-phoenix-reproduction.md`). Rebuild the items
 root (about 2.9 MB of pinned station files; the items' sha256 is in
 `reports/heat/items_v1_manifest.json`):
 
-    uv run python -m rlenv.heat.data
-    uv run python -m rlenv.heat.items
+    uv run python -m earthgym.heat.data
+    uv run python -m earthgym.heat.items
 
 Data: GHCN-Daily (NOAA NCEI), doi:10.7289/V5D21VHZ. NOAA names no licence for it.

@@ -1,6 +1,6 @@
 """One answer contract for every harness: the prompts and the exact correctness rules.
 
-Inspect (rlenv.climaqa.tasks) and verifiers (climaqa_v1.taskset) both import this module, so they
+Inspect (earthgym.climaqa.tasks) and verifiers (climaqa_v1.taskset) both import this module, so they
 show the same prompt and count the same replies as correct.
 """
 

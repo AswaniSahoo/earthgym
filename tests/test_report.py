@@ -4,7 +4,7 @@ from inspect_ai import eval
 from inspect_ai.log import EvalRevision
 from inspect_ai.model import GenerateConfig, ModelOutput, ModelUsage, get_model
 
-from rlenv.climaqa import report, tasks
+from earthgym.climaqa import report, tasks
 
 MCQ = [
     {

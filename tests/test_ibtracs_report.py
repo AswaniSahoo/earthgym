@@ -4,7 +4,7 @@ import pytest
 from inspect_ai import eval
 from inspect_ai.model import ModelOutput, ModelUsage, get_model
 
-from rlenv.ibtracs import report, tasks
+from earthgym.ibtracs import report, tasks
 
 
 def item(question, sid, rows, key):

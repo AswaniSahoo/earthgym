@@ -20,7 +20,7 @@ line alone is right. No reply text and no prompts. 17 files, 378,933 bytes: the 
 behind the reports, the 7 probe logs (one ClimaQA probe holds two tasks), Gemini's ERA5 probe
 among them.
 
-`uv run python -m rlenv.results <env> <log dir> <name>` writes a file from the logs. Each report
+`uv run python -m earthgym.results <env> <log dir> <name>` writes a file from the logs. Each report
 module builds its summary from these rows, whether they come from a log or from a committed
 file, so one code path serves both. `tests/test_published_numbers.py` needs neither the logs nor
 the data: it re-renders every report and its JSON from the committed files and compares them

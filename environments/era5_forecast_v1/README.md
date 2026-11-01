@@ -28,13 +28,13 @@ Rebuild the items from the repo root (about 55 MB over anonymous HTTPS; the stor
 pinned by sha256, and `reports/era5/items_v1_manifest.json` holds the file's sha256 and
 `fields_sha256`, a hash of every array the builder reads, which a rebuild checks first):
 
-    uv run python -m rlenv.era5.items
+    uv run python -m earthgym.era5.items
 
 Checked offline on 2026-10-30:
 
     uv run vf-validate era5-forecast-v1 --only-noop --runtime.type subprocess   # 720 of 720 valid
     uv run vf-eval era5-forecast-v1 --dry-run --no-push -m <served model name>
-    uv run inspect eval src/rlenv/era5/tasks.py@era5_forecast --model mockllm/model --limit 3
+    uv run inspect eval src/earthgym/era5/tasks.py@era5_forecast --model mockllm/model --limit 3
 
 Attribution: contains modified Copernicus Climate Change Service information 2026. Neither the
 European Commission nor ECMWF is responsible for any use that may be made of the Copernicus

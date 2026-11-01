@@ -3,7 +3,7 @@ import math
 import numpy as np
 import pytest
 
-from rlenv.era5 import scores
+from earthgym.era5 import scores
 
 LAT = np.array([-60.0, 0.0, 60.0])
 

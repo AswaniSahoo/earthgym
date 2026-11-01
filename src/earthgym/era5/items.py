@@ -14,7 +14,7 @@ from pathlib import Path
 
 import numpy as np
 
-from rlenv.era5 import data, scores
+from earthgym.era5 import data, scores
 
 SEED, PER_GROUP = 20261030, 120  # 2 variables x 3 leads x 120 = 720 items
 OUT = Path("environments/era5_forecast_v1/era5_forecast_v1/era5_forecast_v1.jsonl")

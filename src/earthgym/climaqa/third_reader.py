@@ -1,6 +1,6 @@
 """Jev as a third reader of the ClimaQA miss sort (decision 0008).
 
-uv run python -m rlenv.climaqa.third_reader   # needs TYPESAFE_API_KEY; stops before $0.10
+uv run python -m earthgym.climaqa.third_reader   # needs TYPESAFE_API_KEY; stops before $0.10
 """
 
 import argparse
@@ -12,7 +12,7 @@ import urllib.request
 from collections import Counter
 from pathlib import Path
 
-from rlenv.climaqa import expert_sheet, jev
+from earthgym.climaqa import expert_sheet, jev
 
 RUNS = 5  # identical calls per item, for stability
 LOG = Path("logs/2026-10-31-jev/responses.jsonl")  # raw responses, not in git

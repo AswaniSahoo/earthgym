@@ -9,7 +9,7 @@ from ibtracs_storm_v1 import taskset as ts
 from inspect_ai import eval
 from inspect_ai.model import ModelOutput, get_model
 
-from rlenv.ibtracs import tasks
+from earthgym.ibtracs import tasks
 
 ROW = {
     "id": "hurricane_hours/X",

@@ -3,7 +3,7 @@ import json
 
 import pytest
 
-from rlenv.climaqa import jev
+from earthgym.climaqa import jev
 
 CLOZE = {"sentence": "The <MASK> rises.", "key": "sun", "reply": "Sun"}
 
@@ -66,6 +66,6 @@ def test_budget_refuses_a_call_that_would_cross_the_limit():
 def test_the_env_file_is_found_from_the_checkout_not_a_fixed_path():
     from pathlib import Path
 
-    module = Path("/elsewhere/rlenv/src/rlenv/climaqa/jev.py")
-    assert jev.repo_root(module) == Path("/elsewhere/rlenv")
+    module = Path("/elsewhere/earthgym/src/earthgym/climaqa/jev.py")
+    assert jev.repo_root(module) == Path("/elsewhere/earthgym")
     assert jev.repo_root(Path(jev.__file__).resolve()) / ".env" == jev.ENV_FILE

@@ -1,6 +1,6 @@
 """Dated report of a model run on era5-forecast-v1, from its Inspect log (decision 0010).
 
-uv run python -m rlenv.era5.report <log dir> --out reports/era5/<date>-<model>.md
+uv run python -m earthgym.era5.report <log dir> --out reports/era5/<date>-<model>.md
 """
 
 import argparse
@@ -11,8 +11,8 @@ from pathlib import Path
 from era5_forecast_v1.taskset import records
 from inspect_ai.log import EvalLog, list_eval_logs, read_eval_log
 
-from rlenv import results, spend
-from rlenv.era5 import baselines
+from earthgym import results, spend
+from earthgym.era5 import baselines
 
 
 def _midpoint(item: dict) -> float:
@@ -31,7 +31,7 @@ def _paired(paid: dict, by_id: dict) -> dict:
 
 
 def rows(log: EvalLog, items: list[dict] | None = None) -> list[dict]:
-    """The run's per-item results (rlenv.results); items defaults to the bundled set."""
+    """The run's per-item results (earthgym.results); items defaults to the bundled set."""
     by_id = {r["id"]: r for r in (records() if items is None else items)}
     for s in log.samples or []:
         if s.metadata["truth"] != by_id[s.id]["truth"]:
@@ -47,7 +47,7 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
 
 def from_results(head: dict, rows: list[dict], items: list[dict]) -> dict:
     """The summary of a run from its per-item results, read from a log or from the committed
-    file (rlenv.results)."""
+    file (earthgym.results)."""
     if not rows:
         raise ValueError("the log has no samples")
     by_id = {r["id"]: r for r in items}

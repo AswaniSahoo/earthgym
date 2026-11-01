@@ -1,6 +1,6 @@
 """Dated markdown report from Inspect eval logs.
 
-uv run python -m rlenv.climaqa.report <log dir> --out reports/climaqa/runs/<name>.md
+uv run python -m earthgym.climaqa.report <log dir> --out reports/climaqa/runs/<name>.md
 """
 
 import argparse
@@ -14,13 +14,13 @@ from pathlib import Path
 from climaqa_v1 import contract
 from inspect_ai.log import EvalLog, list_eval_logs, read_eval_log
 
-from rlenv import results
+from earthgym import results
 
 OPTION = re.compile(r"^([A-D])\) (.*)$", re.MULTILINE)  # option lines of contract.mcq_prompt
 
 
 def rows(log: EvalLog) -> list[dict]:
-    """The run's per-item results (rlenv.results), with what the reports read from each
+    """The run's per-item results (earthgym.results), with what the reports read from each
     sample: its complexity; for MCQ the key and whether it is the longest option; for cloze the
     reply's line count and whether its last line alone is right."""
     out = []
@@ -45,7 +45,7 @@ def summarize(log: EvalLog) -> dict:
 
 def from_results(head: dict, rows: list[dict]) -> dict:
     """The summary of a run from its per-item results, read from a log or from the committed
-    file (rlenv.results)."""
+    file (earthgym.results)."""
     by_level: dict[str, list[bool]] = defaultdict(list)
     for r in rows:
         by_level[r["complexity"]].append(r["reward"] == 1.0)

@@ -2,10 +2,10 @@
 
 import pytest
 
-from rlenv.era5 import data, scores
+from earthgym.era5 import data, scores
 
 pytestmark = pytest.mark.skipif(
-    not data.SUBSET.exists(), reason="no pinned subset; run uv run python -m rlenv.era5.data"
+    not data.SUBSET.exists(), reason="no pinned subset; run uv run python -m earthgym.era5.data"
 )
 
 

@@ -1,7 +1,7 @@
 """Paired comparison of two models on clean ClimaQA v1, item by item, from their per-item
-results (rlenv.results): a run is its header and its rows, read from a log or a committed file.
+results (earthgym.results): a run is its header and its rows, read from a log or a committed file.
 
-uv run python -m rlenv.climaqa.compare <log dir a> <log dir b> --out reports/climaqa/<name>.md
+uv run python -m earthgym.climaqa.compare <log dir a> <log dir b> --out reports/climaqa/<name>.md
 """
 
 import argparse
@@ -12,8 +12,8 @@ from pathlib import Path
 from climaqa_v1.taskset import near_matches
 from inspect_ai.log import list_eval_logs, read_eval_log
 
-from rlenv import results
-from rlenv.climaqa import report
+from earthgym import results
+from earthgym.climaqa import report
 
 
 def mcnemar(b: int, c: int) -> float:

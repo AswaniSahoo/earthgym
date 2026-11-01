@@ -1,6 +1,6 @@
 """Per-storm question items for ibtracs-storm-v1 (decisions 0009 and 0011).
 
-uv run python -m rlenv.ibtracs.items   # writes the bundled items and the manifest
+uv run python -m earthgym.ibtracs.items   # writes the bundled items and the manifest
 """
 
 import hashlib
@@ -9,7 +9,7 @@ import random
 from collections import defaultdict
 from pathlib import Path
 
-from rlenv.ibtracs import data, stats
+from earthgym.ibtracs import data, stats
 
 COLUMNS = (*stats.COLUMNS, "NAME", "USA_PRES")
 SEASONS = range(1980, 2026)  # 2026 is provisional; before 1980 many 3-hourly rows are blank

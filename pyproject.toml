@@ -1,5 +1,5 @@
 [project]
-name = "rlenv"
+name = "earthgym"
 version = "0.1.0"
 description = "Verifiable evals and RL environments for climate and earth science."
 authors = [

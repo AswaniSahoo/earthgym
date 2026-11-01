@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 import numpy as np
 import pytest
 
-from rlenv.era5 import items
+from earthgym.era5 import items
 
 INIT = datetime(2020, 7, 1)
 T2M = "2m_temperature"

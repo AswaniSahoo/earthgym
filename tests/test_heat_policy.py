@@ -1,4 +1,4 @@
-from rlenv.heat import policy, stats
+from earthgym.heat import policy, stats
 
 T = stats.tenths(110)  # 433
 # index: 05-01..05-04 at 110, a gap on 05-05, 05-06..05-07 at 110, 05-08 at 109; outside the

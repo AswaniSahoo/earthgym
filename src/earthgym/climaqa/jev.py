@@ -16,7 +16,7 @@ LIMIT_USD = 0.10  # my cap for the study (0008)
 
 
 def repo_root(module: Path) -> Path:
-    """The checkout that holds this module: src/rlenv/climaqa/jev.py sits four levels down."""
+    """The checkout that holds this module: src/earthgym/climaqa/jev.py sits four levels down."""
     return module.parents[3]
 
 

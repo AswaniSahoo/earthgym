@@ -5,8 +5,6 @@ the decisions (`docs/decisions/`).
 
 ## Before the repository goes public
 
-- Rename the repository and the Python package from rlenv to earthgym, since "rlenv" is taken on
-  PyPI.
 - A gold check for every environment: each item's reference answer must score 1.0, and items
   that fail it leave the set (the market review found 3 ERA5 items that no forecast can win).
 - Say plainly that IBTrACS and heat, with their rules shown, are saturated for a frontier model

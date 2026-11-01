@@ -2,7 +2,7 @@
 
 Decision 0005 (accepted 2026-10-30): before clean set v2, a domain expert confirms or rejects
 every flagged item, and only the expert writes accepted answers. The sheet is
-`expert_review_v2.csv`, 83 rows, written once by `uv run python -m rlenv.climaqa.expert_sheet`;
+`expert_review_v2.csv`, 83 rows, written once by `uv run python -m earthgym.climaqa.expert_sheet`;
 the code never overwrites it.
 
 ## Rows

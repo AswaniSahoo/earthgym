@@ -1,4 +1,4 @@
-# rlenv: how I work with my coding assistant
+# earthgym: how I work with my coding assistant
 
 My instructions to Claude Code for this repository: verifiable evals and RL environments for
 climate and earth science.
@@ -27,12 +27,12 @@ climate and earth science.
 
 ## Layout
 
-    src/rlenv/<phase>/   code, one package per phase
-    environments/        one verifiers package per environment
-    tests/               unit tests, small inline fixtures, no network
-    reports/             results of audits and experiments, with per-item results
-    docs/decisions/      why I chose what I chose
-    docs/reviews/        one review per phase
-    docs/log.md          what changed and what I learned, newest first
-    docs/roadmap.md      what I plan next
-    docs/radar.md        what is new and proven, in adopt / trial / assess / hold rings
+    src/earthgym/<phase>/   code, one package per phase
+    environments/           one verifiers package per environment
+    tests/                  unit tests, small inline fixtures, no network
+    reports/                results of audits and experiments, with per-item results
+    docs/decisions/         why I chose what I chose
+    docs/reviews/           one review per phase
+    docs/log.md             what changed and what I learned, newest first
+    docs/roadmap.md         what I plan next
+    docs/radar.md           what is new and proven, in adopt / trial / assess / hold rings

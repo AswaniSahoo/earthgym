@@ -3,11 +3,11 @@ from types import SimpleNamespace
 import pytest
 from inspect_ai.scorer import CORRECT, INCORRECT, Score
 
-from rlenv.climaqa import compare, report
+from earthgym.climaqa import compare, report
 
 
 def sample(sid, right, answer, level="BASE"):
-    """One row of per-item results (rlenv.results)."""
+    """One row of per-item results (earthgym.results)."""
     return {"id": sid, "reward": 1.0 if right else 0.0, "answer": answer, "complexity": level}
 
 

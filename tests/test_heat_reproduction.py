@@ -6,11 +6,11 @@ import hashlib
 
 import pytest
 
-from rlenv.heat import data, stats
+from earthgym.heat import data, stats
 
 PATH = data.ROOT / "USW00023183.csv.gz"
 pytestmark = pytest.mark.skipif(
-    not PATH.exists(), reason="no pinned file; run uv run python -m rlenv.heat.data"
+    not PATH.exists(), reason="no pinned file; run uv run python -m earthgym.heat.data"
 )
 
 

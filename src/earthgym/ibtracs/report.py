@@ -1,125 +1,104 @@
-"""Report of a model run on heat-basis-v1, next to the baselines of decision 0013.
+"""Report of a model run on ibtracs-storm-v1, next to the baselines of decision 0011.
 
-uv run python -m rlenv.heat.report <log dir> --out reports/heat/<date>-<model>.md
+uv run python -m earthgym.ibtracs.report <log dir> --out reports/ibtracs/<date>-<model>.md
 """
 
 import argparse
+import datetime as dt
 import json
 import re
 import statistics
 from pathlib import Path
 
-from heat_basis_v1 import contract
-from heat_basis_v1.taskset import records
+from ibtracs_storm_v1 import contract
+from ibtracs_storm_v1.taskset import records
 from inspect_ai.log import EvalLog, list_eval_logs, read_eval_log
 
-from rlenv import ablation, results, spend
+from earthgym import ablation, results, spend
+from earthgym.ibtracs import stats
 
-MISSING = ("missing days skipped", "missing index days left out")  # the missing-value rules
-YEAR = re.compile(r"\b20(1[5-9]|2[0-4])\b")  # a season the prompt leaves out
 TESTS = {  # what a question still tests when its careless reading is right anyway
-    "trigger_days": "counting the hot days",
-    "events": "finding the runs",
-    "missed_days": "comparing the two columns",
+    "ace": "summing the squares",
+    "peak_category": "reading the Saffir-Simpson scale",
+    "hurricane_hours": "counting the rows",
 }
 
 
-def _runs(hot: list[bool]) -> list[int]:
-    """Lengths of the runs of True."""
-    out, run = [], 0
-    for h in [*hot, False]:
-        if h:
-            run += 1
-        elif run:
-            out.append(run)
-            run = 0
-    return out
-
-
-def careless(item: dict) -> dict:
-    """The answer each careless reading of the item's rule gives (decision 0013). An
-    independent re-implementation in whole degrees, from the prompt's columns, as a check on
-    the keys' code."""
-    f, k = item["threshold"], item["k"]
-    index, site = item["index_f"], item["site_f"]
-
-    def hot(v):
-        return v is not None and v >= f
-
-    if item["question"] == "trigger_days":
-        return {
-            "above, not at, the threshold": sum(v is not None and v > f for v in index),
-            "the site's column": sum(hot(v) for v in site),
-        }
-    if item["question"] == "events":
-        runs = _runs([hot(v) for v in index])
-        return {
-            "trigger days, not events": sum(hot(v) for v in index),
-            "every run, whatever its length": len(runs),
-            "missing days skipped": sum(
-                r >= k for r in _runs([hot(v) for v in index if v is not None])
-            ),
-            "blocks of k days": sum(r // k for r in runs),
-            "runs longer than k": sum(r > k for r in runs),
-            "runs of exactly k": sum(r == k for r in runs),
-        }
-    pairs = list(zip(index, site, strict=True))
-    missed = sum(hot(s) and not hot(i) for i, s in pairs)
+def _hours(rows: list) -> dict:
+    """Two duration readings of the hours question: every HU row's status held until the next
+    row, and the elapsed time of each spell of consecutive HU rows."""
+    times = [dt.datetime.fromisoformat(r[0]) for r in rows]
+    hu = [r[1] == "HU" for r in rows]
+    gaps = zip(times, times[1:], hu, strict=False)
+    holds = sum((later - t).total_seconds() / 3600 for t, later, h in gaps if h)
+    spells, start = 0.0, None
+    for i, h in enumerate([*hu, False]):
+        if h and start is None:
+            start = i
+        elif not h and start is not None:
+            spells += (times[i - 1] - times[start]).total_seconds() / 3600
+            start = None
     return {
-        "both ways": missed + sum(hot(i) and s is not None and not hot(s) for i, s in pairs),
-        "every hot site day": sum(hot(s) for _, s in pairs),
-        "missing index days left out": sum(
-            hot(s) and i is not None and not hot(i) for i, s in pairs
-        ),
-        "site strictly above the threshold": sum(
-            s is not None and s > f and not hot(i) for i, s in pairs
-        ),
-        "the other way round": sum(hot(i) and s is not None and not hot(s) for i, s in pairs),
+        "each row's status holds until the next row": round(holds),
+        "elapsed time of each hurricane spell": round(spells),
     }
 
 
-def _gap_days(item: dict) -> int:
-    """Hot site days with no index value: what a missed-days answer turns on when the
-    missing-index rule is read the other way."""
-    f = item["threshold"]
-    pairs = zip(item["index_f"], item["site_f"], strict=True)
-    return sum(i is None and s is not None and s >= f for i, s in pairs)
+def careless(item: dict) -> dict:
+    """The answer each careless reading of the item's rule gives (decision 0011)."""
+    rows = item["rows"]
+    synoptic = [r for r in rows if r[0][11:] in stats.SYNOPTIC]
+    if item["question"] == "ace":
+        every = sum(w * w for _, s, w, _ in rows if s in stats.NAMED and w >= 34)
+        any_status = sum(w * w for _, _, w, _ in synoptic if w >= 34)
+        no_ss = sum(w * w for _, s, w, _ in synoptic if s in ("TS", "HU") and w >= 34)
+        return {
+            "ACE over every row": round(every / 1e4, 1),
+            "ACE ignoring status": round(any_status / 1e4, 1),
+            "ACE from TS and HU only": round(no_ss / 1e4, 1),
+        }
+    if item["question"] == "peak_category":
+        peak = max((w for _, s, w, _ in rows if s == "HU"), default=0)
+        return {
+            "category ignoring status": stats.scale(max(w for _, _, w, _ in rows)),
+            "category from synoptic rows only": stats.scale(
+                max((w for _, s, w, _ in synoptic if s == "HU"), default=0)
+            ),
+            "category by the mph thresholds": stats.scale(peak, stats.MPH),
+        }
+    return {"hours over every HU row": 6 * sum(r[1] == "HU" for r in rows)} | _hours(rows)
 
 
-def _where(group: list[dict], names: list[str]) -> dict:
-    """For the missing-value readings: the stations and seasons where they change a key."""
-    out = {}
-    for name in (n for n in names if n in MISSING):
-        places: dict[str, int] = {}
-        for i in group:
-            if careless(i)[name] != i["key"]:
-                place = f"{i['index_name']} {i['year']}"
-                places[place] = places.get(place, 0) + 1
-        if places:
-            out[name] = places
-    return out
-
-
-def _places(places: dict) -> str:
-    return ", ".join(f"{p} ({c})" for p, c in sorted(places.items(), key=lambda x: -x[1]))
+def names_storm(reply: str, meta: dict) -> bool:
+    """Whether a reply names the storm or its season, words the prompt leaves out."""
+    name, season = meta.get("name", ""), str(meta.get("season", ""))
+    named = name not in ("", "UNNAMED", "NOT_NAMED") and re.search(
+        rf"\b{re.escape(name)}\b", reply, re.I
+    )
+    return bool(named or (season and re.search(rf"\b{season}\b", reply)))
 
 
 def best_constant(items: list[dict]) -> tuple[float, float]:
     """The single answer right on the most items of one question, and its accuracy."""
-    keys = [i["key"] for i in items]
-    best = max(sorted(set(keys)), key=lambda v: (keys.count(v), -v))
-    return best, keys.count(best) / len(keys)
+    question, keys = items[0]["question"], [i["key"] for i in items]
+    candidates = sorted({round(k, 1) if question == "ace" else k for k in keys})
+
+    def right(value: float) -> float:
+        return sum(contract.reward(question, value, k) for k in keys)
+
+    best = max(candidates, key=lambda v: (right(v), -v))
+    return best, right(best) / len(keys)
 
 
 def rows(log: EvalLog, items: list[dict] | None = None) -> list[dict]:
-    """The run's per-item results (rlenv.results), with whether each reply names a season; items
-    defaults to the bundled set."""
+    """The run's per-item results (earthgym.results), with whether each reply names the storm or
+    its season; items defaults to the bundled set."""
     by_id = {i["id"]: i for i in (records() if items is None else items)}
     out = []
     for s in log.samples or []:
         if s.metadata["key"] != by_id[s.id]["key"]:
             raise ValueError(f"{s.id}: the log's key differs from the item's")
-        out.append(results.row(s) | {"recognized": bool(YEAR.search(s.output.completion))})
+        out.append(results.row(s) | {"recognized": names_storm(s.output.completion, s.metadata)})
     return out
 
 
@@ -131,7 +110,7 @@ def summarize(log: EvalLog, items: list[dict]) -> dict:
 
 def from_results(head: dict, rows: list[dict], items: list[dict]) -> dict:
     """The summary of a run from its per-item results, read from a log or from the committed
-    file (rlenv.results)."""
+    file (earthgym.results)."""
     by_id = {i["id"]: i for i in items}
     batch = bool(head["settings"].get("batch"))
     answers, paid, item_costs = {}, {}, []
@@ -160,27 +139,24 @@ def from_results(head: dict, rows: list[dict], items: list[dict]) -> dict:
             | {
                 "baselines": {
                     name: statistics.fmean(
-                        contract.reward(careless(i)[name], i["key"]) for i in group
+                        contract.reward(q, careless(i)[name], i["key"]) for i in group
                     )
                     for name in names
                 },
                 "traps": {
-                    name: sum(answers[i["id"]] == careless(i)[name] for i in misses)
+                    name: sum(
+                        contract.reward(q, answers[i["id"]], careless(i)[name]) == 1.0
+                        for i in misses
+                    )
                     for name in names
                 },
                 "explained": sum(
-                    any(answers[i["id"]] == careless(i)[name] for name in names) for i in misses
+                    any(
+                        contract.reward(q, answers[i["id"]], careless(i)[name]) == 1.0
+                        for name in names
+                    )
+                    for i in misses
                 ),
-                "matched": {
-                    name: ids
-                    for name in names
-                    if (ids := [i["id"] for i in misses if answers[i["id"]] == careless(i)[name]])
-                },
-                "off_by_one": sum(abs(answers[i["id"]] - i["key"]) == 1 for i in misses),
-                "gap_days": sum(
-                    0 < _gap_days(i) == abs(answers[i["id"]] - i["key"]) for i in misses
-                ),
-                "where": _where(group, names),
             }
         )
     rewards = list(paid.values())
@@ -191,10 +167,10 @@ def from_results(head: dict, rows: list[dict], items: list[dict]) -> dict:
         "n": len(rewards),
         "ids": [r["id"] for r in rows],
         "parse_failures": parse_failures,
+        "errors": errors,
         "rules": head["task_args"].get("rules", True),
         "recognized": recognized,
-        "recognized_what": "name a season from 2015 to 2024",
-        "errors": errors,
+        "recognized_what": "name the storm or its season",
         "reward": statistics.fmean(rewards),
         "stderr": statistics.stdev(rewards) / len(rewards) ** 0.5 if len(rewards) > 1 else 0.0,
         "questions": questions,
@@ -214,16 +190,17 @@ def from_results(head: dict, rows: list[dict], items: list[dict]) -> dict:
 def render(s: dict) -> str:
     t, n = s["tokens"], s["n"]
     lines = [
-        f"# heat-basis-v1 on {s['label']}{'' if s['rules'] else ' (terms only)'}",
+        f"# ibtracs-storm-v1 on {s['label']}{'' if s['rules'] else ' (rules hidden)'}",
         "",
-        f"Model `{s['model']}` on {n} items, scored by heat_basis_v1/contract.py at commit "
-        f"{s['commit']}" + ("." if s["rules"] else ", with the policy terms alone in the prompt."),
+        f"Model `{s['model']}` on {n} items, scored by ibtracs_storm_v1/contract.py at commit "
+        f"{s['commit']}"
+        + ("." if s["rules"] else ", with each question's rule left out of the prompt."),
         "",
         "## Result",
         "",
         f"Accuracy {s['reward']:.3f} (stderr {s['stderr']:.3f}) over all {n} items, parse "
         "failures and errors scored 0. Each answer is right or wrong against the exact key "
-        "(decision 0013).",
+        "(decision 0011).",
         "",
         f"Replies without a parseable answer line: {s['parse_failures']} of {n}. Samples that "
         f"errored: {s['errors']}.",
@@ -249,14 +226,6 @@ def render(s: dict) -> str:
     ]
     for r in s["questions"]:
         lines += [f"| {r['question']} | {name} | {c} |" for name, c in r["traps"].items()]
-    wrong = sum(round((1 - r["accuracy"]) * r["n"]) for r in s["questions"]) - s["parse_failures"]
-    lines += [
-        "",
-        f"Matches are by value. Misses off by exactly one: "
-        f"{sum(r['off_by_one'] for r in s['questions'])} of {wrong}; missed-days misses off by "
-        "the number of hot site days with no index value: "
-        f"{sum(r['gap_days'] for r in s['questions'] if r['question'] == 'missed_days')}.",
-    ]
     api = "the Batch API, at half price" if s["batch"] else "the standard API"
     lines += [
         "",
@@ -273,22 +242,20 @@ def render(s: dict) -> str:
         "(decision 0010).",
         f"- inspect_ai {s['inspect_ai']}; run from {s['started']} to {s['completed']}.",
         f"- Log `{s['log']}` (not in git).",
-        "- Prompt, rules, answer parser and reward: environments/heat_basis_v1/"
-        "heat_basis_v1/contract.py at the commit above.",
+        "- Prompt, rules, answer parser and reward: environments/ibtracs_storm_v1/"
+        "ibtracs_storm_v1/contract.py at the commit above.",
         "",
         "## Limits",
         "",
         "- One reply per item, with no seed or temperature set, so a rerun gives other replies;",
         "  the run-to-run spread is not measured.",
-        f"- The prompt leaves out the year, and {s['recognized']} of {n} replies name a season "
-        "from 2015 to 2024.",
-        "- The missed-days question asks the policyholder's side of basis risk only: days the",
-        "  index paid while the site was not hot are not asked.",
-        "- Four Phoenix-area stations, seasons 2015 to 2024. "
+        f"- The prompt leaves out the name and year, yet {s['recognized']} of {n} replies name the "
+        "storm or its season: a model can recognize a famous track.",
+        "- North Atlantic storms from 1980 to 2025 only. "
         + (
-            "The rules are in the prompt: this run is the control for the terms-only ablation."
+            "The rules are in the prompt: this run is the control for the rules-hidden ablation."
             if s["rules"]
-            else "The prompt gives the policy terms alone; the rules-shown run is the control."
+            else "Each rule is left out of the prompt; the rules-shown run is the control."
         ),
         "- The cost uses the token counts in the log; the Anthropic Console's bill is not read.",
     ]
@@ -299,41 +266,31 @@ def render(s: dict) -> str:
             if acc >= 0.9:
                 lines.append(
                     f"- {r['question']}: '{name}' is right on {round(acc * r['n'])} of {r['n']} "
-                    f"items, so on these seasons the question mostly tests {TESTS[r['question']]}, "
-                    "not the rule's choice of days (decision 0013)."
+                    f"items, so on these storms the question mostly tests {TESTS[r['question']]}, "
+                    "not the rule's choice of rows (decision 0011)."
                 )
-    for r in s["questions"]:
-        lines += [
-            f"- '{name}' gives another answer than the key on {sum(places.values())} of "
-            f"{r['n']} {r['question']} items: {_places(places)}."
-            for name, places in r["where"].items()
-        ]
     return "\n".join([*lines, ""])
 
 
 def render_pair(shown: dict, hidden: dict) -> str:
-    """The rules-shown and terms-only runs side by side (the ablation in decision 0013)."""
-    flag = "the policy terms alone (`-T rules=false`)"
-    clause = (
-        "and, as an untested guess, one a policy would take from the reward in a few steps "
-        "rather than learn as a skill"
+    """The rules-shown and rules-hidden runs side by side (the ablation in decision 0011)."""
+    return ablation.render_pair(
+        shown,
+        hidden,
+        "ibtracs-storm-v1",
+        "rules hidden",
+        "the rule left out (`-T rules=false`)",
+        "hidden",
+        "and, as an untested guess, one a policy would close as a constant offset rather than "
+        "learn as a skill",
     )
-    text = ablation.render_pair(
-        shown, hidden, "heat-basis-v1", "terms only", flag, "with terms only", clause
-    )
-    where = [
-        f"Where '{name}' gives another answer than the key ({r['question']}): {_places(places)}."
-        for r in hidden["questions"]
-        for name, places in r.get("where", {}).items()
-    ]
-    return text + "".join(f"\n{line}\n" for line in where)
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Report a model run on heat-basis-v1.")
+    parser = argparse.ArgumentParser(description="Report a model run on ibtracs-storm-v1.")
     parser.add_argument("log_dir")
     parser.add_argument("--out", type=Path, required=True)
-    parser.add_argument("--hidden", help="log dir of the terms-only run: write the pair")
+    parser.add_argument("--hidden", help="log dir of the rules-hidden run: write the pair")
     args = parser.parse_args()
 
     def one(path: str) -> dict:

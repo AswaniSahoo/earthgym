@@ -3,7 +3,7 @@ from datetime import datetime
 import numpy as np
 import pytest
 
-from rlenv.era5 import data
+from earthgym.era5 import data
 
 
 def test_positions_finds_each_wanted_time_and_refuses_a_missing_one():

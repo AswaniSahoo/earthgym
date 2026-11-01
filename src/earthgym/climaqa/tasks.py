@@ -1,6 +1,6 @@
 """Inspect tasks for the clean ClimaQA set, scored by the same contract as the verifiers taskset.
 
-uv run inspect eval src/rlenv/climaqa/tasks.py@climaqa_mcq --model <provider/model>
+uv run inspect eval src/earthgym/climaqa/tasks.py@climaqa_mcq --model <provider/model>
 """
 
 import json

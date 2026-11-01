@@ -5,7 +5,7 @@ from types import SimpleNamespace
 import pytest
 from inspect_ai.model import ModelUsage
 
-from rlenv import spend
+from earthgym import spend
 
 
 def log(model="anthropic/claude-sonnet-5-5", **usage):

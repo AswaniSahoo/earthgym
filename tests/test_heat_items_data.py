@@ -6,12 +6,12 @@ import json
 
 import pytest
 
-from rlenv.heat import data, items
+from earthgym.heat import data, items
 
 STATIONS = items.INDEXES + items.SITES
 pytestmark = pytest.mark.skipif(
     not all((data.ROOT / f"{s}.csv.gz").exists() for s in STATIONS),
-    reason="no pinned files; run uv run python -m rlenv.heat.data",
+    reason="no pinned files; run uv run python -m earthgym.heat.data",
 )
 
 

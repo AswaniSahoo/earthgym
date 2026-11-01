@@ -20,7 +20,7 @@ digits and the operators + / ^ = < >; decision 0016).
 
 Regenerate the bundled file from the repo root:
 
-    uv run python -m rlenv.climaqa.clean --out environments/climaqa_v1/climaqa_v1
+    uv run python -m earthgym.climaqa.clean --out environments/climaqa_v1/climaqa_v1
 
 Run locally without uploading anything, against an OpenAI-compatible server:
 

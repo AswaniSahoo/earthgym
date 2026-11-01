@@ -1,6 +1,6 @@
 # Spend on the Anthropic key
 
-Every rlenv model run uses Claude Sonnet 5.5 on the Anthropic key, within a managed budget of $20
+Every earthgym model run uses Claude Sonnet 5.5 on the Anthropic key, within a managed budget of $20
 in total (my rule, 2026-11-01; decision 0010). Before each run a small probe projects its cost,
 and no run was started that would have taken the total past $20. Nothing enforces this when a
 run starts: `tests/test_spend.py` checks after each run that every row's cost matches its
@@ -16,7 +16,7 @@ not read here.
 
 The Gemini 3.8 Flash runs on Vertex AI are separate and stay as recorded in their reports.
 
-Rows are added with `uv run python -m rlenv.spend "<run>" <log dir>`.
+Rows are added with `uv run python -m earthgym.spend "<run>" <log dir>`.
 
 Final for the Definition of done (2026-11-01): 12 runs, $9.1298 of the $20 budget.
 

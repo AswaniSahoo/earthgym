@@ -1,6 +1,6 @@
 """Run the ClimaQA checks and write findings.json, SUMMARY.md and two hand-check sheets.
 
-uv run python -m rlenv.climaqa.audit --cache data/climaqa --out reports/climaqa
+uv run python -m earthgym.climaqa.audit --cache data/climaqa --out reports/climaqa
 """
 
 import argparse
@@ -11,7 +11,7 @@ from collections import Counter
 from dataclasses import asdict
 from pathlib import Path
 
-from rlenv.climaqa import checks, data
+from earthgym.climaqa import checks, data
 
 TASKS = ("mcq", "cloze", "ffq")
 SEED = 20261030

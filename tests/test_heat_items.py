@@ -3,7 +3,7 @@ from collections import Counter
 
 import pytest
 
-from rlenv.heat import items, policy, stats
+from earthgym.heat import items, policy, stats
 
 T = stats.tenths
 

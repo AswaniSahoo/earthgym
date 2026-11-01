@@ -1,21 +1,21 @@
-"""Inspect task for heat-basis-v1, rewarded by the same contract as the verifiers taskset.
+"""Inspect task for ibtracs-storm-v1, rewarded by the same contract as the verifiers taskset.
 
-uv run inspect eval src/rlenv/heat/tasks.py@heat_basis --model <provider/model>
-uv run python -m rlenv.heat.tasks   # probe ids for --sample-id, 2 per question
+uv run inspect eval src/earthgym/ibtracs/tasks.py@ibtracs_storm --model <provider/model>
+uv run python -m earthgym.ibtracs.tasks   # probe ids for --sample-id, 2 per question
 """
 
 import json
 from collections import Counter
 from pathlib import Path
 
-from heat_basis_v1 import contract
-from heat_basis_v1.taskset import records
+from ibtracs_storm_v1 import contract
+from ibtracs_storm_v1.taskset import records
 from inspect_ai import Task, task
 from inspect_ai.dataset import MemoryDataset, Sample
 from inspect_ai.scorer import Score, Target, mean, scorer, stderr
 from inspect_ai.solver import TaskState, generate
 
-HIDDEN = ("question", "key", "index", "site", "year", "threshold", "k")
+HIDDEN = ("question", "key", "sid", "season", "name")
 
 
 def samples(path: str | None, rules: bool = True) -> MemoryDataset:
@@ -32,7 +32,7 @@ def samples(path: str | None, rules: bool = True) -> MemoryDataset:
         )
         for row in rows
     ]
-    return MemoryDataset(out, name="heat_basis")
+    return MemoryDataset(out, name="ibtracs_storm")
 
 
 def probe_ids(rows: list[dict] | None = None, n: int = 2) -> list[str]:
@@ -47,11 +47,12 @@ def probe_ids(rows: list[dict] | None = None, n: int = 2) -> list[str]:
 
 
 @scorer(metrics=[mean(), stderr()])
-def heat_scorer():
+def storm_scorer():
     async def score(state: TaskState, target: Target) -> Score:
+        m = state.metadata
         value = contract.answer(state.output.completion)
         return Score(
-            value=contract.reward(value, state.metadata["key"]),
+            value=contract.reward(m["question"], value, m["key"]),
             answer="" if value is None else str(value),
         )
 
@@ -59,9 +60,9 @@ def heat_scorer():
 
 
 @task
-def heat_basis(path: str | None = None, rules: bool = True) -> Task:
-    """rules=False (`-T rules=false`) shows the policy terms alone: the ablation."""
-    return Task(dataset=samples(path, rules), solver=generate(), scorer=heat_scorer())
+def ibtracs_storm(path: str | None = None, rules: bool = True) -> Task:
+    """rules=False (`-T rules=false`) leaves the rule out of every prompt: the ablation."""
+    return Task(dataset=samples(path, rules), solver=generate(), scorer=storm_scorer())
 
 
 if __name__ == "__main__":

@@ -33,13 +33,13 @@ Terms, read at the source on 2026-11-02:
 Decision:
 
 - IBTrACS: the terms allow it. Its providers agreed "to make IBTrACS data open for distribution
-  to contribute to global tropical cyclone research", and rlenv is research. The pinned build is
+  to contribute to global tropical cyclone research", and earthgym is research. The pinned build is
   an unmodified asset of the release `data-v1`
-  (https://github.com/AswaniSahoo/rlenv/releases/tag/data-v1, tag at commit ed9654c), with the
+  (https://github.com/AswaniSahoo/earthgym/releases/tag/data-v1, tag at commit ed9654c), with the
   terms and both citations in the release notes. GitHub's digest of the asset is the pinned
   sha256, and a download of it with `gh release download` hashed to the same value.
-  `rlenv.ibtracs.data.fetch` tries the asset first, then NCEI, and keeps a copy only if its
-  sha256 is the pin. Commercial use follows WMO Resolution 40, as the terms say; rlenv makes
+  `earthgym.ibtracs.data.fetch` tries the asset first, then NCEI, and keeps a copy only if its
+  sha256 is the pin. Commercial use follows WMO Resolution 40, as the terms say; earthgym makes
   none.
 - GHCN-Daily: the terms are unclear. NOAA names no licence for it and says nothing about
   redistribution, so the pinned station files are not uploaded.
@@ -51,7 +51,7 @@ Consequences:
   `gh release download data-v1 -p ibtracs.NA.list.v04r01.csv -D data/ibtracs`. If the
   repository becomes public, the plain fetch works for anyone.
 - heat-basis-v1 can be rebuilt only while NCEI serves the pinned station builds (their sha256s
-  are in `rlenv.heat.data.STATIONS`). Once NCEI rewrites a file with new data, the hash check
+  are in `earthgym.heat.data.STATIONS`). Once NCEI rewrites a file with new data, the hash check
   refuses it, and the items cannot be rebuilt from public sources. The published heat numbers
   do not need the station files: they can be recomputed from the committed per-item results.
 - To lift the limit: a statement from NCEI that GHCN-Daily may be redistributed, or my

@@ -3,7 +3,7 @@ import io
 
 import pytest
 
-from rlenv.climaqa import data
+from earthgym.climaqa import data
 
 
 def test_load_names_the_unnamed_index_column_id(tmp_path):

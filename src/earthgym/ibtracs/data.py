@@ -1,6 +1,6 @@
 """Pinned IBTrACS v04r01 North Atlantic CSV (Phase 4).
 
-uv run python -m rlenv.ibtracs.data   # about 58 MB over anonymous HTTPS, writes data/ibtracs/
+uv run python -m earthgym.ibtracs.data   # about 58 MB over anonymous HTTPS, writes data/ibtracs/
 
 NCEI publishes no checksum and overwrites its files in place (docs/radar.md), so the pin is
 our own sha256 of the build we fetched, and the copy under data/ is the one we keep. The same
@@ -22,7 +22,9 @@ URL = (
 )
 PATH = Path("data/ibtracs/ibtracs.NA.list.v04r01.csv")
 # the same build, kept as an asset of the repo's data-v1 release (decision 0018)
-MIRROR = "https://github.com/AswaniSahoo/rlenv/releases/download/data-v1/ibtracs.NA.list.v04r01.csv"
+MIRROR = (
+    "https://github.com/AswaniSahoo/earthgym/releases/download/data-v1/ibtracs.NA.list.v04r01.csv"
+)
 SHA256 = "666681be5b12caf5bad7a511bae5f6e5fa8b03789f7f6dd00ee2f0aaa41c2c97"  # 2026-10-30 build
 SIZE, LAST_MODIFIED = 57_593_323, "Fri, 30 Oct 2026 04:27:28 GMT"  # HEAD, 2026-11-01
 

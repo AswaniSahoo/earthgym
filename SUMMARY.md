@@ -1,4 +1,4 @@
-# rlenv: what I found
+# earthgym: what I found
 
 Verifiable evals and RL environments for climate and earth science, built in five phases on
 2026-10-30 and 2026-11-01. Every number here is traced to the report it comes from; the

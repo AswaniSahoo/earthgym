@@ -1,4 +1,4 @@
-from rlenv.climaqa import expert_sheet
+from earthgym.climaqa import expert_sheet
 
 NOTE = """\
 | N | key | reply | bucket | note |

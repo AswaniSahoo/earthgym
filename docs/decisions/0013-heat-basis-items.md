@@ -8,7 +8,7 @@ Context: stage 1 reproduces NWS Phoenix's published heat counts from the pinned 
 a threshold at one weather station and runs of consecutive such days (docs/radar.md). Basis
 risk is the heat the policyholder has that the index does not record.
 
-Stations (GHCN-Daily, pinned in `src/rlenv/heat/data.py`, all with daily TMAX from 2015):
+Stations (GHCN-Daily, pinned in `src/earthgym/heat/data.py`, all with daily TMAX from 2015):
 
 - Index stations, regional airports: Scottsdale Municipal Airport (USW00003192) and Phoenix Deer
   Valley Municipal Airport (USW00003184).
@@ -67,7 +67,7 @@ two change the design (Phase 5 review, M3).
 
 Consequences: answers are exact, the basis risk is real station data, and the careless
 readings measure how often each rule changes the answer. Measured on the 300 items
-(`rlenv.heat.report.careless`, items sha256 9d72cd64): strictly above the threshold is
+(`earthgym.heat.report.careless`, items sha256 9d72cd64): strictly above the threshold is
 right on 7 of 100 trigger-day items and the site's column on 3; for events, trigger days
 on 3, every run on 9, missing days skipped on 99; for missed days, every hot site day on 2,
 both ways on 71, missing index days left out on 92. The airport index stations have few

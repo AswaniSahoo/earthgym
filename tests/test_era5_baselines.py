@@ -2,7 +2,7 @@ import math
 
 import pytest
 
-from rlenv.era5 import baselines
+from earthgym.era5 import baselines
 
 
 def item(truth, persistence, climatology, hres):

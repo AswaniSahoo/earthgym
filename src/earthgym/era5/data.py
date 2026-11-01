@@ -1,6 +1,6 @@
 """Pinned subset of the WeatherBench 2 stores for the Phase 3 reproduction (decision 0006).
 
-uv run python -m rlenv.era5.data   # about 19 MB over anonymous HTTPS, writes data/era5/
+uv run python -m earthgym.era5.data   # about 19 MB over anonymous HTTPS, writes data/era5/
 
 IFS HRES 72 h forecasts of mean sea level pressure from the 732 inits of 2020, the ERA5 values
 at their valid times and the ERA5 1990 to 2019 climatology aligned to them, 64x32, as

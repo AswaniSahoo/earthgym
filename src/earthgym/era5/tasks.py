@@ -1,7 +1,7 @@
 """Inspect task for era5-forecast-v1, rewarded by the same contract as the verifiers taskset.
 
-uv run inspect eval src/rlenv/era5/tasks.py@era5_forecast --model <provider/model>
-uv run python -m rlenv.era5.tasks   # probe ids for --sample-id, 2 per variable and lead
+uv run inspect eval src/earthgym/era5/tasks.py@era5_forecast --model <provider/model>
+uv run python -m earthgym.era5.tasks   # probe ids for --sample-id, 2 per variable and lead
 """
 
 import json

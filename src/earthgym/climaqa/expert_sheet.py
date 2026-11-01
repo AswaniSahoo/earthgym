@@ -2,7 +2,7 @@
 only the expert fills. Model answers are Gemini 3.8 Flash's, from the 2026-10-30 miss notes;
 every item not in a note was answered with its key.
 
-uv run python -m rlenv.climaqa.expert_sheet   # writes reports/climaqa/expert_review_v2.csv once
+uv run python -m earthgym.climaqa.expert_sheet   # writes reports/climaqa/expert_review_v2.csv once
 """
 
 import argparse

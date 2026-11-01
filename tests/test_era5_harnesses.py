@@ -9,7 +9,7 @@ from era5_forecast_v1 import taskset as ts
 from inspect_ai import eval
 from inspect_ai.model import ModelOutput, get_model
 
-from rlenv.era5 import tasks
+from earthgym.era5 import tasks
 
 
 def test_taskset_loads_every_item_with_its_prompt_and_hidden_fields():

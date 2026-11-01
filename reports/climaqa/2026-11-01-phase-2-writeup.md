@@ -1,6 +1,6 @@
 # A filtered ClimaQA, and what two models score on it
 
-Phase 2 of rlenv, written up on 2026-11-01. Every number below comes from a file in this repo;
+Phase 2 of earthgym, written up on 2026-11-01. Every number below comes from a file in this repo;
 the source is named next to it.
 
 ## The clean set
@@ -57,7 +57,7 @@ key, not the models, may be wrong; these items go to the expert review of decisi
 
 ## Reproduce
 
-    uv run inspect eval src/rlenv/climaqa/tasks.py@climaqa_mcq \
-        src/rlenv/climaqa/tasks.py@climaqa_cloze --model anthropic/claude-sonnet-5-5 --batch
-    uv run python -m rlenv.climaqa.report <log dir> --out <report>.md
-    uv run python -m rlenv.climaqa.compare <log dir a> <log dir b> --out <report>.md
+    uv run inspect eval src/earthgym/climaqa/tasks.py@climaqa_mcq \
+        src/earthgym/climaqa/tasks.py@climaqa_cloze --model anthropic/claude-sonnet-5-5 --batch
+    uv run python -m earthgym.climaqa.report <log dir> --out <report>.md
+    uv run python -m earthgym.climaqa.compare <log dir a> <log dir b> --out <report>.md

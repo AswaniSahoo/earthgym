@@ -1,6 +1,6 @@
 """Pinned GHCN-Daily station files (Phase 5, decision 0012).
 
-uv run python -m rlenv.heat.data   # about 1.5 MB a station over anonymous HTTPS, to data/heat/
+uv run python -m earthgym.heat.data   # about 1.5 MB a station over anonymous HTTPS, to data/heat/
 
 NCEI publishes no checksum and rewrites the by_station files daily, so each pin is our own
 sha256 of the copy we fetched, with its size and Last-Modified, and that copy under data/ is

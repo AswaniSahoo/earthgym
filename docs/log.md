@@ -10,7 +10,7 @@ Newest first. One entry per working session: what changed, what I learned, what 
   statistical forecast, so the environment has headroom. ClimaQA clean v1 is exact-overlap-
   filtered with 21 near matches unresolved; the strict variant (329 items) gives MCQ 0.871 for
   both models and cloze 0.739 for Gemini, 0.513 for Sonnet. The $20 is a managed budget, and
-  `rlenv.spend` refuses logs it has no price for. The reward and the WB2 metrics are kept
+  `earthgym.spend` refuses logs it has no price for. The reward and the WB2 metrics are kept
   apart, the "few steps" line is an untested guess, and OpenCompass and SciEvalKit are named.
 - Graders (decision 0016): ACE pays only its one-decimal rounding, one answer-line rule in every
   contract, cloze keeps signs, decimals and operators, and guards on the heat key, empty and
@@ -57,7 +57,7 @@ Newest first. One entry per working session: what changed, what I learned, what 
 ## 2026-11-01, a wait that could not end
 
 - Bug: the wait for the Phase 5 terms-only probe was
-  `while pgrep -f "inspect eval src/rlenv/heat"; do sleep 10; done`, and `pgrep -f` matched
+  `while pgrep -f "inspect eval src/earthgym/heat"; do sleep 10; done`, and `pgrep -f` matched
   the waiting shell's own command line, which holds the same text, so the loop never ended
   (2 hours). The same pattern in the one-off checks reported "probe still running" at 07:19,
   07:21 and 07:23, when the probe had finished at 07:20. Waits now use the run's own
@@ -199,7 +199,7 @@ Newest first. One entry per working session: what changed, what I learned, what 
 
 - Radar refreshed for Phase 3 (17 entries). No existing environment scores forecasts with the
   WB2 rules; WB2 publishes score files that can serve as answer keys.
-- Grader: `rlenv.era5.scores` ports the WB2 rules (cell-area weights, MSE over init time and
+- Grader: `earthgym.era5.scores` ports the WB2 rules (cell-area weights, MSE over init time and
   grid, root after the mean, float64). From a pinned 12.0 MB subset (18.0 MB once the
   climatology joined) it gives IFS HRES MSLP
   RMSE at 72 h for 2020 as 133.890547 Pa, the published value to all six decimals.

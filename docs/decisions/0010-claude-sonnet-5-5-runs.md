@@ -11,7 +11,7 @@ Decision, in my words of 2026-11-01:
 - "use sonnet 5-5 and use as much credit you need": the ERA5 baseline moves to Claude Sonnet
   5.5. The Gemini full run is dropped and its probe log kept as a record.
 - "use for everything keep cap at 20 $": Claude Sonnet 5.5 on the Anthropic key for every
-  rlenv model run, with a hard cap of $20 in total on that key. This replaces the open budget
+  earthgym model run, with a hard cap of $20 in total on that key. This replaces the open budget
   of the first message. Order within the cap: the ERA5 run, then clean ClimaQA v1 (the second
   model for the inspect_evals Register, compared with Gemini), then the Phase 4 baseline, then
   Phase 5.
@@ -71,13 +71,13 @@ How I run it (Inspect 0.3.286 source paths are under `inspect_ai/`):
   only if the total so far plus the projection, with a margin for the probe's spread, stays
   under $20; otherwise the run waits for my decision. Each run's share is set so the later
   runs in the order still fit. The ERA5 probe is 12 items, the first 2 of each variable and
-  lead (`uv run python -m rlenv.era5.tasks`), sent through the Batch API so it tests the
+  lead (`uv run python -m earthgym.era5.tasks`), sent through the Batch API so it tests the
   full run's path.
 
 How the budget is kept (2026-11-02, from the Codex review's finding 11): the $20 is a managed
 budget, not an enforced cap. Probes projected each run's cost before it started, and the
 ledger is checked after each run; nothing stops a run that would pass $20 when it starts.
-`rlenv.spend` refuses logs from models it has no price for.
+`earthgym.spend` refuses logs from models it has no price for.
 
 Consequences:
 

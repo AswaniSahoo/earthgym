@@ -10,12 +10,12 @@ from era5_forecast_v1.taskset import records as era5_items
 from heat_basis_v1.taskset import records as heat_items
 from ibtracs_storm_v1.taskset import records as ibtracs_items
 
-from rlenv import results, spend
-from rlenv.climaqa import compare
-from rlenv.climaqa import report as climaqa_report
-from rlenv.era5 import report as era5_report
-from rlenv.heat import report as heat_report
-from rlenv.ibtracs import report as ibtracs_report
+from earthgym import results, spend
+from earthgym.climaqa import compare
+from earthgym.climaqa import report as climaqa_report
+from earthgym.era5 import report as era5_report
+from earthgym.heat import report as heat_report
+from earthgym.ibtracs import report as ibtracs_report
 
 R = Path("reports")
 

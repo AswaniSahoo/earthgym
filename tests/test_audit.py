@@ -1,4 +1,4 @@
-from rlenv.climaqa import audit, checks
+from earthgym.climaqa import audit, checks
 
 OPTS = checks.SEP.join(
     ["a) Warm air rises.", "b) Cold air rises.", "c) Still air.", "d) Sinking air."]

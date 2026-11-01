@@ -1,4 +1,4 @@
-from rlenv.heat import stats
+from earthgym.heat import stats
 
 # 110 F is 433 tenths of a degree C, 112 F is 444
 SERIES = {

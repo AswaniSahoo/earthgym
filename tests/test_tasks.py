@@ -3,7 +3,7 @@ import json
 from inspect_ai import eval
 from inspect_ai.model import ModelOutput, get_model
 
-from rlenv.climaqa import tasks
+from earthgym.climaqa import tasks
 
 RECORDS = [
     {
@@ -58,7 +58,7 @@ def test_cloze_task_scores_with_the_shared_contract(tmp_path):
 def test_the_inspect_tasks_take_the_strict_variant_too():
     from climaqa_v1.taskset import near_matches
 
-    from rlenv.climaqa import tasks
+    from earthgym.climaqa import tasks
 
     for kind in ("mcq", "cloze"):
         full, strict = tasks.samples(kind, None), tasks.samples(kind, None, strict=True)

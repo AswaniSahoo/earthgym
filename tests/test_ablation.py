@@ -1,6 +1,6 @@
 import pytest
 
-from rlenv import ablation
+from earthgym import ablation
 
 
 def run(model="anthropic/claude-sonnet-5-5", ids=("a", "b")):

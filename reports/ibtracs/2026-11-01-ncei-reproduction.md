@@ -1,6 +1,6 @@
 # Reproducing NCEI's North Atlantic season numbers from IBTrACS
 
-Date: 2026-11-01. Code: `src/rlenv/ibtracs/data.py` and `src/rlenv/ibtracs/stats.py` at commit
+Date: 2026-11-01. Code: `src/earthgym/ibtracs/data.py` and `src/earthgym/ibtracs/stats.py` at commit
 e640dc7 (`stats.category` added at 2a9802f; every number holds at the later commits).
 Tests: `tests/test_ibtracs_reproduction.py`.
 
@@ -41,7 +41,7 @@ Phase 4 radar records them (`docs/radar.md`). The category 5 count is the North 
   (checked on 1933, 2005, 2020, 2024 and 2025), so the anchors exercise neither rule.
 - Commands:
 
-      uv run python -m rlenv.ibtracs.data      # about 58 MB, anonymous HTTPS
+      uv run python -m earthgym.ibtracs.data      # about 58 MB, anonymous HTTPS
       uv run pytest tests/test_ibtracs_reproduction.py
 
 ## Limits

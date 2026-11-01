@@ -1,4 +1,4 @@
-from rlenv.climaqa import checks, clean
+from earthgym.climaqa import checks, clean
 
 OPTS = checks.SEP.join(
     ["a) Warm air rises.", "b) Cold air rises.", "c) Still air.", "d) Sinking air."]
@@ -98,7 +98,7 @@ def test_main_writes_the_set_and_its_manifest(tmp_path, monkeypatch):
     import json
     import sys
 
-    from rlenv.climaqa import data
+    from earthgym.climaqa import data
 
     rows = {(c, t): [] for c in ("gold", "silver") for t in ("mcq", "cloze", "ffq")}
     rows["gold", "mcq"] = [mcq("0")]

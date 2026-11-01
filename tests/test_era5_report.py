@@ -4,7 +4,7 @@ import pytest
 from inspect_ai import eval
 from inspect_ai.model import ModelOutput, ModelUsage, get_model
 
-from rlenv.era5 import report, tasks
+from earthgym.era5 import report, tasks
 
 ROW = {
     "id": "2m_temperature/2020-07-01T00/24h/0-0",

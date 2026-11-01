@@ -2,7 +2,7 @@
 giveaways. Near matches of Silver stay in, listed in the bundle's near_matches.json, so a strict
 variant can leave them out.
 
-uv run python -m rlenv.climaqa.clean
+uv run python -m earthgym.climaqa.clean
 """
 
 import argparse
@@ -12,7 +12,7 @@ import random
 from collections import Counter
 from pathlib import Path
 
-from rlenv.climaqa import audit, checks, data
+from earthgym.climaqa import audit, checks, data
 
 TASKS = ("mcq", "cloze")  # freeform needs a judge, so it waits for a later phase
 VERSION = "v1"

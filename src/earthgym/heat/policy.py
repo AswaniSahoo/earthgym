@@ -7,7 +7,7 @@ A missing value is never a trigger day and ends a run.
 
 import datetime as dt
 
-from rlenv.heat import stats
+from earthgym.heat import stats
 
 
 def window(year: int) -> list[str]:

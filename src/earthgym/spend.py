@@ -11,7 +11,7 @@ output: the extended thinking page says `usage.output_tokens_details.thinking_to
 "a 50 percent discount on both input and output tokens", and the cache multipliers "stack
 with other pricing modifiers, including the Batch API discount", so a batch halves each price.
 
-uv run python -m rlenv.spend "<run>" <log dir>   # appends the run's row to the ledger
+uv run python -m earthgym.spend "<run>" <log dir>   # appends the run's row to the ledger
 """
 
 import argparse

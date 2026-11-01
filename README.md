@@ -1,4 +1,4 @@
-# rlenv
+# earthgym
 
 Verifiable evals and RL environments for climate and earth science, built phase by phase.
 
@@ -29,32 +29,32 @@ the spend is in `reports/spend.md` (decision 0010). No Vertex AI or Gemini calls
 | `ibtracs-storm-v1` | 4 | a storm's ACE, peak category or hours at hurricane strength | exact answer |
 | `heat-basis-v1` | 5 | a heat policy's trigger days, payout events or missed days | exact answer |
 
-Each package is a verifiers v1 taskset; each has an Inspect task beside it in `src/rlenv/`, scored
+Each package is a verifiers v1 taskset; each has an Inspect task beside it in `src/earthgym/`, scored
 by the same contract module.
 
 ## Run
 
     uv sync --all-groups
     uv run pytest                                  # no network; the reproduction tests skip without data
-    uv run python -m rlenv.climaqa.audit           # Phase 1: pinned CSVs to data/, reports/climaqa/
-    uv run python -m rlenv.era5.baselines          # Phase 3: baseline rows
-    uv run python -m rlenv.ibtracs.data            # Phase 4: the pinned 57.6 MB IBTrACS CSV
-    uv run python -m rlenv.heat.data               # Phase 5: the pinned GHCN-Daily station files
+    uv run python -m earthgym.climaqa.audit           # Phase 1: pinned CSVs to data/, reports/climaqa/
+    uv run python -m earthgym.era5.baselines          # Phase 3: baseline rows
+    uv run python -m earthgym.ibtracs.data            # Phase 4: the pinned 57.6 MB IBTrACS CSV
+    uv run python -m earthgym.heat.data               # Phase 5: the pinned GHCN-Daily station files
 
 A model run (the key in `.env` as `ANTHROPIC_API_KEY`; decision 0010):
 
-    uv run inspect eval src/rlenv/ibtracs/tasks.py@ibtracs_storm \
+    uv run inspect eval src/earthgym/ibtracs/tasks.py@ibtracs_storm \
         --model anthropic/claude-sonnet-5-5 --batch --cache-prompt false [-T rules=false]
-    uv run python -m rlenv.spend "<run>" <log dir> # adds the run to reports/spend.md
+    uv run python -m earthgym.spend "<run>" <log dir> # adds the run to reports/spend.md
 
 ## Layout
 
-    src/rlenv/climaqa/    Phases 1 and 2: audit, clean set, Inspect tasks, reports, comparison
-    src/rlenv/era5/       Phase 3: WB2 scoring rules, items, baselines, Inspect task, report
-    src/rlenv/ibtracs/    Phase 4: pinned IBTrACS, NOAA counts, items, Inspect task, report
-    src/rlenv/heat/       Phase 5: pinned GHCN-Daily, NWS counts, policy rules, items, task, report
-    src/rlenv/spend.py    the Anthropic spend ledger and its checks
-    src/rlenv/ablation.py the rules-shown run beside its ablation
+    src/earthgym/climaqa/    Phases 1 and 2: audit, clean set, Inspect tasks, reports, comparison
+    src/earthgym/era5/       Phase 3: WB2 scoring rules, items, baselines, Inspect task, report
+    src/earthgym/ibtracs/    Phase 4: pinned IBTrACS, NOAA counts, items, Inspect task, report
+    src/earthgym/heat/       Phase 5: pinned GHCN-Daily, NWS counts, policy rules, items, task, report
+    src/earthgym/spend.py    the Anthropic spend ledger and its checks
+    src/earthgym/ablation.py the rules-shown run beside its ablation
     environments/         one verifiers environment package per phase
     tests/                unit tests on small inline fixtures, no network
     reports/              results per phase, the blog-ready write-ups, spend.md

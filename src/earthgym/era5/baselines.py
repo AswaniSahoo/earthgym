@@ -1,7 +1,7 @@
 """Baseline rows for era5-forecast-v1 (decision 0007): persistence, climatology, an
 always-climatology policy run through the answer parser and the reward, and IFS HRES.
 
-uv run python -m rlenv.era5.baselines   # writes reports/era5/items_v1_baselines.md
+uv run python -m earthgym.era5.baselines   # writes reports/era5/items_v1_baselines.md
 """
 
 import json
@@ -11,7 +11,7 @@ from pathlib import Path
 import numpy as np
 from era5_forecast_v1 import contract
 
-from rlenv.era5 import items, scores
+from earthgym.era5 import items, scores
 
 REPORT = Path("reports/era5/items_v1_baselines.md")
 BASELINES = {

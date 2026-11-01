@@ -4,7 +4,7 @@ import io
 
 import pytest
 
-from rlenv.heat import data
+from earthgym.heat import data
 
 ROWS = (
     "USW00023183,20230719,TMAX,483,,,W,\n"  # 119 F

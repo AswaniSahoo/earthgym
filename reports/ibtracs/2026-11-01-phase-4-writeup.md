@@ -1,6 +1,6 @@
 # Counting hurricanes by NOAA's rules: an exact-answer environment from IBTrACS
 
-Phase 4 of rlenv, written up on 2026-11-01. Every number below comes from a file in this repo;
+Phase 4 of earthgym, written up on 2026-11-01. Every number below comes from a file in this repo;
 the source is named next to it.
 
 ## The question
@@ -83,11 +83,11 @@ Batch API's half price (`reports/spend.md`).
 
 ## Reproduce
 
-    uv run python -m rlenv.ibtracs.data          # the pinned 57.6 MB CSV
+    uv run python -m earthgym.ibtracs.data          # the pinned 57.6 MB CSV
     uv run pytest tests/test_ibtracs_reproduction.py
-    uv run inspect eval src/rlenv/ibtracs/tasks.py@ibtracs_storm \
+    uv run inspect eval src/earthgym/ibtracs/tasks.py@ibtracs_storm \
         --model anthropic/claude-sonnet-5-5 --batch [-T rules=false]
-    uv run python -m rlenv.ibtracs.report <shown log dir> --hidden <hidden log dir> --out <pair>.md
+    uv run python -m earthgym.ibtracs.report <shown log dir> --hidden <hidden log dir> --out <pair>.md
 
 Sources: IBTrACS v04r01 (Knapp, Kruk, Levinson, Diamond and Neumann 2010, BAMS 91,
 doi:10.1175/2009BAMS2755.1; Gahtan et al. 2024, NOAA NCEI, doi:10.25921/82ty-9e16); NCEI's

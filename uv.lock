@@ -9,10 +9,10 @@ resolution-markers = [
 [manifest]
 members = [
     "climaqa-v1",
+    "earthgym",
     "era5-forecast-v1",
     "heat-basis-v1",
     "ibtracs-storm-v1",
-    "rlenv",
 ]
 
 [[package]]
@@ -719,6 +719,61 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/25/71/80cc718ff6d7abfbabacb1f57aaa42e9c1552bfdd01e64ddd704e4a03638/donfig-0.8.1.post1.tar.gz", hash = "sha256:3bef3413a4c1c601b585e8d297256d0c1470ea012afa6e8461dc28bfb7c23f52", size = 19506, upload-time = "2024-05-23T14:14:31.513Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/0c/d5/c5db1ea3394c6e1732fb3286b3bd878b59507a8f77d32a2cebda7d7b7cd4/donfig-0.8.1.post1-py3-none-any.whl", hash = "sha256:2a3175ce74a06109ff9307d90a230f81215cbac9a751f4d1c6194644b8204f9d", size = 21592, upload-time = "2024-05-23T14:13:55.283Z" },
+]
+
+[[package]]
+name = "earthgym"
+version = "0.1.0"
+source = { editable = "." }
+
+[package.dev-dependencies]
+dev = [
+    { name = "pytest" },
+    { name = "ruff" },
+]
+env = [
+    { name = "climaqa-v1" },
+    { name = "era5-forecast-v1" },
+    { name = "verifiers" },
+]
+era5 = [
+    { name = "numcodecs" },
+    { name = "numpy" },
+    { name = "zarr" },
+]
+eval = [
+    { name = "anthropic" },
+    { name = "climaqa-v1" },
+    { name = "era5-forecast-v1" },
+    { name = "heat-basis-v1" },
+    { name = "ibtracs-storm-v1" },
+    { name = "inspect-ai" },
+]
+
+[package.metadata]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pytest", specifier = ">=9.2.0" },
+    { name = "ruff", specifier = ">=0.17.3" },
+]
+env = [
+    { name = "climaqa-v1", editable = "environments/climaqa_v1" },
+    { name = "era5-forecast-v1", editable = "environments/era5_forecast_v1" },
+    { name = "verifiers", specifier = "==0.4.0" },
+]
+era5 = [
+    { name = "numcodecs", specifier = "==0.17.1" },
+    { name = "numpy", specifier = "==2.5.4" },
+    { name = "zarr", specifier = "==3.4.2" },
+]
+eval = [
+    { name = "anthropic", specifier = "==2.3.0" },
+    { name = "climaqa-v1", editable = "environments/climaqa_v1" },
+    { name = "era5-forecast-v1", editable = "environments/era5_forecast_v1" },
+    { name = "heat-basis-v1", editable = "environments/heat_basis_v1" },
+    { name = "ibtracs-storm-v1", editable = "environments/ibtracs_storm_v1" },
+    { name = "inspect-ai", specifier = "==0.3.286" },
 ]
 
 [[package]]
@@ -3181,61 +3236,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/c0/8f/0722ca900cc807c13a6a0c696dacf35430f72e0ec571c4275d2371fca3e9/rich-15.0.0.tar.gz", hash = "sha256:edd07a4824c6b40189fb7ac9bc4c52536e9780fbbfbddf6f1e2502c31b068c36", size = 230680, upload-time = "2026-04-12T08:24:00.75Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/82/3b/64d4899d73f91ba49a8c18a8ff3f0ea8f1c1d75481760df8c68ef5235bf5/rich-15.0.0-py3-none-any.whl", hash = "sha256:33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb", size = 310654, upload-time = "2026-04-12T08:24:02.83Z" },
-]
-
-[[package]]
-name = "rlenv"
-version = "0.1.0"
-source = { editable = "." }
-
-[package.dev-dependencies]
-dev = [
-    { name = "pytest" },
-    { name = "ruff" },
-]
-env = [
-    { name = "climaqa-v1" },
-    { name = "era5-forecast-v1" },
-    { name = "verifiers" },
-]
-era5 = [
-    { name = "numcodecs" },
-    { name = "numpy" },
-    { name = "zarr" },
-]
-eval = [
-    { name = "anthropic" },
-    { name = "climaqa-v1" },
-    { name = "era5-forecast-v1" },
-    { name = "heat-basis-v1" },
-    { name = "ibtracs-storm-v1" },
-    { name = "inspect-ai" },
-]
-
-[package.metadata]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "pytest", specifier = ">=9.2.0" },
-    { name = "ruff", specifier = ">=0.17.3" },
-]
-env = [
-    { name = "climaqa-v1", editable = "environments/climaqa_v1" },
-    { name = "era5-forecast-v1", editable = "environments/era5_forecast_v1" },
-    { name = "verifiers", specifier = "==0.4.0" },
-]
-era5 = [
-    { name = "numcodecs", specifier = "==0.17.1" },
-    { name = "numpy", specifier = "==2.5.4" },
-    { name = "zarr", specifier = "==3.4.2" },
-]
-eval = [
-    { name = "anthropic", specifier = "==2.3.0" },
-    { name = "climaqa-v1", editable = "environments/climaqa_v1" },
-    { name = "era5-forecast-v1", editable = "environments/era5_forecast_v1" },
-    { name = "heat-basis-v1", editable = "environments/heat_basis_v1" },
-    { name = "ibtracs-storm-v1", editable = "environments/ibtracs_storm_v1" },
-    { name = "inspect-ai", specifier = "==0.3.286" },
 ]
 
 [[package]]

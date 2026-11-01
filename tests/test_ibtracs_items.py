@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from rlenv.ibtracs import items
+from earthgym.ibtracs import items
 
 
 def row(sid, time, status, wind, season="2021", basin="NA", track="main", pres="1000"):

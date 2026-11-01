@@ -1,6 +1,6 @@
 # Reproducing a WeatherBench 2 score: IFS HRES mean sea level pressure, day 3, 2020
 
-Date: 2026-10-30. Code: `src/rlenv/era5/scores.py` and `src/rlenv/era5/data.py`, first
+Date: 2026-10-30. Code: `src/earthgym/era5/scores.py` and `src/earthgym/era5/data.py`, first
 reproduced at commit 2d97668; the code changed since (3b2a5a7, 3713c87) and the reproduction
 tests still pass at 37e6636. Test: `tests/test_era5_reproduction.py`.
 
@@ -53,7 +53,7 @@ accumulation error.
 - Commands:
 
       uv sync --all-groups
-      uv run python -m rlenv.era5.data      # about 19 MB, anonymous HTTPS, about 35 s here
+      uv run python -m earthgym.era5.data      # about 19 MB, anonymous HTTPS, about 35 s here
       uv run pytest tests/test_era5_reproduction.py
 
 ## Limits

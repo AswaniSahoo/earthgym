@@ -5,10 +5,10 @@ from datetime import datetime, timedelta
 
 import pytest
 
-from rlenv.era5 import data, items
+from earthgym.era5 import data, items
 
 pytestmark = pytest.mark.skipif(
-    not data.SUBSET.exists(), reason="no pinned subset; run uv run python -m rlenv.era5.data"
+    not data.SUBSET.exists(), reason="no pinned subset; run uv run python -m earthgym.era5.data"
 )
 FORMAT = "%Y-%m-%dT%H"
 

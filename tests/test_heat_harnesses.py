@@ -9,7 +9,7 @@ from heat_basis_v1 import taskset as ts
 from inspect_ai import eval
 from inspect_ai.model import ModelOutput, get_model
 
-from rlenv.heat import tasks
+from earthgym.heat import tasks
 
 ITEM = {
     "id": "events/A/B/2020/110/3",

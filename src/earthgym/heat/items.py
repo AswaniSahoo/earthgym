@@ -1,6 +1,6 @@
 """Heat policy items for heat-basis-v1 (decisions 0012 and 0013).
 
-uv run python -m rlenv.heat.items   # writes the bundled items and the manifest
+uv run python -m earthgym.heat.items   # writes the bundled items and the manifest
 """
 
 import hashlib
@@ -9,7 +9,7 @@ import json
 import random
 from pathlib import Path
 
-from rlenv.heat import data, policy, stats
+from earthgym.heat import data, policy, stats
 
 INDEXES = ["USW00003192", "USW00003184"]  # regional airports: the index stations
 SITES = ["USW00023183", "USC00028499"]  # the urban core: the insured sites
@@ -55,7 +55,7 @@ def plan(n: int = N, seed: int = SEED) -> list[dict]:
 
 
 def key(spec: dict, series: dict[str, dict[str, int]]) -> int:
-    """The exact answer, by the rules in the prompt (`rlenv.heat.policy`)."""
+    """The exact answer, by the rules in the prompt (`earthgym.heat.policy`)."""
     index, site, year, f = (
         series[spec["index"]],
         series[spec["site"]],
