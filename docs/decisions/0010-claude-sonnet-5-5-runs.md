@@ -47,6 +47,12 @@ How we run it (Inspect 0.3.286 source paths are under `inspect_ai/`):
   default effort, `high`: Anthropic's "Steering thinking" page lists "`high` (default on most
   models)" and `medium` as the default only on Claude Opus 5.5 and Claude Haiku 5.5. No
   temperature or seed is sent, so each reply is one draw.
+- Prompt caching: Inspect enables `cache_prompt` by default and sends a top-level
+  `cache_control` (`model/_generate_config.py:153-154`, `model/_providers/anthropic.py:886-887`),
+  so every prompt over the 512-token minimum was billed as a cache write at 1.25 times the
+  input price, with no reuse since every prompt differs: about $0.133 of the $1.3626 of the
+  Phase 4 run (Fable review L1). From the Phase 5 full runs on, single-turn runs pass
+  `--cache-prompt false`. The ledger prices the cache writes either way.
 - Batch API for full runs. A batch costs half: "a 50 percent discount on both input and
   output tokens", and the cache multipliers "stack with other pricing modifiers, including the
   Batch API discount" (pricing page, fetched 2026-11-01). The requests are the same, so the
