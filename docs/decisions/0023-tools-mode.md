@@ -75,10 +75,12 @@ Consequences:
   task over a stand-in `/task` channel and queried it with verifiers' own MCP client: one tool,
   `query`, answering from that storm's rows. Not run: a verifiers rollout, whose chat loop needs a
   model endpoint.
-- A verifiers run of tools mode must name the null harness. A taskset with no harness of its own
-  runs on `bash` (`verifiers/v1/utils/loaders.py:153-161`), which offers `bash` and `edit` tools
-  and executes code (`verifiers/v1/harness.py:52`), so on `subprocess` the model's commands would
-  run on the host. verifiers has no turn limit unless the run sets one
+- A taskset with no harness of its own runs on `bash` (`verifiers/v1/utils/loaders.py:153-161`),
+  which offers `bash` and `edit` tools and executes code (`verifiers/v1/harness.py:52`), so on
+  `subprocess` the model's commands would run on the host. So every environment package now
+  exports verifiers' `NullHarness` in its `__all__`, which makes it the default harness of each
+  of the four (`tests/test_vf_harness.py`); naming `--env.agent.harness.id null` still works.
+  verifiers has no turn limit unless the run sets one
   (`verifiers/v1/configs/agent.py:45`); `--env.agent.max-turns 14` gives the same 13 queries and
   an answer as Inspect's 30 messages, since a turn is one sampled reply
   (`verifiers/v1/trace.py:617-618`). The command is in the environment's README; a dry run

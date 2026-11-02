@@ -33,10 +33,10 @@ and with no model in verifiers.
     uv run inspect eval src/earthgym/ibtracs/tasks.py@ibtracs_storm -T tools=true \
       --model <provider/model>
 
-In verifiers, name the null harness: the default, `bash`, would also give the model a shell on
-the host. Inspect runs a `react()` agent with the query tool and a submit tool, at most 30
-messages a sample (13 queries and the submit); `--env.agent.max-turns 14` gives verifiers the
-same budget.
+Every environment here defaults to verifiers' null harness, which runs no model-written code;
+verifiers' own default, `bash`, would give the model a shell on the host. Inspect runs a `react()`
+agent with the query tool and a submit tool, at most 30 messages a sample (13 queries and the
+submit); `--env.agent.max-turns 14` gives verifiers the same budget.
 
 The keys come from `src/earthgym/ibtracs/stats.py`, which reproduces NCEI's published North
 Atlantic season numbers (`reports/ibtracs/2026-11-01-ncei-reproduction.md`).

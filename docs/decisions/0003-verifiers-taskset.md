@@ -12,3 +12,7 @@ directly. The package bundles its data so it runs offline and can be pushed to t
 
 Consequences: `vf-eval` defaults to Prime's cloud and uploads runs; local runs pass `--no-push`
 and point `client.base_url` at a local or chosen server.
+
+Harness (2026-11-02, decision 0023): a taskset that exports no harness runs on verifiers'
+`bash` harness, which gives the model a shell. Each package exports `NullHarness`, so the
+default runs no model-written code.
