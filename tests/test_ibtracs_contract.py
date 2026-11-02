@@ -163,3 +163,13 @@ def test_a_tools_mode_answer_may_also_be_the_number_alone():
     assert contract.final_answer("Reasoning.\nANSWER: 61.3") == 61.3
     assert contract.final_answer("I think 9") is None and contract.final_answer("1e999") is None
     assert contract.answer("9") is None  # outside tools mode the answer line stays required
+
+
+@pytest.mark.parametrize("reply", ["2*3", "1*2", "6 * 2", "*", "**"])
+def test_a_bare_number_keeps_its_inner_asterisks(reply):
+    # stripping every * would read 2*3 as 23 (review of phase 6, L4); emphasis still goes
+    assert contract.final_answer(reply) is None
+
+
+def test_a_bare_number_may_carry_emphasis():
+    assert contract.final_answer("**6**") == 6.0 and contract.final_answer("*6*") == 6.0

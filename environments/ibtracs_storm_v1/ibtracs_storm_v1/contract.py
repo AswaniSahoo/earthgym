@@ -171,7 +171,10 @@ def final_answer(reply: str) -> float | None:
     value = answer(reply)
     if value is not None or len([x for x in reply.splitlines() if x.strip()]) != 1:
         return value
-    found = re.fullmatch(rf"[ \t]*({NUMBER})[ \t]*\.?[ \t]*", last_line(reply))
+    marks = r"[ \t*`]*"  # emphasis and code marks around the number, never inside it: not 2*3
+    found = re.fullmatch(
+        rf"{marks}({NUMBER}){marks}\.?{marks}", reply.strip().replace("\u2212", "-")
+    )
     value = float(found.group(1)) if found else None
     return value if value is not None and math.isfinite(value) else None
 
