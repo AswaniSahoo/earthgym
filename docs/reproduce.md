@@ -72,10 +72,10 @@ prints `anthropic/claude-sonnet-5-5 0.9866666666666667`, the 0.987 in
 Put `ANTHROPIC_API_KEY` in `.env` at the repo root; the Inspect CLI loads it (decision 0010).
 The published Claude Sonnet 5.5 runs went through the Batch API, and their logs record these
 settings: `batch 100` for every run, and `cache_prompt false` as well for the heat runs
-(decision 0010 explains the cache setting). The six full runs cost $9.1298 in total
-(`reports/spend.md`). Each was preceded by a probe that projected its cost; the probe's items
-come from `uv run python -m earthgym.era5.tasks` (likewise `earthgym.ibtracs.tasks` and
-`earthgym.heat.tasks`), passed as `--sample-id "$(...)"`.
+(decision 0010 explains the cache setting). The seven full runs and their seven probes cost
+$10.9267 in total (`reports/spend.md`). Each was preceded by a probe that projected its
+cost; the probe's items come from `uv run python -m earthgym.era5.tasks` (likewise
+`earthgym.ibtracs.tasks` and `earthgym.heat.tasks`), passed as `--sample-id "$(...)"`.
 
     M=anthropic/claude-sonnet-5-5
     uv run inspect eval src/earthgym/climaqa/tasks.py@climaqa_mcq \
@@ -84,6 +84,8 @@ come from `uv run python -m earthgym.era5.tasks` (likewise `earthgym.ibtracs.tas
         --log-dir logs/era5-run
     uv run inspect eval src/earthgym/ibtracs/tasks.py@ibtracs_storm --model $M --batch \
         --log-dir logs/ibtracs-run                     # add -T rules=false for the ablation
+    uv run inspect eval src/earthgym/ibtracs/tasks.py@ibtracs_storm --model $M --batch \
+        -T tools=true --log-dir logs/ibtracs-tools-run  # the rows behind a query tool
     uv run inspect eval src/earthgym/heat/tasks.py@heat_basis --model $M --batch \
         --cache-prompt false --log-dir logs/heat-run   # add -T rules=false for terms only
 
@@ -95,7 +97,8 @@ Then, for each run, its report, its per-item results and its ledger row, here fo
 
 The other reports: `earthgym.climaqa.report <log dir> --out reports/climaqa/runs/<name>.md` and
 `earthgym.climaqa.compare <log dir a> <log dir b> --out <name>.md`, `earthgym.era5.report`, and
-`earthgym.ibtracs.report`, whose `--hidden <log dir>` (heat's too) writes the pair report. ClimaQA's
+`earthgym.ibtracs.report`, whose `--hidden <log dir>` (heat's too) writes the pair report, and
+with `--tools <log dir>` as well the three-run report (decision 0023). ClimaQA's
 strict variant is `-T strict=true` on both tasks. The held-out split is an option of the
 verifiers tasksets only (decision 0017).
 
