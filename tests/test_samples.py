@@ -104,3 +104,8 @@ def test_the_report_counts_replies_cut_at_the_token_cap_and_replies_without_an_a
     assert "1 of 8 replies stopped at the 4096-token cap; 1 had no parseable answer" in text
     uncapped = samples.render("ibtracs", [run("m/one", {"ace/1": [1.0] * 8})], date="2026-11-02")
     assert "token cap" not in uncapped and "0 had no parseable answer" in uncapped
+
+
+def test_the_report_names_where_the_samples_were_drawn():
+    text = samples.render("ibtracs", [run("m/one", {"ace/1": [1.0] * 8})], date="2026-11-02")
+    assert "llama.cpp on Kaggle's T4 GPUs (decisions 0022 and 0025)" in text

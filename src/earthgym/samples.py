@@ -83,6 +83,8 @@ def render(
         "item whose reward varies across its samples is one a GRPO-style update can learn from",
         "(decision 0022).",
         "",
+        "Drawn with llama.cpp on Kaggle's T4 GPUs (decisions 0022 and 0025).",
+        "",
         cols,
         "|---|---|---|---|---|---|---|",
     ]
