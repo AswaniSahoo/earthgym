@@ -24,7 +24,7 @@ from pathlib import Path
 CONFIG_JSON = "{}"
 
 OUT = Path("/kaggle/working")
-WORK = Path("/kaggle/tmp")
+WORK = Path("/tmp/earthgym")  # scratch space; only /kaggle/working is kept
 START = time.time()
 LOCK = threading.Lock()
 
