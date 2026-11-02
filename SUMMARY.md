@@ -112,8 +112,8 @@ Write-up: `reports/ibtracs/2026-11-02-phase-6-writeup.md`.
 
 $10.9267 of a managed $20 budget on the Anthropic key over 14 runs (a probe projected each
 run's cost before it started; the ledger is checked after each run), probes included, all
-through the Batch API but the Phase 6 probe (`reports/spend.md`). The Gemini 3.8 Flash runs on Vertex AI are separate and stay as
-recorded in their reports.
+through the Batch API but the Phase 6 probe (`reports/spend.md`). The Gemini 3.8 Flash runs on
+Vertex AI are separate and stay as recorded in their reports.
 
 ## Limits
 
