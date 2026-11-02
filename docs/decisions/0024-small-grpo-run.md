@@ -80,3 +80,13 @@ the most reward variance, so I stopped the run on MCQ.
 - The report gives the train and the held-out reward before and after training: 8 samples of
   every test item and of as many train items, the first ones of the train split.
 
+The pick, 2026-11-02 (`uv run python -m earthgym.grpo.pick`, from the committed results of
+decision 0025): climaqa MCQ. Its median reply is 382.5 tokens, and its 170 train items have a
+mean reward variance of 0.0958, with 0.524 of them varying. Cloze fits the cap (median 3 tokens)
+but has 0.0600 and 0.343 on its 99 train items. ibtracs-storm-v1 is out on length, a median of
+1,323 tokens (0.0510 and 0.318 on 233 train items). The heat and ERA5 runs of Qwen3.5-2B have not
+finished, and their replies so far are far over the cap: heat a median of 2,297 tokens over the
+181 samples done on Kaggle, ERA5 2,373.5 over the 1,278 done on the laptop before it stopped. So
+neither could be picked, whatever their variance. The run is the `run` preset of
+`earthgym.grpo.kernel`, as before.
+
