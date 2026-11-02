@@ -1,0 +1,56 @@
+# 0024: a small GRPO run on climaqa-v1 MCQ, Qwen3.5-2B with a LoRA on one Kaggle T4
+
+Date: 2026-11-02. Status: proposed, 2026-11-02: the smoke run comes first.
+
+Context: Phase 7 asks whether an earthgym environment gives a small open model a signal it can
+learn from: GRPO-style training on the train split, with the reward on the train and the
+held-out split before and after (`docs/roadmap.md`). GRPO learns only from items whose reward
+varies across a group of samples. Of the small-model runs of decision 0022, only ClimaQA has
+finished. In it, Qwen3.5-2B's MCQ items vary on 93 of the 170 train items (mean reward 0.687,
+67 always right) and on 18 of the 52 test items (mean 0.781, 31 always right), from
+`reports/climaqa/results/2026-11-02-qwen3.5-2b-q8_0-8-samples-mcq.jsonl` split by decision
+0017. This laptop's 4 GB GPU is below Unsloth's stated GRPO minimum of 5 GB and is busy with
+the decision 0022 runs; Kaggle's free T4 x2 machine gives 16 GB a GPU (`docs/radar.md`,
+2026-11-02).
+
+Decision:
+
+- Environment: climaqa-v1 MCQ, the one environment with a measured signal for this model:
+  train on its train split, hold out its test split (decision 0017). The reward is the
+  environment's own, `contract.mcq_correct`. `earthgym.grpo.kernel` writes the items as the
+  taskset loads them, `climaqa_v1/contract.py` and the reward wrapper
+  `earthgym/grpo/rollout.py` into the kernel script as the repo holds them, so training pays
+  what the environment pays (`tests/test_grpo.py`).
+- Model: `Qwen/Qwen3.5-2B` at 15852e8c16360a2fea060d615a32b45270f8a8fc (Apache-2.0), the model
+  of decision 0022, with a LoRA of rank 16 and alpha 32 on the attention and MLP projections.
+- Trainer: TRL's `GRPOTrainer` through Unsloth 2026.10.11 with its own generation
+  (`fast_inference=False`), which Unsloth's docs give for Qwen3.5 since vLLM does not run it
+  (the radar's trial rows).
+- Settings: 8 completions of one prompt a step; sampling as in decision 0022 (temperature 0.7,
+  top_p 0.8, top_k 20, thinking off), so the variance measured there applies; at most 1,024
+  completion tokens, with cut-off completions left out of the loss
+  (`mask_truncated_completions`); learning rate 5e-5 with a linear decay after a 10% warmup and
+  `adamw_8bit`, the values of Unsloth's GRPO notebooks; seed 3407.
+- Measured: the train reward at each step, from the trainer's log; and before and after
+  training, k samples of items of both splits, scored by the same contract, for the mean
+  reward, the items whose reward varies, pass@1 and pass@k (`earthgym.samples`), and the
+  replies cut at the cap.
+- Order: a smoke run of 10 steps, sampling 4 items of each split twice, to measure the step
+  time, the memory and the share of cut replies; then the run itself, sized from the smoke to
+  fit one 12-hour Kaggle session.
+
+The main alternative was plain TRL with PEFT and no Unsloth: fewer moving parts, but Unsloth is
+the one path with a documented Qwen3.5 GRPO run on a free T4 (the radar). It stays the fallback
+if Unsloth fails in the smoke.
+
+Out of scope: a hyperparameter search, more than one seed, other environments, full
+fine-tuning and vLLM.
+
+Consequences:
+
+- The kernel is private and has internet for the installs and the model download. The Kaggle
+  key stays in this machine's Kaggle CLI; nothing in the repo holds it.
+- pip on Kaggle resolves the packages from the one pin above. The smoke records the versions
+  it got, and the run pins them.
+- The held-out side has little room: 31 of the 52 test items are always right before any
+  training.
