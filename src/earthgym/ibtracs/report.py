@@ -16,7 +16,7 @@ from ibtracs_storm_v1.taskset import records
 from inspect_ai.log import EvalLog, list_eval_logs, read_eval_log
 
 from earthgym import ablation, results, spend
-from earthgym.ibtracs import stats, tasks
+from earthgym.ibtracs import stats
 
 TESTS = {  # what a question still tests when its careless reading is right anyway
     "ace": "summing the squares",
@@ -227,6 +227,7 @@ def from_results(head: dict, rows: list[dict], items: list[dict]) -> dict:
             "errors": sum(r["query_errors"] for r in rows),
             "items_with_errors": sum(r["query_errors"] > 0 for r in rows),
             "limit": sum(r["limit"] is not None for r in rows),
+            "limit_paid": sum(r["limit"] is not None and r.get("reward") == 1.0 for r in rows),
             "bare": sum(r["bare"] for r in rows),
         },
     }
@@ -254,7 +255,7 @@ def render(s: dict) -> str:
         "(decision 0011).",
         "",
         (
-            f"Submissions without a parseable answer: {s['parse_failures']} of {n}."
+            f"Final replies without a parseable answer: {s['parse_failures']} of {n}."
             if tools
             else f"Replies without a parseable answer line: {s['parse_failures']} of {n}."
         )
@@ -288,11 +289,12 @@ def render(s: dict) -> str:
             "## Tool use",
             "",
             f"{u['queries']} queries in all, a median of {u['median']:g} an item and at most "
-            f"{u['max']}; {u['none']} of {n} items were submitted without a query. "
+            f"{u['max']}; {u['none']} of {n} items answered without a query. "
             f"{u['errors']} queries came back as an error, on {u['items_with_errors']} items. "
-            f"{u['limit']} of {n} items hit the {tasks.MESSAGE_LIMIT}-message limit before "
-            f"submitting and score 0. {u['bare']} of {n} submissions were the number alone, "
-            "without the answer line, which tools mode accepts (decision 0023).",
+            f"{u['limit']} of {n} items stopped at a limit before a final reply; they are scored "
+            f"on their last reply ({u['limit_paid']} right). {u['bare']} of {n} final replies "
+            "were the number alone, without the answer line, which tools mode accepts (decision "
+            "0023).",
         ]
     api = "the Batch API, at half price" if s["batch"] else "the standard API"
     lines += [

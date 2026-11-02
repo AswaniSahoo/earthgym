@@ -1,6 +1,7 @@
 import json
 
 import pytest
+from ibtracs_storm_v1 import contract
 from inspect_ai import eval
 from inspect_ai.model import ModelOutput, ModelUsage, get_model
 
@@ -167,8 +168,9 @@ def test_a_rules_hidden_log_says_so_in_its_report(tmp_path):
 
 
 def tools_log(tmp_path):
-    """Three tools-mode samples in turn: a query and the number alone (right), a failed query,
-    a query and a wrong answer line, and one that queries until the message limit."""
+    """Three tools-mode samples in turn: a query and the number alone (right); a failed query,
+    a query and a wrong answer line; and one that queries until the turn limit, its last reply
+    carrying a right answer line."""
     order = [ITEMS[1], ITEMS[2], ITEMS[0]]
     path = tmp_path / "items.jsonl"
     path.write_text("".join(json.dumps(i) + "\n" for i in order), encoding="utf-8")
@@ -176,14 +178,18 @@ def tools_log(tmp_path):
     def call(name, args, content=None):
         return ModelOutput.for_tool_call("mockllm/model", name, args, content=content)
 
+    def text(reply):
+        return ModelOutput.from_content("mockllm/model", reply)
+
     def outputs():
-        yield call("query", {"sql": "SELECT max(wind) FROM track WHERE status = 'HU'"})
-        yield call("submit", {"answer": "1"}, content="Hurricane Test peaked at 70 kt.")
+        sql = "SELECT max(wind) FROM track WHERE status = 'HU'"
+        yield call("query", {"sql": sql}, content="Hurricane Test peaked at 70 kt.")
+        yield text("1")
         yield call("query", {"sql": "SELEC 1"})
         yield call("query", {"sql": "SELECT count(*) FROM track"})
-        yield call("submit", {"answer": "ANSWER: 18"})
+        yield text("ANSWER: 18")
         while True:
-            yield call("query", {"sql": "SELECT 1"})
+            yield call("query", {"sql": "SELECT 1"}, content="ANSWER: 0.4")
 
     model = get_model("mockllm/model", custom_outputs=outputs())
     task = tasks.ibtracs_storm(path=str(path), tools=True)
@@ -194,7 +200,7 @@ def test_a_tools_mode_log_records_how_each_item_used_the_tool(tmp_path):
     log = tools_log(tmp_path)
     rows = {r["id"]: r for r in report.rows(log, ITEMS)}
     peak, hours, ace = (rows[i["id"]] for i in (ITEMS[1], ITEMS[2], ITEMS[0]))
-    assert (peak["reward"], hours["reward"], ace["reward"]) == (1.0, 0.0, 0.0)
+    assert (peak["reward"], hours["reward"], ace["reward"]) == (1.0, 0.0, 1.0)
     assert (peak["queries"], peak["query_errors"], peak["limit"], peak["bare"]) == (
         1,
         0,
@@ -207,9 +213,8 @@ def test_a_tools_mode_log_records_how_each_item_used_the_tool(tmp_path):
         None,
         False,
     )
-    assert (ace["queries"], ace["limit"], ace["bare"]) == (14, "message", False)
-    # the scored completion is the submission alone, so the storm's name is looked for in
-    # everything the model wrote
+    assert (ace["queries"], ace["limit"], ace["bare"]) == (14, "turn", False)
+    # the storm's name is looked for in everything the model wrote, not in the final reply only
     assert (peak["recognized"], hours["recognized"]) == (True, False)
 
 
@@ -224,14 +229,17 @@ def test_a_tools_mode_report_says_how_the_tool_was_used(tmp_path):
         "errors": 1,
         "items_with_errors": 1,
         "limit": 1,
+        "limit_paid": 1,
         "bare": 1,
     }
     text = report.render(s)
     assert text.startswith("# ibtracs-storm-v1 on model (tools mode)")
     assert "with each storm's rows behind the query tool" in text
     assert "## Tool use" in text and "17 queries in all, a median of 2 an item" in text
-    assert "1 of 3 items hit the 30-message limit" in text
-    assert "1 of 3 submissions were the number alone" in text
+    # an item stopped by the limit is scored on its last reply, which may be right (M2)
+    assert "1 of 3 items stopped at a limit before a final reply" in text
+    assert "scored on their last reply (1 right)" in text
+    assert "1 of 3 final replies were the number alone" in text
     assert "1 of 3 transcripts name the storm or its season" in text
     assert "rules-hidden run, with the rows in the prompt, is the comparison" in text
     assert "this run is the control" not in text
@@ -302,4 +310,51 @@ def test_tools_report_lists_the_flips_when_given_them():
     assert "exact two-sided McNemar test" in text
     assert "| question | right only" not in report.render_tools(
         shown, hidden, tools | {"tools": True}
+    )
+
+
+def test_a_query_inspect_could_not_run_counts_as_a_query_error(tmp_path):
+    path = tmp_path / "items.jsonl"
+    path.write_text(json.dumps(ITEMS[1]) + "\n", encoding="utf-8")
+    outputs = [  # no sql argument: Inspect answers with a tool error, not the tool's own text
+        ModelOutput.for_tool_call("mockllm/model", "query", {}),
+        ModelOutput.from_content("mockllm/model", "ANSWER: 1"),
+    ]
+    model = get_model("mockllm/model", custom_outputs=outputs)
+    task = tasks.ibtracs_storm(path=str(path), tools=True)
+    log = eval(task, model=model, log_dir=str(tmp_path), display="none")[0]
+    (row,) = report.rows(log, ITEMS)
+    assert (row["queries"], row["query_errors"], row["reward"]) == (1, 1, 1.0)
+
+
+def test_rows_refuse_a_log_whose_key_differs_from_the_item(log):
+    changed = [i | {"key": i["key"] + 1} if i["question"] == "ace" else i for i in ITEMS]
+    with pytest.raises(ValueError, match="the log's key differs"):
+        report.rows(log, changed)
+
+
+def test_main_writes_the_three_run_report_from_three_log_dirs(tmp_path, monkeypatch):
+    path = tmp_path / "items.jsonl"
+    path.write_text("".join(json.dumps(i) + "\n" for i in ITEMS), encoding="utf-8")
+
+    def run(name, outputs, **args):
+        model = get_model("mockllm/model", custom_outputs=outputs)
+        task = tasks.ibtracs_storm(path=str(path), **args)
+        eval(task, model=model, log_dir=str(tmp_path / name), display="none", max_samples=1)
+        return str(tmp_path / name)
+
+    keys = [contract.gold(i["question"], i["key"]) for i in ITEMS]  # the reference replies
+    shown = run("shown", [ModelOutput.from_content("m", k) for k in keys])
+    hidden = run("hidden", [ModelOutput.from_content("m", k) for k in keys], rules=False)
+    tools = run("tools", [ModelOutput.from_content("m", k) for k in keys], tools=True)
+    out = tmp_path / "three.md"
+    monkeypatch.setattr(report, "records", lambda: ITEMS)
+    argv = ["report", shown, "--hidden", hidden, "--tools", tools, "--out", str(out)]
+    monkeypatch.setattr("sys.argv", argv)
+    report.main()
+    text = out.read_text("utf-8")
+    assert text.startswith("# ibtracs-storm-v1: the rows in the prompt against a query tool")
+    assert (
+        "| all | 3 | 1.000 | 1.000 | 1.000 |" in text
+        and "| hurricane_hours | 0 | 0 | 1.000 |" in text
     )
