@@ -14,6 +14,7 @@ from earthgym import results, spend
 from earthgym.climaqa import compare
 from earthgym.climaqa import report as climaqa_report
 from earthgym.era5 import report as era5_report
+from earthgym.grpo import report as grpo_report
 from earthgym.heat import report as heat_report
 from earthgym.ibtracs import report as ibtracs_report
 
@@ -108,3 +109,13 @@ def test_the_gemini_era5_probe_projects_the_tokens_decision_0010_gives():
     head, rows = load("era5", "2026-11-01-era5-probe")
     tokens = head["tokens"]["input"] + head["tokens"]["output"]
     assert (len(rows), tokens * 720 // len(rows)) == (10, 1_731_960)
+
+
+GRPO = [("2026-11-02-smoke", "smoke run, 10 steps", 5)]  # name, title, window
+
+
+@pytest.mark.parametrize(("name", "title", "window"), GRPO)
+def test_each_grpo_report_re_renders_from_its_committed_metrics(name, title, window):
+    metrics = json.loads((R / "grpo/results" / f"{name}-metrics.json").read_text("utf-8"))
+    text = grpo_report.render(metrics, title, name[:10], window)
+    assert text == (R / "grpo" / f"{name}.md").read_text("utf-8")
