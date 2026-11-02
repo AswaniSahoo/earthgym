@@ -33,7 +33,8 @@ Decision:
   (`mask_truncated_completions`); learning rate 5e-5 with a linear decay after a 10% warmup and
   `adamw_8bit`, the values of Unsloth's GRPO notebooks; seed 3407.
 - Measured: the train reward at each step, from the trainer's log; and before and after
-  training, 8 samples of every test item, scored by the same contract, for the mean reward,
+  training, 8 samples of every test item and of the first 52 train items, scored by the same
+  contract, for the mean reward,
   the items whose reward varies, pass@1 and pass@8 (`earthgym.samples`), the items that got
   better or worse with a sign test, and the replies cut at the cap (`earthgym.grpo.report`).
 - Order: a smoke run of 10 steps, sampling 4 items of each split twice, to measure the step
@@ -60,9 +61,8 @@ Consequences:
   TRL's `loss_type` dapo with beta 0, so there is no KL term. Peak memory was 5.36 GiB; the first
   step took 328 s and the median one after it 43.3 s; 5 of the 10 steps had the same reward on
   all 8 completions and so no signal; sampling took about 25 to 60 s an item for 2 samples.
-- So the run samples only the test split before and after, and takes the train reward from
-  the trainer's log rather than from a second sampling: at the smoke's rates, 250 steps take
-  about 3 to 4 hours and the two samplings of 52 items about 2 to 4 more.
+- At the smoke's rates, 250 steps take about 3 to 4 hours, and each sampling of 104 items (52
+  test, 52 train) 1 to 3 more, before and after, which fits one 12-hour session.
 - The held-out side has little room: 31 of the 52 test items are always right before any
   training.
 

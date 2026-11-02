@@ -77,11 +77,11 @@ PRESETS = {
     "smoke": Config(),
     "run": dataclasses.replace(
         Config(),
-        slug="earthgym-grpo-run",
+        slug="earthgym-grpo",
         pip=PINS,
         steps=250,
-        eval_splits=("test",),  # the train reward comes from the trainer's log
-        eval_items=None,
+        eval_splits=("train", "test"),  # every test item, and as many train items
+        eval_items=52,
         eval_samples=8,
         save_adapter=True,
     ),

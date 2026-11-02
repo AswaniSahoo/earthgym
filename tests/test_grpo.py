@@ -70,8 +70,10 @@ def test_the_default_config_samples_as_the_small_model_runs_did():
 def test_the_run_preset_pins_what_the_smoke_resolved_and_samples_the_held_out_split():
     run, smoke = kernel.PRESETS["run"], kernel.PRESETS["smoke"]
     assert smoke == kernel.Config()
-    assert run.steps == 250 and run.save_adapter
-    assert (run.eval_splits, run.eval_items, run.eval_samples) == (("test",), None, 8)
+    assert run.steps == 250 and run.save_adapter and run.slug == "earthgym-grpo"
+    # the train and the held-out reward before and after: every test item, as many train items
+    assert (run.eval_splits, run.eval_items, run.eval_samples) == (("train", "test"), 52, 8)
+    assert sum(i["split"] == "test" for i in kernel.items()) == 52
     assert set(run.pip) == {  # reports/grpo/2026-11-02-smoke.md, Packages
         "unsloth==2026.10.11",
         "unsloth_zoo==2026.10.11",
@@ -89,7 +91,6 @@ def test_the_run_preset_pins_what_the_smoke_resolved_and_samples_the_held_out_sp
         "slug",
         "pip",
         "steps",
-        "eval_splits",
         "eval_items",
         "eval_samples",
         "save_adapter",
