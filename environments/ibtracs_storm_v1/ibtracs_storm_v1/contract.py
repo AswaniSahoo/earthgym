@@ -1,13 +1,16 @@
 """One answer contract for the IBTrACS storm questions: the prompt with its rules, the answer
-line and the reward (decisions 0009 and 0011).
+line and the reward (decisions 0009 and 0011), and the read-only SQL query over a storm's rows
+for tools mode (decision 0023).
 
 The Inspect task and the verifiers taskset both import this module, so they read the same
-replies and pay the same reward.
+replies, run the same queries and pay the same reward.
 """
 
 import hashlib
 import math
 import re
+import sqlite3
+from time import monotonic
 
 QUESTIONS = {  # question: (what is asked, the rule that answers it)
     "ace": (
@@ -53,16 +56,77 @@ ANSWER_LINE = re.compile(  # horizontal space only, so the number sits on the an
 )
 
 
+MAX_ROWS = 200  # rows in one query reply
+MAX_CHARS = 8000  # characters in one query reply, and in any one value
+MAX_SECONDS = 0.5  # for one query
+READS = {sqlite3.SQLITE_SELECT, sqlite3.SQLITE_READ, sqlite3.SQLITE_FUNCTION}
+
+
+def _shown(row: list) -> tuple:
+    """A row as the prompt shows it: the time as month-day hour:minute, the status, the wind
+    and the pressure (None for no value)."""
+    when, status, wind, pressure = row
+    return when[5:16], status, wind, pressure
+
+
 def prompt(item: dict, rules: bool = True) -> str:
     """The task text: the storm's rows and the rule for the question (left out for the
     rules-hidden ablation); never the key, the name, the year or the SID."""
     question, rule = QUESTIONS[item["question"]]
     lines = "\n".join(
-        f"{time[5:16]} | {status} | {wind} | {'-' if pressure is None else pressure}"
-        for time, status, wind, pressure in item["rows"]
+        f"{when} | {status} | {wind} | {'-' if pressure is None else pressure}"
+        for when, status, wind, pressure in map(_shown, item["rows"])
     )
     rule = f"Rule. {rule}\n\n" if rules else ""
     return PROMPT.format(rows=lines, statuses=STATUSES, rule=rule, question=question)
+
+
+def database(rows: list) -> sqlite3.Connection:
+    """An in-memory SQLite database with one table, track, holding the rows as the prompt shows
+    them. Once filled it authorizes only SELECT, column reads and functions, so every write,
+    ATTACH, VACUUM INTO and PRAGMA is refused, and no value may be longer than a reply: a
+    single function call such as randomblob(10^9) runs past any deadline."""
+    db = sqlite3.connect(":memory:")
+    db.execute("CREATE TABLE track (time TEXT, status TEXT, wind INTEGER, pressure INTEGER)")
+    db.executemany("INSERT INTO track VALUES (?, ?, ?, ?)", map(_shown, rows))
+    db.commit()
+    db.setlimit(sqlite3.SQLITE_LIMIT_LENGTH, MAX_CHARS)
+    db.set_authorizer(
+        lambda action, *_: sqlite3.SQLITE_OK if action in READS else sqlite3.SQLITE_DENY
+    )
+    return db
+
+
+def query(db: sqlite3.Connection, sql: str) -> str:
+    """One SQL statement's result as text: the column names, then up to MAX_ROWS rows, values
+    joined by ' | ' and NULL for no value, in at most about MAX_CHARS characters, with a note
+    when cut. A statement still running after MAX_SECONDS is interrupted. A refused, failed or
+    interrupted statement comes back as 'error: <reason>', so the model reads every error and
+    nothing is raised."""
+    deadline = monotonic() + MAX_SECONDS
+    db.set_progress_handler(lambda: monotonic() > deadline, 1000)  # every 1000 instructions
+    note = ""
+    try:
+        cursor = db.execute(sql)
+        lines = [" | ".join(column[0] for column in cursor.description or ())]
+        size = len(lines[0])
+        for row in cursor:  # read lazily, so a cut stops the statement too
+            if len(lines) > MAX_ROWS:
+                note = f"(only the first {MAX_ROWS} rows)"
+                break
+            lines.append(" | ".join("NULL" if value is None else str(value) for value in row))
+            size += 1 + len(lines[-1])
+            if size > MAX_CHARS:
+                break
+        if len(lines) == 1:
+            lines.append("(no rows)")
+    except sqlite3.Error as error:
+        lines, note = [f"error: {error}"], ""
+    text = "\n".join(lines)
+    if len(text) > MAX_CHARS:
+        cut = text.rfind("\n", 0, MAX_CHARS)
+        text, note = text[: cut if cut > 0 else MAX_CHARS], f"(cut at {MAX_CHARS} characters)"
+    return f"{text}\n{note}" if note else text
 
 
 def last_line(reply: str) -> str:
