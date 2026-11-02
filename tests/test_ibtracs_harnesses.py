@@ -4,10 +4,12 @@ from collections import Counter
 from types import SimpleNamespace
 
 import pytest
+import verifiers.v1 as vf
 from ibtracs_storm_v1 import contract
 from ibtracs_storm_v1 import taskset as ts
 from inspect_ai import eval
 from inspect_ai.model import ModelOutput, get_model
+from mcp.server.mcpserver import MCPServer
 
 from earthgym.ibtracs import tasks
 
@@ -85,3 +87,35 @@ def test_both_harnesses_pay_the_same_on_every_item():
         for reply in (f"ANSWER: {d.key}", f"ANSWER: {d.key + 2}", "no answer"):
             paid = asyncio.run(task.exact(SimpleNamespace(last_reply=reply)))
             assert paid == contract.reward(d.question, contract.answer(reply), d.key)
+
+
+def test_taskset_tools_mode_puts_the_rows_behind_one_query_tool():
+    config = ts.StormConfig(tools=True)
+    assert config.task.tools and not ts.StormConfig().task.tools  # what Task.toolsets reads
+    loaded = ts.StormTaskset(config).load()
+    rows = {r["id"]: r for r in ts.records()}
+    assert len(loaded) == 300
+    for t in loaded:
+        assert t.data.prompt == contract.tools_prompt(rows[t.data.id])
+        assert [list(row) for row in t.data.rows] == rows[t.data.id]["rows"]
+        assert asyncio.run(t.validate(None))  # the gold check
+    (server,) = type(loaded[0]).toolsets(loaded[0].config)  # as each rollout asks
+    assert isinstance(server, ts.TrackToolset) and server.server_name == ""  # no prefix
+    default = ts.StormTaskset(ts.StormConfig()).load()
+    assert type(default[0]).toolsets(default[0].config) == []
+    assert all(t.data.rows is None for t in default)
+
+
+def test_query_tool_serves_its_own_storm_to_the_model():
+    server = ts.TrackToolset(vf.ToolsetConfig())
+
+    async def serve():
+        await server.setup_task(ts.to_data(ROW, tools=True))  # as the /task channel hands it
+        mcp = MCPServer("track")
+        server.register(mcp)
+        sql = "SELECT count(*), sum(wind) FROM track WHERE status = 'HU'"
+        return await mcp.list_tools(), await mcp.call_tool("query", {"sql": sql})
+
+    (tool,), result = asyncio.run(serve())
+    assert tool.name == "query" and list(tool.input_schema["properties"]) == ["sql"]
+    assert result.content[0].text == "count(*) | sum(wind)\n2 | 145"
