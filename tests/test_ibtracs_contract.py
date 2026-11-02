@@ -71,6 +71,19 @@ def test_the_rule_can_be_left_out_for_the_ablation():
     assert hidden.rstrip().endswith("'ANSWER: <number>'.")
 
 
+def test_tools_prompt_holds_no_row_and_no_rule():
+    for question, (asked, rule) in contract.QUESTIONS.items():
+        texts = {contract.tools_prompt(item) for item in records() if item["question"] == question}
+        assert len(texts) == 1  # one text for all 100 storms, so it holds no row value
+        text = texts.pop()
+        assert not re.search(r"\d\d-\d\d \d\d:\d\d", text) and "Rule." not in text
+        assert rule not in text and asked in text and "Statuses:" in text
+        assert "table track" in text and "time, status, wind and pressure" in text
+        assert "knots (kt)" in text and "NULL means no value" in text
+        assert "tool query" in text and "SELECT statement as sql" in text
+        assert text.endswith("The last line of your final answer must be 'ANSWER: <number>'.")
+
+
 def test_every_status_in_the_items_is_in_the_legend():
     legend = set(re.findall(r"\b([A-Z]{2}) [a-z]", contract.STATUSES))
     assert {row[1] for item in records() for row in item["rows"]} <= legend

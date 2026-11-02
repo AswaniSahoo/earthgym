@@ -50,6 +50,17 @@ PROMPT = (
     "{statuses}\n\n{rule}"
     "{question} The last line of your response must be 'ANSWER: <number>'."
 )
+TOOLS_PROMPT = (  # tools mode: the rows sit behind the query tool, and no rule is shown
+    "The SQLite table track holds one North Atlantic storm's track from the IBTrACS archive, "
+    "with every row the archive has: the 6-hourly rows, the 3-hourly rows between them, and "
+    "extra rows at other times. Its columns are time, status, wind and pressure. Times are UTC, "
+    "written month-day hour:minute, with the year left out. Winds are maximum sustained winds "
+    "in knots (kt); pressure is the minimum central pressure in mb, and NULL means no value. "
+    "Read the table with the tool query: give it one SQLite SELECT statement as sql, and each "
+    "reply holds at most {max_rows} rows and {max_chars} characters.\n\n"
+    "{statuses}\n\n"
+    "{question} The last line of your final answer must be 'ANSWER: <number>'."
+)
 NUMBER = r"[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?"
 ANSWER_LINE = re.compile(  # horizontal space only, so the number sits on the answer line
     rf"^[ \t]*ANSWER[ \t]*:[ \t]*({NUMBER})[ \t]*\.?[ \t]*$", re.MULTILINE | re.IGNORECASE
@@ -79,6 +90,15 @@ def prompt(item: dict, rules: bool = True) -> str:
     )
     rule = f"Rule. {rule}\n\n" if rules else ""
     return PROMPT.format(rows=lines, statuses=STATUSES, rule=rule, question=question)
+
+
+def tools_prompt(item: dict) -> str:
+    """The task text for tools mode: the question, the units, the status legend and how to read
+    the rows with the query tool; no row and, as in the rules-hidden ablation, no rule."""
+    question = QUESTIONS[item["question"]][0]
+    return TOOLS_PROMPT.format(
+        max_rows=MAX_ROWS, max_chars=MAX_CHARS, statuses=STATUSES, question=question
+    )
 
 
 def database(rows: list) -> sqlite3.Connection:
