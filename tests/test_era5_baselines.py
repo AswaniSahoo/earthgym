@@ -99,3 +99,13 @@ def test_held_out_rewards_are_on_the_test_split_and_render_in_their_own_table():
     assert held["midpoint"]["n"] == 1 and held["midpoint"]["reward"] == pytest.approx(1.0)
     text = baselines.render(baselines.rows(records), records, held=list(held.values()))
     assert "## Held out" in text and "| midpoint | 1 | 1.000 |" in text
+
+
+def test_all_items_rewards_cover_every_item_and_render_in_their_own_table():
+    records = [
+        ITEMS[0] | {"id": f"x{i}", "init_time": f"2020-0{1 + i % 9}-01T00"} for i in range(9)
+    ]
+    every = baselines.held_out(records, baselines.BASELINES, split=None)
+    assert {r["n"] for r in every} == {9}
+    text = baselines.render(baselines.rows(records), records, overall=every)
+    assert "## All items" in text and "| midpoint | 9 |" in text

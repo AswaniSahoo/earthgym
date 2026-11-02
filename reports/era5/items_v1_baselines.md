@@ -41,6 +41,19 @@ Area-weighted RMSE and ACC over the items (WB2 rules), mean reward per item (000
 | 2m_temperature | 72 | midpoint | 109 | 2.243 | 0.558 | 0.081 |
 | 2m_temperature | 72 | mixture (w 0.67, fitted on the train split) | 109 | 2.238 | 0.558 | 0.091 |
 
+## All items
+
+Mean reward over all 648 items:
+
+| forecast | n | mean reward |
+|---|---|---|
+| persistence | 648 | 0.0000 |
+| climatology | 648 | 0.0000 |
+| always-climatology policy | 648 | 0.0000 |
+| IFS HRES | 648 | 0.5555 |
+| midpoint | 648 | 0.1175 |
+| mixture (w 0.67, fitted on the train split) | 648 | 0.1211 |
+
 ## Held out
 
 Mean reward on the test split (102 items, one init week in five by a hash of the week; era5_forecast_v1/contract.py), where the mixture's weight was not fitted:

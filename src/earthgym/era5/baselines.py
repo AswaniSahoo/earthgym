@@ -77,9 +77,9 @@ def forecasters(records: list[dict]) -> dict:
     return BASELINES | {f"mixture (w {w:.2f}, fitted on the train split)": mixture}
 
 
-def held_out(records: list[dict], forecasts: dict) -> list[dict]:
-    """Mean reward per forecast on the test split."""
-    test = [r for r in records if contract.split(r) == "test"]
+def held_out(records: list[dict], forecasts: dict, split: str | None = "test") -> list[dict]:
+    """Mean reward per forecast on one split, or on every item when split is None."""
+    test = [r for r in records if split in (None, contract.split(r))]
     return [
         {"forecast": name, "n": len(test)}
         | {"reward": statistics.fmean(reward(r, f(r)) for r in test)}
@@ -109,7 +109,10 @@ def quarters(records: list[dict]) -> list[dict]:
 
 
 def render(
-    table: list[dict], records: list[dict] | None = None, held: list[dict] | None = None
+    table: list[dict],
+    records: list[dict] | None = None,
+    held: list[dict] | None = None,
+    overall: list[dict] | None = None,
 ) -> str:
     lines = [
         "# era5-forecast-v1 baseline rows",
@@ -125,6 +128,10 @@ def render(
             f"| {r['variable']} | {r['lead']} | {r['baseline']} | {r['n']} | "
             f"{r['rmse']:.3f} | {acc} | {r['reward']:.3f} |"
         )
+    if overall:
+        lines += ["", "## All items", "", f"Mean reward over all {overall[0]['n']} items:", ""]
+        lines += ["| forecast | n | mean reward |", "|---|---|---|"]
+        lines += [f"| {r['forecast']} | {r['n']} | {r['reward']:.4f} |" for r in overall]
     if held:
         lines += [
             "",
@@ -182,7 +189,8 @@ def render(
 def main() -> None:
     records = [json.loads(line) for line in items.OUT.read_text("utf-8").splitlines()]
     fs = forecasters(records)
-    REPORT.write_text(render(rows(records, fs), records, held_out(records, fs)), "utf-8")
+    every = held_out(records, fs, split=None)
+    REPORT.write_text(render(rows(records, fs), records, held_out(records, fs), every), "utf-8")
     print(f"{len(records)} items scored, written to {REPORT}")
 
 
