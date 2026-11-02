@@ -81,9 +81,13 @@ def setup(config: dict) -> tuple[Path, Path]:
         fetch(asset["url"], tarball, asset["sha256"])
         subprocess.run(["tar", "-xzf", str(tarball), "-C", str(llama)], check=True)
     server = next(p for p in llama.rglob("llama-server") if p.is_file())
+    archive = find("logs.tar.gz")  # the logs of the sessions before this one, if mounted
     earlier = find("earthgym-small-models-logs")
-    if earlier is not None:  # the logs of the sessions before this one
+    if archive is not None:
+        subprocess.run(["tar", "-xzf", str(archive), "-C", str(OUT)], check=True)
+    elif earlier is not None and (earlier / "logs").is_dir():  # if Kaggle unpacked it
         shutil.copytree(earlier / "logs", OUT / "logs", dirs_exist_ok=True)
+    if archive is not None or earlier is not None:
         note("earlier logs", files=len(list((OUT / "logs").rglob("*.eval"))))
     gpus = ["nvidia-smi", "--query-gpu=name,driver_version,memory.total", "--format=csv,noheader"]
     note("set up", gpus=subprocess.run(gpus, capture_output=True, text=True).stdout.strip())
