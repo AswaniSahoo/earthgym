@@ -44,7 +44,9 @@ def test_an_errored_sample_earns_zero_and_unequal_sample_counts_are_refused():
 
 
 def run(model, rewards_by_item):
-    return {"model": model, "epochs": 8, "settings": {"temperature": 0.7}}, rows(rewards_by_item)
+    head = {"model": model, "epochs": 8, "settings": {"temperature": 0.7}}
+    head |= {"started": "2026-11-02T00:15:48+00:00", "completed": "2026-11-02T00:45:10+00:00"}
+    return head, [r | {"tokens": [100, 0, 0, 40, 0]} for r in rows(rewards_by_item)]
 
 
 def test_the_report_gives_each_model_and_each_question_its_own_row():
@@ -75,6 +77,7 @@ def test_main_merges_each_models_files_and_writes_the_report(tmp_path, monkeypat
     from earthgym import results
 
     head = {"model": "m/one", "epochs": 8, "settings": {}, "started": "2026-11-02T00:15:48Z"}
+    head["completed"] = "2026-11-02T00:20:00Z"
     for kind, item in (("mcq", "gold/mcq/1"), ("cloze", "gold/cloze/1")):
         results.write(tmp_path / f"r-{kind}.jsonl", head, rows({item: [1.0] * 8}))
     out = tmp_path / "report.md"
@@ -84,3 +87,10 @@ def test_main_merges_each_models_files_and_writes_the_report(tmp_path, monkeypat
     text = out.read_text("utf-8")
     assert "| m/one | 2 | 8 | 1.000 | 0.000 | 1.000 | 1.000 |" in text
     assert "| m/one | cloze | 1 |" in text and "Dated 2026-11-02" in text
+
+
+def test_the_report_says_what_each_run_cost_in_tokens_and_time():
+    a = run("m/one", {"ace/1": [1.0] * 8})
+    text = samples.render("ibtracs", [a], date="2026-11-02")
+    assert "- m/one: temperature 0.7; 8 samples, 320 output tokens, from" in text
+    assert "2026-11-02T00:15:48+00:00 to 2026-11-02T00:45:10+00:00" in text

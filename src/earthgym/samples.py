@@ -103,10 +103,14 @@ def render(
             s = summary([r for r in rows if group(r["id"]) == g], passed)
             cells = [head["model"], g, s["items"], s["samples"], s["mean_reward"], s["varies"]]
             lines.append(_row([*cells, s["pass@1"], s[f"pass@{k}"]]))
-    lines += ["", "## Settings", ""]
-    for head, _ in runs:
+    lines += ["", "## Settings and cost", ""]
+    for head, rows in runs:
         settings = ", ".join(f"{a} {b}" for a, b in head.get("settings", {}).items()) or "none"
-        lines.append(f"- {head['model']}: {settings}.")
+        out = sum(r["tokens"][3] for r in rows if "tokens" in r)
+        lines.append(
+            f"- {head['model']}: {settings}; {len(rows)} samples, {out} output tokens, from "
+            f"{head.get('started')} to {head.get('completed')} (UTC)."
+        )
     return "\n".join([*lines, ""])
 
 
@@ -119,7 +123,10 @@ def main() -> None:
     runs: dict[str, tuple[dict, list[dict]]] = {}
     for path in args.results:
         head, rows = results.read(Path(path))
-        runs.setdefault(head["model"], (head, []))[1].extend(rows)
+        merged, kept = runs.setdefault(head["model"], (dict(head), []))
+        merged["started"] = min(merged["started"], head["started"])
+        merged["completed"] = max(merged["completed"], head["completed"])
+        kept.extend(rows)
     strict = None
     if args.env == "climaqa":
         strict = near_matches()
