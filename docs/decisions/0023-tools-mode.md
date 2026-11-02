@@ -1,6 +1,7 @@
 # 0023: a tools mode for ibtracs-storm-v1, one read-only SQL tool over the storm's rows
 
-Date: 2026-11-02. Status: proposed, 2026-11-02: built, tested and run once on all 300 items
+Date: 2026-11-02. Status: proposed, 2026-11-02: built and tested. The react version ran on all
+300 items; the tool loop's run stopped at 225 when the API's credit ran out
 (`reports/ibtracs/2026-11-02-phase-6-writeup.md`).
 
 Context: every environment so far shows all its data in the prompt and grades one reply. With
@@ -51,12 +52,20 @@ Decision:
   into `StormTaskConfig`.
 - Inspect 0.3.286: a setup solver puts the rows in the sample's store, bound per sample
   (`inspect_ai/_eval/task/run.py:2501`), and the tool builds the table from `store()` on each
-  call. The solver is `react(tools=[query()], submit=AgentSubmit(answer_only=True), attempts=1)`
-  with `message_limit=30`: room for 13 queries and the submit (with `mockllm/model`, a fourteenth
-  query hits the limit). With `answer_only` the scored completion is the submitted string alone
-  (`inspect_ai/agent/_react.py:316-317`).
-- Both harnesses offer the same tool: the name `query`, one string argument `sql`, and one
-  description.
+  call. The solver is `use_tools([query()])` and then `generate()`, which runs the model's tool
+  calls in a loop until it replies without one; that final reply is scored. There is no system
+  prompt and no submit tool, so the conversation is the one verifiers' null harness sends: the
+  user prompt and the one tool (`tests/test_ibtracs_harnesses.py`,
+  `tests/test_vf_tools_rollout.py`). `turn_limit=14` gives both harnesses the same budget, 14
+  model turns whatever the calls in each, as `--env.agent.max-turns 14` does in verifiers, where
+  a turn is one sampled reply (`verifiers/v1/trace.py:617-618`).
+- A first version ran Inspect's `react()` agent instead, whose system prompt asks the model to
+  "Prioritize parallel tool calls" and to report its answer with a submit tool
+  (`inspect_ai/agent/_types.py:13-22`). That prompt was a condition of its result that the
+  prompt runs and verifiers do not share (`docs/reviews/phase-6-tools.md`, M1), so I replaced it
+  with the plain loop and ran the model again. Both runs are below.
+- Both harnesses offer the same tool, the name `query`, one string argument `sql` and one
+  description, in the same conversation.
 
 The main alternative was a Python or bash tool, so a model could compute the answer in code. That
 runs model-written code, which needs a sandbox: Inspect's `local` sandbox and an in-process
@@ -66,46 +75,65 @@ authorizer keeps it read-only.
 
 Consequences:
 
-- Claude Sonnet 5.5 on all 300 items (Batch API, $1.7107 in `reports/spend.md`) scores 0.747,
-  against 0.703 with the rows in the prompt and the rule left out: 0.990 on ACE and 1.000 on peak
-  category, as before, and 0.250 on hurricane hours against 0.130. On hours, 16 items are right
-  only with the tool and 4 only with the rows in the prompt (exact two-sided McNemar p 0.012). It
-  made 645 queries, a median of 2 an item and at most 6, with no query error and no item at the
-  message limit, and 253 of its 300 submissions were the number alone
-  (`reports/ibtracs/2026-11-02-claude-sonnet-5-5-tools.md`,
-  `reports/ibtracs/2026-11-02-rows-in-prompt-vs-tool.md`).
-- Tested offline, with no model. In Inspect (`mockllm/model`), a scripted query and then the right
-  submitted answer scores 1, a wrong one 0, and a model that never submits stops at 30 messages.
-  In verifiers, the toolset serves its task's rows through an in-process MCP server, and
-  `vf-validate ibtracs-storm-v1 --runtime.type subprocess --taskset.tools true` passes the gold
-  check on all 300 items. A scratch smoke test started the server as verifiers does, gave it one
-  task over a stand-in `/task` channel and queried it with verifiers' own MCP client: one tool,
-  `query`, answering from that storm's rows.
+- The react version, Claude Sonnet 5.5 on all 300 items (Batch API, $1.7107 in
+  `reports/spend.md`), scores 0.747, against 0.703 with the rows in the prompt and the rule left
+  out: 0.990 on ACE and 1.000 on peak category, as before, and 0.250 on hurricane hours against
+  0.130. On hours, 16 items are right only in that run and 4 only with the rows in the prompt
+  (exact two-sided McNemar p 0.012). It made 645 queries, a median of 2 an item and at most 6,
+  with no query error and no item at its 30-message limit, and 253 of its 300 submissions were
+  the number alone (`reports/ibtracs/2026-11-02-claude-sonnet-5-5-tools-react.md`,
+  `reports/ibtracs/2026-11-02-rows-in-prompt-vs-tool-react.md`). Those numbers hold under
+  react's prompt, which the prompt runs did not have, so the hours gain is not the tool's alone.
+- The tool loop's run (Batch API, from 02:50 UTC) stopped at 225 of 300 items: the API refused
+  further batches with "Your credit balance is too low to access the Anthropic API." Its tokens,
+  $1.2735, are in `reports/spend.md` and its 299 logged samples in
+  `reports/ibtracs/results/2026-11-02-claude-sonnet-5-5-tools-loop-partial.jsonl`. It finishes
+  with `inspect eval-retry` on its log once there is credit; no number of it is reported before
+  then.
+- Tested with no model. In Inspect (`mockllm/model`), a scripted query and then the right final
+  reply scores 1, a wrong one 0, the conversation holds no system prompt and offers the one tool,
+  and a model that never stops querying stops at 14 turns. In verifiers, the toolset serves its
+  task's rows through an in-process MCP server; `tests/test_ibtracs_server.py` starts the server
+  as verifiers does, as `python -m ibtracs_storm_v1.taskset` fed one task over a stand-in `/task`
+  channel, and queries it with verifiers' own MCP client; and `tests/test_vf_tools_rollout.py`
+  runs a whole `vf-eval` rollout against a scripted endpoint on 127.0.0.1 that calls the tool
+  once and then answers, which checks the tool call's round trip and the reward on the final
+  reply. `vf-validate ibtracs-storm-v1 --runtime.type subprocess --taskset.tools true` passes the
+  gold check on all 300 items, but it calls each task's reward and starts no tool server. CI runs
+  that gold check and an Inspect tool-loop run with `mockllm/model`. The tests import `mcp` 2.0.0,
+  verifiers' own dependency, from the lock.
 - A verifiers rollout ran on 3 items with Qwen3.5-2B over the local llama-server of decision
-  0022 (`vf-eval ... -n 3 -r 1`, 2026-11-02): the tool reached the model as `query`, each
-  rollout's server answered from its own storm's rows, and `PRAGMA table_info(track)` came back
-  as `error: not authorized`. All 3 replies then ran out of tokens while thinking, since
-  `--sampling.chat-template-kwargs` did not turn Qwen's thinking off through vf-eval, so none
-  submitted an answer and the reward after a real verifiers rollout is still checked offline only.
+  0022 (`vf-eval ... -n 3 -r 1`, 2026-11-02): the tool reached the model as `query`, two of the
+  three rollouts queried, each answered from its own storm's rows (the first made no query), and
+  `PRAGMA table_info(track)` came back as `error: not authorized`. All 3 replies then ran out of
+  tokens while thinking, since `--sampling.chat-template-kwargs` did not turn Qwen's thinking off
+  through vf-eval, so none reached an answer; the scripted rollout above checks the reward path.
 - A taskset with no harness of its own runs on `bash` (`verifiers/v1/utils/loaders.py:153-161`),
   which offers `bash` and `edit` tools and executes code (`verifiers/v1/harness.py:52`), so on
   `subprocess` the model's commands would run on the host. So every environment package now
   exports verifiers' `NullHarness` in its `__all__`, which makes it the default harness of each
   of the four (`tests/test_vf_harness.py`); naming `--env.agent.harness.id null` still works.
   verifiers has no turn limit unless the run sets one
-  (`verifiers/v1/configs/agent.py:45`); `--env.agent.max-turns 14` gives the same 13 queries and
-  an answer as Inspect's 30 messages, since a turn is one sampled reply
-  (`verifiers/v1/trace.py:617-618`). The command is in the environment's README; a dry run
-  resolves it.
-- In Inspect, react's own system prompt asks the model to report its answer with `submit()`
+  (`verifiers/v1/configs/agent.py:45`), so the environment README's command sets
+  `--env.agent.max-turns 14`, the budget of Inspect's `turn_limit`.
+- In the react version, its system prompt asked the model to report its answer with `submit()`
   (`inspect_ai/agent/_types.py:20-22`). A 6-item probe of the hours question (Claude Sonnet 5.5,
   standard API, 2026-11-02, $0.0862 in `reports/spend.md`) showed what that does: every reply
-  made two queries and then submitted the number alone ("9", "129", "75"), which the answer-line
-  rule scores 0. So tools mode, and only tools mode, also accepts a final reply or submission
-  that is the number alone (`contract.final_answer`, in both harnesses). Re-scored that way all
-  6 answers parse, and all 6 are short of the key by 3 or 6 hours: the convention gap of the
-  rules-hidden run (decision 0011), which the tool does not close.
-- Each tools-mode task carries its rows in its data, a median of 2,870 bytes and 7,660 at most,
+  made two queries, and five of the six then submitted the number alone ("9", "129", "75", "60",
+  "24"), which the answer-line rule scores 0; the sixth ended in an answer line. So tools mode,
+  and only tools mode, also accepts a final reply that is the number alone
+  (`contract.final_answer`, in both harnesses), with emphasis marks around the number but none
+  inside it, so `2*3` is no answer. Re-scored that way all 6 answers parse, and all 6 are short of
+  the key by 3 or 6 hours: the convention gap of the rules-hidden run (decision 0011), which the
+  tool does not close. That probe's committed results
+  (`reports/ibtracs/results/2026-11-02-ibtracs-tools-claude-sonnet-5-5-probe.jsonl`) hold the
+  answer-line scoring of the time, with the five bare numbers unparsed; the rewards are the same,
+  0 of 6. The tool-loop probe ($0.0792) ended all six replies in an answer line, with the same six
+  answers.
+- Each tools-mode task carries its rows in its data, a median of 2,862 bytes and 7,660 at most,
   so they are in verifiers' `traces.jsonl` and in Inspect's sample metadata and store.
 - The table has no year, so a storm that ran into a new year would sort wrong by time. None of
   the 300 does.
+- Besides its rows, a query can read the table's schema (`sqlite_master`, `EXPLAIN`), the SQLite
+  version and the clock (`datetime('now')`), none of them another storm's data
+  (`docs/reviews/phase-6-tools.md`).
