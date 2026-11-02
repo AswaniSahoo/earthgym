@@ -29,6 +29,11 @@ jobs:
       - run: >-
           uv run inspect eval src/earthgym/ibtracs/tasks.py@ibtracs_storm --model mockllm/model
           --sample-id "$(uv run python -m earthgym.ibtracs.tasks)" --log-dir "$RUNNER_TEMP/inspect" --display none
+      # tools mode: its gold check, and an Inspect run of the tool loop (decision 0023)
+      - run: uv run vf-validate ibtracs-storm-v1 --runtime.type subprocess --taskset.tools true
+      - run: >-
+          uv run inspect eval src/earthgym/ibtracs/tasks.py@ibtracs_storm -T tools=true
+          --model mockllm/model --limit 3 --log-dir "$RUNNER_TEMP/inspect" --display none
       - run: uv build environments/ibtracs_storm_v1 --out-dir "$RUNNER_TEMP/wheels"
       - run: uv run vf-validate heat-basis-v1 --runtime.type subprocess
       - run: >-
