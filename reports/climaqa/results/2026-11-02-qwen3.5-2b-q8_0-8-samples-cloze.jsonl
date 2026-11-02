@@ -1,0 +1,1025 @@
+{"task": "climaqa_cloze", "task_args": {"path": null, "strict": false}, "model": "openai-api/llamacpp/qwen3.5-2b-q8_0", "items_sha256": "5f345d8e234b65a310b8de47f1d99059b47c6e2429c5f22b80b154ef6b698464", "created": "2026-11-02T03:53:47+00:00", "started": "2026-11-02T03:53:47+00:00", "completed": "2026-11-02T04:03:57+00:00", "commit": "e74bb0c", "settings": {"max_connections": 32, "max_tokens": 4096, "top_p": 0.8, "temperature": 0.7, "extra_body": {"top_k": 20, "chat_template_kwargs": {"enable_thinking": false}}}, "inspect_ai": "0.3.286", "tokens": {"input": 72512, "cache_write": 0, "cache_read": 0, "output": 9728, "reasoning": 0}, "log": "2026-11-02T03-53-47-00-00_climaqa-cloze_7VTXMXLiPSTvaBiZit9LPV.eval", "log_dir": "logs/2026-11-02-small-models-kaggle-1/logs/2026-11-02-climaqa-qwen3.5-2b-q8_0-8", "epochs": 8}
+{"id": "gold/cloze/1", "answer": "transfer", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/10", "answer": "black", "reward": 0.0, "tokens": [53, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/100", "answer": "in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions answer climate", "reward": 0.0, "tokens": [64, 0, 0, 36, 0], "complexity": "none", "lines": 3, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/101", "answer": "radiation", "reward": 0.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/102", "answer": "precipitation", "reward": 0.0, "tokens": [57, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/103", "answer": "black and brown carbon sulfate and goethite", "reward": 0.0, "tokens": [73, 0, 0, 11, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/105", "answer": "organosulfur compounds", "reward": 0.0, "tokens": [76, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/106", "answer": "visible", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/107", "answer": "hygroscopic", "reward": 0.0, "tokens": [77, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/108", "answer": "parameter", "reward": 0.0, "tokens": [98, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/109", "answer": "fit", "reward": 0.0, "tokens": [59, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/11", "answer": "cloud", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/110", "answer": "liquid", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/111", "answer": "reductions in aerosol emissions can lead to overall warming of climate highlighting need to further limit <mask> emissions to achieve climate targets reductions in aerosol emissions can lead to overall warming of climate highlighting need to further limit <mask> emissions to achieve climate targets reductions in aerosol emissions can lead to overall warming of climate highlighting need to further limit <mask> emissions to achieve climate targets co2", "reward": 0.0, "tokens": [64, 0, 0, 98, 0], "complexity": "none", "lines": 7, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/112", "answer": "troposphere", "reward": 1.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/114", "answer": "ocean", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/116", "answer": "operating", "reward": 0.0, "tokens": [94, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/117", "answer": "more barotropic", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/118", "answer": "cloud", "reward": 0.0, "tokens": [55, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/12", "answer": "mode", "reward": 0.0, "tokens": [67, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/120", "answer": "human", "reward": 0.0, "tokens": [87, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/121", "answer": "formation", "reward": 0.0, "tokens": [65, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/122", "answer": "cloud", "reward": 0.0, "tokens": [60, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/124", "answer": "terminal", "reward": 1.0, "tokens": [78, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/125", "answer": "atmospheric", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/126", "answer": "convective", "reward": 1.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/127", "answer": "spatial", "reward": 0.0, "tokens": [79, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/128", "answer": "weight", "reward": 0.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/129", "answer": "inductively coupled plasma", "reward": 0.0, "tokens": [65, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/13", "answer": "deposition", "reward": 0.0, "tokens": [73, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/130", "answer": "warm", "reward": 0.0, "tokens": [79, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/131", "answer": "assuming normal distribution of genetic effects allows for calculation of maximum likelihood estimates of variance components leading to coherent framework for estimation in all designs", "reward": 0.0, "tokens": [66, 0, 0, 34, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/133", "answer": "continental", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/135", "answer": "waveform", "reward": 0.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/136", "answer": "plume", "reward": 0.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/138", "answer": "mining", "reward": 0.0, "tokens": [103, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/139", "answer": "efficiency", "reward": 0.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/14", "answer": "flux", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/140", "answer": "much greater", "reward": 0.0, "tokens": [78, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/141", "answer": "emissions of so2 in europe fluctuated over years increasing from 15 tg year^-1 in 1950 to about 35 tg year^-1 in mid 1970s then decreasing to 15 tg year^-1 by 2000 showcasing impact of environmental regulations and technological advancements on reducing pollution levels", "reward": 0.0, "tokens": [117, 0, 0, 82, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/142", "answer": "absorption", "reward": 0.0, "tokens": [83, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/144", "answer": "kriging", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/145", "answer": "absorption", "reward": 0.0, "tokens": [72, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/146", "answer": "mass", "reward": 0.0, "tokens": [54, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/147", "answer": "deepened", "reward": 0.0, "tokens": [79, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/148", "answer": "aircraft sampling", "reward": 0.0, "tokens": [73, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/149", "answer": "concentration", "reward": 0.0, "tokens": [78, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/15", "answer": "coal", "reward": 0.0, "tokens": [87, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/150", "answer": "radiation", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/151", "answer": "cloud partition", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/152", "answer": "liquid", "reward": 1.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/153", "answer": "biogenic emissions", "reward": 0.0, "tokens": [53, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/154", "answer": "nanometers", "reward": 1.0, "tokens": [84, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/156", "answer": "jet", "reward": 0.0, "tokens": [82, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/157", "answer": "exponential", "reward": 0.0, "tokens": [74, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/158", "answer": "carbon", "reward": 0.0, "tokens": [67, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/159", "answer": "soot", "reward": 0.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/16", "answer": "observational", "reward": 0.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/17", "answer": "curvature", "reward": 1.0, "tokens": [47, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/18", "answer": "classical thermodynamic", "reward": 0.0, "tokens": [57, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/19", "answer": "forcing", "reward": 0.0, "tokens": [48, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/22", "answer": "aerosol optical depth aod", "reward": 0.0, "tokens": [71, 0, 0, 8, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/23", "answer": "cloud phase", "reward": 0.0, "tokens": [74, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/24", "answer": "particles", "reward": 0.0, "tokens": [79, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/26", "answer": "prognostic", "reward": 0.0, "tokens": [71, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/27", "answer": "temperature", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/29", "answer": "deep", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/3", "answer": "volatile", "reward": 0.0, "tokens": [89, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/31", "answer": "brownian", "reward": 1.0, "tokens": [85, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/34", "answer": "heterogeneous ice nucleation occurs through various modes involving insoluble or partially insoluble organic particles leading to coexistence of liquid and ice in clouds between 0 c and about -38 c", "reward": 0.0, "tokens": [78, 0, 0, 45, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/36", "answer": "climate", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/37", "answer": "ice nucleating particles", "reward": 0.0, "tokens": [75, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/38", "answer": "chlorine", "reward": 0.0, "tokens": [91, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/4", "answer": "temperature", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/40", "answer": "properties", "reward": 0.0, "tokens": [81, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/41", "answer": "natural", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/42", "answer": "radiative", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/43", "answer": "antarctic", "reward": 0.0, "tokens": [86, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/46", "answer": "evaporation", "reward": 1.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/47", "answer": "aggregation", "reward": 0.0, "tokens": [55, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/48", "answer": "rainfall", "reward": 0.0, "tokens": [52, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/49", "answer": "large ice", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/5", "answer": "optical depth", "reward": 0.0, "tokens": [77, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/51", "answer": "aerosols", "reward": 1.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/52", "answer": "observations", "reward": 0.0, "tokens": [61, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/53", "answer": "properties", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/54", "answer": "ice core sulfate aerosol", "reward": 0.0, "tokens": [76, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/55", "answer": "monsoon", "reward": 1.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/56", "answer": "marine", "reward": 0.0, "tokens": [88, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/57", "answer": "tropics", "reward": 0.0, "tokens": [76, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/59", "answer": "parameters", "reward": 0.0, "tokens": [66, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/61", "answer": "laminar", "reward": 1.0, "tokens": [48, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/62", "answer": "particulate", "reward": 0.0, "tokens": [57, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/63", "answer": "electromagnetic", "reward": 0.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/64", "answer": "cloud", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/65", "answer": "flux", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/66", "answer": "mineral", "reward": 0.0, "tokens": [73, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/67", "answer": "coriolis", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/69", "answer": "growth", "reward": 0.0, "tokens": [82, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/7", "answer": "site specific", "reward": 0.0, "tokens": [70, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/70", "answer": "cape", "reward": 1.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/71", "answer": "altitude", "reward": 0.0, "tokens": [76, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/72", "answer": "cross variograms", "reward": 0.0, "tokens": [67, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/73", "answer": "pressure", "reward": 1.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/74", "answer": "condensation", "reward": 0.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/75", "answer": "scattering", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/76", "answer": "cloud", "reward": 0.0, "tokens": [53, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/77", "answer": "answer is production sentence reads production of highly oxidized organic molecules can occur without involvement of sulfuric acid in certain environments", "reward": 0.0, "tokens": [56, 0, 0, 33, 0], "complexity": "none", "lines": 3, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/79", "answer": "hygroscopic", "reward": 0.0, "tokens": [69, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/8", "answer": "maximum", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/80", "answer": "forcing", "reward": 1.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/81", "answer": "carbon dioxide", "reward": 0.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/82", "answer": "turbulence", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 1}
+{"id": "gold/cloze/83", "answer": "greenhouse gases", "reward": 0.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/84", "answer": "carbon", "reward": 0.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/85", "answer": "precipitation", "reward": 0.0, "tokens": [74, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/86", "answer": "increases linearly", "reward": 0.0, "tokens": [62, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/87", "answer": "positive", "reward": 0.0, "tokens": [70, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/88", "answer": "biogeochemical", "reward": 0.0, "tokens": [65, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/89", "answer": "heterogeneous ice nucleation", "reward": 0.0, "tokens": [76, 0, 0, 7, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/9", "answer": "growth", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/90", "answer": "in cirrus clouds", "reward": 0.0, "tokens": [74, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/91", "answer": "stratospheric", "reward": 0.0, "tokens": [67, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/92", "answer": "positive", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/93", "answer": "remote", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/96", "answer": "frequency", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/98", "answer": "tropics", "reward": 0.0, "tokens": [83, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/99", "answer": "persist", "reward": 0.0, "tokens": [61, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 1}
+{"id": "gold/cloze/1", "answer": "aerosol", "reward": 0.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/10", "answer": "anthropogenic", "reward": 1.0, "tokens": [53, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/100", "answer": "extrapolated", "reward": 0.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/101", "answer": "fssp radiance", "reward": 0.0, "tokens": [68, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/102", "answer": "wind driven storm surge", "reward": 0.0, "tokens": [57, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/103", "answer": "black and brown carbon organic carbon and goethite", "reward": 0.0, "tokens": [73, 0, 0, 12, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/105", "answer": "sulfate aerosols", "reward": 0.0, "tokens": [76, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/106", "answer": "ultraviolet", "reward": 0.0, "tokens": [71, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/107", "answer": "radius", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/108", "answer": "response", "reward": 0.0, "tokens": [98, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/109", "answer": "fit", "reward": 0.0, "tokens": [59, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/11", "answer": "cloud", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/110", "answer": "vapor", "reward": 1.0, "tokens": [57, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/111", "answer": "anthropogenic", "reward": 0.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/112", "answer": "atmosphere", "reward": 0.0, "tokens": [71, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/114", "answer": "ocean", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/116", "answer": "operational", "reward": 0.0, "tokens": [94, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/117", "answer": "baroclinic", "reward": 0.0, "tokens": [68, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/118", "answer": "enhanced", "reward": 0.0, "tokens": [55, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/12", "answer": "cloud", "reward": 0.0, "tokens": [67, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/120", "answer": "anthropogenic", "reward": 1.0, "tokens": [87, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/121", "answer": "precipitation", "reward": 0.0, "tokens": [65, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/122", "answer": "cloud", "reward": 0.0, "tokens": [60, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/124", "answer": "terminal", "reward": 1.0, "tokens": [78, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/125", "answer": "temperature", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/126", "answer": "convective", "reward": 1.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/127", "answer": "spatially", "reward": 0.0, "tokens": [79, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/128", "answer": "zero", "reward": 0.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/129", "answer": "inductively coupled plasma mass spectrometry", "reward": 0.0, "tokens": [65, 0, 0, 10, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/13", "answer": "feedback", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/130", "answer": "marine", "reward": 0.0, "tokens": [79, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/131", "answer": "genetic", "reward": 0.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/133", "answer": "anthropogenic", "reward": 0.0, "tokens": [75, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/135", "answer": "parameters", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/136", "answer": "so2 emissions and plume deposition", "reward": 0.0, "tokens": [62, 0, 0, 8, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/138", "answer": "mining", "reward": 0.0, "tokens": [103, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/139", "answer": "efficiency", "reward": 0.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/14", "answer": "flux", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/140", "answer": "small", "reward": 0.0, "tokens": [78, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/141", "answer": "emissions of so2 in europe fluctuated over years increasing from 15 tg year^-1 in 1950 to about 35 tg year^-1 in mid 1970s then decreasing to 15 tg year^-1 by 2000 showcasing impact of <mask> regulations and technological advancements on reducing pollution levels answer strict", "reward": 0.0, "tokens": [117, 0, 0, 88, 0], "complexity": "none", "lines": 3, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/142", "answer": "attenuation", "reward": 0.0, "tokens": [83, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/144", "answer": "kriging", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/145", "answer": "attenuation", "reward": 0.0, "tokens": [72, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/146", "answer": "aerosol mass budgets", "reward": 0.0, "tokens": [54, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/147", "answer": "intensified", "reward": 0.0, "tokens": [79, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/148", "answer": "sampling", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/149", "answer": "concentration", "reward": 0.0, "tokens": [78, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/15", "answer": "coal", "reward": 0.0, "tokens": [87, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/150", "answer": "radiation", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/151", "answer": "cloud radiative", "reward": 0.0, "tokens": [71, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/152", "answer": "liquid", "reward": 1.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/153", "answer": "biogenic", "reward": 0.0, "tokens": [53, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/154", "answer": "nanometers", "reward": 1.0, "tokens": [84, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/156", "answer": "westerlies", "reward": 0.0, "tokens": [82, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/157", "answer": "exponential", "reward": 0.0, "tokens": [74, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/158", "answer": "carbon", "reward": 0.0, "tokens": [67, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/159", "answer": "aerosol", "reward": 1.0, "tokens": [63, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/16", "answer": "climate", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/17", "answer": "mean curvature", "reward": 0.0, "tokens": [47, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/18", "answer": "classical thermodynamics", "reward": 0.0, "tokens": [57, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/19", "answer": "forcing", "reward": 0.0, "tokens": [48, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/22", "answer": "aerosol optical depth", "reward": 0.0, "tokens": [71, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/23", "answer": "clausius clapeyron", "reward": 0.0, "tokens": [74, 0, 0, 8, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/24", "answer": "particles", "reward": 0.0, "tokens": [79, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/26", "answer": "particle", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/27", "answer": "pressure", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/29", "answer": "pelagic", "reward": 0.0, "tokens": [77, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/3", "answer": "emitting", "reward": 0.0, "tokens": [89, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/31", "answer": "brownian", "reward": 1.0, "tokens": [85, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/34", "answer": "heterogeneous ice nucleation occurs through various modes involving insoluble or partially insoluble organic particles leading to coexistence of liquid and ice in clouds between 0 c and about -38 c", "reward": 0.0, "tokens": [78, 0, 0, 43, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/36", "answer": "meteorological", "reward": 0.0, "tokens": [73, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/37", "answer": "cloud", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/38", "answer": "stratospheric ozone", "reward": 0.0, "tokens": [91, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/4", "answer": "temperature", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/40", "answer": "microphysical", "reward": 1.0, "tokens": [81, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/41", "answer": "natural", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/42", "answer": "forcing", "reward": 0.0, "tokens": [63, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/43", "answer": "antarctic", "reward": 0.0, "tokens": [86, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/46", "answer": "evaporation", "reward": 1.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/47", "answer": "nucleation", "reward": 0.0, "tokens": [55, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/48", "answer": "rainfall", "reward": 0.0, "tokens": [52, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/49", "answer": "large ice", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/5", "answer": "optical depth", "reward": 0.0, "tokens": [77, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/51", "answer": "aerosols", "reward": 1.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/52", "answer": "observed", "reward": 0.0, "tokens": [61, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/53", "answer": "albedo", "reward": 0.0, "tokens": [57, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/54", "answer": "ice core sulfate aerosol", "reward": 0.0, "tokens": [76, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/55", "answer": "monsoonal", "reward": 0.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/56", "answer": "marine", "reward": 0.0, "tokens": [88, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/57", "answer": "latitudinal", "reward": 0.0, "tokens": [76, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/59", "answer": "methods", "reward": 0.0, "tokens": [66, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/61", "answer": "laminar", "reward": 1.0, "tokens": [48, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/62", "answer": "ozone", "reward": 0.0, "tokens": [57, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/63", "answer": "<mask> is lagrangian or lagrangian lagrangian density of electromagnetic field leads to principle of stationary action resulting in euler lagrange equations that govern electromagnetic potential", "reward": 0.0, "tokens": [62, 0, 0, 52, 0], "complexity": "none", "lines": 3, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/64", "answer": "cloud", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/65", "answer": "concentration", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/66", "answer": "mineral", "reward": 0.0, "tokens": [73, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/67", "answer": "coriolis", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/69", "answer": "crystal formation", "reward": 0.0, "tokens": [82, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/7", "answer": "ice nucleation", "reward": 0.0, "tokens": [70, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/70", "answer": "<sup>theta</sup>", "reward": 0.0, "tokens": [77, 0, 0, 8, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/71", "answer": "pressure", "reward": 0.0, "tokens": [76, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/72", "answer": "spatial dependence", "reward": 0.0, "tokens": [67, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/73", "answer": "temperature", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/74", "answer": "cloud condensation nuclei", "reward": 0.0, "tokens": [66, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/75", "answer": "magnitudes", "reward": 0.0, "tokens": [71, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/76", "answer": "aerosols have significant impact on cloud and precipitation processes in atmosphere", "reward": 0.0, "tokens": [53, 0, 0, 17, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/77", "answer": "precipitation", "reward": 0.0, "tokens": [56, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/79", "answer": "hygroscopic", "reward": 0.0, "tokens": [69, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/8", "answer": "residual maximum likelihood bayesian estimation is becoming more feasible in practice with increasing computing power and sophisticated software allowing for accurate predictions with at least 100 data points", "reward": 0.0, "tokens": [71, 0, 0, 39, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/80", "answer": "feedback", "reward": 0.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/81", "answer": "co2", "reward": 0.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/82", "answer": "turbulence", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/83", "answer": "greenhouse gases", "reward": 0.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/84", "answer": "carbon", "reward": 0.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/85", "answer": "cloud", "reward": 0.0, "tokens": [74, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/86", "answer": "quadratic", "reward": 0.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/87", "answer": "negative", "reward": 1.0, "tokens": [70, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/88", "answer": "biomass", "reward": 0.0, "tokens": [65, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/89", "answer": "heterogeneous ice nuclei", "reward": 0.0, "tokens": [76, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/9", "answer": "structure", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/90", "answer": "high", "reward": 0.0, "tokens": [74, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/91", "answer": "stratospheric", "reward": 0.0, "tokens": [67, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/92", "answer": "positive", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/93", "answer": "satellite", "reward": 1.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 2}
+{"id": "gold/cloze/96", "answer": "frequency", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/98", "answer": "tropics", "reward": 0.0, "tokens": [83, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/99", "answer": "condense", "reward": 0.0, "tokens": [61, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 2}
+{"id": "gold/cloze/1", "answer": "transport", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/10", "answer": "impact of anthropogenic aerosols on climate forcing has been studied extensively in scientific literature", "reward": 0.0, "tokens": [53, 0, 0, 22, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/100", "answer": "in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions", "reward": 0.0, "tokens": [64, 0, 0, 310, 0], "complexity": "none", "lines": 19, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/101", "answer": "spectral", "reward": 0.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/102", "answer": "wind driven precipitation", "reward": 0.0, "tokens": [57, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/103", "answer": "sulfur", "reward": 0.0, "tokens": [73, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/105", "answer": "so2", "reward": 1.0, "tokens": [76, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/106", "answer": "shortwave", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/107", "answer": "radius", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/108", "answer": "chemistry", "reward": 0.0, "tokens": [98, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/109", "answer": "process", "reward": 0.0, "tokens": [59, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/11", "answer": "cloud", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/110", "answer": "liquid", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/111", "answer": "fossil", "reward": 0.0, "tokens": [64, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/112", "answer": "atmosphere", "reward": 0.0, "tokens": [71, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/114", "answer": "ocean", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/116", "answer": "operating", "reward": 0.0, "tokens": [94, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/117", "answer": "barotropic", "reward": 1.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/118", "answer": "enhanced", "reward": 0.0, "tokens": [55, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/12", "answer": "cloud", "reward": 0.0, "tokens": [67, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/120", "answer": "human", "reward": 0.0, "tokens": [87, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/121", "answer": "cloud", "reward": 0.0, "tokens": [65, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/122", "answer": "atmospheric", "reward": 0.0, "tokens": [60, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/124", "answer": "terminal", "reward": 1.0, "tokens": [78, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/125", "answer": "atmospheric", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/126", "answer": "convective", "reward": 1.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/127", "answer": "spatial", "reward": 0.0, "tokens": [79, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/128", "answer": "intercept", "reward": 0.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/129", "answer": "inductively coupled plasma", "reward": 0.0, "tokens": [65, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/13", "answer": "feedback", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/130", "answer": "oceanic", "reward": 0.0, "tokens": [79, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/131", "answer": "assuming normal distribution of socioeconomic effects allows for calculation of maximum likelihood estimates of variance components leading to coherent framework for estimation in all designs", "reward": 0.0, "tokens": [66, 0, 0, 35, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/133", "answer": "anthropogenic", "reward": 0.0, "tokens": [75, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/135", "answer": "properties", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/136", "answer": "so2 emissions and plume transport from eruptions with veis of less than 5 play significant role in climate forcing", "reward": 0.0, "tokens": [62, 0, 0, 27, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/138", "answer": "mining", "reward": 0.0, "tokens": [103, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/139", "answer": "efficiency", "reward": 0.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/14", "answer": "flux", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/140", "answer": "much greater", "reward": 0.0, "tokens": [78, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/141", "answer": "emission", "reward": 0.0, "tokens": [117, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/142", "answer": "light", "reward": 0.0, "tokens": [83, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/144", "answer": "kriging", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/145", "answer": "absorption", "reward": 0.0, "tokens": [72, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/146", "answer": "mass", "reward": 0.0, "tokens": [54, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/147", "answer": "occurs", "reward": 0.0, "tokens": [79, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/148", "answer": "sampling", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/149", "answer": "free energy", "reward": 0.0, "tokens": [78, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/15", "answer": "coal", "reward": 0.0, "tokens": [87, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/150", "answer": "radiation", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/151", "answer": "cloud properties", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/152", "answer": "liquid", "reward": 1.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/153", "answer": "biogenic isoprenoids", "reward": 0.0, "tokens": [53, 0, 0, 7, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/154", "answer": "nanometers", "reward": 1.0, "tokens": [84, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/156", "answer": "hadley", "reward": 1.0, "tokens": [82, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/157", "answer": "linear", "reward": 0.0, "tokens": [74, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/158", "answer": "biogeochemical", "reward": 1.0, "tokens": [67, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/159", "answer": "cloud", "reward": 0.0, "tokens": [63, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/16", "answer": "temperature", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/17", "answer": "pressure", "reward": 0.0, "tokens": [47, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/18", "answer": "classical nucleation theory provides valuable insights into thermodynamic and kinetic parameters governing homogeneous freezing of water", "reward": 0.0, "tokens": [57, 0, 0, 23, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/19", "answer": "forcing", "reward": 0.0, "tokens": [48, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/22", "answer": "aerosol optical depth aod is commonly used as measure of ccn concentration at cloud base showing good correlation between these parameters at large spatial and temporal scales", "reward": 0.0, "tokens": [71, 0, 0, 39, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/23", "answer": "cloud microphysics", "reward": 0.0, "tokens": [74, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/24", "answer": "aerosol particles", "reward": 0.0, "tokens": [79, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/26", "answer": "particle", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/27", "answer": "pressure", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/29", "answer": "thermocline", "reward": 0.0, "tokens": [77, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/3", "answer": "emissions", "reward": 0.0, "tokens": [89, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/31", "answer": "diffusive", "reward": 0.0, "tokens": [85, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/34", "answer": "aggregates", "reward": 0.0, "tokens": [78, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/36", "answer": "atmospheric", "reward": 0.0, "tokens": [73, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/37", "answer": "cloud", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/38", "answer": "stratospheric", "reward": 0.0, "tokens": [91, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/4", "answer": "temperature", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/40", "answer": "properties", "reward": 0.0, "tokens": [81, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/41", "answer": "natural", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/42", "answer": "radiative", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/43", "answer": "antarctic", "reward": 0.0, "tokens": [86, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/46", "answer": "condensation", "reward": 0.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/47", "answer": "evaporation", "reward": 0.0, "tokens": [55, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/48", "answer": "precipitation", "reward": 0.0, "tokens": [52, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/49", "answer": "large ice", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/5", "answer": "optical depth", "reward": 0.0, "tokens": [77, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/51", "answer": "aerosols", "reward": 1.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/52", "answer": "instrumental", "reward": 0.0, "tokens": [61, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/53", "answer": "properties", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/54", "answer": "concentration", "reward": 0.0, "tokens": [76, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/55", "answer": "monsoon", "reward": 1.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/56", "answer": "cloud", "reward": 0.0, "tokens": [88, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/57", "answer": "mid latitudes", "reward": 0.0, "tokens": [76, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/59", "answer": "algorithms", "reward": 0.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/61", "answer": "laminar", "reward": 1.0, "tokens": [48, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/62", "answer": "pollutant", "reward": 0.0, "tokens": [57, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/63", "answer": "lagrangian", "reward": 1.0, "tokens": [62, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/64", "answer": "cloud", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/65", "answer": "availability", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/66", "answer": "mineral", "reward": 0.0, "tokens": [73, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/67", "answer": "coriolis", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/69", "answer": "growth", "reward": 0.0, "tokens": [82, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/7", "answer": "ice", "reward": 0.0, "tokens": [70, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/70", "answer": "cape", "reward": 1.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/71", "answer": "temperature", "reward": 0.0, "tokens": [76, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/72", "answer": "heterogeneous", "reward": 0.0, "tokens": [67, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/73", "answer": "temperature", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/74", "answer": "cloud nucleation", "reward": 0.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/75", "answer": "scattering", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/76", "answer": "water", "reward": 0.0, "tokens": [53, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/77", "answer": "concentrations", "reward": 0.0, "tokens": [56, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/79", "answer": "optical", "reward": 1.0, "tokens": [69, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/8", "answer": "maximum", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/80", "answer": "forcing", "reward": 1.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/81", "answer": "co2", "reward": 0.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/82", "answer": "turbulence", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/83", "answer": "greenhouse gases", "reward": 0.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/84", "answer": "co2", "reward": 0.0, "tokens": [69, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/85", "answer": "cloud", "reward": 0.0, "tokens": [74, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/86", "answer": "increases", "reward": 0.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/87", "answer": "positive", "reward": 0.0, "tokens": [70, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/88", "answer": "biogeochemical", "reward": 0.0, "tokens": [65, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/89", "answer": "nucleation", "reward": 1.0, "tokens": [76, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/9", "answer": "crystal structure", "reward": 0.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/90", "answer": "stratiform", "reward": 1.0, "tokens": [74, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/91", "answer": "stratospheric", "reward": 0.0, "tokens": [67, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/92", "answer": "positive", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/93", "answer": "satellite", "reward": 1.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 3}
+{"id": "gold/cloze/96", "answer": "frequency", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/98", "answer": "tropics", "reward": 0.0, "tokens": [83, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/99", "answer": "persist", "reward": 0.0, "tokens": [61, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 3}
+{"id": "gold/cloze/1", "answer": "cloud", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/10", "answer": "impact of artificial aerosols on climate forcing has been studied extensively in scientific literature", "reward": 0.0, "tokens": [53, 0, 0, 21, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/100", "answer": "in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions answer in earth system modeling neglecting certain components and using representative fields within realistic ranges can be justifiable and informative for understanding specific climate questions", "reward": 0.0, "tokens": [64, 0, 0, 67, 0], "complexity": "none", "lines": 4, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/101", "answer": "fssp", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/102", "answer": "wind", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/103", "answer": "black and brown carbon organic carbon and goethite", "reward": 0.0, "tokens": [73, 0, 0, 12, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/105", "answer": "so2", "reward": 1.0, "tokens": [76, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/106", "answer": "uv", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/107", "answer": "nucleation", "reward": 0.0, "tokens": [77, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/108", "answer": "parameter", "reward": 0.0, "tokens": [98, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/109", "answer": "fit", "reward": 0.0, "tokens": [59, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/11", "answer": "haze", "reward": 0.0, "tokens": [73, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/110", "answer": "liquid", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/111", "answer": "co2", "reward": 1.0, "tokens": [64, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/112", "answer": "atmosphere", "reward": 0.0, "tokens": [71, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/114", "answer": "ocean", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/116", "answer": "operational", "reward": 0.0, "tokens": [94, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/117", "answer": "barotrophic", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/118", "answer": "cloud", "reward": 0.0, "tokens": [55, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/12", "answer": "nucleation scavenging efficiently removes cloud mode particles with larger particles being activated first showcasing importance of aerosol size in cloud formation processes", "reward": 0.0, "tokens": [67, 0, 0, 32, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/120", "answer": "human", "reward": 0.0, "tokens": [87, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/121", "answer": "cloud", "reward": 0.0, "tokens": [65, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/122", "answer": "atmospheric", "reward": 0.0, "tokens": [60, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/124", "answer": "terminal", "reward": 1.0, "tokens": [78, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/125", "answer": "temperature", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/126", "answer": "convection", "reward": 0.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/127", "answer": "spatial", "reward": 0.0, "tokens": [79, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/128", "answer": "bias", "reward": 0.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/129", "answer": "inductively coupled plasma mass spectrometry", "reward": 0.0, "tokens": [65, 0, 0, 10, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/13", "answer": "destruction", "reward": 0.0, "tokens": [73, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/130", "answer": "marine", "reward": 0.0, "tokens": [79, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/131", "answer": "assuming normal distribution of variance effects allows for calculation of maximum likelihood estimates of variance components leading to coherent framework for estimation in all designs", "reward": 0.0, "tokens": [66, 0, 0, 34, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/133", "answer": "anthropogenic", "reward": 0.0, "tokens": [75, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/135", "answer": "properties", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/136", "answer": "so2 emissions and plume mixing ratios from eruptions with veis of less than 5 play significant role in climate forcing", "reward": 0.0, "tokens": [62, 0, 0, 31, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/138", "answer": "mining", "reward": 0.0, "tokens": [103, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/139", "answer": "design", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/14", "answer": "energy", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/140", "answer": "small", "reward": 0.0, "tokens": [78, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/141", "answer": "emissions of so2 in europe fluctuated over years increasing from 15 tg year^-1 in 1950 to about 35 tg year^-1 in mid 1970s then decreasing to 15 tg year^-1 by 2000 showcasing impact of <mask> regulations and technological advancements on reducing pollution levels answer stringent", "reward": 0.0, "tokens": [117, 0, 0, 88, 0], "complexity": "none", "lines": 3, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/142", "answer": "rayleigh", "reward": 0.0, "tokens": [83, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/144", "answer": "kriging", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/145", "answer": "absorption", "reward": 0.0, "tokens": [72, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/146", "answer": "constraints", "reward": 0.0, "tokens": [54, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/147", "answer": "occur", "reward": 0.0, "tokens": [79, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/148", "answer": "sampling", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/149", "answer": "free energy", "reward": 0.0, "tokens": [78, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/15", "answer": "coal", "reward": 0.0, "tokens": [87, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/150", "answer": "radiation", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/151", "answer": "cloud property", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/152", "answer": "cloud", "reward": 0.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/153", "answer": "biogenic isoprene", "reward": 0.0, "tokens": [53, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/154", "answer": "nanometers", "reward": 1.0, "tokens": [84, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/156", "answer": "hadley", "reward": 1.0, "tokens": [82, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/157", "answer": "exponential", "reward": 0.0, "tokens": [74, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/158", "answer": "carbon", "reward": 0.0, "tokens": [67, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/159", "answer": "haze", "reward": 0.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/16", "answer": "observations", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/17", "answer": "mean curvature", "reward": 0.0, "tokens": [47, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/18", "answer": "classical nucleation theory provides valuable insights into thermodynamic and kinetic parameters governing homogeneous freezing of water", "reward": 0.0, "tokens": [57, 0, 0, 23, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/19", "answer": "forcing", "reward": 0.0, "tokens": [48, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/22", "answer": "aerosol", "reward": 0.0, "tokens": [71, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/23", "answer": "cloud droplet number concentration", "reward": 0.0, "tokens": [74, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/24", "answer": "part", "reward": 0.0, "tokens": [79, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/26", "answer": "particle", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/27", "answer": "mass", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/29", "answer": "pelagic", "reward": 0.0, "tokens": [77, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/3", "answer": "emissions", "reward": 0.0, "tokens": [89, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/31", "answer": "brownian", "reward": 1.0, "tokens": [85, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/34", "answer": "amorphous", "reward": 0.0, "tokens": [78, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/36", "answer": "atmospheric", "reward": 0.0, "tokens": [73, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/37", "answer": "water", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/38", "answer": "stratospheric", "reward": 0.0, "tokens": [91, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/4", "answer": "temperature", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/40", "answer": "chemical", "reward": 0.0, "tokens": [81, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/41", "answer": "natural", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/42", "answer": "radiative", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/43", "answer": "antarctic", "reward": 0.0, "tokens": [86, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/46", "answer": "evaporation", "reward": 1.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/47", "answer": "condensation", "reward": 0.0, "tokens": [55, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/48", "answer": "precipitation", "reward": 0.0, "tokens": [52, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/49", "answer": "ice", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/5", "answer": "albedo", "reward": 1.0, "tokens": [77, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/51", "answer": "climate", "reward": 0.0, "tokens": [66, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/52", "answer": "remote sensing", "reward": 0.0, "tokens": [61, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/53", "answer": "cloud", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/54", "answer": "concentration", "reward": 0.0, "tokens": [76, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/55", "answer": "monsoon", "reward": 1.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/56", "answer": "cloud", "reward": 0.0, "tokens": [88, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/57", "answer": "tropics", "reward": 0.0, "tokens": [76, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/59", "answer": "kriging algorithms", "reward": 0.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/61", "answer": "laminar", "reward": 1.0, "tokens": [48, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/62", "answer": "volatility", "reward": 0.0, "tokens": [57, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/63", "answer": "lagrangian", "reward": 1.0, "tokens": [62, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/64", "answer": "cloud", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/65", "answer": "nutrient", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/66", "answer": "black carbon", "reward": 0.0, "tokens": [73, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/67", "answer": "coriolis", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/69", "answer": "crystal growth", "reward": 0.0, "tokens": [82, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/7", "answer": "ice", "reward": 0.0, "tokens": [70, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/70", "answer": "lfc", "reward": 0.0, "tokens": [77, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/71", "answer": "geopotential", "reward": 1.0, "tokens": [76, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/72", "answer": "heterogeneous", "reward": 0.0, "tokens": [67, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/73", "answer": "temperature", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/74", "answer": "clouds", "reward": 0.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/75", "answer": "absorption", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/76", "answer": "cloud", "reward": 0.0, "tokens": [53, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/77", "answer": "presence", "reward": 0.0, "tokens": [56, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/79", "answer": "aggregation", "reward": 0.0, "tokens": [69, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/8", "answer": "residual", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/80", "answer": "forcing", "reward": 1.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/81", "answer": "carbon dioxide", "reward": 0.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/82", "answer": "convection", "reward": 0.0, "tokens": [64, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/83", "answer": "greenhouse gases", "reward": 0.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/84", "answer": "carbon", "reward": 0.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/85", "answer": "evaporation", "reward": 0.0, "tokens": [74, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/86", "answer": "slower", "reward": 0.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/87", "answer": "negative", "reward": 1.0, "tokens": [70, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/88", "answer": "biological", "reward": 0.0, "tokens": [65, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/89", "answer": "nucleation", "reward": 1.0, "tokens": [76, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/9", "answer": "crystal structure", "reward": 0.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/90", "answer": "in cirrus clouds", "reward": 0.0, "tokens": [74, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/91", "answer": "stratospheric sulfate aerosol", "reward": 0.0, "tokens": [67, 0, 0, 7, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/92", "answer": "positive", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/93", "answer": "satellite", "reward": 1.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 4}
+{"id": "gold/cloze/96", "answer": "frequency", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/98", "answer": "tropics", "reward": 0.0, "tokens": [83, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/99", "answer": "persist", "reward": 0.0, "tokens": [61, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 4}
+{"id": "gold/cloze/1", "answer": "aerosol scattering", "reward": 0.0, "tokens": [68, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/10", "answer": "impact of anthropogenic aerosols on climate forcing has been studied extensively in scientific literature", "reward": 0.0, "tokens": [53, 0, 0, 22, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/100", "answer": "data", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/101", "answer": "fssp", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/102", "answer": "wind driven precipitation", "reward": 0.0, "tokens": [57, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/103", "answer": "black and brown carbon organic carbon and goethite", "reward": 0.0, "tokens": [73, 0, 0, 13, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/105", "answer": "organosulfur compounds", "reward": 0.0, "tokens": [76, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/106", "answer": "shortwave", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/107", "answer": "droplet size", "reward": 0.0, "tokens": [77, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/108", "answer": "magnitude", "reward": 0.0, "tokens": [98, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/109", "answer": "fit", "reward": 0.0, "tokens": [59, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/11", "answer": "cloud", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/110", "answer": "liquid", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/111", "answer": "carbon", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/112", "answer": "troposphere", "reward": 1.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/114", "answer": "ocean", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/116", "answer": "operating", "reward": 0.0, "tokens": [94, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/117", "answer": "barotropic", "reward": 1.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/118", "answer": "enhanced", "reward": 0.0, "tokens": [55, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/12", "answer": "nucleation scavenging efficiently removes large mode particles with larger particles being activated first showcasing importance of aerosol size in cloud formation processes", "reward": 0.0, "tokens": [67, 0, 0, 32, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/120", "answer": "anthropogenic", "reward": 1.0, "tokens": [87, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/121", "answer": "cloud", "reward": 0.0, "tokens": [65, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/122", "answer": "cloud", "reward": 0.0, "tokens": [60, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/124", "answer": "terminal", "reward": 1.0, "tokens": [78, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/125", "answer": "atmospheric", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/126", "answer": "convective", "reward": 1.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/127", "answer": "spatially", "reward": 0.0, "tokens": [79, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/128", "answer": "weights", "reward": 1.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/129", "answer": "inductively coupled plasma", "reward": 0.0, "tokens": [65, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/13", "answer": "climate", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/130", "answer": "warm", "reward": 0.0, "tokens": [79, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/131", "answer": "assuming normal distribution of variance effects allows for calculation of maximum likelihood estimates of variance components leading to coherent framework for estimation in all designs", "reward": 0.0, "tokens": [66, 0, 0, 34, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/133", "answer": "tropospheric", "reward": 0.0, "tokens": [75, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/135", "answer": "parameters", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/136", "answer": "transport", "reward": 0.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/138", "answer": "smelting", "reward": 0.0, "tokens": [103, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/139", "answer": "design", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/14", "answer": "radiative forcing", "reward": 0.0, "tokens": [77, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/140", "answer": "much smaller", "reward": 0.0, "tokens": [78, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/141", "answer": "emissions of so2 in europe fluctuated over years increasing from 15 tg year^-1 in 1950 to about 35 tg year^-1 in mid 1970s then decreasing to 15 tg year^-1 by 2000 showcasing impact of <mask> regulations and technological advancements on reducing pollution levels answer so2", "reward": 0.0, "tokens": [117, 0, 0, 91, 0], "complexity": "none", "lines": 3, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/142", "answer": "extinction", "reward": 0.0, "tokens": [83, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/144", "answer": "kriging", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/145", "answer": "atmospheric", "reward": 0.0, "tokens": [72, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/146", "answer": "mass", "reward": 0.0, "tokens": [54, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/147", "answer": "accelerated", "reward": 1.0, "tokens": [79, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/148", "answer": "aircraft sampling", "reward": 0.0, "tokens": [73, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/149", "answer": "concentration", "reward": 0.0, "tokens": [78, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/15", "answer": "coal", "reward": 0.0, "tokens": [87, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/150", "answer": "radiation", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/151", "answer": "cloud fraction", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/152", "answer": "liquid", "reward": 1.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/153", "answer": "biogenic isoprene", "reward": 0.0, "tokens": [53, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/154", "answer": "nanometers", "reward": 1.0, "tokens": [84, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/156", "answer": "hadley", "reward": 1.0, "tokens": [82, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/157", "answer": "exponential", "reward": 0.0, "tokens": [74, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/158", "answer": "biogeochemical", "reward": 1.0, "tokens": [67, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/159", "answer": "haze", "reward": 0.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/16", "answer": "satellite", "reward": 0.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/17", "answer": "mean curvature", "reward": 0.0, "tokens": [47, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/18", "answer": "classical nucleation theory", "reward": 0.0, "tokens": [57, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/19", "answer": "forcing", "reward": 0.0, "tokens": [48, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/22", "answer": "optical depth", "reward": 0.0, "tokens": [71, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/23", "answer": "cloud microphysics", "reward": 0.0, "tokens": [74, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/24", "answer": "part", "reward": 0.0, "tokens": [79, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/26", "answer": "distribution", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/27", "answer": "pressure", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/29", "answer": "pelagic", "reward": 0.0, "tokens": [77, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/3", "answer": "volatile", "reward": 0.0, "tokens": [89, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/31", "answer": "brownian", "reward": 1.0, "tokens": [85, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/34", "answer": "ice", "reward": 0.0, "tokens": [78, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/36", "answer": "atmospheric", "reward": 0.0, "tokens": [73, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/37", "answer": "cloud", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/38", "answer": "chlorine", "reward": 0.0, "tokens": [91, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/4", "answer": "temperature", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/40", "answer": "physical", "reward": 0.0, "tokens": [81, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/41", "answer": "natural", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/42", "answer": "radiative", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/43", "answer": "antarctic", "reward": 0.0, "tokens": [86, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/46", "answer": "evaporation", "reward": 1.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/47", "answer": "condensation", "reward": 0.0, "tokens": [55, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/48", "answer": "precipitation", "reward": 0.0, "tokens": [52, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/49", "answer": "cloud", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/5", "answer": "albedo", "reward": 1.0, "tokens": [77, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/51", "answer": "clouds", "reward": 0.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/52", "answer": "observations", "reward": 0.0, "tokens": [61, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/53", "answer": "cloud", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/54", "answer": "concentrations", "reward": 0.0, "tokens": [76, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/55", "answer": "monsoon", "reward": 1.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/56", "answer": "marine", "reward": 0.0, "tokens": [88, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/57", "answer": "tropical", "reward": 0.0, "tokens": [76, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/59", "answer": "kriging algorithms", "reward": 0.0, "tokens": [66, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/61", "answer": "laminar", "reward": 1.0, "tokens": [48, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/62", "answer": "ozone", "reward": 0.0, "tokens": [57, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/63", "answer": "lagrangian", "reward": 1.0, "tokens": [62, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/64", "answer": "cloud", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/65", "answer": "dissolved", "reward": 0.0, "tokens": [71, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/66", "answer": "mineral", "reward": 0.0, "tokens": [73, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/67", "answer": "coriolis", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/69", "answer": "growth", "reward": 0.0, "tokens": [82, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/7", "answer": "site specific", "reward": 0.0, "tokens": [70, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/70", "answer": "cape", "reward": 1.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/71", "answer": "pressure", "reward": 0.0, "tokens": [76, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/72", "answer": "disjunctive kriging", "reward": 0.0, "tokens": [67, 0, 0, 8, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/73", "answer": "temperature", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/74", "answer": "condensation", "reward": 0.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/75", "answer": "scattering", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/76", "answer": "aerosols have significant impact on cloud and precipitation processes in atmosphere", "reward": 0.0, "tokens": [53, 0, 0, 17, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/77", "answer": "formation", "reward": 0.0, "tokens": [56, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/79", "answer": "optical", "reward": 1.0, "tokens": [69, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 5}
+{"id": "gold/cloze/8", "answer": "residual maximum likelihood parameter estimation is becoming more feasible in practice with increasing computing power and sophisticated software allowing for accurate predictions with at least 100 data points", "reward": 0.0, "tokens": [71, 0, 0, 38, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/80", "answer": "radiative forcing", "reward": 0.0, "tokens": [62, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/81", "answer": "carbon dioxide", "reward": 0.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/82", "answer": "convection", "reward": 0.0, "tokens": [64, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/83", "answer": "greenhouse gases", "reward": 0.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/84", "answer": "co2", "reward": 0.0, "tokens": [69, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/85", "answer": "cloud", "reward": 0.0, "tokens": [74, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/86", "answer": "exponentially", "reward": 0.0, "tokens": [62, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/87", "answer": "positive", "reward": 0.0, "tokens": [70, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/88", "answer": "biomass", "reward": 0.0, "tokens": [65, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/89", "answer": "nucleating", "reward": 0.0, "tokens": [76, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/9", "answer": "formation", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/90", "answer": "low", "reward": 0.0, "tokens": [74, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/91", "answer": "stratospheric", "reward": 0.0, "tokens": [67, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/92", "answer": "positive", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/93", "answer": "models and <mask> satellite remote sensing have made significant progress in defining consistent aerosol properties and distributions yet there is still room for improvement and wider utilization of remote sensing data in climate model initialization and tuning missing word is satellite", "reward": 0.0, "tokens": [75, 0, 0, 52, 0], "complexity": "none", "lines": 3, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/96", "answer": "sample", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/98", "answer": "tropics", "reward": 0.0, "tokens": [83, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/99", "answer": "persist", "reward": 0.0, "tokens": [61, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 5}
+{"id": "gold/cloze/1", "answer": "feedback", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/10", "answer": "impact of anthropogenic aerosols on climate forcing has been studied extensively in scientific literature", "reward": 0.0, "tokens": [53, 0, 0, 19, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/100", "answer": "in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions in earth system modeling neglecting certain components and using proxy fields within realistic ranges can be justifiable and informative for understanding specific climate questions in earth system modeling neglecting certain components and using representative fields within realistic ranges can be justifiable and informative for understanding specific climate questions in earth system modeling neglecting certain components and using ancillary fields within realistic ranges can be justifiable and informative for understanding specific climate questions proxy is most fitting word here as it refers to data or fields derived from indirect measurements that are used to fill gaps in direct observations or model outputs making it standard term in climate science for handling missing data in earth system modeling neglecting certain components and using proxy fields within realistic ranges can be justifiable and informative for understanding specific climate questions", "reward": 0.0, "tokens": [64, 0, 0, 205, 0], "complexity": "none", "lines": 11, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/101", "answer": "fssp", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/102", "answer": "wind driven aerosols", "reward": 0.0, "tokens": [57, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/103", "answer": "sulfate", "reward": 0.0, "tokens": [73, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/105", "answer": "sulfur dioxide", "reward": 0.0, "tokens": [76, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/106", "answer": "uv", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/107", "answer": "water", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/108", "answer": "chemistry", "reward": 0.0, "tokens": [98, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/109", "answer": "fit", "reward": 0.0, "tokens": [59, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/11", "answer": "atmospheric", "reward": 0.0, "tokens": [73, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/110", "answer": "liquid", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/111", "answer": "anthropogenic", "reward": 0.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/112", "answer": "atmosphere", "reward": 0.0, "tokens": [71, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/114", "answer": "ocean", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/116", "answer": "operating", "reward": 0.0, "tokens": [94, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/117", "answer": "more equatorial", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/118", "answer": "cloud", "reward": 0.0, "tokens": [55, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/12", "answer": "large", "reward": 0.0, "tokens": [67, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/120", "answer": "anthropogenic", "reward": 1.0, "tokens": [87, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/121", "answer": "cloud", "reward": 0.0, "tokens": [65, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/122", "answer": "atmospheric", "reward": 0.0, "tokens": [60, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/124", "answer": "terminal", "reward": 1.0, "tokens": [78, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/125", "answer": "temperature", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/126", "answer": "convective", "reward": 1.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/127", "answer": "spatially", "reward": 0.0, "tokens": [79, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/128", "answer": "mean", "reward": 0.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/129", "answer": "inductively coupled plasma", "reward": 0.0, "tokens": [65, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/13", "answer": "termination", "reward": 1.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/130", "answer": "warm", "reward": 0.0, "tokens": [79, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/131", "answer": "assuming normal distribution of random effects allows for calculation of maximum likelihood estimates of variance components leading to coherent framework for estimation in all designs", "reward": 0.0, "tokens": [66, 0, 0, 33, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/133", "answer": "tropospheric", "reward": 0.0, "tokens": [75, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/135", "answer": "properties", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/136", "answer": "loading", "reward": 0.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/138", "answer": "coal", "reward": 0.0, "tokens": [103, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/139", "answer": "design", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/14", "answer": "flux", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/140", "answer": "much smaller", "reward": 0.0, "tokens": [78, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/141", "answer": "emissions of so2 in europe fluctuated over years increasing from 15 tg year^-1 in 1950 to about 35 tg year^-1 in mid 1970s then decreasing to 15 tg year^-1 by 2000 showcasing impact of <mask> regulations and technological advancements on reducing pollution levels emissions", "reward": 0.0, "tokens": [117, 0, 0, 89, 0], "complexity": "none", "lines": 3, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/142", "answer": "attenuation", "reward": 0.0, "tokens": [83, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/144", "answer": "geostatistics", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/145", "answer": "transmission", "reward": 0.0, "tokens": [72, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/146", "answer": "mass", "reward": 0.0, "tokens": [54, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/147", "answer": "intensified", "reward": 0.0, "tokens": [79, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/148", "answer": "sampling", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/149", "answer": "concentration", "reward": 0.0, "tokens": [78, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/15", "answer": "coal", "reward": 0.0, "tokens": [87, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/150", "answer": "radiation", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/151", "answer": "cloud resolution", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/152", "answer": "cloud", "reward": 0.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/153", "answer": "biogenic aerosol", "reward": 0.0, "tokens": [53, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/154", "answer": "nanometers", "reward": 1.0, "tokens": [84, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/156", "answer": "hadley", "reward": 1.0, "tokens": [82, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/157", "answer": "sinusoidal", "reward": 0.0, "tokens": [74, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/158", "answer": "carbon", "reward": 0.0, "tokens": [67, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/159", "answer": "haze", "reward": 0.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/16", "answer": "climate", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/17", "answer": "mean curvature", "reward": 0.0, "tokens": [47, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/18", "answer": "classical thermodynamic", "reward": 0.0, "tokens": [57, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/19", "answer": "forcing", "reward": 0.0, "tokens": [48, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/22", "answer": "aerosol optical depth aod", "reward": 0.0, "tokens": [71, 0, 0, 10, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/23", "answer": "cloud microphysics", "reward": 0.0, "tokens": [74, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/24", "answer": "particles", "reward": 0.0, "tokens": [79, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/26", "answer": "probability", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/27", "answer": "temperature", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/29", "answer": "continental", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/3", "answer": "emissions", "reward": 0.0, "tokens": [89, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/31", "answer": "brownian", "reward": 1.0, "tokens": [85, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/34", "answer": "ice", "reward": 0.0, "tokens": [78, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/36", "answer": "meteorological", "reward": 0.0, "tokens": [73, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/37", "answer": "stratospheric", "reward": 0.0, "tokens": [75, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/38", "answer": "stratospheric", "reward": 0.0, "tokens": [91, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/4", "answer": "temperature", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/40", "answer": "properties", "reward": 0.0, "tokens": [81, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/41", "answer": "natural", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/42", "answer": "radiative", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/43", "answer": "polar", "reward": 1.0, "tokens": [86, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/46", "answer": "evaporation", "reward": 1.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/47", "answer": "condensation", "reward": 0.0, "tokens": [55, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/48", "answer": "rainfall", "reward": 0.0, "tokens": [52, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/49", "answer": "cloud", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/5", "answer": "optical depth", "reward": 0.0, "tokens": [77, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/51", "answer": "aerosols", "reward": 1.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/52", "answer": "ground", "reward": 0.0, "tokens": [61, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/53", "answer": "phase", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/54", "answer": "concentration", "reward": 0.0, "tokens": [76, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/55", "answer": "monsoon", "reward": 1.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/56", "answer": "marine", "reward": 0.0, "tokens": [88, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/57", "answer": "north", "reward": 0.0, "tokens": [76, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/59", "answer": "algorithms", "reward": 0.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/61", "answer": "laminar", "reward": 1.0, "tokens": [48, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/62", "answer": "volatility", "reward": 0.0, "tokens": [57, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/63", "answer": "lagrangian", "reward": 1.0, "tokens": [62, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/64", "answer": "clouds", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/65", "answer": "content", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/66", "answer": "mineral", "reward": 0.0, "tokens": [73, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/67", "answer": "coriolis", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/69", "answer": "deposition", "reward": 0.0, "tokens": [82, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/7", "answer": "ice nucleation", "reward": 0.0, "tokens": [70, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/70", "answer": "lfc", "reward": 0.0, "tokens": [77, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/71", "answer": "height", "reward": 0.0, "tokens": [76, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/72", "answer": "cross variograms", "reward": 0.0, "tokens": [67, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/73", "answer": "temperature", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/74", "answer": "formation", "reward": 0.0, "tokens": [66, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/75", "answer": "scattering", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/76", "answer": "cloud", "reward": 0.0, "tokens": [53, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/77", "answer": "precursors", "reward": 0.0, "tokens": [56, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/79", "answer": "surface", "reward": 0.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/8", "answer": "maximum", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/80", "answer": "forcing", "reward": 1.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/81", "answer": "carbon dioxide", "reward": 0.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/82", "answer": "turbulence", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 6}
+{"id": "gold/cloze/83", "answer": "greenhouse gases", "reward": 0.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/84", "answer": "carbon", "reward": 0.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/85", "answer": "hydraulic attenuation", "reward": 0.0, "tokens": [74, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/86", "answer": "linear", "reward": 0.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/87", "answer": "positive", "reward": 0.0, "tokens": [70, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/88", "answer": "biogeochemical", "reward": 0.0, "tokens": [65, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/89", "answer": "heterogeneous ice nucleation", "reward": 0.0, "tokens": [76, 0, 0, 7, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/9", "answer": "formation", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/90", "answer": "in cirrus clouds time available for growth of ice particles sedimenting from cloud top is at least 1 3 hours allowing for development of precipitation through ice phase", "reward": 0.0, "tokens": [74, 0, 0, 40, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/91", "answer": "stratospheric", "reward": 0.0, "tokens": [67, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/92", "answer": "positive", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/93", "answer": "observations", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/96", "answer": "frequency", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/98", "answer": "tropics", "reward": 0.0, "tokens": [83, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/99", "answer": "condense", "reward": 0.0, "tokens": [61, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 6}
+{"id": "gold/cloze/1", "answer": "precipitation", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/10", "answer": "impact of anthropogenic aerosols on climate forcing has been studied extensively in scientific literature", "reward": 0.0, "tokens": [53, 0, 0, 22, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/100", "answer": "in earth system modeling neglecting certain components and using <mask> fields within realistic ranges can be justifiable and informative for understanding specific climate questions in earth system modeling neglecting certain components and using simplified fields within realistic ranges can be justifiable and informative for understanding specific climate questions", "reward": 0.0, "tokens": [64, 0, 0, 63, 0], "complexity": "none", "lines": 3, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/101", "answer": "spectral", "reward": 0.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/102", "answer": "wind driven precipitation", "reward": 0.0, "tokens": [57, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/103", "answer": "sulfate", "reward": 0.0, "tokens": [73, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/105", "answer": "ammonium sulfate", "reward": 0.0, "tokens": [76, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/106", "answer": "uv", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/107", "answer": "size", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/108", "answer": "characteristics", "reward": 0.0, "tokens": [98, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/109", "answer": "model", "reward": 0.0, "tokens": [59, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/11", "answer": "cloud", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/110", "answer": "liquid", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/111", "answer": "fossil", "reward": 0.0, "tokens": [64, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/112", "answer": "atmosphere", "reward": 0.0, "tokens": [71, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/114", "answer": "ocean", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/116", "answer": "operational", "reward": 0.0, "tokens": [94, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/117", "answer": "axisymmetric", "reward": 0.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/118", "answer": "enhanced", "reward": 0.0, "tokens": [55, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/12", "answer": "cloud", "reward": 0.0, "tokens": [67, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/120", "answer": "anthropogenic", "reward": 1.0, "tokens": [87, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 7}
+{"id": "gold/cloze/121", "answer": "formation", "reward": 0.0, "tokens": [65, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/122", "answer": "atmosphere", "reward": 0.0, "tokens": [60, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/124", "answer": "terminal", "reward": 1.0, "tokens": [78, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 7}
+{"id": "gold/cloze/125", "answer": "temperature", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/126", "answer": "convective", "reward": 1.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 7}
+{"id": "gold/cloze/127", "answer": "spatially", "reward": 0.0, "tokens": [79, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/128", "answer": "bias", "reward": 0.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/129", "answer": "inductively coupled plasma", "reward": 0.0, "tokens": [65, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/13", "answer": "feedback", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/130", "answer": "concentration of small cloud droplets is larger in stratiform clouds compared to clean clouds while concentration of larger drops is larger in clean clouds as observed in marine clouds off coast of nova scotia canada", "reward": 0.0, "tokens": [79, 0, 0, 48, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/131", "answer": "genetic", "reward": 0.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/133", "answer": "atmospheric", "reward": 0.0, "tokens": [75, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/135", "answer": "wave properties", "reward": 0.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/136", "answer": "so2 emissions and plume cooling", "reward": 0.0, "tokens": [62, 0, 0, 8, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/138", "answer": "coal", "reward": 0.0, "tokens": [103, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/139", "answer": "strategies", "reward": 0.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/14", "answer": "flux", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/140", "answer": "much greater", "reward": 0.0, "tokens": [78, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/141", "answer": "so2", "reward": 0.0, "tokens": [117, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/142", "answer": "scattering", "reward": 0.0, "tokens": [83, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/144", "answer": "kriging", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/145", "answer": "absorption", "reward": 0.0, "tokens": [72, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/146", "answer": "mass", "reward": 0.0, "tokens": [54, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/147", "answer": "sharpened", "reward": 0.0, "tokens": [79, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/148", "answer": "aircraft sampling", "reward": 0.0, "tokens": [73, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/149", "answer": "chemical potential", "reward": 0.0, "tokens": [78, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/15", "answer": "coal", "reward": 0.0, "tokens": [87, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/150", "answer": "radiation", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 7}
+{"id": "gold/cloze/151", "answer": "cloud", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/152", "answer": "rain", "reward": 0.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/153", "answer": "biogenic volatiles", "reward": 0.0, "tokens": [53, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/154", "answer": "nanometers", "reward": 1.0, "tokens": [84, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 7}
+{"id": "gold/cloze/156", "answer": "westerly", "reward": 0.0, "tokens": [82, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/157", "answer": "linear", "reward": 0.0, "tokens": [74, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/158", "answer": "carbon nitrogen and phosphorus", "reward": 0.0, "tokens": [67, 0, 0, 8, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/159", "answer": "soot", "reward": 0.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/16", "answer": "climate", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/17", "answer": "pressure", "reward": 0.0, "tokens": [47, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/18", "answer": "classical freezing theory provides valuable insights into thermodynamic and kinetic parameters governing homogeneous freezing of water", "reward": 0.0, "tokens": [57, 0, 0, 25, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/19", "answer": "forcing", "reward": 0.0, "tokens": [48, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/22", "answer": "aerosol optical depth", "reward": 0.0, "tokens": [71, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/23", "answer": "cloud microphysics", "reward": 0.0, "tokens": [74, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/24", "answer": "precipitating", "reward": 0.0, "tokens": [79, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/26", "answer": "particle", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/27", "answer": "mass", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/29", "answer": "photic", "reward": 0.0, "tokens": [77, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/3", "answer": "volatile", "reward": 0.0, "tokens": [89, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/31", "answer": "brownian", "reward": 1.0, "tokens": [85, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 7}
+{"id": "gold/cloze/34", "answer": "aerosol", "reward": 0.0, "tokens": [78, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/36", "answer": "atmospheric", "reward": 0.0, "tokens": [73, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/37", "answer": "cloud", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/38", "answer": "stratospheric ozone", "reward": 0.0, "tokens": [91, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/4", "answer": "temperature", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/40", "answer": "physical", "reward": 0.0, "tokens": [81, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/41", "answer": "k nearest", "reward": 0.0, "tokens": [75, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/42", "answer": "radiative", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 7}
+{"id": "gold/cloze/43", "answer": "polar", "reward": 1.0, "tokens": [86, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 7}
+{"id": "gold/cloze/46", "answer": "nucleation", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/47", "answer": "condensation", "reward": 0.0, "tokens": [55, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/48", "answer": "rain", "reward": 0.0, "tokens": [52, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/49", "answer": "large cloud", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/5", "answer": "albedo", "reward": 1.0, "tokens": [77, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 7}
+{"id": "gold/cloze/51", "answer": "particulate", "reward": 0.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/52", "answer": "ground", "reward": 0.0, "tokens": [61, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/53", "answer": "properties", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/54", "answer": "ice core sulfate <mask> records", "reward": 0.0, "tokens": [76, 0, 0, 8, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/55", "answer": "monsoonal", "reward": 0.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/56", "answer": "marine", "reward": 0.0, "tokens": [88, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/57", "answer": "tropics", "reward": 0.0, "tokens": [76, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/59", "answer": "kriging algorithms", "reward": 0.0, "tokens": [66, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/61", "answer": "laminar", "reward": 1.0, "tokens": [48, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 7}
+{"id": "gold/cloze/62", "answer": "particulate", "reward": 0.0, "tokens": [57, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/63", "answer": "<mask> is static sentence reads static density of electromagnetic field leads to principle of stationary action resulting in euler equations that govern electromagnetic potential note in classical electrodynamics maxwell s equations are often derived using lagrangian formalism while term static density refers to charge density in electrostatics phrasing static density leads to stationary action strongly implies lagrangian density which is fundamental quantity used to derive euler lagrange equations euler equations governing electromagnetic potential however looking closely at specific phrasing <mask> density word static fits grammatically and contextually as adjective describing nature of field density in this specific educational context often referring to lagrangian density in static case alternative interpretation could it be lagrangian lagrangian density of electromagnetic field is standard phrase static density is less common but possible in specific contexts let s re evaluate based on standard physics statements standard statement lagrangian density of electromagnetic field leads to principle of stationary action if word must be single word and sentence structure is word density lagrangian is most scientifically accurate term for quantity whose density generates equations of motion via principle of stationary action let s check if static is valid answer in electrostatics charge density creates static field but density itself that leads to stationary action is lagrangian density therefore missing word is lagrangian wait let s consider if it could be electromagnetic electromagnetic density no what about maxwell maxwell density no is it possible question refers to lagrangian yes let s double check if there s specific phrase like static in some simplified contexts they might say static field density but lagrangian is technical term for density function however sometimes these fill in blanks come from specific textbooks common phrasing lagrangian density of electromagnetic field let s try to search specific sentence structure in my internal knowledge lagrangian density of electromagnetic field leads to principle of stationary action > this is verbatim standard sentence word is lagrangian one more check could it be scalar scalar density no vector no answer is lagrangian wait looking at provided text again <mask> density if answer is lagrangian sentence is lagrangian density of electromagnetic field leads to principle of stationary action this is grammatically perfect and scientifically correct final answer seems to be lagrangian wait could it be static static density doesn t make much sense physically static field has density but static density doesn t lead to stationary action that s general principle of calculus of variations lagrangian is specific term therefore missing word is lagrangian one slight possibility is it electrostatic electrostatic density no okay i am confident it is lagrangian wait looking at prompt again reply with only missing word or phrase word is lagrangian let s consider if answer is maxwell maxwell density no okay sticking with lagrangian wait i should consider if question is referring to lagrangian as phrase yes lagrangian is single word or hyphenated as lagrangian final decision lagrangian wait is it possible answer is static some sources might simplify it but lagrangian is correct term let s assume question expects lagrangian actually upon second thought is there chance answer is scalar scalar density no that s specific type of lagrangian density okay lagrangian is most appropriate one alternative lagrangian let s verify sentence again <mask> density of electromagnetic field leads to principle of stationary action resulting in euler equations that govern electromagnetic potential yes lagrangian density is standard term answer lagrangian wait could it be maxwell no could it be electromagnetic electromagnetic density no okay lagrangian wait i found similar sentence online lagrangian density of electromagnetic field leads to principle of stationary action so answer is lagrangian wait could it be static if text is from specific source that says static density it would be very non standard however in some contexts people might refer to static case of lagrangian but lagrangian alone is adjective modifying density okay i will go with lagrangian wait could it be maxwell no okay lagrangian wait is it possible answer is lagrangian yes final check sentence lagrangian density of electromagnetic field leads to principle of stationary action resulting in euler equations that govern electromagnetic potential grammar correct physics correct missing word is lagrangian wait is it possible answer is electrostatic no okay lagrangian wait could it be maxwell no okay lagrangian wait i need to make sure it s not lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait is it possible answer is maxwell no okay lagrangian wait i should check if answer is lagrangian yes final answer lagrangian wait could it be lagrangian yes okay lagrangian wait is it possible answer is electromagnetic no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be electrostatic no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be electrostatic no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be electrostatic no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be electrostatic no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be electrostatic no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be electrostatic no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be electrostatic no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be electrostatic no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be electrostatic no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be electrostatic no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be electrostatic no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be electrostatic no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be maxwell no okay lagrangian wait i should consider if answer is lagrangian yes final answer lagrangian wait could it be scalar no okay lagrangian wait i should consider if answer is lagrangian", "reward": 0.0, "tokens": [62, 0, 0, 4096, 0], "complexity": "none", "lines": 668, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/64", "answer": "radiation", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/65", "answer": "nutrient", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/66", "answer": "black", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/67", "answer": "coriolis", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 7}
+{"id": "gold/cloze/69", "answer": "formation", "reward": 0.0, "tokens": [82, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/7", "answer": "ice nucleation", "reward": 0.0, "tokens": [70, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/70", "answer": "cape", "reward": 1.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 7}
+{"id": "gold/cloze/71", "answer": "pressure", "reward": 0.0, "tokens": [76, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/72", "answer": "cross variograms of indicators in disjunctive kriging are more structured than standard variograms indicating stronger spatial correlation among indicators", "reward": 0.0, "tokens": [67, 0, 0, 36, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/73", "answer": "temperature", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/74", "answer": "properties", "reward": 0.0, "tokens": [66, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/75", "answer": "scattering", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/76", "answer": "aerosols have significant impact on cloud and precipitation processes in atmosphere", "reward": 0.0, "tokens": [53, 0, 0, 17, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/77", "answer": "formation", "reward": 0.0, "tokens": [56, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/79", "answer": "aggregation", "reward": 0.0, "tokens": [69, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/8", "answer": "residual maximum likelihood bayesian estimation is becoming more feasible in practice with increasing computing power and sophisticated software allowing for accurate predictions with at least 100 data points", "reward": 0.0, "tokens": [71, 0, 0, 39, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/80", "answer": "forcing", "reward": 1.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 7}
+{"id": "gold/cloze/81", "answer": "carbon dioxide", "reward": 0.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/82", "answer": "convection", "reward": 0.0, "tokens": [64, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/83", "answer": "greenhouse gases", "reward": 0.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/84", "answer": "carbon", "reward": 0.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/85", "answer": "cloud", "reward": 0.0, "tokens": [74, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/86", "answer": "linear", "reward": 0.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/87", "answer": "positive", "reward": 0.0, "tokens": [70, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/88", "answer": "biomass", "reward": 0.0, "tokens": [65, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/89", "answer": "ice nucleating", "reward": 0.0, "tokens": [76, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/9", "answer": "basic", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/90", "answer": "in high", "reward": 0.0, "tokens": [74, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/91", "answer": "stratospheric", "reward": 0.0, "tokens": [67, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/92", "answer": "positive", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/93", "answer": "observations", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/96", "answer": "frequency", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/98", "answer": "tropics", "reward": 0.0, "tokens": [83, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/99", "answer": "appear", "reward": 0.0, "tokens": [61, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 7}
+{"id": "gold/cloze/1", "answer": "part", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/10", "answer": "impact of anthropogenic aerosols on climate forcing has been studied extensively in scientific literature", "reward": 0.0, "tokens": [53, 0, 0, 19, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/100", "answer": "extrapolated", "reward": 0.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/101", "answer": "fssp", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/102", "answer": "wind driven precipitation", "reward": 0.0, "tokens": [57, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/103", "answer": "black carbon", "reward": 0.0, "tokens": [73, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/105", "answer": "volatile organic compounds vocs", "reward": 0.0, "tokens": [76, 0, 0, 11, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/106", "answer": "shortwave", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/107", "answer": "hygroscopicity", "reward": 0.0, "tokens": [77, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/108", "answer": "parameter", "reward": 0.0, "tokens": [98, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/109", "answer": "fit", "reward": 0.0, "tokens": [59, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/11", "answer": "precipitation", "reward": 0.0, "tokens": [73, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/110", "answer": "liquid", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/111", "answer": "carbon", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/112", "answer": "atmosphere", "reward": 0.0, "tokens": [71, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/114", "answer": "ocean", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/116", "answer": "operating", "reward": 0.0, "tokens": [94, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/117", "answer": "equatorially organized", "reward": 0.0, "tokens": [68, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/118", "answer": "cloud", "reward": 0.0, "tokens": [55, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/12", "answer": "nucleation scavenging efficiently removes water mode particles with larger particles being activated first showcasing importance of aerosol size in cloud formation processes", "reward": 0.0, "tokens": [67, 0, 0, 32, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/120", "answer": "anthropogenic", "reward": 1.0, "tokens": [87, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/121", "answer": "cloud", "reward": 0.0, "tokens": [65, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/122", "answer": "cloud", "reward": 0.0, "tokens": [60, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/124", "answer": "terminal", "reward": 1.0, "tokens": [78, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/125", "answer": "climate", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/126", "answer": "convective", "reward": 1.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/127", "answer": "spatial", "reward": 0.0, "tokens": [79, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/128", "answer": "weight", "reward": 0.0, "tokens": [62, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/129", "answer": "inductively coupled plasma", "reward": 0.0, "tokens": [65, 0, 0, 6, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/13", "answer": "termination", "reward": 1.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/130", "answer": "warm", "reward": 0.0, "tokens": [79, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/131", "answer": "assuming normal distribution of genetic effects allows for calculation of maximum likelihood estimates of variance components leading to coherent framework for estimation in all designs", "reward": 0.0, "tokens": [66, 0, 0, 34, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/133", "answer": "anthropogenic", "reward": 0.0, "tokens": [75, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/135", "answer": "characteristics", "reward": 0.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/136", "answer": "pathways", "reward": 0.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/138", "answer": "extraction", "reward": 0.0, "tokens": [103, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/139", "answer": "scale", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/14", "answer": "flux", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/140", "answer": "small", "reward": 0.0, "tokens": [78, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/141", "answer": "emissions of so2 in europe fluctuated over years increasing from 15 tg year^-1 in 1950 to about 35 tg year^-1 in mid 1970s then decreasing to 15 tg year^-1 by 2000 showcasing impact of <mask> regulations and technological advancements on reducing pollution levels environmental", "reward": 0.0, "tokens": [117, 0, 0, 89, 0], "complexity": "none", "lines": 3, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/142", "answer": "absorption", "reward": 0.0, "tokens": [83, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/144", "answer": "geostatistical", "reward": 0.0, "tokens": [68, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/145", "answer": "radiative", "reward": 1.0, "tokens": [72, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/146", "answer": "mass", "reward": 0.0, "tokens": [54, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/147", "answer": "occurs", "reward": 0.0, "tokens": [79, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/148", "answer": "sampling", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/149", "answer": "concentration", "reward": 0.0, "tokens": [78, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/15", "answer": "coal", "reward": 0.0, "tokens": [87, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/150", "answer": "radiation", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/151", "answer": "properties", "reward": 0.0, "tokens": [71, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/152", "answer": "rain", "reward": 0.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/153", "answer": "biogenic carbon", "reward": 0.0, "tokens": [53, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/154", "answer": "nanometers", "reward": 1.0, "tokens": [84, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/156", "answer": "jet", "reward": 0.0, "tokens": [82, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/157", "answer": "linear", "reward": 0.0, "tokens": [74, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/158", "answer": "decoupling of iron and phosphate in global ocean has significant implications for nutrient cycles of carbon nitrogen and phosphorus in marine ecosystems", "reward": 0.0, "tokens": [67, 0, 0, 35, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/159", "answer": "aerosol", "reward": 1.0, "tokens": [63, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/16", "answer": "observations", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/17", "answer": "mean curvature", "reward": 0.0, "tokens": [47, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/18", "answer": "classical thermodynamic", "reward": 0.0, "tokens": [57, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/19", "answer": "forcing", "reward": 0.0, "tokens": [48, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/22", "answer": "optical", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/23", "answer": "cloud microphysics", "reward": 0.0, "tokens": [74, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/24", "answer": "part", "reward": 0.0, "tokens": [79, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/26", "answer": "across", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/27", "answer": "temperature", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/29", "answer": "pelagic", "reward": 0.0, "tokens": [77, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/3", "answer": "precipitation", "reward": 0.0, "tokens": [89, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/31", "answer": "brownian", "reward": 1.0, "tokens": [85, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/34", "answer": "cloud condensation", "reward": 0.0, "tokens": [78, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/36", "answer": "carbon dioxide", "reward": 0.0, "tokens": [73, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/37", "answer": "cloud", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/38", "answer": "stratospheric", "reward": 0.0, "tokens": [91, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/4", "answer": "temperature", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/40", "answer": "physical", "reward": 0.0, "tokens": [81, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/41", "answer": "sibson introduced natural neighbour kriging method which combines best features of previous methods and results in continuous and smooth interpolator except at data points where its derivative is discontinuous", "reward": 0.0, "tokens": [75, 0, 0, 42, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/42", "answer": "radiative", "reward": 1.0, "tokens": [63, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/43", "answer": "antarctic", "reward": 0.0, "tokens": [86, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/46", "answer": "evaporation", "reward": 1.0, "tokens": [68, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/47", "answer": "evaporation", "reward": 0.0, "tokens": [55, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/48", "answer": "precipitation", "reward": 0.0, "tokens": [52, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/49", "answer": "large cloud", "reward": 0.0, "tokens": [80, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/5", "answer": "cloud optical depth", "reward": 0.0, "tokens": [77, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/51", "answer": "clouds", "reward": 0.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/52", "answer": "airborne in situ measurements are used extensively to validate ground measurements due to their direct nature and ability to provide high spatial resolution", "reward": 0.0, "tokens": [61, 0, 0, 28, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/53", "answer": "cloud", "reward": 0.0, "tokens": [57, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/54", "answer": "chemical", "reward": 0.0, "tokens": [76, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/55", "answer": "monsoon", "reward": 1.0, "tokens": [66, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/56", "answer": "cloud", "reward": 0.0, "tokens": [88, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/57", "answer": "tropics", "reward": 0.0, "tokens": [76, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/59", "answer": "methods", "reward": 0.0, "tokens": [66, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/61", "answer": "stokes s law is valid in laminar flow regime", "reward": 0.0, "tokens": [48, 0, 0, 14, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/62", "answer": "particulate", "reward": 0.0, "tokens": [57, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/63", "answer": "maxwell", "reward": 0.0, "tokens": [62, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/64", "answer": "cloud", "reward": 0.0, "tokens": [80, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/65", "answer": "uptake", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/66", "answer": "volcanic", "reward": 0.0, "tokens": [73, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/67", "answer": "coriolis", "reward": 1.0, "tokens": [64, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/69", "answer": "deposition", "reward": 0.0, "tokens": [82, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/7", "answer": "site specific", "reward": 0.0, "tokens": [70, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/70", "answer": "pressure", "reward": 0.0, "tokens": [77, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/71", "answer": "pressure", "reward": 0.0, "tokens": [76, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/72", "answer": "cross variograms of indicators in disjunctive kriging are more structured than cross variograms of indicators in spatial kriging indicating stronger spatial correlation among indicators", "reward": 0.0, "tokens": [67, 0, 0, 45, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/73", "answer": "temperature", "reward": 0.0, "tokens": [64, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/74", "answer": "properties", "reward": 0.0, "tokens": [66, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/75", "answer": "absorption", "reward": 0.0, "tokens": [71, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/76", "answer": "aerosols have significant impact on cloud and precipitation processes in atmosphere", "reward": 0.0, "tokens": [53, 0, 0, 17, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/77", "answer": "carbon", "reward": 0.0, "tokens": [56, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/79", "answer": "optical", "reward": 1.0, "tokens": [69, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/8", "answer": "residual maximum likelihood parameter estimation is becoming more feasible in practice with increasing computing power and sophisticated software allowing for accurate predictions with at least 100 data points", "reward": 0.0, "tokens": [71, 0, 0, 38, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/80", "answer": "radiative forcing", "reward": 0.0, "tokens": [62, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/81", "answer": "co2", "reward": 0.0, "tokens": [75, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/82", "answer": "convection", "reward": 0.0, "tokens": [64, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/83", "answer": "atmosphere", "reward": 0.0, "tokens": [66, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/84", "answer": "carbon", "reward": 0.0, "tokens": [69, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/85", "answer": "cloud", "reward": 0.0, "tokens": [74, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/86", "answer": "quadratically", "reward": 0.0, "tokens": [62, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/87", "answer": "positive", "reward": 0.0, "tokens": [70, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/88", "answer": "biogeochemical", "reward": 0.0, "tokens": [65, 0, 0, 5, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/89", "answer": "heterogeneous", "reward": 0.0, "tokens": [76, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/9", "answer": "crystal", "reward": 0.0, "tokens": [64, 0, 0, 3, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/90", "answer": "in cirrus", "reward": 0.0, "tokens": [74, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/91", "answer": "stratospheric", "reward": 0.0, "tokens": [67, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/92", "answer": "positive", "reward": 0.0, "tokens": [68, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/93", "answer": "models", "reward": 0.0, "tokens": [75, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/96", "answer": "sample", "reward": 0.0, "tokens": [73, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}
+{"id": "gold/cloze/98", "answer": "stratosphere", "reward": 1.0, "tokens": [83, 0, 0, 4, 0], "complexity": "none", "lines": 1, "last_line_right": true, "epoch": 8}
+{"id": "gold/cloze/99", "answer": "persist", "reward": 0.0, "tokens": [61, 0, 0, 2, 0], "complexity": "none", "lines": 1, "last_line_right": false, "epoch": 8}

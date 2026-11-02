@@ -10,7 +10,7 @@ from era5_forecast_v1.taskset import records as era5_items
 from heat_basis_v1.taskset import records as heat_items
 from ibtracs_storm_v1.taskset import records as ibtracs_items
 
-from earthgym import results, spend
+from earthgym import results, samples, spend
 from earthgym.climaqa import compare
 from earthgym.climaqa import report as climaqa_report
 from earthgym.era5 import report as era5_report
@@ -119,3 +119,30 @@ def test_each_grpo_report_re_renders_from_its_committed_metrics(name, title, win
     metrics = json.loads((R / "grpo/results" / f"{name}-metrics.json").read_text("utf-8"))
     text = grpo_report.render(metrics, title, name[:10], window)
     assert text == (R / "grpo" / f"{name}.md").read_text("utf-8")
+
+
+SMALL = [  # each environment's small-model report and the results files it merges
+    (
+        "climaqa",
+        [
+            f"2026-11-02-{m}-8-samples-{kind}"
+            for m in ("qwen3.5-2b-q8_0", "granite-4.0-h-1b-q8_0")
+            for kind in ("mcq", "cloze")
+        ],
+    ),
+    (
+        "ibtracs",
+        [f"2026-11-02-{m}-8-samples" for m in ("qwen3.5-2b-q8_0", "granite-4.0-h-1b-q8_0")],
+    ),
+]
+
+
+@pytest.mark.parametrize(("env", "names"), SMALL)
+def test_each_small_model_report_re_renders_from_the_results(env, names, tmp_path, monkeypatch):
+    for name in names:
+        load(env, name)  # the bundled items, or their draw
+    out = tmp_path / "report.md"
+    files = [str(R / env / "results" / f"{name}.jsonl") for name in names]
+    monkeypatch.setattr("sys.argv", ["samples", env, *files, "--out", str(out)])
+    samples.main()
+    assert out.read_text("utf-8") == (R / env / "2026-11-02-small-models.md").read_text("utf-8")
