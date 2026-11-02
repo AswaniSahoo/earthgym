@@ -50,3 +50,16 @@ Consequences:
   CLI; nothing in the repo or in a kernel holds it.
 - `progress.jsonl` in each session's output records the GPUs, every start and end, and any
   server restart.
+
+Session 1, 2026-11-02, from 03:50 UTC, at commit e74bb0c: it ran its 11 hours. Granite 4.0 H-1B
+finished all four environments in 3.7 hours, Qwen3.5-2B ClimaQA in 51 minutes and IBTrACS in 8.4
+hours; Qwen's heat stopped at the deadline with 181 samples done, and its ERA5 never started.
+Qwen decoded about 91 ms a token in each slot, and its server logged "failed to find free space
+in the KV cache" and "failed to find a memory slot for batch" thousands of times: 32 sequences of
+up to 8,810 tokens do not fit 131,072 cache tokens, so requests waited for room. The waits slow a
+run; they change no sample (every finished slot reported `truncated = 0`). Session 2, the
+`qwen-rest` plan of `earthgym.kaggle.samples_kernel`, gives each slot 10,240 tokens, about 4 GB
+of cache, and runs Qwen on both GPUs: its heat resumed from session 1's log, then ERA5 in two
+parts, the first 460 items on one GPU and the last 188 after heat on the other, each part its own
+eval set. Its evals run at e74bb0c too, since no task, environment or lock has changed since.
+
