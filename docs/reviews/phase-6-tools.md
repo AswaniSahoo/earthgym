@@ -340,3 +340,90 @@ reproduces, and each rollout and sample reads its own storm's rows.
   answer, and nothing in the repo launches the server it depends on (M5).
 - The run report's "and score 0" wording in any future run that reaches the limit (M2). For this
   run it prints 0 of 300 and is true.
+
+## Re-review, 2026-11-02
+
+Re-reviewed at HEAD `873b58c`, after the fix commits 088abe6, f414a25, f2c6529, caf98f1, 2d2a03d,
+d370473, 541bac8, 61dbcbf, 550202c, 342d9be, eda64cd and 873b58c. The review above is left as it
+was written. What was run: `uv run ruff check .` (clean), `uv run ruff format --check .` (188
+files, clean), `uv lock --check` (clean), `uv run pytest -q` (423 passed in 21.07 s; the two new
+end-to-end tests take 7.04 s and 2.36 s), `gh run list` (success on every fix commit through
+873b58c), and scratch scripts over the stopped run's log, its probe log, the committed partial
+results, the ledger and the parser's edges, with the parse rule and the reward re-implemented as
+before. No paid call was made, no GPU or model server used; the tree holds only the two untracked
+ClimaQA files it held at the start. No em or en dash in any changed prose file or module.
+
+### Status of the findings
+
+| Finding | Status | Evidence |
+|---|---|---|
+| M1, harness asymmetry | fixed | `src/earthgym/ibtracs/tasks.py:106-108`: `solver=[use_tools([query()]), generate()]` with `turn_limit=TURN_LIMIT` (14), no `react`, no `submit`. In the stopped run's log all 299 samples begin user, assistant, no sample has a system message, every model call offered the one tool `query`, and the plan is `rows_to_store`, `use_tools`, `generate` with `turn_limit 14`. `tests/test_ibtracs_harnesses.py` asserts the roles user, assistant, tool, assistant and the tools `[["query"], ["query"]]`; `tests/test_vf_tools_rollout.py:100` asserts verifiers' last request held user, assistant, tool, so the two harnesses now send the same conversation. The react run is kept under `-react` names (its results file is byte-identical to the old one, its report re-rendered by test), and decision 0023:62-68 and 85-86, the write-up's Status (14-19) and Results (85-95), README row 6, SUMMARY and the environment README (27-33, 40-44) name react's prompt as a second difference. The citation `inspect_ai/agent/_types.py:13-22` is right: line 13 is `PARALLEL_TOOLS_PROMPT`, 16-18 the assistant prompt, 20-22 the submit prompt. |
+| M2, "and score 0" | fixed | `src/earthgym/ibtracs/report.py:241, 310-311`: `limit_paid` counted, and the sentence reads "stopped at a limit before a final reply; they are scored on their last reply (N right)". `tests/test_ibtracs_report.py` now drives the third sample to the turn limit with `ANSWER: 0.4` on its last reply and asserts reward 1.0 and "(1 right)". The re-rendered react report prints "0 of 300 ... (0 right)". |
+| M3, the probe sentence | fixed | decision 0023:121-123: two queries each, five of the six submitted the number alone ("9", "129", "75", "60", "24"), the sixth ended in an answer line. The probe log reads the same: completions 9, 129, 75, 60, 24 and, for hurricane_hours/2010293N17277, a sentence ending in an answer line parsed as 24.0. |
+| M4, log, README, roadmap | fixed | `README.md` has a Phase 6 row and lists `ibtracs-storm-v1` under phases 4 and 6; `SUMMARY.md` Phase 6 rewritten; `docs/log.md:5-34` has a Phase 6 entry; `docs/roadmap.md` no longer lists the tool environment as future work; the environment README is rewritten. Nit: `docs/log.md` now has two entries headed "2026-11-02, batch 2" (lines 5 and 36). |
+| M5, the server launch path | partly fixed | `tests/test_ibtracs_server.py` starts `python -m ibtracs_storm_v1.taskset` with `VF_STATE_URL`, `VF_STATE_SECRET` and `MCP_PORT_FILE`, serves one task over a stand-in `/task` channel, connects with verifiers' `connect_mcp`, and asserts the one tool `query`, a reply from that task's rows, a refused DELETE and that `/task` was fetched (2.36 s here). `tests/test_vf_tools_rollout.py` runs `vf-eval` against a scripted OpenAI-style endpoint on 127.0.0.1 that calls the tool once and then answers, and asserts the tool reply from the task's rows and the contract's reward on the final reply (7.04 s). `.github/workflows/ci.yml:33-35` adds the tools-mode gold check and a mockllm tool-loop run; decision 0023:101-102 now says the gold check starts no tool server. Both tests pass here and in CI. Still open, and minor: the 3-item Qwen rollout's per-item results are not under `reports/ibtracs/results/` (decision 0019); its traces remain only in `outputs/`. |
+| L1, 2,870 | fixed | decision 0023:133 says 2,862. |
+| L2, "each rollout" | fixed | decision 0023:106-107: two of the three rollouts queried, the first made no query. |
+| L3, "SELECT only" | fixed | environment README 27-30: refuses every write and every file; a query can read only the schema, the SQLite version and the clock; decision 0023:137-139 names `sqlite_master`, `EXPLAIN`, the version and `datetime('now')`. |
+| L4, inner asterisks | fixed | `contract.py:174-177`: marks `[ \t*`]*` only around the number, matched against the whole single-line reply. Checked: `2*3`, `1*2`, `6 * 2`, `*`, `**` and `6\n6` give None; `**6**`, `*6*`, `` `6` ``, `6.`, `**6**.`, `-6`, the Unicode minus, `.5` and `1e3` parse; `6*` and `*6` parse as 6 (asymmetric marks, harmless). The answer-line path is unchanged: `ANSWER: 2*3` still reads 23.0 through `last_line` (`contract.py:152-157`, decision 0016, shared by every phase), which was outside L4's scope. |
+| L5, `mcp` undeclared | fixed | decision 0023:103-104 records `mcp` 2.0.0 as verifiers' dependency from the lock. |
+| L6, budget in turns | fixed | `turn_limit=14` counts model generations (`inspect_ai/_eval/task/task.py:185`, "Limit on total turns (model generations)"); decision 0023:59-61 and the environment README say 14 model turns whatever the calls in each; the test at the limit counts exactly 14 assistant messages. |
+| L7, the probe file's scoring | fixed | decision 0023:128-131 says the committed probe results hold the answer-line scoring of the time, five bare numbers unparsed, rewards 0 of 6 either way. |
+| L8, untested branches | fixed | `tests/test_ibtracs_report.py`: a `query` call with no `sql` counts as a query error (Inspect's tool error, the `m.error` branch), `rows` refuses a key mismatch, and `main` writes the three-run report from three log directories. |
+
+### The stopped tool-loop run, checked
+
+- The log `2026-11-02T02-50-53-00-00_ibtracs-storm_ctLXiSupdRzDZnkgRVYgvh.eval`: status
+  `cancelled`, commit d370473 dirty, `turn_limit 14`, 299 samples, 225 scored and 74 errored; the
+  item never logged is ace/1981244N30287. The 225 re-score to the committed partial file row for
+  row (0 differences); no scored sample hit a limit, none answered with a bare number, 283
+  samples made 2 queries and 16 made 3. Per question the scored set is 33 ACE (33 right), 92
+  hours (23 right) and 100 peak category (100 right): not a random 225, and every scored sample
+  finished in one tool turn while every errored one had made two, since the API stopped the run
+  between the second and third rounds of batch requests. So the write-up's refusal to report any
+  number of this run is right, and a mean over the 225 would mislead.
+- The ledger row: tokens 1802, 389144, 360009, 153448, 61295 equal the header, which Inspect's
+  eval-level usage gives; the per-sample sums are smaller by 8, 2,077, 2,461, 401 and 165, the
+  usage of responses whose samples were cancelled. Costs from the committed tokens: the probe
+  $0.079150, the run $1.273472, the totals $11.005837 and $12.279309; the four published
+  figures round from these. The tool-loop probe's six replies all end in an answer line with the
+  same six answers as the react probe (9, 129, 75, 60, 24, 24), as decision 0023:131-132 says.
+- Where the refusal is recorded: the log's 74 errored samples all carry
+  `CancelledError('Cancelled via cancel scope ...')`, not the API's message. The message is in
+  `logs/2026-11-02-ibtracs-tools-loop-run.out` (local, not in git): batches of 300, 286, 14, 1,
+  73 and 1 requests were created, then a batch creation raised `anthropic.BadRequestError: Error
+  code: 400 ... 'Your credit balance is too low to access the Anthropic API. Please go to Plans &
+  Billing to upgrade or purchase credits.'`, and the run was cancelled; the 73-request batch
+  msgbatch_01BYbeuUzRq3AN6Z65htBYBp is the one never marked completed, as the ledger says. So the
+  write-up (10-13), decision 0023:87-92 and `reports/spend.md:23-29` are exact as far as they go
+  (N1 below asks for the source of the quote and the log's own status to be named).
+- `inspect eval-retry` as the way to finish: consistent with the source. A retry rebuilds the
+  task from the log with its `turn_limit` (`inspect_ai/_eval/eval.py:1863`) and reuses the
+  samples the previous log completed (`inspect_ai/_eval/task/run.py:1360-1425`); the special
+  recovery path is for `started` logs only (`eval.py:1736`), so a `cancelled` log takes the plain
+  retry. Not run here (no credit), so whether it completes cleanly is UNKNOWN until it does.
+
+### New findings
+
+- **N1 (Low).** The record of the stop points at `reports/spend.md` for the API's words, and the
+  only artifact that holds them is `logs/2026-11-02-ibtracs-tools-loop-run.out`, outside git;
+  the log itself records a cancellation. Smallest fix: one clause in `reports/spend.md:23-29` or
+  decision 0023:87-92 naming that file and saying the log's status is `cancelled` with the 74
+  unfinished samples marked `CancelledError`.
+- **N2 (Low).** The committed partial file is skewed (33 of 100 ACE items, all one-tool-turn
+  samples), which nothing in the file says. Smallest fix: a sentence beside it in decision 0023
+  or in the ledger note, so no one computes a mean from it before the run finishes.
+- **N3 (nit).** `docs/log.md` has two entries headed "2026-11-02, batch 2".
+
+### What remains before Phase 6 can close
+
+- Finish the tool-loop run (the retry), then: its per-item results without `--partial`, its run
+  report, the three-run report of shown, hidden and tool loop (the McNemar pairs against rules
+  hidden, now a one-difference comparison), the rows in `tests/test_published_numbers.py`, a
+  ledger row for the retry's tokens beside the stopped row, and the write-up's Status, Results and
+  Cost sections, decision 0023's Consequences, README row 6 and SUMMARY rewritten around that
+  run. The report should say which commit scored which samples if the retry runs at a later
+  commit than d370473, with `git diff` on the contract and the task as the check.
+- The 3-item Qwen rollout's per-item record under `reports/ibtracs/results/`, or one line in
+  decision 0023 saying its traces are kept only locally (the rest of M5).
+- N1 and N2, one sentence each.
