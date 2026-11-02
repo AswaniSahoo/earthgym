@@ -20,6 +20,24 @@ neighbour; category and hours must match exactly (decision 0016).
 A held-out split by storm: `StormConfig(split="train")` loads 233 items and `split="test"` 67
 (decision 0017).
 
+Tools mode, the first tool-using version in this repo (decision 0023): the prompt leaves out the
+rows and the rule, and the model reads the storm's rows with one read-only SQL tool,
+`query(sql)`, over an in-memory SQLite table `track(time, status, wind, pressure)`, then ends
+with the same `ANSWER: <number>` line, paid by the same reward. The tool runs SELECT statements
+only, stops one after 0.5 s and replies with at most 200 rows and about 8,000 characters. No
+model has been run in tools mode yet: it is tested offline only, with Inspect's `mockllm/model`
+and with no model in verifiers.
+
+    uv run vf-eval ibtracs-storm-v1 --no-push -m <model> --env.taskset.tools true \
+      --env.agent.harness.id null --env.agent.runtime.type subprocess --env.agent.max-turns 14
+    uv run inspect eval src/earthgym/ibtracs/tasks.py@ibtracs_storm -T tools=true \
+      --model <provider/model>
+
+In verifiers, name the null harness: the default, `bash`, would also give the model a shell on
+the host. Inspect runs a `react()` agent with the query tool and a submit tool, at most 30
+messages a sample (13 queries and the submit); `--env.agent.max-turns 14` gives verifiers the
+same budget.
+
 The keys come from `src/earthgym/ibtracs/stats.py`, which reproduces NCEI's published North
 Atlantic season numbers (`reports/ibtracs/2026-11-01-ncei-reproduction.md`).
 
