@@ -2,6 +2,37 @@
 
 Newest first. One entry per working session: what changed, what I learned, what is next.
 
+## 2026-11-02, batch 2: the gold check, small models, hand checks and a tools mode
+
+- Gold check (decision 0021): every taskset's `validate` scores its own reference reply, and CI
+  runs `vf-validate` on all four. On 72 of the 720 drawn ERA5 items even a perfect forecast
+  earns less than 1, since the floor binds; I dropped them, and 648 remain. On those, Sonnet 5.5
+  earns 0.1277 against the midpoint's 0.1175, +0.0102 (SE 0.0085), still not significant, and
+  IFS HRES 0.34 to 0.71 per variable and lead. The rules-shown IBTrACS and heat versions are
+  labelled as saturated controls.
+- Small open models (decision 0022): Qwen3.5-2B and Granite 4.0 H-1B through llama.cpp on this
+  laptop's GPU, 8 samples an item, at no API cost. Qwen's ClimaQA run is done; the rest is
+  running, and Qwen's long ERA5 replies stretch it to about 20 hours. earlyoom stopped
+  llama-server twice, at 8.5 GB from its default 8 GiB prompt cache; `--cache-ram 1024` keeps
+  it near 2.5 GB.
+- Hand checks: `docs/human-checks/` holds the 30-item ClimaQA sample, the 56 leak pairs and a
+  plain-language digest of decisions 0001 to 0021, each with an empty column for my verdict.
+- Phase 6, a tools mode for ibtracs-storm-v1 (decision 0023): one read-only SQL tool over the
+  storm's rows, the same in both harnesses, and verifiers' null harness as every package's
+  default. The first version ran Inspect's react agent and scored 0.747 against 0.703 with the
+  rows in the prompt; the review found react's system prompt to be a second difference between
+  those runs (`docs/reviews/phase-6-tools.md`, M1). So tools mode is now a plain tool loop in
+  both harnesses, tested end to end in verifiers against a scripted endpoint. Its Sonnet run
+  stopped at 225 of 300 items when the API refused for lack of credit.
+- What I learned: the account ran out of credit at a ledger total of $12.2793 of the $20, so
+  the ledger, priced from Inspect's token counts, and the account's bill differ, by an amount I
+  cannot see from here; the Console decides (`reports/spend.md`).
+- Phase 7 (decision 0024): a GRPO kernel built from the repo, carrying ClimaQA's MCQ items and
+  contract, ran a 10-step smoke on a Kaggle T4 (`reports/grpo/2026-11-02-smoke.md`); the
+  250-step run is on Kaggle now.
+- Next: the rest of the small-model runs and their reports, then the README; the tool-loop run
+  once there is credit; the GRPO run's report.
+
 ## 2026-11-02, batch 2: ownership and the name
 
 - Ownership: the decision records, this log, the summary, the write-ups, `CLAUDE.md` and the

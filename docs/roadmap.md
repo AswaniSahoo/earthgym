@@ -21,15 +21,13 @@ the decisions (`docs/decisions/`).
 
 ## After that
 
-- A tool-using environment, starting from IBTrACS with the rules hidden: the model queries the
-  track table and computes statistics in a sandbox instead of reading the whole table in the
-  prompt.
 - A small GRPO run with a small open model on one environment, with the reward on the train
-  split and on the held-out split, reported whether or not it moves.
-- Drafts for distribution, kept under `docs/release/` until I decide to go public: the issue
-  for the ClimaQA maintainers, the eval logs as a release asset, notes for an inspect_evals
-  Register entry for ClimaQA (MCQ and cloze, with the logs of two models), notes for the Prime
-  Intellect Hub, and a Hugging Face dataset card.
+  split and on the held-out split, reported whether or not it moves. In progress: decision 0024
+  plans it on climaqa-v1 MCQ with Qwen3.5-2B on a Kaggle T4, a smoke run first.
+- The drafts for distribution under `docs/release/`, written on 2026-11-02, stay there until I
+  decide to go public: the issue for the ClimaQA maintainers, the eval logs as a release asset,
+  notes for an inspect_evals Register entry for ClimaQA, notes for the Prime Intellect Hub, and
+  a Hugging Face dataset card.
 
 ## Open questions
 

@@ -24,10 +24,13 @@ Tools mode, the first tool-using version in this repo (decision 0023): the promp
 rows and the rule, and the model reads the storm's rows with one read-only SQL tool,
 `query(sql)`, over an in-memory SQLite table `track(time, status, wind, pressure)`, then
 answers with the same `ANSWER: <number>` line or, in this mode only, the number alone, paid by
-the same reward. The tool runs SELECT statements only, stops one after 0.5 s and replies with at
-most 200 rows and about 8,000 characters. Claude Sonnet 5.5 scores 0.747 in tools mode, against
-0.703 with the rows in the prompt and the rule left out: the same on ACE and peak category, and
-0.250 against 0.130 on hurricane hours (`reports/ibtracs/2026-11-02-rows-in-prompt-vs-tool.md`).
+the same reward. Its authorizer refuses every write and every file, a statement stops after
+0.5 s, and a reply holds at most 200 rows and about 8,000 characters; besides the rows, a query
+can read only the table's schema, the SQLite version and the clock. A first version, under
+Inspect's `react()` agent, scored 0.747 on Claude Sonnet 5.5 against 0.703 with the rows in the
+prompt (`reports/ibtracs/2026-11-02-rows-in-prompt-vs-tool-react.md`), but react's system prompt
+is a second difference from the prompt runs; the tool loop's own run is not finished (decision
+0023).
 
     uv run vf-eval ibtracs-storm-v1 --no-push -m <model> --env.taskset.tools true \
       --env.agent.harness.id null --env.agent.runtime.type subprocess --env.agent.max-turns 14
@@ -35,9 +38,11 @@ most 200 rows and about 8,000 characters. Claude Sonnet 5.5 scores 0.747 in tool
       --model <provider/model>
 
 Every environment here defaults to verifiers' null harness, which runs no model-written code;
-verifiers' own default, `bash`, would give the model a shell on the host. Inspect runs a `react()`
-agent with the query tool and a submit tool, at most 30 messages a sample (13 queries and the
-submit); `--env.agent.max-turns 14` gives verifiers the same budget.
+verifiers' own default, `bash`, would give the model a shell on the host. Both harnesses send the
+user prompt and the one tool, with no system prompt and no submit tool, run the model's tool
+calls in a loop and score its final reply, within 14 model turns: Inspect's `turn_limit`, and
+`--env.agent.max-turns 14` in verifiers. `tests/test_vf_tools_rollout.py` runs the verifiers
+command against a scripted endpoint.
 
 The keys come from `src/earthgym/ibtracs/stats.py`, which reproduces NCEI's published North
 Atlantic season numbers (`reports/ibtracs/2026-11-01-ncei-reproduction.md`).

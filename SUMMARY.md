@@ -79,15 +79,16 @@ Write-up: `reports/heat/2026-11-01-phase-5-writeup.md`.
 ## Phase 6: the storm's rows behind a query tool
 
 - The same 300 IBTrACS items, with the rule left out and each storm's rows behind one read-only
-  SQL tool instead of in the prompt (decision 0023). Sonnet 5.5 scores 0.747, against 0.703
-  with the rows in the prompt: ACE and peak category stay at 0.99 and 1.00, and hours at
-  hurricane strength rise from 0.13 to 0.25, with 16 items right only with the tool and 4 only
-  with the rows in the prompt, an exact McNemar p of 0.012
-  (`reports/ibtracs/2026-11-02-rows-in-prompt-vs-tool.md`).
-- 63 of the 75 hours misses with the tool still follow a careless reading of the rule, so the
-  tool does not close the convention gap (same report). The model made 645 queries, a median of
-  2 an item, with no query error and no item at the 30-message limit
-  (`reports/ibtracs/2026-11-02-claude-sonnet-5-5-tools.md`).
+  SQL tool instead of in the prompt (decision 0023). A first version, run under Inspect's react
+  agent, scores 0.747 on Sonnet 5.5 against 0.703 with the rows in the prompt: ACE and peak
+  category stay at 0.99 and 1.00, and hours at hurricane strength rise from 0.13 to 0.25, with
+  16 items right only in that run and 4 only with the rows in the prompt, an exact McNemar p of
+  0.012 (`reports/ibtracs/2026-11-02-rows-in-prompt-vs-tool-react.md`). React's system prompt
+  is a second difference from the prompt run, so that gain is not the tool's alone
+  (`docs/reviews/phase-6-tools.md`, M1).
+- Tools mode now runs as a plain tool loop in both harnesses. Its Sonnet run stopped at 225 of
+  300 items when the API's credit ran out (`reports/spend.md`), and is not reported until it
+  finishes.
 
 Write-up: `reports/ibtracs/2026-11-02-phase-6-writeup.md`.
 
@@ -101,18 +102,20 @@ Write-up: `reports/ibtracs/2026-11-02-phase-6-writeup.md`.
   only at Deer Valley in 2019. My untested guess is that a policy would take either from the reward
   in a few steps; no training run has checked it. I keep them as the controls for the ablations and
   for small-model curricula.
-- Tools mode adds no headroom for Sonnet 5.5 on ACE or peak category. What it adds is a
-  multi-turn rollout whose transcript records how the model read the data, on the same items
-  and with the same reward as the prompt version.
+- In its first version, tools mode adds no headroom for Sonnet 5.5 on ACE or peak category.
+  What it adds is a rollout whose transcript records how the model read the data, on the same
+  items and with the same reward as the prompt version.
 - The forecasting environment of Phase 3 is far from saturated: the model's 0.128 is no better
   than the midpoint baseline's 0.118, against HRES's 0.34 to 0.71 per variable and lead, so there
   is headroom and no skill yet to build on.
 
 ## Spend
 
-$10.9267 of a managed $20 budget on the Anthropic key over 14 runs (a probe projected each
+$12.2793 of a managed $20 budget on the Anthropic key over 16 runs (a probe projected each
 run's cost before it started; the ledger is checked after each run), probes included, all
-through the Batch API but the Phase 6 probe (`reports/spend.md`). The Gemini 3.8 Flash runs on
+through the Batch API but the two Phase 6 probes (`reports/spend.md`). The account ran out of
+credit during the last run, at a ledger total under $20, so the account's bill and this ledger
+differ by an amount that is UNKNOWN here. The Gemini 3.8 Flash runs on
 Vertex AI are separate and stay as recorded in their reports.
 
 ## Limits

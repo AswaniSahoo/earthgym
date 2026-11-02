@@ -15,6 +15,8 @@ ClimaQA. Later phases write new papers (environments) whose answers a program ca
 | 3 | ERA5 forecast-score environment, graded against weatherbench2 | done; on the 648 items that pass the gold check, Claude Sonnet 5.5 earns a mean reward of 0.128, IFS HRES 0.34 to 0.71 per variable and lead (`reports/era5/2026-11-01-claude-sonnet-5-5.md`) |
 | 4 | IBTrACS cyclone analytics environment | done: `ibtracs-storm-v1`, 300 per-storm questions with exact answers. With the rules in the prompt (the control) Sonnet 5.5 scores 0.997; with them hidden 0.703, where ACE and peak category stay at 0.99 and hours become a convention test (`reports/ibtracs/2026-11-01-rules-shown-vs-hidden.md`) |
 | 5 | Heat-insurance basis-risk environment | done: `heat-basis-v1`, 300 policy questions over Phoenix-area stations, after reproducing NWS Phoenix's heat counts. With the rules shown (the control) Sonnet 5.5 scores 0.987; with the policy terms alone 0.960, where missed days fall to 0.89 on how a missing index value is read (`reports/heat/2026-11-01-rules-shown-vs-terms-only.md`) |
+| 6 | A tools mode for `ibtracs-storm-v1`: the storm's rows behind one read-only SQL tool | built and tested in both harnesses (decision 0023). A first version under Inspect's react agent scored 0.747 against 0.703 with the rows in the prompt, but react's system prompt is a second difference between those runs; the tool-loop run stopped at 225 of 300 items when the API's credit ran out (`reports/ibtracs/2026-11-02-phase-6-writeup.md`) |
+| 7 | A small GRPO run: Qwen3.5-2B with a LoRA on climaqa-v1 MCQ, on a Kaggle T4 | in progress: the smoke run is done (`reports/grpo/2026-11-02-smoke.md`), the 250-step run next (decision 0024) |
 
 Every model run uses Claude Sonnet 5.5 on the Anthropic key, with $20 in total as a hard cap;
 the spend is in `reports/spend.md` (decision 0010). No Vertex AI or Gemini calls are made from
@@ -26,7 +28,7 @@ the spend is in `reports/spend.md` (decision 0010). No Vertex AI or Gemini calls
 |---|---|---|---|
 | `climaqa-v1` | 2 | a clean ClimaQA question, multiple choice or cloze | exact match |
 | `era5-forecast-v1` | 3 | a 24 to 72 h point forecast of ERA5 pressure or temperature | skill over persistence and climatology, graded by the WB2 rules |
-| `ibtracs-storm-v1` | 4 | a storm's ACE, peak category or hours at hurricane strength | exact answer |
+| `ibtracs-storm-v1` | 4, 6 | a storm's ACE, peak category or hours at hurricane strength; with `tools=true`, from its rows behind a query tool | exact answer |
 | `heat-basis-v1` | 5 | a heat policy's trigger days, payout events or missed days | exact answer |
 
 Each package is a verifiers v1 taskset; each has an Inspect task beside it in `src/earthgym/`, scored
