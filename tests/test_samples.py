@@ -62,3 +62,25 @@ def test_a_forecast_sample_passes_when_it_beats_the_better_baseline():
     text = samples.render("era5", [a], date="2026-11-02")
     assert "a sample passes at a reward above 0" in text
     assert "| m/one | 1 | 8 | 0.050 | 1.000 | 0.125 | 1.000 |" in text
+
+
+def test_a_strict_variant_leaves_the_near_matches_out_of_its_own_table():
+    a = run("m/one", {"gold/mcq/1": [1.0] * 8, "gold/mcq/2": [0.0] * 8})
+    text = samples.render("climaqa", [a], date="2026-11-02", strict={"gold/mcq/2"})
+    assert "## Strict variant: the near matches of Silver left out" in text
+    assert "| m/one | 1 | 8 | 1.000 | 0.000 | 1.000 | 1.000 |" in text
+
+
+def test_main_merges_each_models_files_and_writes_the_report(tmp_path, monkeypatch):
+    from earthgym import results
+
+    head = {"model": "m/one", "epochs": 8, "settings": {}, "started": "2026-11-02T00:15:48Z"}
+    for kind, item in (("mcq", "gold/mcq/1"), ("cloze", "gold/cloze/1")):
+        results.write(tmp_path / f"r-{kind}.jsonl", head, rows({item: [1.0] * 8}))
+    out = tmp_path / "report.md"
+    files = [str(tmp_path / "r-mcq.jsonl"), str(tmp_path / "r-cloze.jsonl")]
+    monkeypatch.setattr("sys.argv", ["samples", "climaqa", *files, "--out", str(out)])
+    samples.main()
+    text = out.read_text("utf-8")
+    assert "| m/one | 2 | 8 | 1.000 | 0.000 | 1.000 | 1.000 |" in text
+    assert "| m/one | cloze | 1 |" in text and "Dated 2026-11-02" in text

@@ -3,8 +3,14 @@ the mean reward, the share of items whose reward varies across the samples (an i
 sample earns the same reward gives a GRPO-style update nothing to compare), and pass@1 against
 pass@k."""
 
+import argparse
 import statistics
 from math import comb
+from pathlib import Path
+
+from climaqa_v1.taskset import near_matches
+
+from earthgym import results
 
 
 def pass_at_k(n: int, c: int, k: int) -> float:
@@ -58,8 +64,11 @@ def _row(cells: list) -> str:
     return "| " + " | ".join(f"{c:.3f}" if isinstance(c, float) else str(c) for c in cells) + " |"
 
 
-def render(env: str, runs: list[tuple[dict, list[dict]]], date: str) -> str:
-    """One environment's multi-sample runs side by side, then per question."""
+def render(
+    env: str, runs: list[tuple[dict, list[dict]]], date: str, strict: set | None = None
+) -> str:
+    """One environment's multi-sample runs side by side, then per question; for ClimaQA,
+    `strict` holds the near matches of Silver that the strict variant leaves out."""
     passed = passes(env)
     rule = "a reward above 0" if env == "era5" else "reward 1"
     stats = [(head, summary(rows, passed)) for head, rows in runs]
@@ -80,6 +89,13 @@ def render(env: str, runs: list[tuple[dict, list[dict]]], date: str) -> str:
     for head, s in stats:
         cells = [head["model"], s["items"], s["samples"], s["mean_reward"], s["varies"]]
         lines.append(_row([*cells, s["pass@1"], s[f"pass@{k}"]]))
+    if strict:
+        lines += ["", "## Strict variant: the near matches of Silver left out", "", cols]
+        lines.append("|---|---|---|---|---|---|---|")
+        for head, rows in runs:
+            s = summary([r for r in rows if r["id"] not in strict], passed)
+            cells = [head["model"], s["items"], s["samples"], s["mean_reward"], s["varies"]]
+            lines.append(_row([*cells, s["pass@1"], s[f"pass@{k}"]]))
     lines += ["", "## Per question", "", cols.replace("| model |", "| model | question |")]
     lines.append("|---|---|---|---|---|---|---|---|")
     for head, rows in runs:
@@ -92,3 +108,27 @@ def render(env: str, runs: list[tuple[dict, list[dict]]], date: str) -> str:
         settings = ", ".join(f"{a} {b}" for a, b in head.get("settings", {}).items()) or "none"
         lines.append(f"- {head['model']}: {settings}.")
     return "\n".join([*lines, ""])
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Report multi-sample runs of one environment.")
+    parser.add_argument("env")
+    parser.add_argument("results", nargs="+", help="per-item results files, any number per model")
+    parser.add_argument("--out", type=Path, required=True)
+    args = parser.parse_args()
+    runs: dict[str, tuple[dict, list[dict]]] = {}
+    for path in args.results:
+        head, rows = results.read(Path(path))
+        runs.setdefault(head["model"], (head, []))[1].extend(rows)
+    strict = None
+    if args.env == "climaqa":
+        strict = near_matches()
+    date = next(iter(runs.values()))[0]["started"][:10]
+    text = render(args.env, list(runs.values()), date, strict)
+    args.out.parent.mkdir(parents=True, exist_ok=True)
+    args.out.write_text(text, "utf-8")
+    print(f"{len(runs)} models, written to {args.out}")
+
+
+if __name__ == "__main__":
+    main()
