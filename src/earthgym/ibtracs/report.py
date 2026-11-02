@@ -15,7 +15,7 @@ from ibtracs_storm_v1.taskset import records
 from inspect_ai.log import EvalLog, list_eval_logs, read_eval_log
 
 from earthgym import ablation, results, spend
-from earthgym.ibtracs import stats
+from earthgym.ibtracs import stats, tasks
 
 TESTS = {  # what a question still tests when its careless reading is right anyway
     "ace": "summing the squares",
@@ -90,15 +90,42 @@ def best_constant(items: list[dict]) -> tuple[float, float]:
     return best, right(best) / len(keys)
 
 
+def tool_use(sample) -> dict:
+    """How a tools-mode sample used the query tool (decision 0023): its queries, the replies that
+    came back as an error, the limit it hit if any, and whether it submitted the number alone."""
+    calls = [
+        c
+        for m in sample.messages
+        if m.role == "assistant"
+        for c in m.tool_calls or []
+        if c.function == "query"
+    ]
+    replies = [m for m in sample.messages if m.role == "tool" and m.function == "query"]
+    done = sample.output.completion
+    return {
+        "queries": len(calls),
+        "query_errors": sum(m.error is not None or m.text.startswith("error:") for m in replies),
+        "limit": sample.limit.type if sample.limit else None,
+        "bare": contract.answer(done) is None and contract.final_answer(done) is not None,
+    }
+
+
 def rows(log: EvalLog, items: list[dict] | None = None) -> list[dict]:
     """The run's per-item results (earthgym.results), with whether each reply names the storm or
-    its season; items defaults to the bundled set."""
+    its season; items defaults to the bundled set. In tools mode the scored completion is the
+    submission alone, so the name is looked for in everything the model wrote, and each row
+    adds how the item used the tool."""
     by_id = {i["id"]: i for i in (records() if items is None else items)}
+    tools = bool(log.eval.task_args.get("tools"))
     out = []
     for s in log.samples or []:
         if s.metadata["key"] != by_id[s.id]["key"]:
             raise ValueError(f"{s.id}: the log's key differs from the item's")
-        out.append(results.row(s) | {"recognized": names_storm(s.output.completion, s.metadata)})
+        text = s.output.completion
+        if tools:
+            text = "\n".join([*(m.text for m in s.messages if m.role == "assistant"), text])
+        row = results.row(s) | {"recognized": names_storm(text, s.metadata)}
+        out.append(row | tool_use(s) if tools else row)
     return out
 
 
@@ -161,14 +188,15 @@ def from_results(head: dict, rows: list[dict], items: list[dict]) -> dict:
         )
     rewards = list(paid.values())
     t, settings = head["tokens"], head["settings"]
-    return {
+    tools = bool(head["task_args"].get("tools"))
+    summary = {
         "model": head["model"],
         "label": head["model"].split("/")[-1],
         "n": len(rewards),
         "ids": [r["id"] for r in rows],
         "parse_failures": parse_failures,
         "errors": errors,
-        "rules": head["task_args"].get("rules", True),
+        "rules": head["task_args"].get("rules", True) and not tools,
         "recognized": recognized,
         "recognized_what": "name the storm or its season",
         "reward": statistics.fmean(rewards),
@@ -185,16 +213,38 @@ def from_results(head: dict, rows: list[dict], items: list[dict]) -> dict:
         "completed": head["completed"],
         "log": head["log"],
     }
+    if not tools:
+        return summary
+    queries = [r["queries"] for r in rows]
+    return summary | {
+        "tools": True,
+        "tool_use": {
+            "queries": sum(queries),
+            "median": statistics.median(queries),
+            "max": max(queries),
+            "none": queries.count(0),
+            "errors": sum(r["query_errors"] for r in rows),
+            "items_with_errors": sum(r["query_errors"] > 0 for r in rows),
+            "limit": sum(r["limit"] is not None for r in rows),
+            "bare": sum(r["bare"] for r in rows),
+        },
+    }
 
 
 def render(s: dict) -> str:
-    t, n = s["tokens"], s["n"]
+    t, n, tools = s["tokens"], s["n"], s.get("tools", False)
+    mode = " (tools mode)" if tools else "" if s["rules"] else " (rules hidden)"
+    how = ", with each question's rule left out of the prompt."
+    if tools:
+        how = (
+            ", with each storm's rows behind the query tool and each question's rule left out "
+            "of the prompt (decision 0023)."
+        )
     lines = [
-        f"# ibtracs-storm-v1 on {s['label']}{'' if s['rules'] else ' (rules hidden)'}",
+        f"# ibtracs-storm-v1 on {s['label']}{mode}",
         "",
         f"Model `{s['model']}` on {n} items, scored by ibtracs_storm_v1/contract.py at commit "
-        f"{s['commit']}"
-        + ("." if s["rules"] else ", with each question's rule left out of the prompt."),
+        f"{s['commit']}" + ("." if s["rules"] else how),
         "",
         "## Result",
         "",
@@ -202,8 +252,12 @@ def render(s: dict) -> str:
         "failures and errors scored 0. Each answer is right or wrong against the exact key "
         "(decision 0011).",
         "",
-        f"Replies without a parseable answer line: {s['parse_failures']} of {n}. Samples that "
-        f"errored: {s['errors']}.",
+        (
+            f"Submissions without a parseable answer: {s['parse_failures']} of {n}."
+            if tools
+            else f"Replies without a parseable answer line: {s['parse_failures']} of {n}."
+        )
+        + f" Samples that errored: {s['errors']}.",
         "",
         "Accuracy per question, with the best constant answer and each careless reading of the "
         "rule as baselines:",
@@ -226,6 +280,19 @@ def render(s: dict) -> str:
     ]
     for r in s["questions"]:
         lines += [f"| {r['question']} | {name} | {c} |" for name, c in r["traps"].items()]
+    if tools:
+        u = s["tool_use"]
+        lines += [
+            "",
+            "## Tool use",
+            "",
+            f"{u['queries']} queries in all, a median of {u['median']:g} an item and at most "
+            f"{u['max']}; {u['none']} of {n} items were submitted without a query. "
+            f"{u['errors']} queries came back as an error, on {u['items_with_errors']} items. "
+            f"{u['limit']} of {n} items hit the {tasks.MESSAGE_LIMIT}-message limit before "
+            f"submitting and score 0. {u['bare']} of {n} submissions were the number alone, "
+            "without the answer line, which tools mode accepts (decision 0023).",
+        ]
     api = "the Batch API, at half price" if s["batch"] else "the standard API"
     lines += [
         "",
@@ -249,11 +316,17 @@ def render(s: dict) -> str:
         "",
         "- One reply per item, with no seed or temperature set, so a rerun gives other replies;",
         "  the run-to-run spread is not measured.",
-        f"- The prompt leaves out the name and year, yet {s['recognized']} of {n} replies name the "
-        "storm or its season: a model can recognize a famous track.",
+        f"- The prompt leaves out the name and year, yet {s['recognized']} of {n} "
+        f"{'transcripts' if tools else 'replies'} name the storm or its season: a model can "
+        "recognize a famous track.",
         "- North Atlantic storms from 1980 to 2025 only. "
         + (
-            "The rules are in the prompt: this run is the control for the rules-hidden ablation."
+            "Each storm's rows are behind the query tool and each rule is left out of the "
+            "prompt: the rules-hidden run, with the rows in the prompt, is the comparison "
+            "(decision 0023)."
+            if tools
+            else "The rules are in the prompt: this run is the control for the rules-hidden "
+            "ablation."
             if s["rules"]
             else "Each rule is left out of the prompt; the rules-shown run is the control."
         ),
@@ -286,11 +359,79 @@ def render_pair(shown: dict, hidden: dict) -> str:
     )
 
 
+def render_tools(shown: dict, hidden: dict, tools: dict) -> str:
+    """The tools-mode run beside the two prompt runs of one model over the same items (decision
+    0023): the rules and rows in the prompt, the rule left out, and the rule left out with the
+    rows behind the query tool. Rules hidden against tools isolates where the rows are."""
+    if not tools.get("tools"):
+        raise ValueError("the third run is not a tools-mode run")
+    runs = (shown, hidden, tools)
+    if len({r["model"] for r in runs}) > 1:
+        raise ValueError(f"the runs are of different models: {[r['model'] for r in runs]}")
+    if any(len(set(r["ids"])) != len(r["ids"]) for r in runs):
+        raise ValueError("a run repeats an item id")
+    if any(set(r["ids"]) != set(shown["ids"]) for r in runs):
+        raise ValueError("the runs are not over the same items")
+    by = [{q["question"]: q for q in r["questions"]} for r in runs]
+    names = [q["question"] for q in shown["questions"] if all(q["question"] in b for b in by)]
+    lines = [
+        "# ibtracs-storm-v1: the rows in the prompt against a query tool",
+        "",
+        f"Model `{shown['model']}` on the same {shown['n']} items three ways: the rules and the "
+        "rows in the prompt; the rule left out (`-T rules=false`); and the rule left out with "
+        "the rows behind the query tool (`-T tools=true`, decision 0023).",
+        "",
+        "| question | n | rules shown | rules hidden | tools |",
+        "|---|---|---|---|---|",
+    ]
+    for q in names:
+        a, h, t = (b[q]["accuracy"] for b in by)
+        lines.append(f"| {q} | {by[0][q]['n']} | {a:.3f} | {h:.3f} | {t:.3f} |")
+    lines += [
+        f"| all | {shown['n']} | {shown['reward']:.3f} | {hidden['reward']:.3f} | "
+        f"{tools['reward']:.3f} |",
+        "",
+        "Wrong answers that equal a careless reading of the rule, with the rows in the prompt "
+        "and with the tool:",
+        "",
+        "| question | careless reading | rules hidden | tools |",
+        "|---|---|---|---|",
+    ]
+    for q in names:
+        lines += [
+            f"| {q} | {name} | {c} | {by[2][q]['traps'].get(name, 0)} |"
+            for name, c in by[1][q]["traps"].items()
+        ]
+    lines += [
+        "",
+        "## What the tool changes",
+        "",
+        "Both runs leave the rule out, so the one difference is where the rows are. Per question:",
+        "",
+    ]
+    for q in names:
+        h, t = by[1][q]["accuracy"], by[2][q]["accuracy"]
+        verdict = (
+            "about the same (within five points)"
+            if abs(t - h) < 0.05
+            else f"lower by {h - t:.3f}"
+            if t < h
+            else f"higher by {t - h:.3f}"
+        )
+        lines.append(
+            f"- {q}: {h:.3f} with the rows in the prompt, {t:.3f} with the tool: {verdict}."
+        )
+    return "\n".join([*lines, ""])
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Report a model run on ibtracs-storm-v1.")
     parser.add_argument("log_dir")
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--hidden", help="log dir of the rules-hidden run: write the pair")
+    parser.add_argument(
+        "--tools", help="log dir of the tools-mode run: with --hidden, write all three"
+    )
     args = parser.parse_args()
 
     def one(path: str) -> dict:
@@ -301,6 +442,12 @@ def main() -> None:
 
     s = one(args.log_dir)
     args.out.parent.mkdir(parents=True, exist_ok=True)
+    if args.tools:
+        if not args.hidden:
+            raise SystemExit("--tools needs --hidden")
+        args.out.write_text(render_tools(s, one(args.hidden), one(args.tools)), "utf-8")
+        print(f"three-run report written to {args.out}")
+        return
     if args.hidden:
         args.out.write_text(render_pair(s, one(args.hidden)), "utf-8")
         print(f"pair report written to {args.out}")

@@ -164,3 +164,106 @@ def test_a_rules_hidden_log_says_so_in_its_report(tmp_path):
     text = report.render(report.summarize(hidden, ITEMS))
     assert text.startswith("# ibtracs-storm-v1 on model (rules hidden)")
     assert "the rules-shown run is the control" in text and "not run here" not in text
+
+
+def tools_log(tmp_path):
+    """Three tools-mode samples in turn: a query and the number alone (right), a failed query,
+    a query and a wrong answer line, and one that queries until the message limit."""
+    order = [ITEMS[1], ITEMS[2], ITEMS[0]]
+    path = tmp_path / "items.jsonl"
+    path.write_text("".join(json.dumps(i) + "\n" for i in order), encoding="utf-8")
+
+    def call(name, args, content=None):
+        return ModelOutput.for_tool_call("mockllm/model", name, args, content=content)
+
+    def outputs():
+        yield call("query", {"sql": "SELECT max(wind) FROM track WHERE status = 'HU'"})
+        yield call("submit", {"answer": "1"}, content="Hurricane Test peaked at 70 kt.")
+        yield call("query", {"sql": "SELEC 1"})
+        yield call("query", {"sql": "SELECT count(*) FROM track"})
+        yield call("submit", {"answer": "ANSWER: 18"})
+        while True:
+            yield call("query", {"sql": "SELECT 1"})
+
+    model = get_model("mockllm/model", custom_outputs=outputs())
+    task = tasks.ibtracs_storm(path=str(path), tools=True)
+    return eval(task, model=model, log_dir=str(tmp_path), display="none", max_samples=1)[0]
+
+
+def test_a_tools_mode_log_records_how_each_item_used_the_tool(tmp_path):
+    log = tools_log(tmp_path)
+    rows = {r["id"]: r for r in report.rows(log, ITEMS)}
+    peak, hours, ace = (rows[i["id"]] for i in (ITEMS[1], ITEMS[2], ITEMS[0]))
+    assert (peak["reward"], hours["reward"], ace["reward"]) == (1.0, 0.0, 0.0)
+    assert (peak["queries"], peak["query_errors"], peak["limit"], peak["bare"]) == (
+        1,
+        0,
+        None,
+        True,
+    )
+    assert (hours["queries"], hours["query_errors"], hours["limit"], hours["bare"]) == (
+        2,
+        1,
+        None,
+        False,
+    )
+    assert (ace["queries"], ace["limit"], ace["bare"]) == (14, "message", False)
+    # the scored completion is the submission alone, so the storm's name is looked for in
+    # everything the model wrote
+    assert (peak["recognized"], hours["recognized"]) == (True, False)
+
+
+def test_a_tools_mode_report_says_how_the_tool_was_used(tmp_path):
+    s = report.summarize(tools_log(tmp_path), ITEMS)
+    assert (s["tools"], s["rules"]) == (True, False)
+    assert s["tool_use"] == {
+        "queries": 17,
+        "median": 2,
+        "max": 14,
+        "none": 0,
+        "errors": 1,
+        "items_with_errors": 1,
+        "limit": 1,
+        "bare": 1,
+    }
+    text = report.render(s)
+    assert text.startswith("# ibtracs-storm-v1 on model (tools mode)")
+    assert "with each storm's rows behind the query tool" in text
+    assert "## Tool use" in text and "17 queries in all, a median of 2 an item" in text
+    assert "1 of 3 items hit the 30-message limit" in text
+    assert "1 of 3 submissions were the number alone" in text
+    assert "1 of 3 transcripts name the storm or its season" in text
+    assert "rules-hidden run, with the rows in the prompt, is the comparison" in text
+    assert "this run is the control" not in text
+
+
+def test_a_prompt_run_summary_has_no_tool_fields(log):
+    s = report.summarize(log, ITEMS)
+    assert "tools" not in s and "tool_use" not in s  # the published summaries stay as they are
+    assert all("queries" not in r for r in report.rows(log, ITEMS))
+
+
+def test_tools_report_sets_the_tool_run_beside_both_prompt_runs():
+    trap = "elapsed time of each hurricane spell"
+    shown = summary(0.997, {"ace": 0.99, "peak_category": 1.0, "hurricane_hours": 1.0})
+    hidden = summary(
+        0.703,
+        {"ace": 0.99, "peak_category": 0.99, "hurricane_hours": 0.13},
+        traps={"hurricane_hours": {trap: 48}},
+    )
+    tools = summary(
+        0.6,
+        {"ace": 0.9, "peak_category": 0.97, "hurricane_hours": 0.12},
+        traps={"hurricane_hours": {trap: 50}},
+    ) | {"tools": True}
+    text = report.render_tools(shown, hidden, tools)
+    assert text.startswith("# ibtracs-storm-v1: the rows in the prompt against a query tool")
+    assert "| ace | 100 | 0.990 | 0.990 | 0.900 |" in text
+    assert "| all | 300 | 0.997 | 0.703 | 0.600 |" in text
+    assert f"| hurricane_hours | {trap} | 48 | 50 |" in text
+    assert "- ace: 0.990 with the rows in the prompt, 0.900 with the tool: lower by 0.090" in text
+    assert "- peak_category: 0.990 with the rows in the prompt, 0.970 with the tool: about" in text
+    with pytest.raises(ValueError, match="not a tools-mode run"):
+        report.render_tools(shown, hidden, hidden)
+    with pytest.raises(ValueError, match="not over the same items"):
+        report.render_tools(shown, hidden, tools | {"ids": list(range(1, 301))})
