@@ -22,11 +22,12 @@ A held-out split by storm: `StormConfig(split="train")` loads 233 items and `spl
 
 Tools mode, the first tool-using version in this repo (decision 0023): the prompt leaves out the
 rows and the rule, and the model reads the storm's rows with one read-only SQL tool,
-`query(sql)`, over an in-memory SQLite table `track(time, status, wind, pressure)`, then ends
-with the same `ANSWER: <number>` line, paid by the same reward. The tool runs SELECT statements
-only, stops one after 0.5 s and replies with at most 200 rows and about 8,000 characters. No
-model has been run in tools mode yet: it is tested offline only, with Inspect's `mockllm/model`
-and with no model in verifiers.
+`query(sql)`, over an in-memory SQLite table `track(time, status, wind, pressure)`, then
+answers with the same `ANSWER: <number>` line or, in this mode only, the number alone, paid by
+the same reward. The tool runs SELECT statements only, stops one after 0.5 s and replies with at
+most 200 rows and about 8,000 characters. Claude Sonnet 5.5 scores 0.747 in tools mode, against
+0.703 with the rows in the prompt and the rule left out: the same on ACE and peak category, and
+0.250 against 0.130 on hurricane hours (`reports/ibtracs/2026-11-02-rows-in-prompt-vs-tool.md`).
 
     uv run vf-eval ibtracs-storm-v1 --no-push -m <model> --env.taskset.tools true \
       --env.agent.harness.id null --env.agent.runtime.type subprocess --env.agent.max-turns 14

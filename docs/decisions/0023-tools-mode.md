@@ -1,6 +1,7 @@
 # 0023: a tools mode for ibtracs-storm-v1, one read-only SQL tool over the storm's rows
 
-Date: 2026-11-02. Status: proposed, 2026-11-02: built and tested offline; no model has run it.
+Date: 2026-11-02. Status: proposed, 2026-11-02: built, tested and run once on all 300 items
+(`reports/ibtracs/2026-11-02-phase-6-writeup.md`).
 
 Context: every environment so far shows all its data in the prompt and grades one reply. With
 the rules shown, Claude Sonnet 5.5 gets 299 of 300 IBTrACS items right, and with the rules
@@ -65,16 +66,27 @@ authorizer keeps it read-only.
 
 Consequences:
 
-- No model has been run in tools mode yet. The cost per item and how well a model uses the tool
-  are UNKNOWN until a probe (decision 0010).
+- Claude Sonnet 5.5 on all 300 items (Batch API, $1.7107 in `reports/spend.md`) scores 0.747,
+  against 0.703 with the rows in the prompt and the rule left out: 0.990 on ACE and 1.000 on peak
+  category, as before, and 0.250 on hurricane hours against 0.130. On hours, 16 items are right
+  only with the tool and 4 only with the rows in the prompt (exact two-sided McNemar p 0.012). It
+  made 645 queries, a median of 2 an item and at most 6, with no query error and no item at the
+  message limit, and 253 of its 300 submissions were the number alone
+  (`reports/ibtracs/2026-11-02-claude-sonnet-5-5-tools.md`,
+  `reports/ibtracs/2026-11-02-rows-in-prompt-vs-tool.md`).
 - Tested offline, with no model. In Inspect (`mockllm/model`), a scripted query and then the right
   submitted answer scores 1, a wrong one 0, and a model that never submits stops at 30 messages.
   In verifiers, the toolset serves its task's rows through an in-process MCP server, and
   `vf-validate ibtracs-storm-v1 --runtime.type subprocess --taskset.tools true` passes the gold
   check on all 300 items. A scratch smoke test started the server as verifiers does, gave it one
   task over a stand-in `/task` channel and queried it with verifiers' own MCP client: one tool,
-  `query`, answering from that storm's rows. Not run: a verifiers rollout, whose chat loop needs a
-  model endpoint.
+  `query`, answering from that storm's rows.
+- A verifiers rollout ran on 3 items with Qwen3.5-2B over the local llama-server of decision
+  0022 (`vf-eval ... -n 3 -r 1`, 2026-11-02): the tool reached the model as `query`, each
+  rollout's server answered from its own storm's rows, and `PRAGMA table_info(track)` came back
+  as `error: not authorized`. All 3 replies then ran out of tokens while thinking, since
+  `--sampling.chat-template-kwargs` did not turn Qwen's thinking off through vf-eval, so none
+  submitted an answer and the reward after a real verifiers rollout is still checked offline only.
 - A taskset with no harness of its own runs on `bash` (`verifiers/v1/utils/loaders.py:153-161`),
   which offers `bash` and `edit` tools and executes code (`verifiers/v1/harness.py:52`), so on
   `subprocess` the model's commands would run on the host. So every environment package now
