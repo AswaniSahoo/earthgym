@@ -101,7 +101,7 @@ def test_every_ledger_row_has_the_tokens_of_its_committed_results():
             int(c) for c in cells[4:9]
         ], cells[0]
         rows += 1
-    assert rows == 15
+    assert rows == 16
 
 
 def test_the_gemini_era5_probe_projects_the_tokens_decision_0010_gives():

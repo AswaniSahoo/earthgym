@@ -20,6 +20,14 @@ Rows are added with `uv run python -m earthgym.spend "<run>" <log dir>`.
 
 Final for the Definition of done (2026-11-01): 12 runs, $9.1298 of the $20 budget.
 
+On 2026-11-02 the API refused the rest of the Phase 6 tool-loop run: "Your credit balance is too
+low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."
+The ledger stood at $11.0058 before that run, so the account's credit and the real bill do not
+match this ledger; both are UNKNOWN here, and the Console is the authority. The run stopped with
+225 of 300 items scored; its row holds the tokens Inspect logged. One of its batches,
+msgbatch_01BYbeuUzRq3AN6Z65htBYBp with 73 requests, was still processing, and I cancelled it;
+what of it was billed is UNKNOWN.
+
 | run | date (UTC) | log | mode | tokens in | cache write | cache read | tokens out | reasoning | cost USD | total USD |
 |---|---|---|---|---|---|---|---|---|---|---|
 | ERA5 probe, 12 items | 2026-10-31 | logs/2026-11-01-era5-claude-sonnet-5-5-probe | batch | 5382 | 0 | 0 | 4102 | 0 | 0.0259 | 0.0259 |
@@ -37,3 +45,4 @@ Final for the Definition of done (2026-11-01): 12 runs, $9.1298 of the $20 budge
 | Phase 6 tools-mode probe, 6 items | 2026-11-02 | logs/2026-11-02-ibtracs-tools-claude-sonnet-5-5-probe | standard | 40 | 17446 | 8280 | 4167 | 2890 | 0.0862 | 9.2159 |
 | Phase 6 tools mode, 300 items | 2026-11-02 | logs/2026-11-02-ibtracs-tools-claude-sonnet-5-5 | batch | 1882 | 473170 | 658133 | 216898 | 158862 | 1.7107 | 10.9267 |
 | Phase 6 tool-loop probe, 6 items | 2026-11-02 | logs/2026-11-02-ibtracs-tools-loop-claude-sonnet-5-5-probe | standard | 46 | 14774 | 8435 | 4128 | 2000 | 0.0792 | 11.0058 |
+| Phase 6 tool-loop run, stopped at 225 of 300 (no API credit) | 2026-11-02 | logs/2026-11-02-ibtracs-tools-loop-claude-sonnet-5-5 | batch | 1802 | 389144 | 360009 | 153448 | 61295 | 1.2735 | 12.2793 |
