@@ -38,4 +38,6 @@ the decisions (`docs/decisions/`).
 - The Jev third-reader study (decision 0008) is built and tested with its HTTP call mocked, but
   it runs only with a TypeSafe key, which I do not have.
 - The GHCN-Daily station files stay unpublished unless NCEI states that they may be
-  redistributed (decision 0018).
+  redistributed (decision 0018). The bundled heat items carry those stations' values too, so
+  making the repository public publishes derived GHCN-Daily data: I decide that before the flip
+  (`docs/release/dataset-card.md`).
