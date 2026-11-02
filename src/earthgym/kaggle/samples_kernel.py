@@ -75,50 +75,85 @@ ENVS = {  # the shortest replies first, ERA5's long ones last
 }
 
 
-def inspect_command(model: str, env: str, log_dir: str) -> list[str]:
+def inspect_command(
+    model: str, env: str, log_dir: str, sample_ids: list[str] | None = None
+) -> list[str]:
     """The laptop runs' Inspect command (decision 0022) as an eval set, which a second run on
-    the same log directory resumes."""
+    the same log directory resumes; sample_ids limits it to those items."""
     extra = json.dumps({"top_k": 20, "chat_template_kwargs": {"enable_thinking": False}})
+    only = ["--sample-id", ",".join(sample_ids)] if sample_ids else []
     return [
         *("uv", "run", "--with", "openai==3.42.1", "inspect", "eval-set", *ENVS[env]),
         *("--model", f"openai-api/llamacpp/{model}", "--epochs", "8"),
         *("--max-connections", str(SLOTS), "--temperature", "0.7", "--top-p", "0.8"),
         *("--extra-body", extra, "--max-tokens", "4096", "--retry-on-error", "3"),
         *("--fail-on-error", "0.05", "--retry-attempts", "3"),
+        *only,
         *("--log-dir", log_dir, "--display", "none"),
     ]
 
 
-def server_command(gguf: str, port: int) -> list[str]:
-    """llama-server as on the laptop, with twice the slots and the cache for the T4's 16 GB."""
+def server_command(gguf: str, port: int, per_slot: int = 4096) -> list[str]:
+    """llama-server as on the laptop, with twice the slots and per_slot cache tokens each."""
     return [
         *("llama-server", "-m", gguf, "-dev", "CUDA0", "-ngl", "all"),
-        *("-c", str(SLOTS * 4096), "-np", str(SLOTS), "-kvu", "--cache-ram", "1024"),
+        *("-c", str(SLOTS * per_slot), "-np", str(SLOTS), "-kvu", "--cache-ram", "1024"),
         *("--host", "127.0.0.1", "--port", str(port)),
     ]
 
 
-def config(commit: str) -> dict:
-    workers = []
-    for gpu, model in enumerate(MODELS):  # one model a GPU, each with its own server
-        port = 8080 + gpu
-        commands = {
-            env: inspect_command(
-                model.name, env, f"/kaggle/working/logs/{DATE}-{env}-{model.name}-8"
+def log_dir(env: str, model: str, part: str = "") -> str:
+    return f"/kaggle/working/logs/{DATE}-{env}-{model}-8" + (f"-{part}" if part else "")
+
+
+def worker(gpu: int, model: Model, commands: dict, per_slot: int) -> dict:
+    port = 8080 + gpu
+    return (
+        {"model": model.name, "gpu": gpu, "port": port, "commands": commands}
+        | {"gguf": dataclasses.asdict(model) | {"url": model.url}}
+        | {"server": server_command("{gguf}", port, per_slot)}
+    )
+
+
+def plan(name: str) -> list[dict]:
+    """The workers of a session. "first": one model a GPU, every environment. "qwen-rest", for
+    what the first session left: Qwen3.5-2B on both GPUs, its heat resumed and then the last 188
+    ERA5 items on one, the first 460 on the other, so that both end at about the same time, with
+    10,240 cache tokens a slot, since the first session's server ran out of KV space (decision
+    0025)."""
+    if name == "first":
+        return [
+            worker(
+                gpu,
+                m,
+                {env: inspect_command(m.name, env, log_dir(env, m.name)) for env in ENVS},
+                4096,
             )
-            for env in ENVS
-        }
-        workers.append(
-            {"model": model.name, "gpu": gpu, "port": port, "commands": commands}
-            | {"gguf": dataclasses.asdict(model) | {"url": model.url}}
-            | {"server": server_command("{gguf}", port)}
-        )
+            for gpu, m in enumerate(MODELS)
+        ]
+    if name != "qwen-rest":
+        raise ValueError(f"no plan {name!r}")
+    from era5_forecast_v1.taskset import records
+
+    qwen, ids = MODELS[0], [r["id"] for r in records()]
+    era5 = {
+        part: inspect_command(qwen.name, "era5", log_dir("era5", qwen.name, part), chunk)
+        for part, chunk in (("a", ids[:460]), ("b", ids[460:]))
+    }
+    heat = inspect_command(qwen.name, "heat", log_dir("heat", qwen.name))
+    return [
+        worker(0, qwen, {"heat": heat, "era5-b": era5["b"]}, 10240),
+        worker(1, qwen, {"era5-a": era5["a"]}, 10240),
+    ]
+
+
+def config(commit: str, name: str = "first") -> dict:
     return {
         "commit": commit,
         "date": DATE,
         "uv": UV,
         "llama": LLAMA,
-        "workers": workers,
+        "workers": plan(name),
         "deadline_hours": 11.0,  # a Kaggle session stops at 12 hours
     }
 
@@ -142,11 +177,13 @@ def metadata(user: str, resume: bool) -> dict:
     }
 
 
-def write(folder: Path, user: str, commit: str, resume: bool) -> None:
+def write(folder: Path, user: str, commit: str, resume: bool, name: str = "first") -> None:
     text = TEMPLATE.read_text("utf-8")
     if text.count(f"\n{PLACEHOLDER}\n") != 1:
         raise ValueError(f"the template must hold the line {PLACEHOLDER!r} once")
-    text = text.replace(f"\n{PLACEHOLDER}\n", f"\nCONFIG_JSON = {json.dumps(config(commit))!r}\n")
+    text = text.replace(
+        f"\n{PLACEHOLDER}\n", f"\nCONFIG_JSON = {json.dumps(config(commit, name))!r}\n"
+    )
     folder.mkdir(parents=True, exist_ok=True)
     (folder / "run.py").write_text(text, "utf-8")
     meta = json.dumps(metadata(user, resume), indent=1) + "\n"
@@ -176,13 +213,14 @@ def main() -> None:
     parser.add_argument("--user", required=True)
     parser.add_argument("--commit")
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--plan", default="first", help="the session's workers: first, qwen-rest")
     args = parser.parse_args()
     if args.what == "source":
         print(f"bundle of {source(args.folder, args.user)} written to {args.folder}")
         return
     if not args.commit:
         raise SystemExit("kernel needs --commit, the one in the source dataset")
-    write(args.folder, args.user, args.commit, args.resume)
+    write(args.folder, args.user, args.commit, args.resume, args.plan)
     print(f"kernel written to {args.folder}")
 
 

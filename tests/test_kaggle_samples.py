@@ -108,3 +108,24 @@ def test_the_source_dataset_is_a_bundle_of_the_commit_and_private_by_default(tmp
         check=True,
     ).stdout
     assert commit in heads and (tmp_path / "COMMIT").read_text().strip() == commit
+
+
+def test_the_second_session_resumes_qwens_heat_and_splits_era5_over_both_gpus():
+    from era5_forecast_v1.taskset import records
+
+    first, rest = k.config("abc", "first"), k.config("abc", "qwen-rest")
+    assert [w["model"] for w in rest["workers"]] == ["qwen3.5-2b-q8_0"] * 2
+    assert [w["gpu"] for w in rest["workers"]] == [0, 1]
+    gpu0, gpu1 = rest["workers"]
+    assert list(gpu0["commands"]) == ["heat", "era5-b"] and list(gpu1["commands"]) == ["era5-a"]
+    # the same command on the same log directory, so the eval set picks up where it stopped
+    assert gpu0["commands"]["heat"] == first["workers"][0]["commands"]["heat"]
+    ids = {}
+    for name, cmd in [("a", gpu1["commands"]["era5-a"]), ("b", gpu0["commands"]["era5-b"])]:
+        ids[name] = cmd[cmd.index("--sample-id") + 1].split(",")
+        assert cmd[cmd.index("--log-dir") + 1].endswith(f"-era5-qwen3.5-2b-q8_0-8-{name}")
+    every = [r["id"] for r in records()]
+    assert ids["a"] + ids["b"] == every and len(ids["a"]) == 460
+    for w in rest["workers"]:  # room for 32 sequences of the longest session 1 saw, 8,810 tokens
+        assert w["server"][w["server"].index("-c") + 1] == str(32 * 10240)
+    assert first["workers"][0]["server"][first["workers"][0]["server"].index("-c") + 1] == "131072"
