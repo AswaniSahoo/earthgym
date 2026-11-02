@@ -139,13 +139,13 @@ def eval_tools_mode(tmp_path, outputs):
 @pytest.mark.parametrize(  # a bare number is what the probe's model submitted (decision 0023)
     ("answer", "expected"), [("ANSWER: 6", 1.0), ("ANSWER: 12", 0.0), ("6", 1.0), ("12", 0.0)]
 )
-def test_inspect_tools_mode_scores_the_answer_submitted_after_a_query(tmp_path, answer, expected):
+def test_inspect_tools_mode_scores_the_final_reply_after_a_query(tmp_path, answer, expected):
     hours = "SELECT 6 * count(*) FROM track WHERE status = 'HU' AND substr(time, 7, 2) % 6 = 0"
     log = eval_tools_mode(
         tmp_path,
         [
             ModelOutput.for_tool_call("mockllm/model", "query", {"sql": hours}),
-            ModelOutput.for_tool_call("mockllm/model", "submit", {"answer": answer}),
+            ModelOutput.from_content("mockllm/model", answer),
         ],
     )
     assert log.results.scores[0].metrics["mean"].value == pytest.approx(expected)
@@ -155,14 +155,31 @@ def test_inspect_tools_mode_scores_the_answer_submitted_after_a_query(tmp_path, 
     assert reply.text == "6 * count(*)\n6"  # read from this sample's rows in the store
 
 
-def test_inspect_tools_mode_stops_a_model_that_never_submits(tmp_path):
+def test_inspect_tools_mode_sends_the_prompt_and_one_tool_as_verifiers_does(tmp_path):
+    # no agent system prompt and no submit tool (review of phase 6, M1): the user prompt, the
+    # query tool, and the final reply scored, as verifiers' null harness sends it
+    log = eval_tools_mode(
+        tmp_path,
+        [
+            ModelOutput.for_tool_call("mockllm/model", "query", {"sql": "SELECT 1"}),
+            ModelOutput.from_content("mockllm/model", "ANSWER: 6"),
+        ],
+    )
+    sample = log.samples[0]
+    assert [m.role for m in sample.messages] == ["user", "assistant", "tool", "assistant"]
+    offered = [e.tools for e in sample.events if e.event == "model"]
+    assert [[t.name for t in tools] for tools in offered] == [["query"], ["query"]]
+
+
+def test_inspect_tools_mode_stops_a_model_at_the_turn_limit_of_verifiers(tmp_path):
     def queries():
         while True:
             yield ModelOutput.for_tool_call("mockllm/model", "query", {"sql": "SELECT 1"})
 
     log = eval_tools_mode(tmp_path, queries())
     sample = log.samples[0]
-    assert sample.limit.type == "message" and len(sample.messages) <= tasks.MESSAGE_LIMIT
+    assert sample.limit.type == "turn"
+    assert sum(m.role == "assistant" for m in sample.messages) == tasks.TURN_LIMIT == 14
     assert log.results.scores[0].metrics["mean"].value == 0.0
 
 

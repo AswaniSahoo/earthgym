@@ -12,15 +12,14 @@ from pathlib import Path
 from ibtracs_storm_v1 import contract
 from ibtracs_storm_v1.taskset import records
 from inspect_ai import Task, task
-from inspect_ai.agent import AgentSubmit, react
 from inspect_ai.dataset import MemoryDataset, Sample
 from inspect_ai.scorer import Score, Target, mean, scorer, stderr
-from inspect_ai.solver import Generate, Solver, TaskState, generate, solver
+from inspect_ai.solver import Generate, Solver, TaskState, generate, solver, use_tools
 from inspect_ai.tool import Tool, tool
 from inspect_ai.util import store
 
 HIDDEN = ("question", "key", "sid", "season", "name")
-MESSAGE_LIMIT = 30  # tools mode: the prompts, 13 queries and the submit, each call 2 messages
+TURN_LIMIT = 14  # tools mode: 13 turns of queries and the final reply, verifiers' max-turns 14
 
 
 def samples(path: str | None, rules: bool = True, tools: bool = False) -> MemoryDataset:
@@ -97,15 +96,16 @@ def storm_scorer(tools: bool = False):
 def ibtracs_storm(path: str | None = None, rules: bool = True, tools: bool = False) -> Task:
     """rules=False (`-T rules=false`) leaves the rule out of every prompt: the ablation.
     tools=True (`-T tools=true`) leaves the rows and the rule out, whatever `rules` says: the
-    model reads the rows with the query tool and submits its answer (decision 0023)."""
+    model reads the rows with the query tool, and its final reply is scored, with no system
+    prompt and no submit tool, as verifiers' null harness runs it (decision 0023)."""
     if not tools:
         return Task(dataset=samples(path, rules), solver=generate(), scorer=storm_scorer())
     return Task(
         dataset=samples(path, tools=True),
         setup=rows_to_store(),
-        solver=react(tools=[query()], submit=AgentSubmit(answer_only=True), attempts=1),
+        solver=[use_tools([query()]), generate()],  # generate runs the tool calls in a loop
         scorer=storm_scorer(tools=True),
-        message_limit=MESSAGE_LIMIT,
+        turn_limit=TURN_LIMIT,
     )
 
 
