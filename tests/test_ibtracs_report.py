@@ -214,6 +214,7 @@ def test_a_tools_mode_log_records_how_each_item_used_the_tool(tmp_path):
         False,
     )
     assert (ace["queries"], ace["limit"], ace["bare"]) == (14, "turn", False)
+    assert (peak["tool_turns"], hours["tool_turns"], ace["tool_turns"]) == (1, 2, 14)
     # the storm's name is looked for in everything the model wrote, not in the final reply only
     assert (peak["recognized"], hours["recognized"]) == (True, False)
 
@@ -226,6 +227,7 @@ def test_a_tools_mode_report_says_how_the_tool_was_used(tmp_path):
         "median": 2,
         "max": 14,
         "none": 0,
+        "multi_turn": 2,
         "errors": 1,
         "items_with_errors": 1,
         "limit": 1,
@@ -236,6 +238,7 @@ def test_a_tools_mode_report_says_how_the_tool_was_used(tmp_path):
     assert text.startswith("# ibtracs-storm-v1 on model (tools mode)")
     assert "with each storm's rows behind the query tool" in text
     assert "## Tool use" in text and "17 queries in all, a median of 2 an item" in text
+    assert "2 of 3 items queried in more than one turn" in text
     # an item stopped by the limit is scored on its last reply, which may be right (M2)
     assert "1 of 3 items stopped at a limit before a final reply" in text
     assert "scored on their last reply (1 right)" in text

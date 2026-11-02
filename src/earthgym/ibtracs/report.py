@@ -102,9 +102,15 @@ def tool_use(sample) -> dict:
         if c.function == "query"
     ]
     replies = [m for m in sample.messages if m.role == "tool" and m.function == "query"]
+    turns = [
+        m
+        for m in sample.messages
+        if m.role == "assistant" and any(c.function == "query" for c in m.tool_calls or [])
+    ]
     done = sample.output.completion
     return {
         "queries": len(calls),
+        "tool_turns": len(turns),
         "query_errors": sum(m.error is not None or m.text.startswith("error:") for m in replies),
         "limit": sample.limit.type if sample.limit else None,
         "bare": contract.answer(done) is None and contract.final_answer(done) is not None,
@@ -224,6 +230,11 @@ def from_results(head: dict, rows: list[dict], items: list[dict]) -> dict:
             "median": statistics.median(queries),
             "max": max(queries),
             "none": queries.count(0),
+            **(
+                {"multi_turn": sum(r["tool_turns"] > 1 for r in rows)}
+                if all("tool_turns" in r for r in rows)
+                else {}
+            ),
             "errors": sum(r["query_errors"] for r in rows),
             "items_with_errors": sum(r["query_errors"] > 0 for r in rows),
             "limit": sum(r["limit"] is not None for r in rows),
@@ -290,7 +301,12 @@ def render(s: dict) -> str:
             "",
             f"{u['queries']} queries in all, a median of {u['median']:g} an item and at most "
             f"{u['max']}; {u['none']} of {n} items answered without a query. "
-            f"{u['errors']} queries came back as an error, on {u['items_with_errors']} items. "
+            + (
+                f"{u['multi_turn']} of {n} items queried in more than one turn. "
+                if "multi_turn" in u
+                else ""
+            )
+            + f"{u['errors']} queries came back as an error, on {u['items_with_errors']} items. "
             f"{u['limit']} of {n} items stopped at a limit before a final reply; they are scored "
             f"on their last reply ({u['limit_paid']} right). {u['bare']} of {n} final replies "
             "were the number alone, without the answer line, which tools mode accepts (decision "
