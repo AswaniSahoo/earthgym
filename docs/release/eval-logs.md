@@ -13,16 +13,18 @@ numbers (decision 0019), and the logs add the full replies.
 | `logs/2026-11-01-era5-claude-sonnet-5-5` | 2.7 MB | ERA5, the 720 drawn items |
 | `logs/2026-11-01-ibtracs-claude-sonnet-5-5` and `-hidden-` | 1.5 and 1.8 MB | IBTrACS, rules shown and hidden |
 | `logs/2026-11-01-heat-claude-sonnet-5-5` and `-heat-terms-` | 1.8 and 1.9 MB | heat, rules shown and terms only |
-| the seven probe logs | 0.4 MB in all | the probes in `reports/spend.md` |
+| `logs/2026-11-02-ibtracs-tools-claude-sonnet-5-5` | 2.8 MB | IBTrACS tools mode (decision 0023) |
+| the eight probe logs | 0.5 MB in all | the probes in `reports/spend.md` |
 
-About 14 MB for the Sonnet and Gemini runs (`du`, 2026-11-02). The small-model logs of
+About 17 MB for the Sonnet and Gemini runs (`du`, 2026-11-02). The small-model logs of
 decision 0022 come on top; their size goes here once the runs end.
 
 ## Before uploading
 
 - The two Gemini logs carry Python tracebacks from retried calls with local paths
   (`/home/aswani/.local/share/uv/python/...` 28 and 60 times, `/data/rlenv` 244 and 520 times);
-  the Sonnet logs carry neither (checked 2026-11-02 on the ClimaQA, heat and ERA5 logs). Decide
+  the Sonnet logs carry neither (checked 2026-11-02 on the ClimaQA, heat, ERA5 and IBTrACS
+  tools-mode logs). Decide
   whether to upload them as they are or rewrite those paths, and say so in the release notes.
   No key or token appears in any log checked.
 - List each file with its sha256 in the release notes, as for `data-v1`.
