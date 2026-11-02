@@ -107,9 +107,13 @@ def render(
     for head, rows in runs:
         settings = ", ".join(f"{a} {b}" for a, b in head.get("settings", {}).items()) or "none"
         out = sum(r["tokens"][3] for r in rows if "tokens" in r)
+        cap = head.get("settings", {}).get("max_tokens")
+        capped = sum(r["tokens"][3] >= cap for r in rows if cap and "tokens" in r)
+        cut = f" {capped} of {len(rows)} replies stopped at the {cap}-token cap;" if cap else ""
         lines.append(
             f"- {head['model']}: {settings}; {len(rows)} samples, {out} output tokens, from "
-            f"{head.get('started')} to {head.get('completed')} (UTC)."
+            f"{head.get('started')} to {head.get('completed')} (UTC).{cut} "
+            f"{sum(not r.get('answer') for r in rows)} had no parseable answer and score 0."
         )
     return "\n".join([*lines, ""])
 

@@ -94,3 +94,13 @@ def test_the_report_says_what_each_run_cost_in_tokens_and_time():
     text = samples.render("ibtracs", [a], date="2026-11-02")
     assert "- m/one: temperature 0.7; 8 samples, 320 output tokens, from" in text
     assert "2026-11-02T00:15:48+00:00 to 2026-11-02T00:45:10+00:00" in text
+
+
+def test_the_report_counts_replies_cut_at_the_token_cap_and_replies_without_an_answer():
+    head, rs = run("m/one", {"ace/1": [0.0, 1.0] + [1.0] * 6})
+    head["settings"] = {"temperature": 0.7, "max_tokens": 4096}
+    rs[0] |= {"tokens": [100, 0, 0, 4096, 0], "answer": ""}  # cut off before its answer line
+    text = samples.render("ibtracs", [(head, rs)], date="2026-11-02")
+    assert "1 of 8 replies stopped at the 4096-token cap; 1 had no parseable answer" in text
+    uncapped = samples.render("ibtracs", [run("m/one", {"ace/1": [1.0] * 8})], date="2026-11-02")
+    assert "token cap" not in uncapped and "0 had no parseable answer" in uncapped
