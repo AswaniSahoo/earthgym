@@ -54,9 +54,9 @@ Consequences:
   end. pip resolved trl 1.15.0 from the unsloth pin, not the radar's 1.17.1; the run pins every
   version the smoke got (`PINS` in `earthgym/grpo/kernel.py`) but torch 2.11.0+cu128 and triton
   3.6.0, which are recorded; whether those came with Kaggle's image or with the install is
-  UNKNOWN (pip ran quietly). Unsloth trained in float32, since the T4 has no bf16: its log says "Using
-  float16 precision for qwen3_5 won't work! Using float32." Its GRPO default is TRL's
-  `loss_type` dapo with beta 0, so there is no KL term. Peak memory was 5.36 GiB; the first
+  UNKNOWN (pip ran quietly). Unsloth trained in float32, since the T4 has no bf16: its log
+  says "Using float16 precision for qwen3_5 won't work! Using float32." Its GRPO default is
+  TRL's `loss_type` dapo with beta 0, so there is no KL term. Peak memory was 5.36 GiB; the first
   step took 328 s and the median one after it 43.3 s; 5 of the 10 steps had the same reward on
   all 8 completions and so no signal; sampling took about 25 to 60 s an item for 2 samples.
 - So the run samples only the test split before and after, and takes the train reward from
