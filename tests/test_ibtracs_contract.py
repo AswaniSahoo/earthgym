@@ -154,3 +154,12 @@ def test_query_cuts_long_replies_with_a_note():
     wide = contract.query(db, "SELECT printf('%.100c', 'x') AS bar FROM track").splitlines()
     assert wide[-1] == "(cut at 8000 characters)" and len("\n".join(wide[:-1])) <= 8000
     assert set(wide[1:-1]) == {"x" * 100}  # whole lines only
+
+
+def test_a_tools_mode_answer_may_also_be_the_number_alone():
+    # an agent's final reply or submission is often just the number (decision 0023, the probe)
+    assert contract.final_answer("9") == 9.0 and contract.final_answer("**42**") == 42.0
+    assert contract.final_answer("ANSWER: 9") == 9.0
+    assert contract.final_answer("Reasoning.\nANSWER: 61.3") == 61.3
+    assert contract.final_answer("I think 9") is None and contract.final_answer("1e999") is None
+    assert contract.answer("9") is None  # outside tools mode the answer line stays required

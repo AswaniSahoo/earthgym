@@ -136,7 +136,9 @@ def eval_tools_mode(tmp_path, outputs):
     return eval(task, model=model, log_dir=str(tmp_path), display="none")[0]
 
 
-@pytest.mark.parametrize(("answer", "expected"), [("ANSWER: 6", 1.0), ("ANSWER: 12", 0.0)])
+@pytest.mark.parametrize(  # a bare number is what the probe's model submitted (decision 0023)
+    ("answer", "expected"), [("ANSWER: 6", 1.0), ("ANSWER: 12", 0.0), ("6", 1.0), ("12", 0.0)]
+)
 def test_inspect_tools_mode_scores_the_answer_submitted_after_a_query(tmp_path, answer, expected):
     hours = "SELECT 6 * count(*) FROM track WHERE status = 'HU' AND substr(time, 7, 2) % 6 = 0"
     log = eval_tools_mode(
@@ -162,3 +164,11 @@ def test_inspect_tools_mode_stops_a_model_that_never_submits(tmp_path):
     sample = log.samples[0]
     assert sample.limit.type == "message" and len(sample.messages) <= tasks.MESSAGE_LIMIT
     assert log.results.scores[0].metrics["mean"].value == 0.0
+
+
+def test_taskset_tools_mode_pays_a_final_reply_that_is_the_number_alone():
+    tools = ts.StormTaskset(ts.StormConfig(tools=True)).load()[0]
+    plain = ts.StormTaskset(ts.StormConfig()).load()[0]
+    gold = contract.gold(tools.data.question, tools.data.key).removeprefix("ANSWER: ")
+    assert asyncio.run(tools.exact(SimpleNamespace(last_reply=gold))) == 1.0
+    assert asyncio.run(plain.exact(SimpleNamespace(last_reply=gold))) == 0.0

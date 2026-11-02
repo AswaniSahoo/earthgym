@@ -165,6 +165,17 @@ def answer(reply: str) -> float | None:
     return value if value is not None and math.isfinite(value) else None
 
 
+def final_answer(reply: str) -> float | None:
+    """A tools-mode answer: the answer line, as everywhere else, or a reply that is the number
+    alone, the way an agent's final reply or submission often comes (decision 0023)."""
+    value = answer(reply)
+    if value is not None or len([x for x in reply.splitlines() if x.strip()]) != 1:
+        return value
+    found = re.fullmatch(rf"[ \t]*({NUMBER})[ \t]*\.?[ \t]*", last_line(reply))
+    value = float(found.group(1)) if found else None
+    return value if value is not None and math.isfinite(value) else None
+
+
 def _tenths(value: float) -> int | None:
     """value times 10 as an integer, when value has at most one decimal; else None."""
     tenths = round(value * 10)

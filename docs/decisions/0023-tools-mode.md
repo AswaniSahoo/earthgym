@@ -86,9 +86,13 @@ Consequences:
   (`verifiers/v1/trace.py:617-618`). The command is in the environment's README; a dry run
   resolves it.
 - In Inspect, react's own system prompt asks the model to report its answer with `submit()`
-  (`inspect_ai/agent/_types.py:20-22`), and the submitted string must end with the answer line:
-  a model that submits a bare number scores 0, as a reply without the line does in the other
-  modes.
+  (`inspect_ai/agent/_types.py:20-22`). A 6-item probe of the hours question (Claude Sonnet 5.5,
+  standard API, 2026-11-02, $0.0862 in `reports/spend.md`) showed what that does: every reply
+  made two queries and then submitted the number alone ("9", "129", "75"), which the answer-line
+  rule scores 0. So tools mode, and only tools mode, also accepts a final reply or submission
+  that is the number alone (`contract.final_answer`, in both harnesses). Re-scored that way all
+  6 answers parse, and all 6 are short of the key by 3 or 6 hours: the convention gap of the
+  rules-hidden run (decision 0011), which the tool does not close.
 - Each tools-mode task carries its rows in its data, a median of 2,870 bytes and 7,660 at most,
   so they are in verifiers' `traces.jsonl` and in Inspect's sample metadata and store.
 - The table has no year, so a storm that ran into a new year would sort wrong by time. None of

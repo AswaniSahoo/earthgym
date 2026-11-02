@@ -78,10 +78,13 @@ def probe_ids(rows: list[dict] | None = None, n: int = 2) -> list[str]:
 
 
 @scorer(metrics=[mean(), stderr()])
-def storm_scorer():
+def storm_scorer(tools: bool = False):
+    """The contract's reward; in tools mode a final answer may also be the number alone."""
+    parse = contract.final_answer if tools else contract.answer
+
     async def score(state: TaskState, target: Target) -> Score:
         m = state.metadata
-        value = contract.answer(state.output.completion)
+        value = parse(state.output.completion)
         return Score(
             value=contract.reward(m["question"], value, m["key"]),
             answer="" if value is None else str(value),
@@ -101,7 +104,7 @@ def ibtracs_storm(path: str | None = None, rules: bool = True, tools: bool = Fal
         dataset=samples(path, tools=True),
         setup=rows_to_store(),
         solver=react(tools=[query()], submit=AgentSubmit(answer_only=True), attempts=1),
-        scorer=storm_scorer(),
+        scorer=storm_scorer(tools=True),
         message_limit=MESSAGE_LIMIT,
     )
 

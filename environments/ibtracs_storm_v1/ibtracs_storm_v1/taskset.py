@@ -52,7 +52,8 @@ class StormTask(vf.Task[StormData, vf.State, StormTaskConfig]):
     @vf.reward(weight=1.0)
     async def exact(self, trace: vf.Trace) -> float:
         d = self.data
-        return contract.reward(d.question, contract.answer(trace.last_reply), d.key)
+        parse = contract.final_answer if self.config.tools else contract.answer
+        return contract.reward(d.question, parse(trace.last_reply), d.key)
 
     async def validate(self, runtime) -> bool:
         """The gold check: the reference reply, through this task's own reward, scores 1.0
