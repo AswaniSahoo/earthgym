@@ -20,7 +20,10 @@ Decision:
   with horizontal space only: the label and the answer share one line and nothing follows them.
   A number must be finite. `tests/test_answer_lines.py` runs the same cases through every
   contract: text after the answer, Markdown, an answer split over two lines, and `1e999`.
-  Cloze answers have no answer line; the whole reply is the answer.
+  Cloze answers have no answer line; the whole reply is the answer. A known limit: since every
+  `*` is removed, `ANSWER: 2*3` reads as 23. No reply in any run's log under `logs/` has an
+  asterisk inside the number of its answer line (checked 2026-11-02, the Phase 6 review); tools
+  mode's bare number keeps its inner asterisks (decision 0023).
 - ACE pays only a one-decimal answer equal to the exact value (kept to four decimals) rounded to
   one decimal, or either neighbour when the exact value is a tie: 5 at the second decimal and 0
   after it (`_roundings` in `ibtracs_storm_v1/contract.py`, integer arithmetic on the key times

@@ -2,7 +2,7 @@
 
 Newest first. One entry per working session: what changed, what I learned, what is next.
 
-## 2026-11-02, batch 2: the gold check, small models, hand checks and a tools mode
+## 2026-11-02, later: the gold check, small models, hand checks and a tools mode
 
 - Gold check (decision 0021): every taskset's `validate` scores its own reference reply, and CI
   runs `vf-validate` on all four. On 72 of the 720 drawn ERA5 items even a perfect forecast

@@ -23,7 +23,9 @@ Final for the Definition of done (2026-11-01): 12 runs, $9.1298 of the $20 budge
 On 2026-11-02 the API refused the rest of the Phase 6 tool-loop run: "Your credit balance is too
 low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."
 The ledger stood at $11.0058 before that run, so the account's credit and the real bill do not
-match this ledger; both are UNKNOWN here, and the Console is the authority. The run stopped with
+match this ledger; both are UNKNOWN here, and the Console is the authority. The message is in
+the run's console output (`logs/2026-11-02-ibtracs-tools-loop-run.out`, not in git); in its log
+the unfinished samples carry `CancelledError`. The run stopped with
 225 of 300 items scored; its row holds the tokens Inspect logged. One of its batches,
 msgbatch_01BYbeuUzRq3AN6Z65htBYBp with 73 requests, was still processing, and I cancelled it;
 what of it was billed is UNKNOWN.

@@ -85,11 +85,15 @@ Consequences:
   `reports/ibtracs/2026-11-02-rows-in-prompt-vs-tool-react.md`). Those numbers hold under
   react's prompt, which the prompt runs did not have, so the hours gain is not the tool's alone.
 - The tool loop's run (Batch API, from 02:50 UTC) stopped at 225 of 300 items: the API refused
-  further batches with "Your credit balance is too low to access the Anthropic API." Its tokens,
-  $1.2735, are in `reports/spend.md` and its 299 logged samples in
-  `reports/ibtracs/results/2026-11-02-claude-sonnet-5-5-tools-loop-partial.jsonl`. It finishes
-  with `inspect eval-retry` on its log once there is credit; no number of it is reported before
-  then.
+  further batches with "Your credit balance is too low to access the Anthropic API." That text
+  is in the run's console output (`logs/2026-11-02-ibtracs-tools-loop-run.out`, not in git); in
+  the log the 74 unfinished samples carry `CancelledError`. Its tokens, $1.2735, are in
+  `reports/spend.md` and its 299 logged samples in
+  `reports/ibtracs/results/2026-11-02-claude-sonnet-5-5-tools-loop-partial.jsonl`. That file is
+  skewed: its 225 scored samples are all the ones that took a single tool turn, 100 of peak
+  category, 92 of hours and 33 of ACE, so its numbers stand for no question set. The run
+  finishes with `inspect eval-retry` on its log once there is credit; no number of it is
+  reported before then.
 - Tested with no model. In Inspect (`mockllm/model`), a scripted query and then the right final
   reply scores 1, a wrong one 0, the conversation holds no system prompt and offers the one tool,
   and a model that never stops querying stops at 14 turns. In verifiers, the toolset serves its
@@ -108,6 +112,9 @@ Consequences:
   `PRAGMA table_info(track)` came back as `error: not authorized`. All 3 replies then ran out of
   tokens while thinking, since `--sampling.chat-template-kwargs` did not turn Qwen's thinking off
   through vf-eval, so none reached an answer; the scripted rollout above checks the reward path.
+  That rollout was a smoke test and its traces stay under `outputs/`, out of git. Its three rows:
+  ace/2000255N31289 made no query and wrote 4,096 tokens; ace/1988221N30270 made 3 queries and
+  wrote 5,421; ace/1998232N15312 made 7 and wrote 6,058; each scored 0.
 - A taskset with no harness of its own runs on `bash` (`verifiers/v1/utils/loaders.py:153-161`),
   which offers `bash` and `edit` tools and executes code (`verifiers/v1/harness.py:52`), so on
   `subprocess` the model's commands would run on the host. So every environment package now
