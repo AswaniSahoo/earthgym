@@ -1,6 +1,7 @@
+from pathlib import Path
 from types import SimpleNamespace
 
-from inspect_ai.model import ModelUsage
+from inspect_ai.model import ModelOutput, ModelUsage
 from inspect_ai.scorer import CORRECT, INCORRECT, Score
 
 from earthgym import results
@@ -48,3 +49,29 @@ def test_rows_of_a_multi_sample_run_carry_their_epoch():
     ]
     one = SimpleNamespace(eval=SimpleNamespace(config=SimpleNamespace(epochs=None)), samples=[])
     assert results.with_epochs(one, [{"id": "a"}]) == [{"id": "a"}]
+
+
+def test_a_run_that_stopped_early_is_written_only_when_asked_with_its_status(tmp_path, monkeypatch):
+    from inspect_ai import eval
+    from inspect_ai.log import write_eval_log
+    from inspect_ai.model import get_model
+
+    from earthgym.ibtracs import tasks
+
+    model = get_model("mockllm/model", custom_outputs=[ModelOutput.from_content("m", "ANSWER: 1")])
+    log = eval(tasks.ibtracs_storm(), model=model, limit=1, log_dir=str(tmp_path), display="none")[
+        0
+    ]
+    log.status = "cancelled"  # as when the API refused the rest of a run
+    logs = tmp_path / "logs"
+    logs.mkdir()
+    write_eval_log(log, str(logs / Path(log.location).name))
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr("sys.argv", ["results", "ibtracs", str(logs), "stopped"])
+    results.main()
+    out = Path("reports/ibtracs/results/stopped.jsonl")
+    assert not out.exists()
+    monkeypatch.setattr("sys.argv", ["results", "ibtracs", str(logs), "stopped", "--partial"])
+    results.main()
+    head, rows = results.read(out)
+    assert head["status"] == "cancelled" and len(rows) == 1

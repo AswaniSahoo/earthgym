@@ -101,14 +101,21 @@ def main() -> None:
     parser.add_argument("env", choices=sorted(ITEMS))
     parser.add_argument("log_dir")
     parser.add_argument("name", help="the report's file name without .md")
+    parser.add_argument(
+        "--partial",
+        action="store_true",
+        help="also write a run that stopped early, with its status in the header",
+    )
     args = parser.parse_args()
     report = importlib.import_module(f"earthgym.{args.env}.report")
     out = Path("reports") / args.env / "results"
     for info in list_eval_logs(args.log_dir):
         log = read_eval_log(info)
-        if log.status != "success":
+        if log.status != "success" and not args.partial:
             continue
         head = header(log, items_sha256(args.env)) | {"log_dir": args.log_dir}
+        if log.status != "success":
+            head["status"] = log.status
         head |= {"epochs": log.eval.config.epochs or 1}
         rows = with_epochs(log, report.rows(log))
         kind = f"-{head['task'].split('_')[-1]}" if args.env == "climaqa" else ""
