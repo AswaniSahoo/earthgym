@@ -79,6 +79,10 @@ budget, not an enforced cap. Probes projected each run's cost before it started,
 ledger is checked after each run; nothing stops a run that would pass $20 when it starts.
 `earthgym.spend` refuses logs from models it has no price for.
 
+Local open models (2026-11-02, decision 0022): they run at no API cost on my own GPU, so the
+rule of one model now covers paid runs only. Sonnet 5.5 stays the only paid model, and Vertex AI
+and Gemini stay off.
+
 Consequences:
 
 - Thinking is adaptive, so tokens per item vary from item to item and from run to run; the
