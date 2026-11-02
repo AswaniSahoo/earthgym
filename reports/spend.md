@@ -35,3 +35,4 @@ Final for the Definition of done (2026-11-01): 12 runs, $9.1298 of the $20 budge
 | Phase 5 terms-only probe, 6 items | 2026-11-01 | logs/2026-11-01-heat-terms-claude-sonnet-5-5-probe | batch | 12325 | 0 | 0 | 4600 | 2817 | 0.0353 | 7.2262 |
 | Phase 5 terms-only, 300 items | 2026-11-01 | logs/2026-11-01-heat-terms-claude-sonnet-5-5 | batch | 618216 | 0 | 0 | 257075 | 160216 | 1.9036 | 9.1298 |
 | Phase 6 tools-mode probe, 6 items | 2026-11-02 | logs/2026-11-02-ibtracs-tools-claude-sonnet-5-5-probe | standard | 40 | 17446 | 8280 | 4167 | 2890 | 0.0862 | 9.2159 |
+| Phase 6 tools mode, 300 items | 2026-11-02 | logs/2026-11-02-ibtracs-tools-claude-sonnet-5-5 | batch | 1882 | 473170 | 658133 | 216898 | 158862 | 1.7107 | 10.9267 |

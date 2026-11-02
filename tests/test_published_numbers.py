@@ -32,6 +32,7 @@ SINGLE = [
     ("ibtracs", "2026-11-01-claude-sonnet-5-5-rules-hidden", ibtracs_report, ibtracs_items),
     ("heat", "2026-11-01-claude-sonnet-5-5", heat_report, heat_items),
     ("heat", "2026-11-01-claude-sonnet-5-5-terms-only", heat_report, heat_items),
+    ("ibtracs", "2026-11-02-claude-sonnet-5-5-tools", ibtracs_report, ibtracs_items),
 ]
 PAIRS = [
     ("ibtracs", SINGLE[1][1], SINGLE[2][1], "2026-11-01-rules-shown-vs-hidden", ibtracs_report),
@@ -52,6 +53,15 @@ def test_each_run_report_and_its_json_re_render_from_the_results(env, name, modu
 def test_each_pair_report_re_renders_from_the_results(env, shown, hidden, pair, module):
     a, b = (module.from_results(*load(env, n), ITEMS_OF[env]()) for n in (shown, hidden))
     assert module.render_pair(a, b) == (R / env / f"{pair}.md").read_text("utf-8")
+
+
+def test_the_three_ibtracs_runs_re_render_from_the_results():
+    names = [SINGLE[1][1], SINGLE[2][1], SINGLE[5][1]]  # rules shown, rules hidden, tools
+    loaded = [load("ibtracs", n) for n in names]
+    shown, hidden, tools = (ibtracs_report.from_results(*x, ibtracs_items()) for x in loaded)
+    pairs = ibtracs_report.flips(loaded[1][1], loaded[2][1], ibtracs_items())
+    text = ibtracs_report.render_tools(shown, hidden, tools, pairs)
+    assert text == (R / "ibtracs/2026-11-02-rows-in-prompt-vs-tool.md").read_text("utf-8")
 
 
 @pytest.mark.parametrize("name", CLIMAQA)
@@ -91,7 +101,7 @@ def test_every_ledger_row_has_the_tokens_of_its_committed_results():
             int(c) for c in cells[4:9]
         ], cells[0]
         rows += 1
-    assert rows == 13
+    assert rows == 14
 
 
 def test_the_gemini_era5_probe_projects_the_tokens_decision_0010_gives():
