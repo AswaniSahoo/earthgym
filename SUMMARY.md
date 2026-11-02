@@ -1,7 +1,7 @@
 # earthgym: what I found
 
-Verifiable evals and RL environments for climate and earth science, built in five phases on
-2026-10-30 and 2026-11-01. Every number here is traced to the report it comes from; the
+Verifiable evals and RL environments for climate and earth science, built in six phases from
+2026-10-30 to 2026-11-02. Every number here is traced to the report it comes from; the
 blog-ready write-ups tell each phase's story.
 
 ## Phase 1: checking ClimaQA before trusting it
@@ -76,6 +76,21 @@ Write-up: `reports/ibtracs/2026-11-01-phase-4-writeup.md`.
 
 Write-up: `reports/heat/2026-11-01-phase-5-writeup.md`.
 
+## Phase 6: the storm's rows behind a query tool
+
+- The same 300 IBTrACS items, with the rule left out and each storm's rows behind one read-only
+  SQL tool instead of in the prompt (decision 0023). Sonnet 5.5 scores 0.747, against 0.703
+  with the rows in the prompt: ACE and peak category stay at 0.99 and 1.00, and hours at
+  hurricane strength rise from 0.13 to 0.25, with 16 items right only with the tool and 4 only
+  with the rows in the prompt, an exact McNemar p of 0.012
+  (`reports/ibtracs/2026-11-02-rows-in-prompt-vs-tool.md`).
+- 63 of the 75 hours misses with the tool still follow a careless reading of the rule, so the
+  tool does not close the convention gap (same report). The model made 645 queries, a median of
+  2 an item, with no query error and no item at the 30-message limit
+  (`reports/ibtracs/2026-11-02-claude-sonnet-5-5-tools.md`).
+
+Write-up: `reports/ibtracs/2026-11-02-phase-6-writeup.md`.
+
 ## What it means for RL
 
 - The exact-answer environments of Phases 4 and 5 are saturated for a model as strong as Sonnet 5.5:
@@ -86,15 +101,18 @@ Write-up: `reports/heat/2026-11-01-phase-5-writeup.md`.
   only at Deer Valley in 2019. My untested guess is that a policy would take either from the reward
   in a few steps; no training run has checked it. I keep them as the controls for the ablations and
   for small-model curricula.
+- Tools mode adds no headroom for Sonnet 5.5 on ACE or peak category. What it adds is a
+  multi-turn rollout whose transcript records how the model read the data, on the same items
+  and with the same reward as the prompt version.
 - The forecasting environment of Phase 3 is far from saturated: the model's 0.128 is no better
   than the midpoint baseline's 0.118, against HRES's 0.34 to 0.71 per variable and lead, so there
   is headroom and no skill yet to build on.
 
 ## Spend
 
-$9.1298 of a managed $20 budget on the Anthropic key over 12 runs (a probe projected each run's
-cost before it started; the ledger is checked after each run), probes included, all through the
-Batch API (`reports/spend.md`). The Gemini 3.8 Flash runs on Vertex AI are separate and stay as
+$10.9267 of a managed $20 budget on the Anthropic key over 14 runs (a probe projected each
+run's cost before it started; the ledger is checked after each run), probes included, all
+through the Batch API but the Phase 6 probe (`reports/spend.md`). The Gemini 3.8 Flash runs on Vertex AI are separate and stay as
 recorded in their reports.
 
 ## Limits
