@@ -1,6 +1,6 @@
 """Build the Kaggle kernel for the Phase 7 GRPO run (decision 0024).
 
-uv run python -m earthgym.grpo.kernel <folder> --user <kaggle user> [--steps N] [--slug S]
+uv run python -m earthgym.grpo.kernel <folder> --user <kaggle user> [--preset smoke|run]
 
 The folder gets train.py, the template train_kernel.py with its four constants filled from the
 repo, and a private GPU kernel's kernel-metadata.json, ready for `kaggle kernels push -p`.
@@ -58,6 +58,34 @@ class Config:
     eval_items: int | None = 4  # the first items of each split; None: all of them
     eval_samples: int = 2
     save_adapter: bool = False
+
+
+# What the smoke run resolved from its one pin (reports/grpo/2026-11-02-smoke.md, Packages);
+# torch 2.11.0+cu128 and triton 3.6.0 are recorded there, not pinned (decision 0024).
+PINS = (
+    "unsloth==2026.10.11",
+    "unsloth_zoo==2026.10.11",
+    "trl==1.15.0",
+    "transformers==5.16.1",
+    "peft==0.20.0",
+    "accelerate==1.14.0",
+    "datasets==4.8.5",
+    "bitsandbytes==0.50.2",
+    "huggingface_hub==1.29.0",
+)
+PRESETS = {
+    "smoke": Config(),
+    "run": dataclasses.replace(
+        Config(),
+        slug="earthgym-grpo-run",
+        pip=PINS,
+        steps=250,
+        eval_splits=("test",),  # the train reward comes from the trainer's log
+        eval_items=None,
+        eval_samples=8,
+        save_adapter=True,
+    ),
+}
 
 
 def items() -> list[dict]:
@@ -118,10 +146,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Build the GRPO kernel for Kaggle.")
     parser.add_argument("folder", type=Path)
     parser.add_argument("--user", required=True, help="the Kaggle user that owns the kernel")
-    parser.add_argument("--slug", default=Config.slug)
-    parser.add_argument("--steps", type=int, default=Config.steps)
+    parser.add_argument("--preset", choices=sorted(PRESETS), default="smoke")
     args = parser.parse_args()
-    config = Config(slug=args.slug, steps=args.steps)
+    config = PRESETS[args.preset]
     write(args.folder, config, args.user)
     print(f"kernel {args.user}/{config.slug} written to {args.folder}")
 

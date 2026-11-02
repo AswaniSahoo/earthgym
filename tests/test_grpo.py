@@ -65,3 +65,32 @@ def test_the_default_config_samples_as_the_small_model_runs_did():
     assert (c.model, c.revision) == ("Qwen/Qwen3.5-2B", "15852e8c16360a2fea060d615a32b45270f8a8fc")
     assert (c.temperature, c.top_p, c.top_k) == (0.7, 0.8, 20)  # decision 0022's settings
     assert c.num_generations == 8 and c.enable_thinking is False
+
+
+def test_the_run_preset_pins_what_the_smoke_resolved_and_samples_the_held_out_split():
+    run, smoke = kernel.PRESETS["run"], kernel.PRESETS["smoke"]
+    assert smoke == kernel.Config()
+    assert run.steps == 250 and run.save_adapter
+    assert (run.eval_splits, run.eval_items, run.eval_samples) == (("test",), None, 8)
+    assert set(run.pip) == {  # reports/grpo/2026-11-02-smoke.md, Packages
+        "unsloth==2026.10.11",
+        "unsloth_zoo==2026.10.11",
+        "trl==1.15.0",
+        "transformers==5.16.1",
+        "peft==0.20.0",
+        "accelerate==1.14.0",
+        "datasets==4.8.5",
+        "bitsandbytes==0.50.2",
+        "huggingface_hub==1.29.0",
+    }
+    a, b = kernel.asdict(run), kernel.asdict(smoke)
+    changed = {f for f in a if a[f] != b[f]}  # the rest as in the smoke, so its timings apply
+    assert changed == {
+        "slug",
+        "pip",
+        "steps",
+        "eval_splits",
+        "eval_items",
+        "eval_samples",
+        "save_adapter",
+    }
