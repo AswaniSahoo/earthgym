@@ -1,6 +1,7 @@
 # 0024: a small GRPO run on climaqa-v1 MCQ, Qwen3.5-2B with a LoRA on one Kaggle T4
 
-Date: 2026-11-02. Status: proposed, 2026-11-02: the smoke run is done, the run itself next.
+Date: 2026-11-02. Status: proposed, 2026-11-02: the smoke run is done; the 250-step run on
+climaqa-v1 MCQ was stopped after about 26 minutes when the plan changed (the change below).
 
 Context: Phase 7 asks whether an earthgym environment gives a small open model a signal it can
 learn from: GRPO-style training on the train split, with the reward on the train and the
@@ -64,3 +65,18 @@ Consequences:
   about 3 to 4 hours and the two samplings of 52 items about 2 to 4 more.
 - The held-out side has little room: 31 of the 52 test items are always right before any
   training.
+
+Change, 2026-11-02, set before any result of decision 0025: the training run follows the
+small-model runs, now on Kaggle (decision 0025), and trains on the environment where they show
+the most reward variance, so I stopped the run on MCQ.
+
+- Candidates: the five tasks of those runs, for Qwen3.5-2B: climaqa MCQ, climaqa cloze,
+  ibtracs-storm-v1, heat-basis-v1 and era5-forecast-v1.
+- Only a task whose median reply in those runs fits the 1,024-token cap above can be trained
+  here: the smoke generated about one token every 120 ms, so 8 completions of 4,096 tokens a
+  step would take days.
+- Of those, the one with the highest mean, over its train-split items, of the variance of each
+  item's 8 rewards; a tie goes to the larger share of train items whose reward varies.
+- The report gives the train and the held-out reward before and after training: 8 samples of
+  every test item and of as many train items, the first ones of the train split.
+
