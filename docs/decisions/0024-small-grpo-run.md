@@ -1,6 +1,6 @@
 # 0024: a small GRPO run on climaqa-v1 MCQ, Qwen3.5-2B with a LoRA on one Kaggle T4
 
-Date: 2026-11-02. Status: proposed, 2026-11-02: the smoke run comes first.
+Date: 2026-11-02. Status: proposed, 2026-11-02: the smoke run is done, the run itself next.
 
 Context: Phase 7 asks whether an earthgym environment gives a small open model a signal it can
 learn from: GRPO-style training on the train split, with the reward on the train and the
@@ -32,12 +32,12 @@ Decision:
   (`mask_truncated_completions`); learning rate 5e-5 with a linear decay after a 10% warmup and
   `adamw_8bit`, the values of Unsloth's GRPO notebooks; seed 3407.
 - Measured: the train reward at each step, from the trainer's log; and before and after
-  training, k samples of items of both splits, scored by the same contract, for the mean
-  reward, the items whose reward varies, pass@1 and pass@k (`earthgym.samples`), and the
-  replies cut at the cap.
+  training, 8 samples of every test item, scored by the same contract, for the mean reward,
+  the items whose reward varies, pass@1 and pass@8 (`earthgym.samples`), the items that got
+  better or worse with a sign test, and the replies cut at the cap (`earthgym.grpo.report`).
 - Order: a smoke run of 10 steps, sampling 4 items of each split twice, to measure the step
-  time, the memory and the share of cut replies; then the run itself, sized from the smoke to
-  fit one 12-hour Kaggle session.
+  time, the memory and the share of cut replies; then the run itself, 250 steps, sized from the
+  smoke to fit one 12-hour Kaggle session (the `run` preset of `earthgym.grpo.kernel`).
 
 The main alternative was plain TRL with PEFT and no Unsloth: fewer moving parts, but Unsloth is
 the one path with a documented Qwen3.5 GRPO run on a free T4 (the radar). It stays the fallback
@@ -50,7 +50,17 @@ Consequences:
 
 - The kernel is private and has internet for the installs and the model download. The Kaggle
   key stays in this machine's Kaggle CLI; nothing in the repo holds it.
-- pip on Kaggle resolves the packages from the one pin above. The smoke records the versions
-  it got, and the run pins them.
+- The smoke run (`reports/grpo/2026-11-02-smoke.md`, 1,527 s on one T4 of the two) ran end to
+  end. pip resolved trl 1.15.0 from the unsloth pin, not the radar's 1.17.1; the run pins every
+  version the smoke got (`PINS` in `earthgym/grpo/kernel.py`) but torch 2.11.0+cu128 and triton
+  3.6.0, which are recorded; whether those came with Kaggle's image or with the install is
+  UNKNOWN (pip ran quietly). Unsloth trained in float32, since the T4 has no bf16: its log says "Using
+  float16 precision for qwen3_5 won't work! Using float32." Its GRPO default is TRL's
+  `loss_type` dapo with beta 0, so there is no KL term. Peak memory was 5.36 GiB; the first
+  step took 328 s and the median one after it 43.3 s; 5 of the 10 steps had the same reward on
+  all 8 completions and so no signal; sampling took about 25 to 60 s an item for 2 samples.
+- So the run samples only the test split before and after, and takes the train reward from
+  the trainer's log rather than from a second sampling: at the smoke's rates, 250 steps take
+  about 3 to 4 hours and the two samplings of 52 items about 2 to 4 more.
 - The held-out side has little room: 31 of the 52 test items are always right before any
   training.
