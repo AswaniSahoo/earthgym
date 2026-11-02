@@ -9,6 +9,7 @@ from ibtracs_storm_v1 import contract
 from ibtracs_storm_v1 import taskset as ts
 from inspect_ai import eval
 from inspect_ai.model import ModelOutput, get_model
+from inspect_ai.tool import ToolDef
 from mcp.server.mcpserver import MCPServer
 
 from earthgym.ibtracs import tasks
@@ -119,3 +120,45 @@ def test_query_tool_serves_its_own_storm_to_the_model():
     (tool,), result = asyncio.run(serve())
     assert tool.name == "query" and list(tool.input_schema["properties"]) == ["sql"]
     assert result.content[0].text == "count(*) | sum(wind)\n2 | 145"
+
+
+def test_both_harnesses_offer_the_same_query_tool():
+    tool = ToolDef(tasks.query())
+    assert tool.name == "query" and list(tool.parameters.properties) == ["sql"]
+    assert tool.description == ts.TrackToolset.query.__doc__
+
+
+def eval_tools_mode(tmp_path, outputs):
+    path = tmp_path / "items.jsonl"
+    path.write_text(json.dumps(ROW) + "\n", encoding="utf-8")
+    model = get_model("mockllm/model", custom_outputs=outputs)
+    task = tasks.ibtracs_storm(path=str(path), tools=True)
+    return eval(task, model=model, log_dir=str(tmp_path), display="none")[0]
+
+
+@pytest.mark.parametrize(("answer", "expected"), [("ANSWER: 6", 1.0), ("ANSWER: 12", 0.0)])
+def test_inspect_tools_mode_scores_the_answer_submitted_after_a_query(tmp_path, answer, expected):
+    hours = "SELECT 6 * count(*) FROM track WHERE status = 'HU' AND substr(time, 7, 2) % 6 = 0"
+    log = eval_tools_mode(
+        tmp_path,
+        [
+            ModelOutput.for_tool_call("mockllm/model", "query", {"sql": hours}),
+            ModelOutput.for_tool_call("mockllm/model", "submit", {"answer": answer}),
+        ],
+    )
+    assert log.results.scores[0].metrics["mean"].value == pytest.approx(expected)
+    sample = log.samples[0]
+    assert sample.input == contract.tools_prompt(ROW)
+    (reply,) = [m for m in sample.messages if m.role == "tool" and m.function == "query"]
+    assert reply.text == "6 * count(*)\n6"  # read from this sample's rows in the store
+
+
+def test_inspect_tools_mode_stops_a_model_that_never_submits(tmp_path):
+    def queries():
+        while True:
+            yield ModelOutput.for_tool_call("mockllm/model", "query", {"sql": "SELECT 1"})
+
+    log = eval_tools_mode(tmp_path, queries())
+    sample = log.samples[0]
+    assert sample.limit.type == "message" and len(sample.messages) <= tasks.MESSAGE_LIMIT
+    assert log.results.scores[0].metrics["mean"].value == 0.0
