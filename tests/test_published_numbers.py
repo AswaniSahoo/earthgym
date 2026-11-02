@@ -32,7 +32,7 @@ SINGLE = [
     ("ibtracs", "2026-11-01-claude-sonnet-5-5-rules-hidden", ibtracs_report, ibtracs_items),
     ("heat", "2026-11-01-claude-sonnet-5-5", heat_report, heat_items),
     ("heat", "2026-11-01-claude-sonnet-5-5-terms-only", heat_report, heat_items),
-    ("ibtracs", "2026-11-02-claude-sonnet-5-5-tools", ibtracs_report, ibtracs_items),
+    ("ibtracs", "2026-11-02-claude-sonnet-5-5-tools-react", ibtracs_report, ibtracs_items),
 ]
 PAIRS = [
     ("ibtracs", SINGLE[1][1], SINGLE[2][1], "2026-11-01-rules-shown-vs-hidden", ibtracs_report),
@@ -61,7 +61,7 @@ def test_the_three_ibtracs_runs_re_render_from_the_results():
     shown, hidden, tools = (ibtracs_report.from_results(*x, ibtracs_items()) for x in loaded)
     pairs = ibtracs_report.flips(loaded[1][1], loaded[2][1], ibtracs_items())
     text = ibtracs_report.render_tools(shown, hidden, tools, pairs)
-    assert text == (R / "ibtracs/2026-11-02-rows-in-prompt-vs-tool.md").read_text("utf-8")
+    assert text == (R / "ibtracs/2026-11-02-rows-in-prompt-vs-tool-react.md").read_text("utf-8")
 
 
 @pytest.mark.parametrize("name", CLIMAQA)

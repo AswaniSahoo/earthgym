@@ -6,7 +6,7 @@ Model `anthropic/claude-sonnet-5-5` on 300 items, scored by ibtracs_storm_v1/con
 
 Accuracy 0.747 (stderr 0.025) over all 300 items, parse failures and errors scored 0. Each answer is right or wrong against the exact key (decision 0011).
 
-Submissions without a parseable answer: 0 of 300. Samples that errored: 0.
+Final replies without a parseable answer: 0 of 300. Samples that errored: 0.
 
 Accuracy per question, with the best constant answer and each careless reading of the rule as baselines:
 
@@ -44,7 +44,7 @@ Wrong answers by the model that equal a careless reading of the rule:
 
 ## Tool use
 
-645 queries in all, a median of 2 an item and at most 6; 0 of 300 items were submitted without a query. 0 queries came back as an error, on 0 items. 0 of 300 items hit the 30-message limit before submitting and score 0. 253 of 300 submissions were the number alone, without the answer line, which tools mode accepts (decision 0023).
+645 queries in all, a median of 2 an item and at most 6; 0 of 300 items answered without a query. 0 queries came back as an error, on 0 items. 0 of 300 items stopped at a limit before a final reply; they are scored on their last reply (0 right). 253 of 300 final replies were the number alone, without the answer line, which tools mode accepts (decision 0023).
 
 ## Tokens and cost
 
