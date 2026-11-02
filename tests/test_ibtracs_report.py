@@ -267,3 +267,39 @@ def test_tools_report_sets_the_tool_run_beside_both_prompt_runs():
         report.render_tools(shown, hidden, hidden)
     with pytest.raises(ValueError, match="not over the same items"):
         report.render_tools(shown, hidden, tools | {"ids": list(range(1, 301))})
+
+
+def test_flips_count_the_items_each_run_alone_gets_right_with_an_exact_mcnemar_p():
+    items = [{"id": f"q/{k}", "question": "q"} for k in range(20)] + [
+        {"id": "r/0", "question": "r"}
+    ]
+    hidden = [{"id": i["id"], "reward": float(k < 5)} for k, i in enumerate(items)]
+    tools = [{"id": i["id"], "reward": float(1 <= k < 18)} for k, i in enumerate(items)]
+    # q: item 0 is right with the rows in the prompt only; items 5 to 17 with the tool only
+    assert report.flips(hidden, tools, items) == {
+        "q": {"prompt_only": 1, "tool_only": 13, "p": pytest.approx(2 * 15 / 2**14)},
+        "r": {"prompt_only": 0, "tool_only": 0, "p": 1.0},
+    }
+    with pytest.raises(ValueError, match="not over the same items"):
+        report.flips(hidden, tools[:-1], items)
+
+
+def test_tools_report_lists_the_flips_when_given_them():
+    shown = summary(0.9, {"ace": 0.99, "peak_category": 1.0, "hurricane_hours": 1.0})
+    hidden = summary(0.7, {"ace": 0.99, "peak_category": 0.99, "hurricane_hours": 0.13})
+    tools = summary(0.75, {"ace": 0.99, "peak_category": 1.0, "hurricane_hours": 0.25})
+    flips = {
+        "ace": {"prompt_only": 1, "tool_only": 1, "p": 1.0},
+        "peak_category": {"prompt_only": 0, "tool_only": 1, "p": 1.0},
+        "hurricane_hours": {"prompt_only": 4, "tool_only": 16, "p": 0.0118},
+    }
+    text = report.render_tools(shown, hidden, tools | {"tools": True}, flips)
+    assert (
+        "| question | right only with the rows in the prompt | right only with the tool | p |"
+        in text
+    )
+    assert "| hurricane_hours | 4 | 16 | 0.012 |" in text
+    assert "exact two-sided McNemar test" in text
+    assert "| question | right only" not in report.render_tools(
+        shown, hidden, tools | {"tools": True}
+    )

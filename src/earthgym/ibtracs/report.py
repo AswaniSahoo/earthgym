@@ -6,6 +6,7 @@ uv run python -m earthgym.ibtracs.report <log dir> --out reports/ibtracs/<date>-
 import argparse
 import datetime as dt
 import json
+import math
 import re
 import statistics
 from pathlib import Path
@@ -359,10 +360,29 @@ def render_pair(shown: dict, hidden: dict) -> str:
     )
 
 
-def render_tools(shown: dict, hidden: dict, tools: dict) -> str:
+def flips(hidden: list[dict], tools: list[dict], items: list[dict]) -> dict:
+    """Per question, the items right only with the rows in the prompt and right only with the
+    tool, from two runs' per-item results, with the exact two-sided McNemar p-value on those
+    discordant pairs (a binomial test at one half). An errored item counts as wrong."""
+    h, t = ({r["id"]: r.get("reward") == 1.0 for r in run} for run in (hidden, tools))
+    if set(h) != set(t):
+        raise ValueError("the runs are not over the same items")
+    question = {i["id"]: i["question"] for i in items}
+    out = {}
+    for q in dict.fromkeys(question[i] for i in h):
+        ids = [i for i in h if question[i] == q]
+        a = sum(h[i] and not t[i] for i in ids)
+        b = sum(t[i] and not h[i] for i in ids)
+        tail = sum(math.comb(a + b, k) for k in range(min(a, b) + 1)) / 2 ** (a + b)
+        out[q] = {"prompt_only": a, "tool_only": b, "p": min(1.0, 2 * tail)}
+    return out
+
+
+def render_tools(shown: dict, hidden: dict, tools: dict, pairs: dict | None = None) -> str:
     """The tools-mode run beside the two prompt runs of one model over the same items (decision
     0023): the rules and rows in the prompt, the rule left out, and the rule left out with the
-    rows behind the query tool. Rules hidden against tools isolates where the rows are."""
+    rows behind the query tool. Rules hidden against tools isolates where the rows are; pairs,
+    when given, are the paired counts of those two runs."""
     if not tools.get("tools"):
         raise ValueError("the third run is not a tools-mode run")
     runs = (shown, hidden, tools)
@@ -421,6 +441,19 @@ def render_tools(shown: dict, hidden: dict, tools: dict) -> str:
         lines.append(
             f"- {q}: {h:.3f} with the rows in the prompt, {t:.3f} with the tool: {verdict}."
         )
+    if pairs:
+        lines += [
+            "",
+            "Items that only one of the two runs gets right, per question, with an exact "
+            "two-sided McNemar test on them (each run answers each item once):",
+            "",
+            "| question | right only with the rows in the prompt | right only with the tool | p |",
+            "|---|---|---|---|",
+        ]
+        lines += [
+            f"| {q} | {pairs[q]['prompt_only']} | {pairs[q]['tool_only']} | {pairs[q]['p']:.3f} |"
+            for q in names
+        ]
     return "\n".join([*lines, ""])
 
 
@@ -434,22 +467,25 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    def one(path: str) -> dict:
+    def one(path: str) -> EvalLog:
         logs = [read_eval_log(info) for info in list_eval_logs(path)]
         if [x.status for x in logs] != ["success"]:
             raise SystemExit(f"want one successful log in {path}")
-        return summarize(logs[0], records())
+        return logs[0]
 
-    s = one(args.log_dir)
+    s = summarize(one(args.log_dir), records())
     args.out.parent.mkdir(parents=True, exist_ok=True)
     if args.tools:
         if not args.hidden:
             raise SystemExit("--tools needs --hidden")
-        args.out.write_text(render_tools(s, one(args.hidden), one(args.tools)), "utf-8")
+        hidden, tools = one(args.hidden), one(args.tools)
+        pairs = flips(rows(hidden), rows(tools), records())
+        text = render_tools(s, summarize(hidden, records()), summarize(tools, records()), pairs)
+        args.out.write_text(text, "utf-8")
         print(f"three-run report written to {args.out}")
         return
     if args.hidden:
-        args.out.write_text(render_pair(s, one(args.hidden)), "utf-8")
+        args.out.write_text(render_pair(s, summarize(one(args.hidden), records())), "utf-8")
         print(f"pair report written to {args.out}")
         return
     args.out.write_text(render(s), "utf-8")
