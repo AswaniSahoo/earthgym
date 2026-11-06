@@ -26,6 +26,11 @@ def test_ace_sums_squared_synoptic_winds_while_named_status_and_34_kt_or_more():
     assert stats.storm(A)["ace"] == pytest.approx(0.9)  # (2500 + 4900 + 1600) / 1e4
 
 
+def test_ace_leaves_out_a_named_row_below_34_kt():
+    rows = [row("J", "2024-06-01 06:00:00", "TS", 33), row("J", "2024-06-01 12:00:00", "TS", 34)]
+    assert stats.storm(rows)["ace"] == pytest.approx(0.1156)
+
+
 def test_counts_take_any_row_at_the_threshold_with_the_right_status():
     assert stats.storm(A) | {"ace": None} == {
         "named": True,
