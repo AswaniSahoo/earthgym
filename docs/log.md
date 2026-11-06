@@ -13,7 +13,14 @@ Newest first. One entry per working session: what changed, what I learned, what 
   so. The week's 30 Kaggle hours are used; those samples wait for the 2026-11-07 renewal.
 - What I learned: `KernelWorkerStatus.COMPLETE` means the session ended, not that the work did. A
   session that hits its own deadline ends just as cleanly, so read `progress.jsonl` first.
-- Next: make the repository honest and ready to go public.
+- Ready to go public, not public yet: the README leads with the claim, the results, the findings and
+  what is not finished; every environment README follows one template, and each fact sits in one
+  place (`README.md` for headlines, `SUMMARY.md` for phase detail). `docs/how-built.md` says my review
+  is in progress, and a test ties its counts to the sheets. Corrections: on the heat missing-value
+  items the model took the other reading on 6 of 8, not 7, with a seventh answer one day off it, and
+  the react three-run report now names react's prompt as a second difference. Each package carries
+  its sources' attribution, and climaqa-v1 the Apache-2.0 text.
+- Next: my review and hand checks, and my decision on the heat items, before any flip.
 
 ## 2026-11-02, later: the gold check, small models, hand checks and a tools mode
 

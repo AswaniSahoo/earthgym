@@ -11,8 +11,8 @@ environments/era5_forecast_v1/era5_forecast_v1/, and scores computed from them i
 The attribution is in environments/era5_forecast_v1/era5_forecast_v1/NOTICE.
 
 IBTrACS v04r01, "full and open access": the items in
-environments/ibtracs_storm_v1/ibtracs_storm_v1/, and the pinned file on the data-v1 release. The citations are in
-environments/ibtracs_storm_v1/ibtracs_storm_v1/NOTICE.
+environments/ibtracs_storm_v1/ibtracs_storm_v1/, and the pinned file on the data-v1 release. The
+citations are in environments/ibtracs_storm_v1/ibtracs_storm_v1/NOTICE.
 
 GHCN-Daily, for which NOAA names no licence: the items in environments/heat_basis_v1/heat_basis_v1/.
 The citations and NOAA's disclaimer are in environments/heat_basis_v1/heat_basis_v1/NOTICE.
