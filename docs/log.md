@@ -18,9 +18,9 @@ Newest first. One entry per working session: what changed, what I learned, what 
 - Ready to go public, not public yet: the README leads with the claim, the results, the findings
   and what is not finished; every environment README follows one template, and each fact sits in one
   place (`README.md` for headlines, `SUMMARY.md` for phase detail). `docs/how-built.md` says my
-  review is in progress, and a test ties its counts to the sheets. Corrections: on the heat missing-value
-  items the model took the other reading on 6 of 8, not 7, with a seventh answer one day off it, and
-  the react three-run report now names react's prompt as a second difference. Each package carries
+  review is in progress, and a test ties its counts to the sheets. Corrections: on the heat
+  missing-value items the model took the other reading on 6 of 8, not 7, with a seventh answer one
+  day off it, and the react three-run report now names react's prompt as a second difference. Each package carries
   its sources' attribution, and climaqa-v1 the Apache-2.0 text.
 - Next: my review and hand checks, and my decision on the heat items, before any flip.
 
