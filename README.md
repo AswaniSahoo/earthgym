@@ -50,7 +50,8 @@ they run again under one stop set ([write-up](reports/grpo/2026-11-02-phase-7-wr
 - Qwen3.5-2B's ERA5 run. A session's deadline cut 21 samples, so its report leaves out those 21 of
   the 648 items (decision 0025).
 - The rerun of the GRPO run's two samplings under one stop set (decision 0024).
-- Independent oracles for the bundled heat and storm keys ([`docs/roadmap.md`](docs/roadmap.md)).
+- Archived references for ERA5 temperature and the 24 and 48 h leads
+  ([`docs/roadmap.md`](docs/roadmap.md)).
 
 ## Quick start
 

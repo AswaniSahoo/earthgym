@@ -24,7 +24,7 @@ runs I was not watching. The decision records are written in my voice, and where
 choice was not mine at the time, it says so (the floor, in `docs/log.md`, 2026-10-30).
 
 My review of this work is in progress, so read those records as drafted, not as confirmed. As of
-2026-11-06, in the sheets of `docs/human-checks/`, I have answered 0 of the 25 decision records and
+2026-11-06, in the sheets of `docs/human-checks/`, I have answered 0 of the 26 decision records and
 checked 0 of the 30 ClimaQA items and 0 of the 56 leak pairs. This page changes as those fill in.
 
 ## How it was checked
@@ -38,8 +38,9 @@ checked 0 of the 30 ClimaQA items and 0 of the 56 leak pairs. This page changes 
   Phase 6 stays open until its run finishes.
 - On 2026-11-02 Codex, a model from another family, reviewed the whole repository. Each of its 15
   findings was checked against the code (13 confirmed, 2 partly, none wrong). Fix batch 1 acted on
-  14 of them (`docs/log.md`); the fifteenth, independent oracles for the bundled keys, is on the
-  roadmap.
+  14 of them (`docs/log.md`). The fifteenth asked for a second computation of the keys: a separate
+  AI agent (Claude Fable 5.1) wrote one for heat and storm from the prompts alone, and all 600 keys
+  match (decision 0026). ERA5's archived references are still on the roadmap.
 - Every published number re-renders from the committed per-item results
   (`tests/test_published_numbers.py`, decision 0019), and a weekly CI job rebuilds the items from
   their pinned sources (`docs/reproduce.md`).

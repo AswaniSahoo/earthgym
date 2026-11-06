@@ -17,10 +17,8 @@ the decisions (`docs/decisions/`).
   for two citations and disclaims any warranty but names no licence, so making the repository public
   publishes derived GHCN-Daily data (`docs/release/dataset-card.md`).
 - A README that leads with the claim, the results and the three findings.
-- Independent oracles for the keys (the Codex review's finding 8): today the heat and storm
-  item tests rebuild the items with the same code that made them, which proves consistency, not
-  correctness. Recompute every bundled heat and storm key from the prompt data with separate
-  code, and add archived references for ERA5 temperature and the 24 and 48 h leads.
+- Archived references for ERA5 temperature and the 24 and 48 h leads, the rest of the Codex
+  review's finding 8. The heat and storm keys are now recomputed from their prompts (decision 0026).
 
 ## After that
 

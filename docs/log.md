@@ -2,6 +2,18 @@
 
 Newest first. One entry per working session: what changed, what I learned, what is next.
 
+## 2026-11-06, later: a second computation of the keys
+
+- Decision 0026: `tests/key_oracle.py` recomputes every bundled heat and storm key from the rendered
+  prompt alone. A separate AI agent wrote it blind, with no keys and no sight of the key code, and
+  all 600 keys matched on the first comparison, so no key changed.
+- What a pass is worth: `tests/test_key_oracle.py` pins how many keys each wrong rule would change.
+  The 34 kt floor in ACE and the HU-only clause of the peak category change none, because these
+  storms never test them. The floor had no unit test on a named row, so it has one now.
+- The README now says the phase reviews are written by an AI agent, rather than calling them
+  independent. The 0025 digest row now matches its record's vLLM wording.
+- Next: the two Kaggle reruns when the allowance renews on 2026-11-07, and my review.
+
 ## 2026-11-06: the Kaggle runs come in
 
 - GRPO (decision 0024, `reports/grpo/2026-11-02-phase-7-writeup.md`): 250 steps of Qwen3.5-2B on
