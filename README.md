@@ -1,94 +1,86 @@
 # earthgym
 
-Verifiable evals and RL environments for climate and earth science, built phase by phase.
+RL environments and evals for weather and climate whose rewards a program can check: the forecast,
+cyclone and heat graders reproduce published numbers before they pay a reward.
 
-A benchmark is an exam paper. Before anyone is graded on it, someone checks the answer key, the
-wording, and that no exam question leaked into the study material. Phase 1 does that check for
-ClimaQA. Later phases write new papers (environments) whose answers a program can grade exactly.
+| environment | the model must | reward | trivial baseline | Claude Sonnet 5.5 | Qwen3.5-2B | Granite 4.0 H-1B |
+|---|---|---|---|---|---|---|
+| [`era5-forecast-v1`](environments/era5_forecast_v1/README.md), 648 items | forecast ERA5 pressure or temperature 24 to 72 h ahead from one grid cell's history | skill over persistence and climatology, from 0 to 1 | 0.118, the midpoint of persistence and climatology | 0.128 | 0.029 on 627 items | 0.042 |
+| [`ibtracs-storm-v1`](environments/ibtracs_storm_v1/README.md), 300 | compute a storm's ACE, peak category or hours at hurricane strength from its track rows | exact answer | 0.05 to 0.35 per question, the best constant answer | 0.997 with the rules shown (saturated), 0.703 hidden | 0.370 | 0.032 |
+| [`heat-basis-v1`](environments/heat_basis_v1/README.md), 300 | count a heat policy's trigger days, payout events or missed days from station data | exact answer | 0.05 to 0.27 per question, the best constant answer | 0.987 with the rules shown (saturated), 0.960 with the terms only | 0.217 | 0.028 |
+| [`climaqa-v1`](environments/climaqa_v1/README.md), 350 | answer ClimaQA multiple choice and cloze questions, exact-overlap leaks removed | exact match | 0.25 on multiple choice, by chance | 0.874 multiple choice, 0.508 cloze | 0.710 multiple choice, 0.145 cloze | 0.584 multiple choice, 0.020 cloze |
 
-## Phases
+The small models answered each item 8 times with the rules shown, and their columns give the mean
+reward. Saturated means a strong model gets nearly every item right, so a policy that strong gets
+almost no signal: those versions stay as controls for the ablations and for small models.
+[`SUMMARY.md`](SUMMARY.md) gives the detail behind every row, phase by phase.
 
-| Phase | What | Status |
-|---|---|---|
-| 1 | ClimaQA audit: integrity checks, paper cross-check, human hand-check sample | done; hand-checks wait |
-| 2 | Clean ClimaQA port (Inspect task, verifiers environment), Gemini 3.8 Flash baseline | done; v2 waits on the expert review (0005); the Jev third-reader study is built and parked (no key) |
-| 3 | ERA5 forecast-score environment, graded against weatherbench2 | done; on the 648 items that pass the gold check, Claude Sonnet 5.5 earns a mean reward of 0.128, IFS HRES 0.34 to 0.71 per variable and lead (`reports/era5/2026-11-01-claude-sonnet-5-5.md`) |
-| 4 | IBTrACS cyclone analytics environment | done: `ibtracs-storm-v1`, 300 per-storm questions with exact answers. With the rules in the prompt (the control) Sonnet 5.5 scores 0.997; with them hidden 0.703, where ACE and peak category stay at 0.99 and hours become a convention test (`reports/ibtracs/2026-11-01-rules-shown-vs-hidden.md`) |
-| 5 | Heat-insurance basis-risk environment | done: `heat-basis-v1`, 300 policy questions over Phoenix-area stations, after reproducing NWS Phoenix's heat counts. With the rules shown (the control) Sonnet 5.5 scores 0.987; with the policy terms alone 0.960, where missed days fall to 0.89 on how a missing index value is read (`reports/heat/2026-11-01-rules-shown-vs-terms-only.md`) |
-| 6 | A tools mode for `ibtracs-storm-v1`: the storm's rows behind one read-only SQL tool | built and tested in both harnesses (decision 0023). A first version under Inspect's react agent scored 0.747 against 0.703 with the rows in the prompt, but react's system prompt is a second difference between those runs; the tool-loop run stopped at 225 of 300 items when the API's credit ran out (`reports/ibtracs/2026-11-02-phase-6-writeup.md`) |
-| 7 | A small GRPO run: Qwen3.5-2B with a LoRA on climaqa-v1 MCQ, on a Kaggle T4 | done: 250 steps, one seed. It learned the train items (0.728 to 0.832) with no measurable transfer to held-out items (0.740 to 0.750) (`reports/grpo/2026-11-02-phase-7-writeup.md`) |
+## Findings
 
-Claude Sonnet 5.5 is the only paid model, on the Anthropic key within a managed budget of $20 in
-total; the spend is in `reports/spend.md` (decision 0010). Qwen3.5-2B and Granite 4.0 H-1B run on
-Kaggle's free GPUs (decision 0025). No Vertex AI or Gemini calls are made from 2026-11-01; the
-earlier Gemini results stay as recorded.
+1. A train/test leak in ClimaQA (ICLR 2025). 43 validated Gold test questions appear word for word
+   in Silver, the set the paper fine-tunes on: 29 with the same answer, 14 with a different one. 6
+   more appear in another Silver task. These are exact matches, so they are a lower bound
+   ([`reports/climaqa/SUMMARY.md`](reports/climaqa/SUMMARY.md)).
+2. A frontier model ties a trivial forecast. On ERA5, Claude Sonnet 5.5 earns 0.1277 and the
+   midpoint of persistence and climatology 0.1175: a difference of +0.0102 (SE 0.0085), not
+   significant. IFS HRES earns 0.5555, so the environment has headroom
+   ([model](reports/era5/2026-11-01-claude-sonnet-5-5.md),
+   [baselines](reports/era5/items_v1_baselines.md)).
+3. The graders match published references. The forecast grader reproduces WeatherBench 2's IFS HRES
+   MSLP 72 h RMSE, 133.890547 Pa, to within 3.2e-8 Pa
+   ([report](reports/era5/2026-10-30-wb2-reproduction.md)). The cyclone grader reproduces NOAA
+   NCEI's North Atlantic figures, among them 1933's ACE of 258.6 and 2024's of 161.6
+   ([report](reports/ibtracs/2026-11-01-ncei-reproduction.md)). The heat grader reproduces NWS
+   Phoenix's counts: 55 days at 110 F or more in 2023 and a 31-day run
+   ([report](reports/heat/2026-11-01-nws-phoenix-reproduction.md)).
 
-## Environments
+A small GRPO run of Qwen3.5-2B on ClimaQA's multiple choice items learned the train items with no
+measurable transfer: train items went from 0.728 to 0.832, held-out items from 0.740 to 0.750. One
+seed ([write-up](reports/grpo/2026-11-02-phase-7-writeup.md)).
 
-| package | phase | what an item asks | reward |
-|---|---|---|---|
-| `climaqa-v1` | 2 | a clean ClimaQA question, multiple choice or cloze | exact match |
-| `era5-forecast-v1` | 3 | a 24 to 72 h point forecast of ERA5 pressure or temperature | skill over persistence and climatology, graded by the WB2 rules |
-| `ibtracs-storm-v1` | 4, 6 | a storm's ACE, peak category or hours at hurricane strength; with `tools=true`, from its rows behind a query tool | exact answer |
-| `heat-basis-v1` | 5 | a heat policy's trigger days, payout events or missed days | exact answer |
+## Not finished
 
-Each package is a verifiers v1 taskset; each has an Inspect task beside it in `src/earthgym/`, scored
-by the same contract module.
+- My review. I have not yet confirmed the decision records or done the hand checks, so read them as
+  drafted ([`docs/how-built.md`](docs/how-built.md), [sheets](docs/human-checks/README.md)).
+- The expert review of ClimaQA's cloze items: no expert has it yet (decision 0005).
+- Tools mode for `ibtracs-storm-v1`. Its Sonnet run stopped at 225 of 300 items when the API's
+  credit ran out, so it has no reported result. The numbers from a first version carry a caveat
+  ([write-up](reports/ibtracs/2026-11-02-phase-6-writeup.md)).
+- Qwen3.5-2B's ERA5 run. A session's deadline cut 21 samples, so its report leaves out those 21 of
+  the 648 items (decision 0025).
+- Independent oracles for the bundled heat and storm keys ([`docs/roadmap.md`](docs/roadmap.md)).
 
-## Run
+## Quick start
 
-    uv sync --all-groups
-    uv run pytest                                  # no network; the reproduction tests skip without data
-    uv run python -m earthgym.climaqa.audit           # Phase 1: pinned CSVs to data/, reports/climaqa/
-    uv run python -m earthgym.era5.baselines          # Phase 3: baseline rows
-    uv run python -m earthgym.ibtracs.data            # Phase 4: the pinned 57.6 MB IBTrACS CSV
-    uv run python -m earthgym.heat.data               # Phase 5: the pinned GHCN-Daily station files
+With [uv](https://docs.astral.sh/uv/) and Python 3.12:
 
-A model run (the key in `.env` as `ANTHROPIC_API_KEY`; decision 0010):
+    uv sync --locked --all-groups
+    uv run pytest -q tests/test_published_numbers.py   # every published number, from committed results
+    uv run inspect eval src/earthgym/heat/tasks.py@heat_basis --model mockllm/model --limit 3
 
-    uv run inspect eval src/earthgym/ibtracs/tasks.py@ibtracs_storm \
-        --model anthropic/claude-sonnet-5-5 --batch --cache-prompt false [-T rules=false]
-    uv run python -m earthgym.spend "<run>" <log dir> # adds the run to reports/spend.md
+Each package in `environments/` is a verifiers v1 taskset with its data inside. Each has an Inspect
+task beside it in `src/earthgym/`, scored by the same contract module. Verifiers defaults to its
+null harness here, which runs no code the model writes; its own default, `bash`, would give the
+model a shell on the host. [`docs/reproduce.md`](docs/reproduce.md) rebuilds the data, recomputes
+every number and runs fresh evals.
 
-## Layout
+## Where things are
 
-    src/earthgym/climaqa/    Phases 1 and 2: audit, clean set, Inspect tasks, reports, comparison
-    src/earthgym/era5/       Phase 3: WB2 scoring rules, items, baselines, Inspect task, report
-    src/earthgym/ibtracs/    Phase 4: pinned IBTrACS, NOAA counts, items, Inspect task, report
-    src/earthgym/heat/       Phase 5: pinned GHCN-Daily, NWS counts, policy rules, items, task, report
-    src/earthgym/spend.py    the Anthropic spend ledger and its checks
-    src/earthgym/ablation.py the rules-shown run beside its ablation
-    environments/         one verifiers environment package per phase
-    tests/                unit tests on small inline fixtures, no network
-    reports/              results per phase, the blog-ready write-ups, spend.md
-    docs/reviews/        one review per phase
-    docs/radar.md         what is new and proven; docs/decisions/ records each choice
-
-## Phase 1 checks
-
-Defects (the item is broken): option labels other than a) to d), a key that is not an option, empty
-or identical options, a cloze item with no `<MASK>`, an empty cloze answer, and a Gold question that
-also appears in Silver. Silver is the set the paper fine-tunes on (arXiv 2410.16701v2, A.3.2), so
-an overlap is a train/test leak.
-
-Flags (a human decides): the keyed option repeated in the question, a cloze answer repeated outside
-the blank, several masks for one answer, "all/none of the above" options, and repeated questions
-within a split (noting when the keyed answer text differs).
-
-The Gold MCQ and freeform files also keep the expert-rejected items (`Validation=False`: 47 MCQ,
-20 freeform). The authors' evaluation notebooks keep only `Validation=True`, which matches the
-paper's counts; any other loader has to filter the same way.
-
-## Hand-check
-
-`reports/climaqa/review_sample.csv` holds 10 validated Gold MCQ items per complexity level
-(seed 20261030). Fill `verdict` with one of: ok, wrong_key, ambiguous, multiple_correct,
-out_of_scope, and say why in `note`.
+- [`SUMMARY.md`](SUMMARY.md): what each phase found, and what it means for RL.
+- [`reports/`](reports/): results, per-item files and write-ups.
+  [`reports/spend.md`](reports/spend.md) is the ledger of paid runs.
+- [`docs/decisions/`](docs/decisions/): why I chose what I chose, in [plain
+  words](docs/human-checks/decisions.md) too.
+- [`docs/reviews/`](docs/reviews/): one independent review per phase.
+- [`docs/how-built.md`](docs/how-built.md): built with Claude Code under my direction, and who
+  decided what.
+- [`docs/roadmap.md`](docs/roadmap.md), [`docs/log.md`](docs/log.md),
+  [`docs/radar.md`](docs/radar.md): what is next, what changed, and which tools I watch.
 
 ## License
 
-MIT, copyright 2026 Aswani Kumar Sahoo: see `LICENSE`. The license covers the code in this repo
-and in the environment packages. The data the packages and reports carry keep their sources'
-terms: ClimaQA under Apache-2.0, ERA5 under CC BY 4.0, IBTrACS with "full and open access" and
-WMO Resolution 40 for commercial use, and GHCN-Daily, for which NOAA names no licence
-(`docs/radar.md`, decisions 0008 and 0012).
+MIT, copyright 2026 Aswani Kumar Sahoo: see [`LICENSE`](LICENSE). It covers the code in this repo
+and in the environment packages. The data they and the reports carry keep their sources' terms:
+ClimaQA under Apache-2.0, ERA5 under CC BY 4.0, IBTrACS with "full and open access" and WMO
+Resolution 40 for commercial use, and GHCN-Daily, for which NOAA names no licence. Each package's
+`NOTICE` gives the attribution; `docs/radar.md` and decisions 0008 and 0012 give the sources.
