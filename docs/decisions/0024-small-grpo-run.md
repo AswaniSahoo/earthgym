@@ -1,18 +1,19 @@
 # 0024: a small GRPO run on climaqa-v1 MCQ, Qwen3.5-2B with a LoRA on one Kaggle T4
 
-Date: 2026-11-02. Status: proposed, 2026-11-02: the smoke run is done; the 250-step run on
-climaqa-v1 MCQ was stopped after about 26 minutes when the plan changed (the change below).
+Date: 2026-11-02. Status: done, 2026-11-06: the 250-step run finished, and
+`reports/grpo/2026-11-02-phase-7-writeup.md` reports it. A first attempt was stopped after about
+26 minutes when the plan changed (the change below).
 
 Context: Phase 7 asks whether an earthgym environment gives a small open model a signal it can
 learn from: GRPO-style training on the train split, with the reward on the train and the
 held-out split before and after (`docs/roadmap.md`). GRPO learns only from items whose reward
-varies across a group of samples. Of the small-model runs of decision 0022, only ClimaQA has
-finished. In it, Qwen3.5-2B's MCQ items vary on 93 of the 170 train items (mean reward 0.687,
-67 always right) and on 18 of the 52 test items (mean 0.781, 31 always right), from
-`reports/climaqa/results/2026-11-02-qwen3.5-2b-q8_0-8-samples-mcq.jsonl` split by decision
-0017. This laptop's 4 GB GPU is below Unsloth's stated GRPO minimum of 5 GB and is busy with
-the decision 0022 runs; Kaggle's free T4 x2 machine gives 16 GB a GPU (`docs/radar.md`,
-2026-11-02).
+varies across a group of samples. When I planned this, only Qwen3.5-2B's ClimaQA run on the
+laptop had finished: its MCQ items varied on 93 of the 170 train items (mean reward 0.687, 67
+always right) and on 18 of the 52 test items (mean 0.781, 31 always right), split by decision
+0017. Decision 0025 reran it on Kaggle, and that run's file, the one under
+`reports/climaqa/results/`, gives 89 of 170 (0.687, 67) and 18 of 52 (0.786, 32). The laptop's 4
+GB GPU was below Unsloth's stated GRPO minimum of 5 GB and busy with the decision 0022 runs;
+Kaggle's free T4 x2 machine gives 16 GB a GPU (`docs/radar.md`, 2026-11-02).
 
 Decision:
 
@@ -34,9 +35,9 @@ Decision:
   `adamw_8bit`, the values of Unsloth's GRPO notebooks; seed 3407.
 - Measured: the train reward at each step, from the trainer's log; and before and after
   training, 8 samples of every test item and of the first 52 train items, scored by the same
-  contract, for the mean reward,
-  the items whose reward varies, pass@1 and pass@8 (`earthgym.samples`), the items that got
-  better or worse with a sign test, and the replies cut at the cap (`earthgym.grpo.report`).
+  contract, for the mean reward, the items whose reward varies, pass@1 and pass@8
+  (`earthgym.samples`), the items that got better or worse with a sign test, and the replies cut
+  at the cap (`earthgym.grpo.report`).
 - Order: a smoke run of 10 steps, sampling 4 items of each split twice, to measure the step
   time, the memory and the share of cut replies; then the run itself, 250 steps, sized from the
   smoke to fit one 12-hour Kaggle session (the `run` preset of `earthgym.grpo.kernel`).
@@ -84,9 +85,16 @@ The pick, 2026-11-02 (`uv run python -m earthgym.grpo.pick`, from the committed 
 decision 0025): climaqa MCQ. Its median reply is 382.5 tokens, and its 170 train items have a
 mean reward variance of 0.0958, with 0.524 of them varying. Cloze fits the cap (median 3 tokens)
 but has 0.0600 and 0.343 on its 99 train items. ibtracs-storm-v1 is out on length, a median of
-1,323 tokens (0.0510 and 0.318 on 233 train items). The heat and ERA5 runs of Qwen3.5-2B have not
-finished, and their replies so far are far over the cap: heat a median of 2,297 tokens over the
-181 samples done on Kaggle, ERA5 2,373.5 over the 1,278 done on the laptop before it stopped. So
-neither could be picked, whatever their variance. The run is the `run` preset of
-`earthgym.grpo.kernel`, as before.
+1,323 tokens (0.0510 and 0.318 on 233 train items). When I made the pick the heat and ERA5 runs
+of Qwen3.5-2B had not finished. Now that they have, they are out on length too and lower anyway:
+heat a median of 3,493.5 tokens (0.0824 and 0.490 on 245 train items), ERA5 2,426.5 (0.0156 and
+0.362 on 528 of its train items, the ones whose samples all finished). So climaqa MCQ has the
+highest variance of the five with or without the length rule
+(`tests/test_published_numbers.py`). The run is the `run` preset of `earthgym.grpo.kernel`.
+
+The result (`reports/grpo/2026-11-02-run.md`): the model learned the train items, with no
+measurable transfer. On the first 52 train items the mean reward went from 0.728 to 0.832 (22
+items better, 5 worse, 25 the same, two-sided sign test p 0.0015), on the 52 test items from 0.740
+to 0.750 (12, 10, 30, p 0.83). One seed. Replies cut at the cap fell from 24 to 5 on train and
+from 39 to 19 on test, so part of the gain is that the model learned to finish.
 

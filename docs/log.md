@@ -2,6 +2,19 @@
 
 Newest first. One entry per working session: what changed, what I learned, what is next.
 
+## 2026-11-06: the Kaggle runs come in
+
+- GRPO (decision 0024, `reports/grpo/2026-11-02-phase-7-writeup.md`): 250 steps of Qwen3.5-2B on
+  climaqa-v1 MCQ, one seed. It learned the train items, with no measurable transfer: train items
+  0.728 to 0.832 (sign test p 0.0015), held-out items 0.740 to 0.750 (p 0.83). Part of the gain is
+  that the model learned to finish its replies.
+- Small models (decision 0025): both models finished all four environments but for 21 of Qwen's
+  ERA5 samples, cut by a session's deadline. Its ERA5 report covers 627 of the 648 items and says
+  so. The week's 30 Kaggle hours are used; those samples wait for the 2026-11-07 renewal.
+- What I learned: `KernelWorkerStatus.COMPLETE` means the session ended, not that the work did. A
+  session that hits its own deadline ends just as cleanly, so read `progress.jsonl` first.
+- Next: make the repository honest and ready to go public.
+
 ## 2026-11-02, later: the gold check, small models, hand checks and a tools mode
 
 - Gold check (decision 0021): every taskset's `validate` scores its own reference reply, and CI

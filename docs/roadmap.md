@@ -8,9 +8,8 @@ the decisions (`docs/decisions/`).
 - I read and confirm every decision record, 0001 onward, from the plain-language digest in
   `docs/human-checks/decisions.md`. Until then `docs/how-built.md` overstates my review: its wording
   changes to match what I agree with, change or question.
-- Evidence from small open models, at no API cost: two instruct models from different
-  families, 8 samples per item, on all four environments. For each: the mean reward, the share
-  of items whose reward varies across the 8 samples, and pass@1 against pass@8.
+- The last 21 samples of Qwen3.5-2B's ERA5 run, cut by a session's deadline (decision 0025): one
+  short resumed session on Kaggle, after the weekly allowance renews on 2026-11-07.
 - My own hand checks: the 30-item ClimaQA sample and the 56 Gold and Silver leak pairs, from
   sheets under `docs/human-checks/`.
 - A README that leads with the claim, the results and the three findings.
@@ -21,9 +20,6 @@ the decisions (`docs/decisions/`).
 
 ## After that
 
-- A small GRPO run with a small open model on one environment, with the reward on the train
-  split and on the held-out split, reported whether or not it moves. In progress: decision 0024
-  plans it on climaqa-v1 MCQ with Qwen3.5-2B on a Kaggle T4, a smoke run first.
 - The drafts for distribution under `docs/release/`, written on 2026-11-02, stay there until I
   decide to go public: the issue for the ClimaQA maintainers, the eval logs as a release asset,
   notes for an inspect_evals Register entry for ClimaQA, notes for the Prime Intellect Hub, and

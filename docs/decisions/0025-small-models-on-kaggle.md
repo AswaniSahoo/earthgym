@@ -1,6 +1,6 @@
 # 0025: the small-model runs move to Kaggle's T4s
 
-Date: 2026-11-02. Status: proposed, 2026-11-02.
+Date: 2026-11-02. Status: done, 2026-11-06, but for 21 ERA5 samples of Qwen3.5-2B (session 2 below).
 
 Context: decision 0022 ran the two small open models on this laptop's GPU. On 2026-11-02 I took
 that GPU back for my own work: from then on no model runs on this machine, and every GPU job
@@ -63,3 +63,11 @@ of cache, and runs Qwen on both GPUs: its heat resumed from session 1's log, the
 parts, the first 460 items on one GPU and the last 188 after heat on the other, each part its own
 eval set. Its evals run at e74bb0c too, since no task, environment or lock has changed since.
 
+Session 2, 2026-11-02 to 2026-11-03, the full 11 hours at commit e74bb0c: Qwen's heat and the
+first 460 ERA5 items finished. The last 188 ERA5 items started only after
+heat, on the GPU that had it, and the deadline stopped them with 21 samples unfinished, all of the
+last epoch, on 21 items; the other GPU had sat idle for its last 4.1 hours, so my split between
+the two was off. The report for ERA5 leaves those 21 items out and says so
+(`reports/era5/2026-11-02-small-models.md`): Qwen3.5-2B on 627 of the 648 items, Granite on all.
+The sessions and the GRPO run used the week's 30 hours (`kaggle quota`: 30.69 used, renewed on
+2026-11-07 at 00:00 UTC). Finishing those samples needs one short resumed session after that.
