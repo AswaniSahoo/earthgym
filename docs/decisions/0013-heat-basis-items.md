@@ -57,8 +57,9 @@ lasts. `-T rules=false`, reported side by side.
 
 Terms-only result (2026-11-01, `reports/heat/2026-11-01-rules-shown-vs-terms-only.md`): 0.960
 against the control's 0.987. Trigger days (0.99) and events (1.00) stay at the ceiling;
-missed days fall from 0.96 to 0.89, and 7 of the 8 items where a missing index value decides
-the key, all Deer Valley 2019, took the other reading.
+missed days fall from 0.96 to 0.89. The model misses 7 of the 8 items where a missing index value
+decides the key, all Deer Valley 2019: on 6 its answer is the other reading, on the seventh one
+day from it.
 
 Out, for later: other cities, heat index or wet-bulb triggers, money amounts and
 deductibles, a pairing whose index has gaps in more than one season, and the insurer's side

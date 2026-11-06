@@ -62,7 +62,10 @@ def test_the_three_ibtracs_runs_re_render_from_the_results():
     loaded = [load("ibtracs", n) for n in names]
     shown, hidden, tools = (ibtracs_report.from_results(*x, ibtracs_items()) for x in loaded)
     pairs = ibtracs_report.flips(loaded[1][1], loaded[2][1], ibtracs_items())
-    text = ibtracs_report.render_tools(shown, hidden, tools, pairs)
+    also = (
+        "react's system prompt and submit tool, which the prompt run did not have (decision 0023)"
+    )
+    text = ibtracs_report.render_tools(shown, hidden, tools, pairs, also)
     assert text == (R / "ibtracs/2026-11-02-rows-in-prompt-vs-tool-react.md").read_text("utf-8")
 
 
@@ -162,3 +165,21 @@ def test_the_grpo_pick_is_climaqa_mcq_on_all_five_tasks_of_the_committed_results
     assert max(tasks, key=lambda t: tasks[t]["mean_variance"]) == "climaqa mcq"  # even uncapped
     over = {t for t, s in tasks.items() if s["median_tokens"] > pick.CAP}
     assert over == {"ibtracs", "heat", "era5"}
+
+
+def test_the_heat_missing_value_counts_the_write_up_gives():
+    items = {i["id"]: i for i in heat_items()}
+    _, rows = load("heat", "2026-11-01-claude-sonnet-5-5-terms-only")
+    name = "missing index days left out"
+    decided = [
+        r
+        for r in rows
+        if items[r["id"]]["question"] == "missed_days"
+        and heat_report.careless(items[r["id"]])[name] != items[r["id"]]["key"]
+    ]
+    assert {(items[r["id"]]["index_name"], items[r["id"]]["year"]) for r in decided} == {
+        ("Phoenix Deer Valley Municipal Airport", 2019)
+    }
+    missed = [r for r in decided if r["reward"] != 1.0]
+    other = [r for r in missed if float(r["answer"]) == heat_report.careless(items[r["id"]])[name]]
+    assert (len(decided), len(missed), len(other)) == (8, 7, 6)

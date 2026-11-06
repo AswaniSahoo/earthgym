@@ -396,11 +396,14 @@ def flips(hidden: list[dict], tools: list[dict], items: list[dict]) -> dict:
     return out
 
 
-def render_tools(shown: dict, hidden: dict, tools: dict, pairs: dict | None = None) -> str:
+def render_tools(
+    shown: dict, hidden: dict, tools: dict, pairs: dict | None = None, also: str | None = None
+) -> str:
     """The tools-mode run beside the two prompt runs of one model over the same items (decision
     0023): the rules and rows in the prompt, the rule left out, and the rule left out with the
-    rows behind the query tool. Rules hidden against tools isolates where the rows are; pairs,
-    when given, are the paired counts of those two runs."""
+    rows behind the query tool. Rules hidden against tools isolates where the rows are, unless
+    `also` names a second difference between those runs; pairs, when given, are their paired
+    counts."""
     if not tools.get("tools"):
         raise ValueError("the third run is not a tools-mode run")
     runs = (shown, hidden, tools)
@@ -444,7 +447,13 @@ def render_tools(shown: dict, hidden: dict, tools: dict, pairs: dict | None = No
         "",
         "## What the tool changes",
         "",
-        "Both runs leave the rule out, so the one difference is where the rows are. Per question:",
+        (
+            f"Both runs leave the rule out. They differ in where the rows are and in {also}. "
+            "Per question:"
+            if also
+            else "Both runs leave the rule out, so the one difference is where the rows are. "
+            "Per question:"
+        ),
         "",
     ]
     for q in names:
@@ -483,6 +492,7 @@ def main() -> None:
     parser.add_argument(
         "--tools", help="log dir of the tools-mode run: with --hidden, write all three"
     )
+    parser.add_argument("--also", help="with --tools: a second difference between the two runs")
     args = parser.parse_args()
 
     def one(path: str) -> EvalLog:
@@ -498,7 +508,9 @@ def main() -> None:
             raise SystemExit("--tools needs --hidden")
         hidden, tools = one(args.hidden), one(args.tools)
         pairs = flips(rows(hidden), rows(tools), records())
-        text = render_tools(s, summarize(hidden, records()), summarize(tools, records()), pairs)
+        text = render_tools(
+            s, summarize(hidden, records()), summarize(tools, records()), pairs, args.also
+        )
         args.out.write_text(text, "utf-8")
         print(f"three-run report written to {args.out}")
         return

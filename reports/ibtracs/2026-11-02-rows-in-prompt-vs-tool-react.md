@@ -25,7 +25,7 @@ Wrong answers that equal a careless reading of the rule, with the rows in the pr
 
 ## What the tool changes
 
-Both runs leave the rule out, so the one difference is where the rows are. Per question:
+Both runs leave the rule out. They differ in where the rows are and in react's system prompt and submit tool, which the prompt run did not have (decision 0023). Per question:
 
 - ace: 0.990 with the rows in the prompt, 0.990 with the tool: about the same (within five points).
 - peak_category: 0.990 with the rows in the prompt, 1.000 with the tool: about the same (within five points).

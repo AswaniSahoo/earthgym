@@ -361,3 +361,15 @@ def test_main_writes_the_three_run_report_from_three_log_dirs(tmp_path, monkeypa
         "| all | 3 | 1.000 | 1.000 | 1.000 |" in text
         and "| hurricane_hours | 0 | 0 | 1.000 |" in text
     )
+
+
+def test_tools_report_names_a_second_difference_between_the_runs_when_there_is_one():
+    shown = summary(0.9, {"ace": 0.99, "peak_category": 1.0, "hurricane_hours": 1.0})
+    hidden = summary(0.7, {"ace": 0.99, "peak_category": 0.99, "hurricane_hours": 0.13})
+    tools = summary(0.75, {"ace": 0.99, "peak_category": 1.0, "hurricane_hours": 0.25})
+    tools |= {"tools": True}
+    plain = report.render_tools(shown, hidden, tools)
+    assert "so the one difference is where the rows are" in plain
+    text = report.render_tools(shown, hidden, tools, also="react's system prompt")
+    assert "so the one difference" not in text
+    assert "They differ in where the rows are and in react's system prompt" in text

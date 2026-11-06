@@ -53,9 +53,10 @@ once with the policy terms alone, worded as a term sheet would put them
 
 - With the rules shown, all four misses are one extra day on a missed-days count.
 - With the terms alone, the model reads "reaches 110 F" as at or above and pays each event once
-  without being told. Missed days fall to 0.89, and 7 of the 8 items where a missing index value
-  decides the key, all Deer Valley 2019, took the other reading of that missing value: a
-  convention the terms leave open, not a counting skill (decision 0013).
+  without being told. Missed days fall to 0.89. The model misses 7 of the 8 items where a missing
+  index value decides the key, all Deer Valley 2019: on 6 its answer is the other reading of that
+  missing value, a convention the terms leave open, not a counting skill (decision 0013), and on
+  the seventh it is one day from that reading.
 - No reply names a season (0 of 600), so the answers were counted, not recalled.
 
 ## What this means for RL
