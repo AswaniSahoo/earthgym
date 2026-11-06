@@ -1,0 +1,19 @@
+climaqa-v1 bundles items derived from the ClimaQA dataset:
+
+  ClimaQA: An Automated Evaluation Framework for Climate Question Answering Models (ICLR 2025),
+  arXiv 2410.16701.
+  https://huggingface.co/datasets/Rose-STL-Lab/ClimaQA
+  Rose-STL-Lab/ClimaQA at revision 3f084a0202c6260e588fb5b681d2e4ec859a3845.
+
+The dataset's card gives its licence as Apache-2.0, and a copy is in LICENSE-Apache-2.0.txt. The
+dataset has no NOTICE file of its own at that revision. Its Apache-2.0 terms cover
+climaqa_clean_v1.jsonl and near_matches.json. The code in this package is under the MIT licence
+in LICENSE.
+
+What changed from the source, by earthgym's climaqa/clean.py:
+
+- Only validated Gold MCQ and cloze items are kept. Items with a defect or that give their answer
+  away, and "all or none of the above" items, are removed, as are items found verbatim in Silver.
+- Each MCQ's options are shuffled once, seeded by the item id, and its answer letter follows.
+- Items get ids of their own, and fields are renamed.
+- near_matches.json is new: it lists the kept items that are near matches of Silver.

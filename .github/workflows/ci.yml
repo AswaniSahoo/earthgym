@@ -20,6 +20,11 @@ jobs:
       - run: uv run pytest -q
       # the gold check (the reference answer scores 1.0, decision 0021) and the untouched one
       - run: uv run vf-validate climaqa-v1 --runtime.type subprocess
+      # the wheel carries the items' Apache-2.0 licence and NOTICE
+      - run: uv build environments/climaqa_v1 --out-dir "$RUNNER_TEMP/wheels"
+      - run: >-
+          unzip -l "$RUNNER_TEMP"/wheels/climaqa_v1-*.whl
+          | grep -E "climaqa_v1/(NOTICE|LICENSE-Apache-2.0.txt)"
       - run: uv run vf-validate era5-forecast-v1 --runtime.type subprocess
       - run: >-
           uv run inspect eval src/earthgym/era5/tasks.py@era5_forecast --model mockllm/model
