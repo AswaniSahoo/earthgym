@@ -22,7 +22,7 @@ decision 0022 come on top; their size goes here once the runs end.
 ## Before uploading
 
 - The two Gemini logs carry Python tracebacks from retried calls with local paths
-  (`/home/aswani/.local/share/uv/python/...` 28 and 60 times, `/data/rlenv` 244 and 520 times);
+  (a home-directory path 28 and 60 times, the repository's path 244 and 520 times);
   the Sonnet logs carry neither (checked 2026-11-02 on the ClimaQA, heat, ERA5 and IBTrACS
   tools-mode logs). Decide
   whether to upload them as they are or rewrite those paths, and say so in the release notes.

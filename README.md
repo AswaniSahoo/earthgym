@@ -16,11 +16,12 @@ ClimaQA. Later phases write new papers (environments) whose answers a program ca
 | 4 | IBTrACS cyclone analytics environment | done: `ibtracs-storm-v1`, 300 per-storm questions with exact answers. With the rules in the prompt (the control) Sonnet 5.5 scores 0.997; with them hidden 0.703, where ACE and peak category stay at 0.99 and hours become a convention test (`reports/ibtracs/2026-11-01-rules-shown-vs-hidden.md`) |
 | 5 | Heat-insurance basis-risk environment | done: `heat-basis-v1`, 300 policy questions over Phoenix-area stations, after reproducing NWS Phoenix's heat counts. With the rules shown (the control) Sonnet 5.5 scores 0.987; with the policy terms alone 0.960, where missed days fall to 0.89 on how a missing index value is read (`reports/heat/2026-11-01-rules-shown-vs-terms-only.md`) |
 | 6 | A tools mode for `ibtracs-storm-v1`: the storm's rows behind one read-only SQL tool | built and tested in both harnesses (decision 0023). A first version under Inspect's react agent scored 0.747 against 0.703 with the rows in the prompt, but react's system prompt is a second difference between those runs; the tool-loop run stopped at 225 of 300 items when the API's credit ran out (`reports/ibtracs/2026-11-02-phase-6-writeup.md`) |
-| 7 | A small GRPO run: Qwen3.5-2B with a LoRA on climaqa-v1 MCQ, on a Kaggle T4 | in progress: the smoke run is done (`reports/grpo/2026-11-02-smoke.md`), the 250-step run next (decision 0024) |
+| 7 | A small GRPO run: Qwen3.5-2B with a LoRA on climaqa-v1 MCQ, on a Kaggle T4 | done: 250 steps, one seed. It learned the train items (0.728 to 0.832) with no measurable transfer to held-out items (0.740 to 0.750) (`reports/grpo/2026-11-02-phase-7-writeup.md`) |
 
-Every model run uses Claude Sonnet 5.5 on the Anthropic key, with $20 in total as a hard cap;
-the spend is in `reports/spend.md` (decision 0010). No Vertex AI or Gemini calls are made from
-2026-11-01; the earlier Gemini results stay as recorded.
+Claude Sonnet 5.5 is the only paid model, on the Anthropic key within a managed budget of $20 in
+total; the spend is in `reports/spend.md` (decision 0010). Qwen3.5-2B and Granite 4.0 H-1B run on
+Kaggle's free GPUs (decision 0025). No Vertex AI or Gemini calls are made from 2026-11-01; the
+earlier Gemini results stay as recorded.
 
 ## Environments
 

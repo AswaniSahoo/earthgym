@@ -42,7 +42,7 @@ Newest first. One entry per working session: what changed, what I learned, what 
   cannot see from here; the Console decides (`reports/spend.md`).
 - Phase 7 (decision 0024): a GRPO kernel built from the repo, carrying ClimaQA's MCQ items and
   contract, ran a 10-step smoke on a Kaggle T4 (`reports/grpo/2026-11-02-smoke.md`); the
-  250-step run is on Kaggle now.
+  250-step run is in the entry above.
 - Next: the rest of the small-model runs and their reports, then the README; the tool-loop run
   once there is credit; the GRPO run's report.
 
@@ -102,8 +102,9 @@ Newest first. One entry per working session: what changed, what I learned, what 
 
 - Phase 5 on Sonnet 5.5, the rules-shown control: 296 of 300 (0.987), $1.8801; all four misses
   are one extra day on missed days. Terms-only ablation: 0.960, $1.9036. Trigger days and events
-  stay at the ceiling; missed days fall from 0.96 to 0.89, and 7 of the 8 items where a missing
-  index value decides the key, all Deer Valley 2019, took the other reading.
+  stay at the ceiling; missed days fall from 0.96 to 0.89. The model misses 7 of the 8 items where a
+  missing index value decides the key, all Deer Valley 2019: on 6 its answer is the other reading,
+  on the seventh one day from it.
 - The Phase 5 review (correctness 9, publish-readiness 7): the heat reports said "storms"
   and "rows" (Phase 4 wording), now seasons and days; the pair report called the missed-days
   gap a constant offset, now a convention a policy would take from the reward; the reports name

@@ -1,7 +1,7 @@
 # earthgym: what I found
 
-Verifiable evals and RL environments for climate and earth science, built in six phases from
-2026-10-30 to 2026-11-02. Every number here is traced to the report it comes from; the
+Verifiable evals and RL environments for climate and earth science, built in seven phases from
+2026-10-30 to 2026-11-03. Every number here is traced to the report it comes from; the
 blog-ready write-ups tell each phase's story.
 
 ## Phase 1: checking ClimaQA before trusting it
@@ -69,9 +69,10 @@ Write-up: `reports/ibtracs/2026-11-01-phase-4-writeup.md`.
 - The basis risk is in the data: with Scottsdale's airport as the index, the urban core at Sky
   Harbor has 7 to 42 days a season at 110 F that the index misses (decision 0013).
 - On 300 policy questions, Sonnet 5.5 scores 0.987 with the rules in the prompt and 0.960 with
-  the policy terms alone. Missed days drop from 0.96 to 0.89: on 7 of the 8 items where a
-  missing index value decides the key, all at Deer Valley in 2019, the model took the other
-  reading of that missing value, which the terms leave open
+  the policy terms alone. Missed days drop from 0.96 to 0.89. The model misses 7 of the 8 items
+  where a missing index value decides the key, all at Deer Valley in 2019: on 6 its answer is the
+  other reading of that missing value, which the terms leave open, and on the seventh it is one
+  day from that reading
   (`reports/heat/2026-11-01-rules-shown-vs-terms-only.md`).
 
 Write-up: `reports/heat/2026-11-01-phase-5-writeup.md`.
@@ -91,6 +92,16 @@ Write-up: `reports/heat/2026-11-01-phase-5-writeup.md`.
   finishes.
 
 Write-up: `reports/ibtracs/2026-11-02-phase-6-writeup.md`.
+
+## Phase 7: a small GRPO run
+
+- Qwen3.5-2B with a LoRA on climaqa-v1 MCQ, 250 steps on a Kaggle T4, one seed. It learned the train
+  items, with no measurable transfer: the first 52 train items went from 0.728 to 0.832 (22 better,
+  5 worse, 25 the same, sign test p 0.0015), the 52 held-out items from 0.740 to 0.750 (12, 10, 30,
+  p 0.83). Replies cut at the 1,024-token cap fell from 24 to 5 and from 39 to 19, so part of the
+  gain is that the model learned to finish (`reports/grpo/2026-11-02-run.md`).
+
+Write-up: `reports/grpo/2026-11-02-phase-7-writeup.md`.
 
 ## What it means for RL
 
