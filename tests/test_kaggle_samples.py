@@ -126,6 +126,15 @@ def test_the_second_session_resumes_qwens_heat_and_splits_era5_over_both_gpus():
         assert cmd[cmd.index("--log-dir") + 1].endswith(f"-era5-qwen3.5-2b-q8_0-8-{name}")
     every = [r["id"] for r in records()]
     assert ids["a"] + ids["b"] == every and len(ids["a"]) == 460
-    for w in rest["workers"]:  # room for 32 sequences of the longest session 1 saw, 8,810 tokens
-        assert w["server"][w["server"].index("-c") + 1] == str(32 * 10240)
+    for w in rest["workers"]:  # the most llama-server grants this model: its training context
+        assert w["server"][w["server"].index("-c") + 1] == str(32 * 8192)
     assert first["workers"][0]["server"][first["workers"][0]["server"].index("-c") + 1] == "131072"
+
+
+def test_a_download_with_the_wrong_hash_is_refused(tmp_path):
+    from earthgym.kaggle import samples_job
+
+    path = tmp_path / "file"
+    path.write_bytes(b"not what was pinned")  # present, so nothing is downloaded
+    with pytest.raises(ValueError, match="sha256"):
+        samples_job.fetch("http://127.0.0.1/unused", path, "0" * 64)

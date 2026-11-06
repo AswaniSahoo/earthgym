@@ -118,8 +118,8 @@ def worker(gpu: int, model: Model, commands: dict, per_slot: int) -> dict:
 def plan(name: str) -> list[dict]:
     """The workers of a session. "first": one model a GPU, every environment. "qwen-rest", for
     what the first session left: Qwen3.5-2B on both GPUs, its heat resumed and then the last 188
-    ERA5 items on one, the first 460 on the other, so that both end at about the same time, with
-    10,240 cache tokens a slot, since the first session's server ran out of KV space (decision
+    ERA5 items on one, the first 460 on the other, with 8,192 cache tokens a slot, the most the
+    server grants this model, since the first session's server ran out of KV space (decision
     0025)."""
     if name == "first":
         return [
@@ -142,8 +142,8 @@ def plan(name: str) -> list[dict]:
     }
     heat = inspect_command(qwen.name, "heat", log_dir("heat", qwen.name))
     return [
-        worker(0, qwen, {"heat": heat, "era5-b": era5["b"]}, 10240),
-        worker(1, qwen, {"era5-a": era5["a"]}, 10240),
+        worker(0, qwen, {"heat": heat, "era5-b": era5["b"]}, 8192),
+        worker(1, qwen, {"era5-a": era5["a"]}, 8192),
     ]
 
 
