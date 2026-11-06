@@ -1,4 +1,6 @@
 import csv
+import re
+from pathlib import Path
 
 from earthgym.climaqa import human_checks
 
@@ -83,3 +85,23 @@ def test_main_writes_both_sheets_once_and_never_overwrites_a_verdict(tmp_path, m
     human_checks.main()
     assert out.read_text("utf-8") == filled
     assert (tmp_path / "out" / "leak-pairs.csv").exists()
+
+
+def test_how_built_states_the_review_as_far_as_the_sheets_show_it():
+    root = Path(__file__).resolve().parents[1]
+    checks = root / "docs/human-checks"
+    text = " ".join((root / "docs/how-built.md").read_text("utf-8").split())
+    for sheet, what in (("climaqa-sample.csv", "ClimaQA items"), ("leak-pairs.csv", "leak pairs")):
+        with open(checks / sheet, newline="", encoding="utf-8") as f:
+            rows = list(csv.DictReader(f))
+        done = sum(bool(r["verdict"].strip()) for r in rows)
+        assert f"{done} of the {len(rows)} {what}" in text
+    digest = re.findall(
+        r"^\| (\d{4}) \|.*\|([^|]*)\|$", (checks / "decisions.md").read_text("utf-8"), re.M
+    )
+    assert [r for r, _ in digest] == sorted(
+        p.name[:4] for p in (root / "docs/decisions").glob("0*.md")
+    )
+    answered = sum(bool(a.strip()) for _, a in digest)
+    assert f"{answered} of the {len(digest)} decision records" in text
+    assert "I reviewed each one afterwards" not in text

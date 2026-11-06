@@ -6,8 +6,8 @@ the decisions (`docs/decisions/`).
 ## Before the repository goes public
 
 - I read and confirm every decision record, 0001 onward, from the plain-language digest in
-  `docs/human-checks/decisions.md`. Until then `docs/how-built.md` overstates my review: its wording
-  changes to match what I agree with, change or question.
+  `docs/human-checks/decisions.md`. `docs/how-built.md` states the review as in progress, and its
+  wording changes to match what I agree with, change or question.
 - The last 21 samples of Qwen3.5-2B's ERA5 run, cut by a session's deadline (decision 0025): one
   short resumed session on Kaggle, after the weekly allowance renews on 2026-11-07.
 - My own hand checks: the 30-item ClimaQA sample and the 56 Gold and Silver leak pairs, from

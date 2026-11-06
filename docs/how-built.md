@@ -1,8 +1,8 @@
 # How this was built
 
 I built this repository with Claude Code, Anthropic's coding agent, as a pair programmer under
-my direction, between 2026-10-30 and 2026-11-02. The git history shows the work as it happened,
-corrections included.
+my direction, from 2026-10-30. The git history shows the work as it happened, corrections
+included.
 
 ## Who did what
 
@@ -11,25 +11,22 @@ reports and the decision records. It worked in phases with a fixed loop, written
 `CLAUDE.md`: a radar of current tools checked at the source, a plan, test-first code, a dated
 report, and a review before the phase closed.
 
-The main design calls are mine:
+These calls I made myself:
 
-- The ERA5 reward: skill over the better of persistence and climatology, so that copying a
-  baseline earns nothing (decision 0007).
-- No judge model for ClimaQA's cloze answers; a domain expert's review instead (decision 0005).
-- One paid model, Claude Sonnet 5.5, within a $20 budget, and no Vertex AI or Gemini calls
-  (decision 0010).
-- ACE kept at one decimal, as NOAA reports it, so the runs stay comparable (decision 0011).
-- The MIT License (decision 0015), the name earthgym, and keeping the repository private until
-  the work is done.
+- One paid model within a $20 budget, and no Vertex AI or Gemini calls (decision 0010).
+- Small open models at no API cost (decision 0022), and all GPU work on Kaggle (decision 0025).
+- The MIT License (decision 0015), the name earthgym (decision 0020), and keeping the repository
+  private until the work is done.
 
-Claude Code proposed most of the other technical details, for example the reward floor in
-decision 0007, the item draws and the careless-reading baselines, and some were set during runs
-I was not watching. I reviewed each one afterwards; the decision records state them as mine
-because I keep them, and where the record shows a choice was not mine at the time, it says so
-(the floor, in `docs/log.md`, 2026-10-30).
+Claude Code proposed the other design choices and technical details, for example the ERA5 reward
+and its floor (decision 0007), no judge model for ClimaQA's cloze answers (decision 0005), ACE at
+one decimal (decision 0011), the item draws and the careless-reading baselines. Some were set
+during runs I was not watching. The decision records are written in my voice, and where a record
+shows a choice was not mine at the time, it says so (the floor, in `docs/log.md`, 2026-10-30).
 
-The checks that need a person's judgment I do myself: the 30-item ClimaQA sample and the 56
-Gold and Silver leak pairs, from the sheets in `docs/human-checks/`.
+My review of this work is in progress, so read those records as drafted, not as confirmed. As of
+2026-11-06, in the sheets of `docs/human-checks/`, I have answered 0 of the 25 decision records and
+checked 0 of the 30 ClimaQA items and 0 of the 56 leak pairs. This page changes as those fill in.
 
 ## How it was checked
 
