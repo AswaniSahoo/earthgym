@@ -48,6 +48,15 @@ def summary(rows: list[dict], passed=lambda reward: reward == 1.0, k: int | None
     }
 
 
+def finished(head: dict, rows: list[dict]) -> tuple[list[dict], int]:
+    """A run's rows and how many items were left out: a run that stopped early (a status in its
+    header) never finished its errored samples, so they say nothing of the model."""
+    if not head.get("status"):
+        return rows, 0
+    cut = {r["id"] for r in rows if r.get("error")}
+    return [r for r in rows if r["id"] not in cut], len(cut)
+
+
 def passes(env: str):
     """When a sample counts as a pass: ERA5's reward is continuous, so a forecast passes when it
     beats the better of persistence and climatology; elsewhere the answer must be right."""
@@ -116,6 +125,12 @@ def render(
             f"- {head['model']}: {settings}; {len(rows)} samples, {out} output tokens, from "
             f"{head.get('started')} to {head.get('completed')} (UTC).{cut} "
             f"{sum(not r.get('answer') for r in rows)} had no parseable answer and score 0."
+            + (
+                f" {head['left_out']} items left out: a session's deadline stopped a sample of "
+                "each before it finished."
+                if head.get("left_out")
+                else ""
+            )
         )
     return "\n".join([*lines, ""])
 
@@ -130,6 +145,9 @@ def main() -> None:
     for path in args.results:
         head, rows = results.read(Path(path))
         merged, kept = runs.setdefault(head["model"], (dict(head), []))
+        rows, unfinished = finished(head, rows)
+        if unfinished:
+            merged["left_out"] = merged.get("left_out", 0) + unfinished
         merged["started"] = min(merged["started"], head["started"])
         merged["completed"] = max(merged["completed"], head["completed"])
         kept.extend(rows)

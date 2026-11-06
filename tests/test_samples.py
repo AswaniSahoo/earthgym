@@ -109,3 +109,24 @@ def test_the_report_counts_replies_cut_at_the_token_cap_and_replies_without_an_a
 def test_the_report_names_where_the_samples_were_drawn():
     text = samples.render("ibtracs", [run("m/one", {"ace/1": [1.0] * 8})], date="2026-11-02")
     assert "llama.cpp on Kaggle's T4 GPUs (decisions 0022 and 0025)" in text
+
+
+def test_main_leaves_out_the_items_a_stopped_run_did_not_finish(tmp_path, monkeypatch):
+    from earthgym import results
+
+    head = {"model": "m/one", "epochs": 8, "settings": {}, "started": "2026-11-02T00:15:48Z"}
+    head["completed"] = "2026-11-02T00:20:00Z"
+    whole = rows({"ace/1": [1.0] * 8})
+    results.write(tmp_path / "a.jsonl", head, [r | {"tokens": [1, 0, 0, 4, 0]} for r in whole])
+    cut = [r | {"tokens": [1, 0, 0, 4, 0]} for r in rows({"ace/2": [0.0] * 8, "ace/3": [1.0] * 8})]
+    cut[7] = {"id": "ace/2", "error": True, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+    results.write(tmp_path / "b.jsonl", head | {"status": "cancelled"}, cut)
+    out = tmp_path / "report.md"
+    files = [str(tmp_path / "a.jsonl"), str(tmp_path / "b.jsonl")]
+    monkeypatch.setattr("sys.argv", ["samples", "ibtracs", *files, "--out", str(out)])
+    samples.main()
+    text = out.read_text("utf-8")
+    assert (
+        "| m/one | 2 | 8 | 1.000 | 0.000 | 1.000 | 1.000 |" in text
+    )  # not charged as a wrong answer
+    assert "1 items left out: a session's deadline stopped a sample of each" in text
