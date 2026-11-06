@@ -74,3 +74,36 @@ def test_the_report_gives_the_config_the_curve_and_the_held_out_change():
     assert "1 of 4 steps had the same reward on all 8 completions" in text
     assert "| test | 3 | before | 0.500 |" in text and "| test | 3 | after | 0.833 |" in text
     assert "2 items better, 0 worse, 1 the same (two-sided sign test p 0.500)" in text
+
+
+def test_the_comparison_counts_right_answers_among_uncut_replies_and_reply_lengths():
+    before = [
+        {"id": "a", "epoch": 1, "answer": "A", "reward": 1.0, "tokens": 300, "cut": False},
+        {"id": "a", "epoch": 2, "answer": "", "reward": 0.0, "tokens": 1024, "cut": True},
+    ]
+    after = [
+        {"id": "a", "epoch": 1, "answer": "A", "reward": 1.0, "tokens": 600, "cut": False},
+        {"id": "a", "epoch": 2, "answer": "A", "reward": 1.0, "tokens": 1024, "cut": True},
+    ]
+    c = report.compare(before, after)
+    assert (c["right_uncut_before"], c["right_uncut_after"]) == (1.0, 1.0)  # a cut reply that
+    assert (c["tokens_before"], c["tokens_after"]) == (662.0, 812.0)  # scored is not counted
+    assert (c["change"], c["change_se"]) == (0.5, 0.0)
+
+
+def test_the_report_says_when_the_two_samplings_did_not_share_a_stop_set():
+    text = report.render(metrics(), name="smoke", date="2026-11-02", window=2)
+    assert (
+        "did not share a stop set" in text and "Each item sampled 2 times with the same" not in text
+    )
+    assert "| test | 3 | before | 0.500 | 0.333 | 0.500 | 0.667 | 0 | 0.500 | 300 |" in text
+    assert "mean item change +0.333 (SE 0.167)" in text
+    fixed = metrics() | {"stop_tokens": [248044, 248046]}
+    assert "under one stop set" in report.render(fixed, name="x", date="2026-11-02", window=2)
+
+
+def test_a_sampling_only_run_has_no_train_section():
+    only = metrics() | {"stop_tokens": [1], "log_history": []}
+    text = report.render(only, name="samplings", date="2026-11-02", window=2)
+    assert "## Train reward" not in text and "## Before and after training" in text
+    assert "trained for" not in text and "the saved adapter" in text
