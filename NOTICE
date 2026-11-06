@@ -1,0 +1,18 @@
+earthgym's code is under the MIT licence in LICENSE. These files carry other parties' data, which
+keeps its own terms.
+
+ClimaQA, Apache-2.0: the items in environments/climaqa_v1/climaqa_v1/, and question text in
+docs/human-checks/*.csv, reports/climaqa/*.csv and reports/climaqa/runs/*-misses.md. The licence
+text and what changed are in environments/climaqa_v1/climaqa_v1/LICENSE-Apache-2.0.txt and
+environments/climaqa_v1/climaqa_v1/NOTICE.
+
+ERA5 and IFS HRES through WeatherBench 2, CC BY 4.0: the items in
+environments/era5_forecast_v1/era5_forecast_v1/, and scores computed from them in reports/era5/.
+The attribution is in environments/era5_forecast_v1/era5_forecast_v1/NOTICE.
+
+IBTrACS v04r01, "full and open access": the items in
+environments/ibtracs_storm_v1/ibtracs_storm_v1/, and the pinned file on the data-v1 release. The citations are in
+environments/ibtracs_storm_v1/ibtracs_storm_v1/NOTICE.
+
+GHCN-Daily, for which NOAA names no licence: the items in environments/heat_basis_v1/heat_basis_v1/.
+The citations and NOAA's disclaimer are in environments/heat_basis_v1/heat_basis_v1/NOTICE.

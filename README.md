@@ -82,5 +82,6 @@ every number and runs fresh evals.
 MIT, copyright 2026 Aswani Kumar Sahoo: see [`LICENSE`](LICENSE). It covers the code in this repo
 and in the environment packages. The data they and the reports carry keep their sources' terms:
 ClimaQA under Apache-2.0, ERA5 under CC BY 4.0, IBTrACS with "full and open access" and WMO
-Resolution 40 for commercial use, and GHCN-Daily, for which NOAA names no licence. Each package's
-`NOTICE` gives the attribution; `docs/radar.md` and decisions 0008 and 0012 give the sources.
+Resolution 40 for commercial use, and GHCN-Daily, for which NOAA names no licence.
+[`NOTICE`](NOTICE) says which files carry what, and each package's own `NOTICE` gives the
+attribution; `docs/radar.md` and decisions 0008 and 0012 give the sources.

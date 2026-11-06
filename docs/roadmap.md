@@ -12,6 +12,9 @@ the decisions (`docs/decisions/`).
   short resumed session on Kaggle, after the weekly allowance renews on 2026-11-07.
 - My own hand checks: the 30-item ClimaQA sample and the 56 Gold and Silver leak pairs, from
   sheets under `docs/human-checks/`.
+- My decision on the heat items. They carry GHCN-Daily station values, and NOAA's metadata page asks
+  for two citations and disclaims any warranty but names no licence, so making the repository public
+  publishes derived GHCN-Daily data (`docs/release/dataset-card.md`).
 - A README that leads with the claim, the results and the three findings.
 - Independent oracles for the keys (the Codex review's finding 8): today the heat and storm
   item tests rebuild the items with the same code that made them, which proves consistency, not
@@ -32,6 +35,4 @@ the decisions (`docs/decisions/`).
 - The Jev third-reader study (decision 0008) is built and tested with its HTTP call mocked, but
   it runs only with a TypeSafe key, which I do not have.
 - The GHCN-Daily station files stay unpublished unless NCEI states that they may be
-  redistributed (decision 0018). The bundled heat items carry those stations' values too, so
-  making the repository public publishes derived GHCN-Daily data: I decide that before the flip
-  (`docs/release/dataset-card.md`).
+  redistributed (decision 0018).

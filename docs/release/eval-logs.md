@@ -16,8 +16,8 @@ numbers (decision 0019), and the logs add the full replies.
 | `logs/2026-11-02-ibtracs-tools-claude-sonnet-5-5` | 2.8 MB | IBTrACS tools mode (decision 0023) |
 | the eight probe logs | 0.5 MB in all | the probes in `reports/spend.md` |
 
-About 17 MB for the Sonnet and Gemini runs (`du`, 2026-11-02). The small-model logs of
-decision 0022 come on top; their size goes here once the runs end.
+About 17 MB for the Sonnet and Gemini runs (`du`, 2026-11-02). The small-model logs of decision
+0025 come on top: 113 MB of `.eval` files (`du`, 2026-11-06).
 
 ## Before uploading
 

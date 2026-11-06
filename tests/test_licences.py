@@ -80,3 +80,15 @@ def test_every_data_package_carries_its_sources_attribution(package, needed):
         assert text in notice, text
     project = tomllib.loads((folder / "pyproject.toml").read_text("utf-8"))["project"]
     assert f"{package}/NOTICE" in project["license-files"]
+
+
+def test_the_root_notice_names_every_file_outside_the_packages_that_carries_climaqa_text():
+    notice = " ".join((ROOT / "NOTICE").read_text("utf-8").split())
+    for glob in (
+        "docs/human-checks/*.csv",
+        "reports/climaqa/*.csv",
+        "reports/climaqa/runs/*-misses.md",
+    ):
+        assert glob in notice and list(ROOT.glob(glob)), glob
+    for package in PACKAGES:
+        assert f"environments/{package}/{package}/NOTICE" in notice

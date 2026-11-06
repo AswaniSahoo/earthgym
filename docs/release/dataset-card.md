@@ -7,11 +7,12 @@ huggingface_hub at `5077876` (`repocard_data.py`).
 ## A licence question to settle first
 
 The heat items carry GHCN-Daily values: each one shows both stations' daily maxima for a
-season. NOAA names no licence for GHCN-Daily, and for that reason I did not publish the raw
-station files (decision 0018). Publishing the heat items, here or by making the repository
-public, publishes data derived from them. The same question applies to the bundled items in
-`environments/heat_basis_v1/` whenever the repository goes public. It needs my decision first:
-leave heat out of the card, or publish on a stated basis.
+season. NOAA's metadata page asks for two citations and disclaims any warranty, and it names no
+licence, so I did not publish the raw station files (decision 0018; the citations and disclaimer
+are in `environments/heat_basis_v1/heat_basis_v1/NOTICE`). Publishing the heat items, here or by
+making the repository public, publishes data derived from them. The same question applies to the
+bundled items in `environments/heat_basis_v1/` whenever the repository goes public. It needs my
+decision first: leave heat out of the card, or publish on a stated basis.
 
 ## The card
 

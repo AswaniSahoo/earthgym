@@ -23,7 +23,7 @@ repository.
 
 | package | version | license | README | to do before a push |
 |---|---|---|---|---|
-| `climaqa-v1` | 0.1.0 | MIT | setup, reward, commands | a GitHub link (the Hub has no repository field), a `tags` field |
+| `climaqa-v1` | 0.1.0 | MIT and Apache-2.0 | setup, reward, commands | a GitHub link (the Hub has no repository field), a `tags` field |
 | `era5-forecast-v1` | 0.1.0 | MIT | setup, reward, commands, attribution | the same, and a version bump: its items changed on 2026-11-02 (decision 0021) |
 | `ibtracs-storm-v1` | 0.1.0 | MIT | setup, reward, commands, data terms | the same |
 | `heat-basis-v1` | 0.1.0 | MIT | setup, reward, commands | the same, after the GHCN-Daily question below |
