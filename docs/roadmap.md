@@ -10,6 +10,7 @@ the decisions (`docs/decisions/`).
   wording changes to match what I agree with, change or question.
 - The last 21 samples of Qwen3.5-2B's ERA5 run, cut by a session's deadline (decision 0025): one
   short resumed session on Kaggle, after the weekly allowance renews on 2026-11-07.
+- The GRPO run's two samplings again, under one stop set (decision 0024), on the same renewal.
 - My own hand checks: the 30-item ClimaQA sample and the 56 Gold and Silver leak pairs, from
   sheets under `docs/human-checks/`.
 - My decision on the heat items. They carry GHCN-Daily station values, and NOAA's metadata page asks

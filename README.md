@@ -36,7 +36,8 @@ almost no signal: those versions stay as controls for the ablations and for smal
 
 A small GRPO run of Qwen3.5-2B on ClimaQA's multiple choice items learned the train items with no
 measurable transfer: train items went from 0.728 to 0.832, held-out items from 0.740 to 0.750. One
-seed ([write-up](reports/grpo/2026-11-02-phase-7-writeup.md)).
+seed. Its two samplings stopped on different tokens: the headline holds under the worst case, and
+they run again under one stop set ([write-up](reports/grpo/2026-11-02-phase-7-writeup.md)).
 
 ## Not finished
 
@@ -48,6 +49,7 @@ seed ([write-up](reports/grpo/2026-11-02-phase-7-writeup.md)).
   ([write-up](reports/ibtracs/2026-11-02-phase-6-writeup.md)).
 - Qwen3.5-2B's ERA5 run. A session's deadline cut 21 samples, so its report leaves out those 21 of
   the 648 items (decision 0025).
+- The rerun of the GRPO run's two samplings under one stop set (decision 0024).
 - Independent oracles for the bundled heat and storm keys ([`docs/roadmap.md`](docs/roadmap.md)).
 
 ## Quick start

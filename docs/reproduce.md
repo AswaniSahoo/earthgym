@@ -11,7 +11,9 @@ release asset, ran on a fresh CI runner (the `reproduce` workflow, run 413555346
 the local clone used uv 0.12.18, and its IBTrACS and GHCN-Daily fetches checked copies of the
 pinned files by hash. uv's installer ran once, into a scratch directory. Part 3 ran with
 Inspect's mock model only, so without a model call. The data steps of part 1 run again every
-Monday in CI (`.github/workflows/reproduce.yml`).
+Monday in CI (`.github/workflows/reproduce.yml`). The GHCN-Daily step no longer works for a
+stranger: NCEI rewrites its station files, and by 2026-11-02 it served another build of USW00023183,
+so the pin refuses it and CI warns (decision 0018).
 
 ## Set up
 

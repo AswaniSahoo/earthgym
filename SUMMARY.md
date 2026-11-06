@@ -113,8 +113,10 @@ parseable answer.
 - Qwen3.5-2B with a LoRA on climaqa-v1 MCQ, 250 steps on a Kaggle T4. On the first 52 train items,
   22 got better, 5 worse and 25 stayed the same (sign test p 0.0015). On the 52 held-out items, 12,
   10 and 30 (p 0.83) (`reports/grpo/2026-11-02-run.md`).
-- Replies cut at the 1,024-token cap fell from 24 to 5 and from 39 to 19, so part of the gain is
-  that the model learned to finish.
+- Replies nearly doubled in length, from a median of 369 tokens to 681 on train and 356.5 to 675 on
+  test. The two samplings stopped on different tokens, so the fall in replies cut at the 1,024-token
+  cap, 24 to 5 and 39 to 19, is not like for like. The headline holds under the worst case of that
+  flaw, and the samplings run again under one stop set (`docs/reviews/phase-7-grpo.md`, H1).
 
 ## What it means for RL
 

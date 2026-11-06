@@ -6,17 +6,19 @@ Newest first. One entry per working session: what changed, what I learned, what 
 
 - GRPO (decision 0024, `reports/grpo/2026-11-02-phase-7-writeup.md`): 250 steps of Qwen3.5-2B on
   climaqa-v1 MCQ, one seed. It learned the train items, with no measurable transfer: train items
-  0.728 to 0.832 (sign test p 0.0015), held-out items 0.740 to 0.750 (p 0.83). Part of the gain is
-  that the model learned to finish its replies.
+  0.728 to 0.832 (sign test p 0.0015), held-out items 0.740 to 0.750 (p 0.83). The review found that
+  the two samplings stopped on different tokens, a flaw in my kernel: the headline holds under its
+  worst case, the reading of the cut replies does not, and the samplings run again from the saved
+  adapter.
 - Small models (decision 0025): both models finished all four environments but for 21 of Qwen's
   ERA5 samples, cut by a session's deadline. Its ERA5 report covers 627 of the 648 items and says
   so. The week's 30 Kaggle hours are used; those samples wait for the 2026-11-07 renewal.
 - What I learned: `KernelWorkerStatus.COMPLETE` means the session ended, not that the work did. A
   session that hits its own deadline ends just as cleanly, so read `progress.jsonl` first.
-- Ready to go public, not public yet: the README leads with the claim, the results, the findings and
-  what is not finished; every environment README follows one template, and each fact sits in one
-  place (`README.md` for headlines, `SUMMARY.md` for phase detail). `docs/how-built.md` says my review
-  is in progress, and a test ties its counts to the sheets. Corrections: on the heat missing-value
+- Ready to go public, not public yet: the README leads with the claim, the results, the findings
+  and what is not finished; every environment README follows one template, and each fact sits in one
+  place (`README.md` for headlines, `SUMMARY.md` for phase detail). `docs/how-built.md` says my
+  review is in progress, and a test ties its counts to the sheets. Corrections: on the heat missing-value
   items the model took the other reading on 6 of 8, not 7, with a seventh answer one day off it, and
   the react three-run report now names react's prompt as a second difference. Each package carries
   its sources' attribution, and climaqa-v1 the Apache-2.0 text.
