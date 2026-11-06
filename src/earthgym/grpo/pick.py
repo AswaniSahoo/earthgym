@@ -37,29 +37,38 @@ def pick(tasks: dict[str, dict], cap: int = CAP) -> str:
 
 
 def finished() -> dict[str, dict]:
-    """The candidate tasks whose Qwen3.5-2B run has finished, with their train items."""
+    """The five candidate tasks' numbers from Qwen3.5-2B's results, on their train items;
+    ERA5's come in two files, the second from a session stopped by its deadline."""
     from climaqa_v1.taskset import ClimaqaConfig, ClimaqaTaskset
+    from era5_forecast_v1.taskset import ForecastConfig, ForecastTaskset
+    from heat_basis_v1.taskset import HeatConfig, HeatTaskset
     from ibtracs_storm_v1.taskset import StormConfig, StormTaskset
 
     r = Path("reports")
+    name = "2026-11-02-qwen3.5-2b-q8_0-8-samples"
     runs = {
         "climaqa mcq": (
-            r / "climaqa/results/2026-11-02-qwen3.5-2b-q8_0-8-samples-mcq.jsonl",
+            [r / f"climaqa/results/{name}-mcq.jsonl"],
             ClimaqaTaskset(ClimaqaConfig(kinds=["mcq"], split="train")),
         ),
         "climaqa cloze": (
-            r / "climaqa/results/2026-11-02-qwen3.5-2b-q8_0-8-samples-cloze.jsonl",
+            [r / f"climaqa/results/{name}-cloze.jsonl"],
             ClimaqaTaskset(ClimaqaConfig(kinds=["cloze"], split="train")),
         ),
         "ibtracs": (
-            r / "ibtracs/results/2026-11-02-qwen3.5-2b-q8_0-8-samples.jsonl",
+            [r / f"ibtracs/results/{name}.jsonl"],
             StormTaskset(StormConfig(split="train")),
+        ),
+        "heat": ([r / f"heat/results/{name}.jsonl"], HeatTaskset(HeatConfig(split="train"))),
+        "era5": (
+            [r / f"era5/results/{name}-a.jsonl", r / f"era5/results/{name}-b.jsonl"],
+            ForecastTaskset(ForecastConfig(split="train")),
         ),
     }
     out = {}
-    for name, (path, taskset) in runs.items():
-        _, rows = results.read(path)
-        out[name] = stats(rows, {t.data.id for t in taskset.load()})
+    for task, (paths, taskset) in runs.items():
+        rows = [row for path in paths for row in samples.finished(*results.read(path))[0]]
+        out[task] = stats(rows, {t.data.id for t in taskset.load()})
     return out
 
 

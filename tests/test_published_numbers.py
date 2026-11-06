@@ -14,6 +14,7 @@ from earthgym import results, samples, spend
 from earthgym.climaqa import compare
 from earthgym.climaqa import report as climaqa_report
 from earthgym.era5 import report as era5_report
+from earthgym.grpo import pick
 from earthgym.grpo import report as grpo_report
 from earthgym.heat import report as heat_report
 from earthgym.ibtracs import report as ibtracs_report
@@ -111,7 +112,10 @@ def test_the_gemini_era5_probe_projects_the_tokens_decision_0010_gives():
     assert (len(rows), tokens * 720 // len(rows)) == (10, 1_731_960)
 
 
-GRPO = [("2026-11-02-smoke", "smoke run, 10 steps", 5)]  # name, title, window
+GRPO = [  # name, title, window
+    ("2026-11-02-smoke", "smoke run, 10 steps", 5),
+    ("2026-11-02-run", "250 steps", 25),
+]
 
 
 @pytest.mark.parametrize(("name", "title", "window"), GRPO)
@@ -121,18 +125,21 @@ def test_each_grpo_report_re_renders_from_its_committed_metrics(name, title, win
     assert text == (R / "grpo" / f"{name}.md").read_text("utf-8")
 
 
+MODELS = ("qwen3.5-2b-q8_0", "granite-4.0-h-1b-q8_0")
 SMALL = [  # each environment's small-model report and the results files it merges
     (
         "climaqa",
-        [
-            f"2026-11-02-{m}-8-samples-{kind}"
-            for m in ("qwen3.5-2b-q8_0", "granite-4.0-h-1b-q8_0")
-            for kind in ("mcq", "cloze")
-        ],
+        [f"2026-11-02-{m}-8-samples-{kind}" for m in MODELS for kind in ("mcq", "cloze")],
     ),
+    ("ibtracs", [f"2026-11-02-{m}-8-samples" for m in MODELS]),
+    ("heat", [f"2026-11-02-{m}-8-samples" for m in MODELS]),
     (
-        "ibtracs",
-        [f"2026-11-02-{m}-8-samples" for m in ("qwen3.5-2b-q8_0", "granite-4.0-h-1b-q8_0")],
+        "era5",
+        [
+            "2026-11-02-qwen3.5-2b-q8_0-8-samples-a",
+            "2026-11-02-qwen3.5-2b-q8_0-8-samples-b",  # stopped by a session's deadline
+            "2026-11-02-granite-4.0-h-1b-q8_0-8-samples",
+        ],
     ),
 ]
 
@@ -146,3 +153,12 @@ def test_each_small_model_report_re_renders_from_the_results(env, names, tmp_pat
     monkeypatch.setattr("sys.argv", ["samples", env, *files, "--out", str(out)])
     samples.main()
     assert out.read_text("utf-8") == (R / env / "2026-11-02-small-models.md").read_text("utf-8")
+
+
+def test_the_grpo_pick_is_climaqa_mcq_on_all_five_tasks_of_the_committed_results():
+    tasks = pick.finished()
+    assert set(tasks) == {"climaqa mcq", "climaqa cloze", "ibtracs", "heat", "era5"}
+    assert pick.pick(tasks) == "climaqa mcq"
+    assert max(tasks, key=lambda t: tasks[t]["mean_variance"]) == "climaqa mcq"  # even uncapped
+    over = {t for t, s in tasks.items() if s["median_tokens"] > pick.CAP}
+    assert over == {"ibtracs", "heat", "era5"}
