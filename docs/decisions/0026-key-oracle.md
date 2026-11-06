@@ -57,6 +57,6 @@ The oracle matches the prompts' sentences whole, so rewording a prompt makes it 
 fail. I keep that: a changed prompt should be read again against the oracle.
 
 The main alternative was HURDAT2, NHC's own archive (`docs/radar.md`, assess), as a second source
-for the storm keys. It would also test the rows, but it needs a new pinned file, a parser and a match
-from each storm to its IBTrACS SID, so it stays in the assess ring. Putting the oracle under `src/`
-was the other choice; nothing at run time needs it, so it sits with the tests.
+for the storm keys. It would also test the rows, but it needs a new pinned file, a parser and a
+match from each storm to its IBTrACS SID, so it stays in the assess ring. Putting the oracle under
+`src/` was the other choice; nothing at run time needs it, so it sits with the tests.
