@@ -58,6 +58,7 @@ class Config:
     eval_items: int | None = 4  # the first items of each split; None: all of them
     eval_samples: int = 2
     save_adapter: bool = False
+    adapter: bool = False  # sample a saved adapter again, and train nothing
 
 
 # What the smoke run resolved from its one pin (reports/grpo/2026-11-02-smoke.md, Packages);
@@ -86,6 +87,9 @@ PRESETS = {
         save_adapter=True,
     ),
 }
+PRESETS["resample"] = dataclasses.replace(  # the two samplings again, under one stop set
+    PRESETS["run"], slug="earthgym-grpo-resample", steps=0, save_adapter=False, adapter=True
+)
 
 
 def items() -> list[dict]:
@@ -128,7 +132,7 @@ def metadata(config: Config, user: str) -> dict:
         "enable_gpu": True,
         "enable_internet": True,
         "machine_shape": "NvidiaTeslaT4",
-        "dataset_sources": [],
+        "dataset_sources": [f"{user}/earthgym-grpo-adapter"] if config.adapter else [],
         "competition_sources": [],
         "kernel_sources": [],
         "model_sources": [],

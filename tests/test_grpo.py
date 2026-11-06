@@ -1,12 +1,16 @@
 import ast
 import json
+import sys
+from contextlib import nullcontext
 from pathlib import Path
+from types import SimpleNamespace
 
+import numpy as np
 import pytest
 from climaqa_v1 import contract
 from climaqa_v1.taskset import ClimaqaConfig, ClimaqaTaskset
 
-from earthgym.grpo import kernel, rollout
+from earthgym.grpo import kernel, rollout, train_kernel
 
 
 def reply(text):
@@ -95,3 +99,81 @@ def test_the_run_preset_pins_what_the_smoke_resolved_and_samples_the_held_out_sp
         "eval_samples",
         "save_adapter",
     }
+
+
+class StubTokenizer:
+    """Qwen3.5-2B's two end tokens: the chat turn ends on 248046, the padding is 248044."""
+
+    eos_token_id, pad_token_id = 248046, 248044
+    WORDS = {1: "Reasoning.", 2: "ANSWER: A", 7: "text after the turn ended"}
+
+    def apply_chat_template(self, messages, **_):
+        return messages[0]["content"]
+
+    def __call__(self, text, return_tensors):
+        class Inputs(dict):
+            def to(self, device):
+                return self
+
+        return Inputs(input_ids=np.zeros((1, 3), dtype=int))
+
+    def decode(self, ids, skip_special_tokens):
+        return "\n".join(self.WORDS[i] for i in ids if i in self.WORDS)
+
+
+class StubModel:
+    """No generation_config: `sample` must not take its stop tokens from there (phase 7, H1)."""
+
+    def generate(self, **kwargs):
+        self.kwargs = kwargs
+        return np.array(
+            [
+                [
+                    0,
+                    0,
+                    0,
+                    1,
+                    2,
+                    248046,
+                    7,
+                    7,
+                    248044,
+                ],  # the turn ends; what follows is not the reply
+                [0, 0, 0, 1, 1, 1, 1, 1, 1],  # no end token within the cap
+            ]
+        )
+
+
+def test_a_sampled_reply_stops_at_the_end_of_the_turn_and_keeps_its_text(monkeypatch):
+    monkeypatch.setitem(sys.modules, "torch", SimpleNamespace(no_grad=nullcontext))
+    tokenizer, model = StubTokenizer(), StubModel()
+    stop = train_kernel.stop_tokens(tokenizer)
+    assert stop == [248044, 248046]
+    config = {"enable_thinking": False, "temperature": 0.7, "top_p": 0.8, "top_k": 20}
+    config["max_completion_length"] = 6
+    replies = []
+    item = {"id": "gold/mcq/1", "prompt": "q", "answer": "A"}
+    rows = train_kernel.sample(model, tokenizer, [item], config, 2, stop, replies)
+    assert model.kwargs["eos_token_id"] == stop
+    assert model.kwargs["pad_token_id"] == 248044
+    first, second = rows
+    assert (first["reward"], first["answer"], first["tokens"], first["cut"]) == (1.0, "A", 2, False)
+    assert (second["reward"], second["tokens"], second["cut"]) == (0.0, 6, True)
+    assert replies[0] == {"id": "gold/mcq/1", "epoch": 1, "text": "Reasoning.\nANSWER: A"}
+    assert "text" not in first  # the rows go to git; the texts stay in the kernel's output
+
+
+def test_the_resample_preset_reuses_the_saved_adapter_for_both_samplings(tmp_path):
+    run, again = kernel.PRESETS["run"], kernel.PRESETS["resample"]
+    assert again.adapter and not run.adapter and again.slug == "earthgym-grpo-resample"
+    assert (again.eval_splits, again.eval_items, again.eval_samples) == (
+        run.eval_splits,
+        run.eval_items,
+        run.eval_samples,
+    )
+    assert (again.pip, again.revision, again.seed) == (run.pip, run.revision, run.seed)
+    kernel.write(tmp_path, again, user="someone")
+    meta = json.loads((tmp_path / "kernel-metadata.json").read_text("utf-8"))
+    assert meta["dataset_sources"] == ["someone/earthgym-grpo-adapter"] and meta["is_private"]
+    compile((tmp_path / "train.py").read_text("utf-8"), "train.py", "exec")
+    assert kernel.metadata(run, "someone")["dataset_sources"] == []
