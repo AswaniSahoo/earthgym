@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "A parametric heat policy's trigger days, payout events and basis risk over Phoenix-area GHCN-Daily stations, with exact answers."
 readme = "README.md"
 license = "MIT"
-license-files = ["LICENSE"]
+license-files = ["LICENSE", "heat_basis_v1/NOTICE"]
 requires-python = ">=3.12"
 dependencies = ["verifiers>=0.4.0,<0.5"]
 

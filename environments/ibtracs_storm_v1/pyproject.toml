@@ -3,7 +3,7 @@ name = "ibtracs-storm-v1"
 version = "0.1.0"
 description = "Per-storm North Atlantic cyclone questions from IBTrACS with exact answers: ACE, peak category, hours at hurricane strength."
 license = "MIT"
-license-files = ["LICENSE"]
+license-files = ["LICENSE", "ibtracs_storm_v1/NOTICE"]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = ["verifiers>=0.4.0,<0.5"]

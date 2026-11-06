@@ -1,0 +1,10 @@
+ibtracs-storm-v1 bundles items derived from IBTrACS v04r01, NOAA NCEI.
+
+Cite: Knapp, Kruk, Levinson, Diamond and Neumann (2010), Bulletin of the American Meteorological
+Society 91, doi:10.1175/2009BAMS2755.1; and Gahtan et al. (2024), IBTrACS Version 4r01, NOAA NCEI,
+doi:10.25921/82ty-9e16.
+
+IBTrACS is released with "full and open access", with WMO Resolution 40 as the guide for commercial
+use.
+
+The code in this package is under the MIT licence in LICENSE.

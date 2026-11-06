@@ -3,7 +3,7 @@ name = "era5-forecast-v1"
 version = "0.1.0"
 description = "ERA5 forecast tasks rewarded by a clipped skill score over persistence and climatology, with WeatherBench 2 RMSE and ACC as reference metrics."
 license = "MIT"
-license-files = ["LICENSE"]
+license-files = ["LICENSE", "era5_forecast_v1/NOTICE"]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = ["verifiers>=0.4.0,<0.5"]

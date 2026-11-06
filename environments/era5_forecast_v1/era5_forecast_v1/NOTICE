@@ -1,0 +1,10 @@
+era5-forecast-v1 bundles items derived from ERA5 and from IFS HRES, through WeatherBench 2.
+
+Contains modified Copernicus Climate Change Service information 2026. Neither the European
+Commission nor ECMWF is responsible for any use that may be made of the Copernicus information or
+data it contains. ERA5 is CC BY 4.0.
+
+The hidden HRES values are IFS HRES data, European Centre for Medium-Range Weather Forecasts
+(ECMWF), CC BY 4.0, through WeatherBench 2.
+
+The code in this package is under the MIT licence in LICENSE.
