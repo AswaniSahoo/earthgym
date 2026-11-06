@@ -72,9 +72,9 @@ prints `anthropic/claude-sonnet-5-5 0.9866666666666667`, the 0.987 in
 Put `ANTHROPIC_API_KEY` in `.env` at the repo root; the Inspect CLI loads it (decision 0010).
 The published Claude Sonnet 5.5 runs went through the Batch API, and their logs record these
 settings: `batch 100` for every run, and `cache_prompt false` as well for the heat runs
-(decision 0010 explains the cache setting). The seven full runs and their seven probes cost
-$10.9267 in total (`reports/spend.md`). Each was preceded by a probe that projected its
-cost; the probe's items come from `uv run python -m earthgym.era5.tasks` (likewise
+(decision 0010 explains the cache setting). The eight runs and their eight probes, one run stopped
+at 225 of 300 items, cost $12.2793 in total (`reports/spend.md`). Each was preceded by a probe that
+projected its cost; the probe's items come from `uv run python -m earthgym.era5.tasks` (likewise
 `earthgym.ibtracs.tasks` and `earthgym.heat.tasks`), passed as `--sample-id "$(...)"`.
 
     M=anthropic/claude-sonnet-5-5
@@ -104,3 +104,21 @@ verifiers tasksets only (decision 0017).
 
 To try the commands without a key or any spend, use Inspect's mock model, `--model
 mockllm/model --limit 3`; `earthgym.spend` refuses a mock log, since it has no price for it.
+
+## The small models and the GRPO run, on Kaggle
+
+These ran on private Kaggle kernels, not from a fresh clone, and need a Kaggle account (decisions
+0024 and 0025). The small-model runs, from a bundle of the commit in a private dataset:
+
+    uv run python -m earthgym.kaggle.samples_kernel source <folder> --user <kaggle user>
+    kaggle datasets create -p <folder>
+    uv run python -m earthgym.kaggle.samples_kernel kernel <kernel folder> --user <kaggle user> \
+        --commit <the bundle's commit>
+    kaggle kernels push -p <kernel folder> -t 43200
+    kaggle kernels output <kaggle user>/earthgym-small-models -p <dir>
+    uv run python -m earthgym.results heat <dir>/logs/<log dir> <name>   # --partial for a stopped run
+    uv run python -m earthgym.samples heat <results files> --out reports/heat/<date>-small-models.md
+
+A session that stops at its deadline resumes when the next one mounts its logs: `--resume` on the
+kernel, with the logs as `logs.tar.gz` in the `earthgym-small-models-logs` dataset. The GRPO run's
+commands are in `reports/grpo/2026-11-02-phase-7-writeup.md`.
