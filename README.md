@@ -73,7 +73,8 @@ every number and runs fresh evals.
   [`reports/spend.md`](reports/spend.md) is the ledger of paid runs.
 - [`docs/decisions/`](docs/decisions/): why I chose what I chose, in [plain
   words](docs/human-checks/decisions.md) too.
-- [`docs/reviews/`](docs/reviews/): one independent review per phase.
+- [`docs/reviews/`](docs/reviews/): one review per phase, written by an AI agent (Claude Fable 5.1),
+  not by a person.
 - [`docs/how-built.md`](docs/how-built.md): built with Claude Code under my direction, and who
   decided what.
 - [`docs/roadmap.md`](docs/roadmap.md), [`docs/log.md`](docs/log.md),
