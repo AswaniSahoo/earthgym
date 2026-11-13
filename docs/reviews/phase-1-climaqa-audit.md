@@ -1,6 +1,6 @@
 # Phase 1 review: ClimaQA audit
 
-Reviewed 2026-10-30 against the working tree at `/data/rlenv` (no commits yet, nothing tracked).
+Reviewed 2026-10-30 against the repository's working tree (no commits yet, nothing tracked).
 Everything below was run or fetched during the review; nothing is taken from memory. Where a
 claim could not be checked it is marked unknown.
 

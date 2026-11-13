@@ -6,9 +6,9 @@ below was run or read during the review; nothing is taken from memory. Where a c
 checked it is marked unknown.
 
 What was run: `uv run pytest -q` (35 passed), `uv run ruff check .` (clean), `uv run ruff format
---check .` (28 files clean), `uv lock --check` (clean), the clean step twice into
-`/tmp/rlenv-review-clean` with `--reports` pointed at the same directory so no tracked file was
-touched (both runs byte-identical to each other, to `environments/climaqa_v1/climaqa_v1/climaqa_v0.jsonl`,
+--check .` (28 files clean), `uv lock --check` (clean), the clean step twice into a scratch
+directory outside the repository, with `--reports` pointed at the same directory so no tracked file
+was touched (both runs byte-identical to each other, to `environments/climaqa_v1/climaqa_v1/climaqa_v0.jsonl`,
 to `data/clean/climaqa_v0.jsonl` and to `reports/climaqa/clean_v0_manifest.json`; sha256 of the
 jsonl `99f1b3893ed050a09e998f897ba58d0ff751fc52103c7ec9dbe5f1cd50211471`), a field by field
 cross-check of all 377 kept records against the raw CSVs in `data/climaqa` plus 12 named items
@@ -43,7 +43,7 @@ are source text.
 Inspect runs a task with the task file's directory as working directory
 (`inspect_ai/_eval/run.py:251`, `with chdir(task_run_dir(...))`), so
 `uv run inspect eval src/rlenv/climaqa/tasks.py@climaqa_mcq --model mockllm/model` from the repo
-root raises `FileNotFoundError: /data/rlenv/src/rlenv/climaqa/data/clean/climaqa_v0.jsonl`
+root raises `FileNotFoundError: <repo root>/src/rlenv/climaqa/data/clean/climaqa_v0.jsonl`
 (verified for both tasks, and from another directory). The in-process tests never hit this because
 both pass an absolute `tmp_path`. Worse, `data/` is gitignored (`.gitignore:13`), so a fresh
 clone has no `data/clean/` at all and the only tracked copy is
@@ -284,8 +284,8 @@ equal the keys, and the contract at 121596e reproduces all 350 verdicts; the jso
 the manifest and the report (`5f345d8e...`). `uv run python -m rlenv.climaqa.report
 logs/2026-10-30-gemini-3.8-flash --out <scratch>` reproduced the committed `.md` and `.json` byte
 for byte. A blind sort of the 33 cloze misses was written to
-`/tmp/claude-1000/-data-rlenv/4d714d75-e1d0-4566-82bd-f40bd67e6f3a/scratchpad/blind_sort.md`
-before the author's note, docs/log.md or WORKBOARD.md were opened; the table below is the durable
+a scratch file outside the repository (`blind_sort.md`) before the author's note, docs/log.md or
+WORKBOARD.md were opened; the table below is the durable
 record. Six MCQ misses were read by eye against the jsonl (gold/mcq/102, 110, 113, 125, 130, 132).
 The AMS Glossary sentence quoted in the note for item 47 is verbatim at
 glossary.ametsoc.org/wiki/Coagulation, sense 1. The DOI cited for item 72 resolves (via
