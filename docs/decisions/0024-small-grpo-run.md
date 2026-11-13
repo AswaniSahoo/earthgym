@@ -1,9 +1,9 @@
 # 0024: a small GRPO run on climaqa-v1 MCQ, Qwen3.5-2B with a LoRA on one Kaggle T4
 
-Date: 2026-11-02. Status: open, 2026-11-06: the 250-step run finished and
-`reports/grpo/2026-11-02-phase-7-writeup.md` reports it, but its two samplings did not share a stop
-set, so they run again (the rerun below). A first attempt was stopped after about 26 minutes when
-the plan changed (the change below).
+Date: 2026-11-02. Status: closed, 2026-11-14: the 250-step run finished, its two samplings ran
+again under one stop set on 2026-11-13 (the rerun below), and
+`reports/grpo/2026-11-02-phase-7-writeup.md` reports them. A first attempt was stopped after about
+26 minutes when the plan changed (the change below).
 
 Context: Phase 7 asks whether an earthgym environment gives a small open model a signal it can learn
 from: GRPO-style training on the train split, with the reward on the train and the held-out split
@@ -108,3 +108,10 @@ each sampling (`tests/test_grpo.py`). The `resample` preset runs only the two sa
 saved adapter, disabled for "before" and enabled for "after", after the Kaggle allowance renews on
 2026-11-07. The run's numbers then get replaced in the write-up, and this decision closes.
 
+The rerun's result, 2026-11-13 (`reports/grpo/2026-11-13-resample.md`, Kaggle kernel
+`aswanisahoo/earthgym-grpo-resample` version 1, 9,328 s on a T4): under one stop set, `<|im_end|>`
+and `<|endoftext|>`, the first 52 train items went from 0.712 to 0.844 (23 better, 4 worse, 25 the
+same, two-sided sign test p 0.0003 from the per-item rows; the report rounds it to 0.000) and the 52 test items from 0.750 to 0.774 (14, 10, 28, p 0.54).
+The headline holds: the model learned the train items, with no measurable transfer. Replies cut at
+the cap went from 40 to 7 on train and from 39 to 25 on test, now like for like. The write-up and
+`SUMMARY.md` take these numbers, and this decision closes.

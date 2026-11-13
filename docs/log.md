@@ -2,6 +2,21 @@
 
 Newest first. One entry per working session: what changed, what I learned, what is next.
 
+## 2026-11-14: the GRPO samplings again, under one stop set
+
+- The resample kernel (`aswanisahoo/earthgym-grpo-resample`, version 1) finished on Kaggle in
+  9,328 s. The laptop restarted before its waiter fetched it, and `logs/rearm-kaggle.sh grpo`
+  fetched it afterwards without a second push. Its report is `reports/grpo/2026-11-13-resample.md`,
+  pinned by `tests/test_published_numbers.py`.
+- Under one stop set the train items went from 0.712 to 0.844 (sign test p 0.0003) and the held-out
+  items from 0.750 to 0.774 (p 0.54; p for train from the per-item rows). The first samplings gave 0.728 to 0.832 and 0.740 to 0.750.
+  The headline is unchanged: the model learned the train items, with no measurable transfer. The
+  write-up, decision 0024 (now closed), `SUMMARY.md` and the README take the new numbers.
+- What I learned: with `<|im_end|>` in the stop set, 40 train and 39 test replies of 416 still
+  reached the 1,024-token cap before training. Why the first run's were cut stays UNKNOWN: its reply
+  texts were not kept.
+- Next: my review and hand checks.
+
 ## 2026-11-13: the repository is public
 
 - On 2026-11-13 I made the repository public, the heat items with it; my choice was "flip".

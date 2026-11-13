@@ -113,13 +113,15 @@ parseable answer.
 
 [Write-up](reports/grpo/2026-11-02-phase-7-writeup.md).
 
-- Qwen3.5-2B with a LoRA on climaqa-v1 MCQ, 250 steps on a Kaggle T4. On the first 52 train items,
-  22 got better, 5 worse and 25 stayed the same (sign test p 0.0015). On the 52 held-out items, 12,
-  10 and 30 (p 0.83) (`reports/grpo/2026-11-02-run.md`).
-- Replies nearly doubled in length, from a median of 369 tokens to 681 on train and 356.5 to 675 on
-  test. The two samplings stopped on different tokens, so the fall in replies cut at the 1,024-token
-  cap, 24 to 5 and 39 to 19, is not like for like. The headline holds under the worst case of that
-  flaw, and the samplings run again under one stop set (`docs/reviews/phase-7-grpo.md`, H1).
+- Qwen3.5-2B with a LoRA on climaqa-v1 MCQ, 250 steps on a Kaggle T4, then 8 samples an item with
+  the adapter disabled and enabled, under one stop set. On the first 52 train items the mean reward
+  went from 0.712 to 0.844: 23 got better, 4 worse and 25 stayed the same (sign test p 0.0003, from the per-item rows; the report rounds it to 0.000). On
+  the 52 held-out items, 0.750 to 0.774: 14, 10 and 28 (p 0.54)
+  (`reports/grpo/2026-11-13-resample.md`).
+- Replies nearly doubled in length, from a median of 380.5 tokens to 688.5 on train and 353.5 to 669
+  on test, while the replies cut at the 1,024-token cap fell from 40 to 7 and 39 to 25. The first
+  samplings did not share a stop set (`docs/reviews/phase-7-grpo.md`, H1) and gave the same
+  headline: 0.728 to 0.832 on train, 0.740 to 0.750 held out (`reports/grpo/2026-11-02-run.md`).
 
 ## What it means for RL
 

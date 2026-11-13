@@ -118,6 +118,7 @@ def test_the_gemini_era5_probe_projects_the_tokens_decision_0010_gives():
 GRPO = [  # name, title, window
     ("2026-11-02-smoke", "smoke run, 10 steps", 5),
     ("2026-11-02-run", "250 steps", 25),
+    ("2026-11-13-resample", "the two samplings again, under one stop set", 25),
 ]
 
 

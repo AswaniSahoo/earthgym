@@ -60,10 +60,10 @@ HEADLINES = [  # as the README says it, the report, as the report says it
     ("161.6", f"{IBTRACS}/2026-11-01-ncei-reproduction.md", "161.6"),
     ("55 days", f"{HEAT}/2026-11-01-nws-phoenix-reproduction.md", "| 55 | 55 |"),
     ("31-day", f"{HEAT}/2026-11-01-nws-phoenix-reproduction.md", "| 31, 30 Jun to 30 Jul |"),
-    ("0.728 to 0.832", f"{R}/grpo/2026-11-02-run.md", "| train | 52 | before | 0.728 |"),
-    ("0.728 to 0.832", f"{R}/grpo/2026-11-02-run.md", "| train | 52 | after | 0.832 |"),
-    ("0.740 to 0.750", f"{R}/grpo/2026-11-02-run.md", "| test | 52 | before | 0.740 |"),
-    ("0.740 to 0.750", f"{R}/grpo/2026-11-02-run.md", "| test | 52 | after | 0.750 |"),
+    ("0.712 to 0.844", f"{R}/grpo/2026-11-13-resample.md", "| train | 52 | before | 0.712 |"),
+    ("0.712 to 0.844", f"{R}/grpo/2026-11-13-resample.md", "| train | 52 | after | 0.844 |"),
+    ("0.750 to 0.774", f"{R}/grpo/2026-11-13-resample.md", "| test | 52 | before | 0.750 |"),
+    ("0.750 to 0.774", f"{R}/grpo/2026-11-13-resample.md", "| test | 52 | after | 0.774 |"),
     ("225 of 300", f"{R}/spend.md", "225 of 300"),
 ]
 

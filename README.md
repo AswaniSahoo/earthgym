@@ -37,9 +37,9 @@ almost no signal: those versions stay as controls for the ablations and for smal
    ([report](reports/heat/2026-11-01-nws-phoenix-reproduction.md)).
 
 A small GRPO run of Qwen3.5-2B on ClimaQA's multiple choice items learned the train items with no
-measurable transfer: train items went from 0.728 to 0.832, held-out items from 0.740 to 0.750. One
-seed. Its two samplings stopped on different tokens: the headline holds under the worst case, and
-they run again under one stop set ([write-up](reports/grpo/2026-11-02-phase-7-writeup.md)).
+measurable transfer: train items went from 0.712 to 0.844, held-out items from 0.750 to 0.774, with
+both samplings under one stop set. One seed
+([write-up](reports/grpo/2026-11-02-phase-7-writeup.md)).
 
 ## Not finished
 
@@ -49,7 +49,6 @@ they run again under one stop set ([write-up](reports/grpo/2026-11-02-phase-7-wr
 - Tools mode for `ibtracs-storm-v1`. Its Sonnet run stopped at 225 of 300 items when the API's
   credit ran out, so it has no reported result. The numbers from a first version carry a caveat
   ([write-up](reports/ibtracs/2026-11-02-phase-6-writeup.md)).
-- The rerun of the GRPO run's two samplings under one stop set (decision 0024).
 
 ## Quick start
 

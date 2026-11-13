@@ -12,9 +12,6 @@ The repository went public on 2026-11-13 (decision 0027). What the list before t
   wording changes to match what I agree with, change or question.
 - My own hand checks: the 30-item ClimaQA sample and the 56 Gold and Silver leak pairs, from
   sheets under `docs/human-checks/`.
-- The GRPO run's two samplings again, under one stop set (decision 0024). The session is on Kaggle:
-  `aswanisahoo/earthgym-grpo-resample`, version 1, pushed on 2026-11-13 at 15:52:00 UTC. Then
-  the write-up, decision 0024 and `SUMMARY.md` take its numbers, and 0024 closes.
 - After this change is pushed: dispatch the `reproduce` workflow once and cite its run in
   `docs/reproduce.md`, and drop the token step for the `data-v1` asset in
   `.github/workflows/reproduce.yml` once a run shows the anonymous fetch works in CI.
