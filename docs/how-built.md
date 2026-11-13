@@ -31,11 +31,11 @@ checked 0 of the 30 ClimaQA items and 0 of the 56 leak pairs. This page changes 
 
 - The forecast, cyclone and heat graders reproduce published numbers before they pay a reward
   (`reports/*/2026-*-reproduction.md`).
-- A separate reviewer agent (Claude Fable 5.1, `.claude/agents/reviewer.md`) reviews each phase
-  before it closes: it runs the tests and the pipeline, checks results against the raw data and
-  lists what is missing (`docs/reviews/`). Its findings were fixed test-first, except the ones that
-  needed my decision, a licence and a data release, which came later (decisions 0015 and 0018).
-  Phase 6 stays open until its run finishes.
+- A separate reviewer agent (`.claude/agents/reviewer.md`; Claude Fable 5.1, and 5.2 from
+  2026-11-13) reviews each phase before it closes: it runs the tests and the pipeline, checks
+  results against the raw data and lists what is missing (`docs/reviews/`). Its findings were fixed
+  test-first, except the ones that needed my decision, a licence and a data release, which came
+  later (decisions 0015 and 0018). Phase 6 stays open until its run finishes.
 - On 2026-11-02 Codex, a model from another family, reviewed the whole repository. Each of its 15
   findings was checked against the code (13 confirmed, 2 partly, none wrong). Fix batch 1 acted on
   14 of them (`docs/log.md`). The fifteenth asked for a second computation of the keys: a separate
