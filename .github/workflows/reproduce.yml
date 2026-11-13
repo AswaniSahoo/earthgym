@@ -28,10 +28,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
       - run: uv sync --locked --all-groups
-      # the release asset; since 2026-11-13 the repository is public and the plain fetch works too
-      - run: gh release download data-v1 -p ibtracs.NA.list.v04r01.csv -D data/ibtracs
-        env:
-          GH_TOKEN: ${{ github.token }}
+      # the release asset, fetched with no token: the repository is public since 2026-11-13
+      # (decision 0027). curl -f fails the job if the asset needs an account, where fetch() below
+      # would fall back to NCEI quietly.
+      - run: >-
+          curl -fsSL --create-dirs -o data/ibtracs/ibtracs.NA.list.v04r01.csv
+          https://github.com/AswaniSahoo/earthgym/releases/download/data-v1/ibtracs.NA.list.v04r01.csv
       - run: uv run python -m earthgym.ibtracs.data # checks the sha256
       - run: uv run pytest -q -rs tests/test_ibtracs_reproduction.py tests/test_ibtracs_items_data.py
 
