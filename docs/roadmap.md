@@ -12,9 +12,6 @@ The repository went public on 2026-11-13 (decision 0027). What the list before t
   wording changes to match what I agree with, change or question.
 - My own hand checks: the 30-item ClimaQA sample and the 56 Gold and Silver leak pairs, from
   sheets under `docs/human-checks/`.
-- After this change is pushed: dispatch the `reproduce` workflow once and cite its run in
-  `docs/reproduce.md`, and drop the token step for the `data-v1` asset in
-  `.github/workflows/reproduce.yml` once a run shows the anonymous fetch works in CI.
 - Tools mode for `ibtracs-storm-v1` (decision 0023): its Sonnet run stopped at 225 of 300 items on
   2026-11-02, when the API account's credit ran out, with the ledger at $12.2793 of the $20 budget
   (`reports/spend.md`). It stays unfinished until I add API credit to that account myself.

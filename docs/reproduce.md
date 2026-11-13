@@ -42,7 +42,8 @@ items and manifest byte for byte, so `git status` shows no change at the end.
 Two limits (decision 0018):
 
 - The `data-v1` release asset needs no account since the repository went public on 2026-11-13
-  (decision 0027). `earthgym.ibtracs.data` tries it first and falls back to NCEI, which passes the
+  (decision 0027). The `reproduce` workflow fetches it with `curl` and no token; run 43520032748
+  (2026-11-13, commit f5be006) passed all three jobs that way. `earthgym.ibtracs.data` tries it first and falls back to NCEI, which passes the
   hash check only while it still serves the pinned bytes.
 - The GHCN-Daily station files come from NCEI alone. Once NCEI serves another build, the hash
   check refuses it and heat-basis-v1 cannot be rebuilt; parts 2 and 3 do not need the files.

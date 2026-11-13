@@ -15,6 +15,8 @@ Newest first. One entry per working session: what changed, what I learned, what 
 - What I learned: with `<|im_end|>` in the stop set, 40 train and 39 test replies of 416 still
   reached the 1,024-token cap before training. Why the first run's were cut stays UNKNOWN: its reply
   texts were not kept.
+- The `reproduce` workflow now fetches the `data-v1` asset with no token. Its run 43520032748 on
+  f5be006 passed all three jobs, with the asset downloaded anonymously and its sha256 checked.
 - Next: my review and hand checks.
 
 ## 2026-11-13: the repository is public
