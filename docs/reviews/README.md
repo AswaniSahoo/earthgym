@@ -7,5 +7,8 @@ raised were fixed test-first before the phase closed, except the ones that neede
 licence and a data release, decisions 0015 and 0018), so the ratings describe the state before
 those fixes.
 
+`2026-11-13-go-public.md` is not a phase review: it covers the change set that recorded the
+repository going public, and its session reported its model as Claude Fable 5.2.
+
 The reviews cite files and line numbers as they were at the time. `WORKBOARD.md`, which several
 of them cite, was later removed; its open items are in `docs/roadmap.md`.

@@ -43,6 +43,9 @@ in seven phases from 2026-10-30 to 2026-11-03, with the report each number comes
 
 - Beside the RMSE, the grader reproduces WB2's published ACC for IFS HRES mean sea level pressure at
   72 h, 0.981878, and its bias, -0.406578 Pa (`reports/era5/2026-10-30-wb2-reproduction.md`).
+- On 2026-11-13 the same check covered 2 m temperature and the 24 and 48 h leads: all 18 published
+  RMSE, ACC and bias values, both variables at 24, 48 and 72 h, agree to float32 precision, the
+  largest relative difference 3.0e-9 (`reports/era5/2026-11-13-wb2-reproduction-leads-and-t2m.md`).
 - 648 ERA5 point forecasts pass the gold check, of 720 drawn (decision 0021). Against the midpoint,
   item by item, Sonnet 5.5 is higher on 121, lower on 89 and tied on 438: no measurable skill over a
   trivial statistical forecast. IFS HRES earns 0.34 to 0.71 per variable and lead. The model used no
@@ -100,7 +103,7 @@ any of 8 samples passes.
 | ClimaQA | 0.417 | 0.711 | 0.151 | 0.463 | `reports/climaqa/2026-11-02-small-models.md` |
 | IBTrACS | 0.317 | 0.537 | 0.120 | 0.120 | `reports/ibtracs/2026-11-02-small-models.md` |
 | heat | 0.487 | 0.523 | 0.163 | 0.163 | `reports/heat/2026-11-02-small-models.md` |
-| ERA5 | 0.357 | 0.357 | 0.304 | 0.304 | `reports/era5/2026-11-02-small-models.md` |
+| ERA5 | 0.352 | 0.352 | 0.304 | 0.304 | `reports/era5/2026-11-02-small-models.md` |
 
 ERA5's rows pass at a reward above 0, the others at reward 1. Qwen3.5-2B writes long replies and
 Granite very short ones: each report gives the replies cut at the 4,096-token cap and those with no

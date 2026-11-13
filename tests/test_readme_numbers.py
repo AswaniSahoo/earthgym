@@ -13,8 +13,13 @@ SONNET = "2026-11-01-claude-sonnet-5-5.md"
 HEADLINES = [  # as the README says it, the report, as the report says it
     ("0.118, the midpoint", f"{ERA5}/items_v1_baselines.md", "| midpoint | 648 | 0.1175 |"),
     ("| 0.128 |", f"{ERA5}/{SONNET}", "0.128"),
-    ("0.029 on 627 items", f"{ERA5}/2026-11-02-small-models.md", "| 627 | 8 | 0.029 |"),
+    ("| 0.029 |", f"{ERA5}/2026-11-02-small-models.md", "| 648 | 8 | 0.029 |"),
     ("| 0.042 |", f"{ERA5}/2026-11-02-small-models.md", "| 648 | 8 | 0.042 |"),
+    (
+        "all 18 of its published global RMSE, ACC and bias values",
+        f"{ERA5}/2026-11-13-wb2-reproduction-leads-and-t2m.md",
+        "All 18 published scores reproduce",
+    ),
     (
         "0.05 to 0.35 per question",
         f"{IBTRACS}/{SONNET}",

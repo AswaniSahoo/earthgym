@@ -1,6 +1,7 @@
 # Release drafts
 
-Drafts for when I decide to go public. Nothing here has been posted, pushed or uploaded.
+Drafts written before the repository went public on 2026-11-13 (decision 0027). Each waits for my
+decision. Nothing here has been posted, pushed or uploaded.
 
 - `climaqa-issue.md`: the issue for the ClimaQA maintainers, facts only; I write the rest and post
   it myself.

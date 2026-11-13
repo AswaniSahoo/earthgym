@@ -86,8 +86,9 @@ variance of 0.0958, with 0.524 of them varying. Cloze fits the cap (median 3 tok
 and 0.343 on its 99 train items. ibtracs-storm-v1 is out on length, a median of 1,323 tokens (0.0510
 and 0.318 on 233 train items). When I made the pick the heat and ERA5 runs of Qwen3.5-2B had not
 finished. Now that they have, they are out on length too and lower anyway: heat a median of 3,493.5
-tokens (0.0824 and 0.490 on 245 train items), ERA5 2,426.5 (0.0156 and 0.362 on 528 of its train
-items, the ones whose samples all finished). So climaqa MCQ has the highest variance of the five
+tokens (0.0824 and 0.490 on 245 train items), ERA5 2,452 (0.0154 and 0.357 on its 546 train items,
+since the resumed session of 2026-11-13; 2,426.5, 0.0156 and 0.362 on the 528 that had finished
+before). So climaqa MCQ has the highest variance of the five
 with or without the length rule (`tests/test_published_numbers.py`). The medians are over all of a
 task's items and the variances over its train items; train items alone give the same verdict. The
 run is the `run` preset of `earthgym.grpo.kernel`.

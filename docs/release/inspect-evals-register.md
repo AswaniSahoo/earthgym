@@ -27,7 +27,7 @@ Not submitted. Requirements read on 2026-11-02 from UKGovernmentBEIS/inspect_eva
 
 | requirement | earthgym |
 |---|---|
-| public repository | not yet: the repository is private until I decide |
+| public repository | yes, since 2026-11-13 (decision 0027) |
 | a paper | arXiv 2410.16701 (ClimaQA, ICLR 2025) |
 | `@task` at a pinned commit | `src/earthgym/climaqa/tasks.py`, `climaqa_mcq` and `climaqa_cloze`, at the release commit's 40-character SHA |
 | pinned assets | the clean set is bundled in `climaqa-v1`; the source dataset is pinned at revision `3f084a0202c6260e588fb5b681d2e4ec859a3845` |

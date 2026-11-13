@@ -38,7 +38,7 @@ def pick(tasks: dict[str, dict], cap: int = CAP) -> str:
 
 def finished() -> dict[str, dict]:
     """The five candidate tasks' numbers from Qwen3.5-2B's results, on their train items;
-    ERA5's come in two files, the second from a session stopped by its deadline."""
+    ERA5's come in two files, the second finished by a resumed session (decision 0025)."""
     from climaqa_v1.taskset import ClimaqaConfig, ClimaqaTaskset
     from era5_forecast_v1.taskset import ForecastConfig, ForecastTaskset
     from heat_basis_v1.taskset import HeatConfig, HeatTaskset

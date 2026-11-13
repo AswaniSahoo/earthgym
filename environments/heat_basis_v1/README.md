@@ -43,8 +43,9 @@ From the repo root, with a model behind an OpenAI-compatible server for `vf-eval
 
 GHCN-Daily, NOAA NCEI. NOAA's metadata page asks for two citations and disclaims any warranty, and
 it names no licence. `heat_basis_v1/NOTICE` carries the citations and that disclaimer. The code is
-MIT (`LICENSE`). Whether the items, which show these stations' values, can go public is still my
-decision to make (`docs/roadmap.md`).
+MIT (`LICENSE`). The items show these four stations' daily maxima for 40 station-seasons, and they
+are public with the repository since 2026-11-13. The raw station files are not published (decision
+0027).
 
 ## Known limits
 

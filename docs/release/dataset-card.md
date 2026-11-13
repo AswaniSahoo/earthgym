@@ -9,10 +9,10 @@ huggingface_hub at `5077876` (`repocard_data.py`).
 The heat items carry GHCN-Daily values: each one shows both stations' daily maxima for a
 season. NOAA's metadata page asks for two citations and disclaims any warranty, and it names no
 licence, so I did not publish the raw station files (decision 0018; the citations and disclaimer
-are in `environments/heat_basis_v1/heat_basis_v1/NOTICE`). Publishing the heat items, here or by
-making the repository public, publishes data derived from them. The same question applies to the
-bundled items in `environments/heat_basis_v1/` whenever the repository goes public. It needs my
-decision first: leave heat out of the card, or publish on a stated basis.
+are in `environments/heat_basis_v1/heat_basis_v1/NOTICE`). Publishing the heat items here
+publishes data derived from them. The repository went public with the bundled items on 2026-11-13
+(decision 0027); whether this card carries them is still my decision: leave heat out of the card,
+or publish on a stated basis.
 
 ## The card
 

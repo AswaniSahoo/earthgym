@@ -5,7 +5,7 @@ cyclone and heat graders reproduce published numbers before they pay a reward.
 
 | environment | the model must | reward | trivial baseline | Claude Sonnet 5.5 | Qwen3.5-2B | Granite 4.0 H-1B |
 |---|---|---|---|---|---|---|
-| [`era5-forecast-v1`](environments/era5_forecast_v1/README.md), 648 items | forecast ERA5 pressure or temperature 24 to 72 h ahead from one grid cell's history | skill over persistence and climatology, from 0 to 1 | 0.118, the midpoint of persistence and climatology | 0.128 | 0.029 on 627 items | 0.042 |
+| [`era5-forecast-v1`](environments/era5_forecast_v1/README.md), 648 items | forecast ERA5 pressure or temperature 24 to 72 h ahead from one grid cell's history | skill over persistence and climatology, from 0 to 1 | 0.118, the midpoint of persistence and climatology | 0.128 | 0.029 | 0.042 |
 | [`ibtracs-storm-v1`](environments/ibtracs_storm_v1/README.md), 300 | compute a storm's ACE, peak category or hours at hurricane strength from its track rows | exact answer | 0.05 to 0.35 per question, the best constant answer | 0.997 with the rules shown (saturated), 0.703 hidden | 0.370 | 0.032 |
 | [`heat-basis-v1`](environments/heat_basis_v1/README.md), 300 | count a heat policy's trigger days, payout events or missed days from station data | exact answer | 0.05 to 0.27 per question, the best constant answer | 0.987 with the rules shown (saturated), 0.960 with the terms only | 0.217 | 0.028 |
 | [`climaqa-v1`](environments/climaqa_v1/README.md), 350 | answer ClimaQA multiple choice and cloze questions, exact-overlap leaks removed | exact match | 0.25 on multiple choice, by chance | 0.874 multiple choice, 0.508 cloze | 0.710 multiple choice, 0.145 cloze | 0.584 multiple choice, 0.020 cloze |
@@ -28,8 +28,10 @@ almost no signal: those versions stay as controls for the ablations and for smal
    [baselines](reports/era5/items_v1_baselines.md)).
 3. The graders match published references. The forecast grader reproduces WeatherBench 2's IFS HRES
    MSLP 72 h RMSE, 133.890547 Pa, to within 3.2e-8 Pa
-   ([report](reports/era5/2026-10-30-wb2-reproduction.md)). The cyclone grader reproduces NOAA
-   NCEI's North Atlantic figures, among them 1933's ACE of 258.6 and 2024's of 161.6
+   ([report](reports/era5/2026-10-30-wb2-reproduction.md)), and all 18 of its published global RMSE,
+   ACC and bias values for MSLP and 2 m temperature at 24, 48 and 72 h to float32 precision
+   ([report](reports/era5/2026-11-13-wb2-reproduction-leads-and-t2m.md)). The cyclone grader
+   reproduces NOAA NCEI's North Atlantic figures, among them 1933's ACE of 258.6 and 2024's of 161.6
    ([report](reports/ibtracs/2026-11-01-ncei-reproduction.md)). The heat grader reproduces NWS
    Phoenix's counts: 55 days at 110 F or more in 2023 and a 31-day run
    ([report](reports/heat/2026-11-01-nws-phoenix-reproduction.md)).
@@ -47,11 +49,7 @@ they run again under one stop set ([write-up](reports/grpo/2026-11-02-phase-7-wr
 - Tools mode for `ibtracs-storm-v1`. Its Sonnet run stopped at 225 of 300 items when the API's
   credit ran out, so it has no reported result. The numbers from a first version carry a caveat
   ([write-up](reports/ibtracs/2026-11-02-phase-6-writeup.md)).
-- Qwen3.5-2B's ERA5 run. A session's deadline cut 21 samples, so its report leaves out those 21 of
-  the 648 items (decision 0025).
 - The rerun of the GRPO run's two samplings under one stop set (decision 0024).
-- Archived references for ERA5 temperature and the 24 and 48 h leads
-  ([`docs/roadmap.md`](docs/roadmap.md)).
 
 ## Quick start
 
@@ -86,6 +84,7 @@ every number and runs fresh evals.
 MIT, copyright 2026 Aswani Kumar Sahoo: see [`LICENSE`](LICENSE). It covers the code in this repo
 and in the environment packages. The data they and the reports carry keep their sources' terms:
 ClimaQA under Apache-2.0, ERA5 under CC BY 4.0, IBTrACS with "full and open access" and WMO
-Resolution 40 for commercial use, and GHCN-Daily, for which NOAA names no licence.
+Resolution 40 for commercial use, and GHCN-Daily, for which NCEI's own pages name no licence
+(decision 0027).
 [`NOTICE`](NOTICE) says which files carry what, and each package's own `NOTICE` gives the
 attribution; `docs/radar.md` and decisions 0008 and 0012 give the sources.

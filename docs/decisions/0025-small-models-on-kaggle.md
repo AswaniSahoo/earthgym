@@ -1,6 +1,6 @@
 # 0025: the small-model runs move to Kaggle's T4s
 
-Date: 2026-11-02. Status: done, 2026-11-06, but for 21 ERA5 samples of Qwen3.5-2B (session 2 below).
+Date: 2026-11-02. Status: done, 2026-11-13 (session 3 below).
 
 Context: decision 0022 ran the two small open models on this laptop's GPU. On 2026-11-02 I took that
 GPU back for my own work: from then on no model runs on this machine, and every GPU job goes to
@@ -68,7 +68,19 @@ Session 2, 2026-11-02 to 2026-11-03, the full 11 hours at commit e74bb0c: Qwen's
 460 ERA5 items finished. The last 188 ERA5 items started only after heat, on the GPU that had it,
 and the deadline stopped them with 21 samples unfinished, all of the last epoch, on 21 items; the
 other GPU had sat idle for its last 4.1 hours, so my split between the two was off. The report for
-ERA5 leaves those 21 items out and says so (`reports/era5/2026-11-02-small-models.md`): Qwen3.5-2B
+ERA5 left those 21 items out and said so (`reports/era5/2026-11-02-small-models.md`): Qwen3.5-2B
 on 627 of the 648 items, Granite on all. The sessions and the GRPO run used the week's 30 hours
 (`kaggle quota`: 30.69 used, renewed on 2026-11-07 at 00:00 UTC). Finishing those samples needs one
 short resumed session after that.
+
+Session 3, 2026-11-13, at commit e74bb0c: the same `qwen-rest` kernel with `--resume`, as version 3
+of the kernel `aswanisahoo/earthgym-small-models`, mounting session 2's logs from the
+`earthgym-small-models-logs` dataset. The pushes planned for the 2026-11-07 renewal never ran, since
+this laptop was off at the time. Heat and the first 460 ERA5 items found their logs complete and
+ended at once; the last 188 resumed and finished the 21 samples in 210 seconds (`progress.jsonl`).
+The resumed log keeps the other 1,483 samples of that part as they were, row for row. It holds each
+of the 21 samples twice, the errored entry of session 2 and the finished one, and Inspect
+0.3.286 reads the finished one; a reader that took the first entry would see 21 errors
+(`docs/reviews/2026-11-13-go-public.md`). The ERA5 report now covers all 648 items for both models:
+Qwen3.5-2B's mean reward stays 0.029, and the share of items whose reward varies goes from 0.357 to
+0.352.

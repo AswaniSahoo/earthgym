@@ -17,7 +17,8 @@ Collected during fix batch 1 (2026-11-02); folded into the README rewrite and th
 - Each environment row: a held-out split by group, `split="train"` or `"test"` in the taskset
   config (decision 0017).
 - License section: the pinned IBTrACS build is the `data-v1` release asset; the GHCN-Daily
-  station files are not published, since NOAA names no licence for them (decision 0018).
+  station files are not published, since NCEI's own pages name no licence for them (decisions
+  0018 and 0027).
 - Reproduce section: point to `docs/reproduce.md` (rebuild the data, recompute the published
   numbers from `reports/<env>/results/`, run fresh evals), and name the weekly `reproduce`
   workflow beside `ci` (decision 0019).

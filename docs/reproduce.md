@@ -18,7 +18,7 @@ so the pin refuses it and CI warns (decision 0018).
 ## Set up
 
     curl -LsSf https://astral.sh/uv/install.sh | sh      # uv's standalone installer
-    git clone https://github.com/AswaniSahoo/earthgym.git   # private for now: needs access
+    git clone https://github.com/AswaniSahoo/earthgym.git
     cd earthgym
     uv python install 3.12            # the version in .python-version
     uv sync --locked --all-groups     # the exact versions in uv.lock; fails if the lock is stale
@@ -30,7 +30,7 @@ Each fetch keeps a file only if its sha256 is the pinned one, and each build wri
 items and manifest byte for byte, so `git status` shows no change at the end.
 
     uv run python -m earthgym.climaqa.clean   # ClimaQA at its pinned revision, from Hugging Face
-    uv run python -m earthgym.era5.data       # the WeatherBench 2 subset, about 18 MB
+    uv run python -m earthgym.era5.data       # the six WeatherBench 2 subsets, about 108 MB written
     uv run python -m earthgym.era5.items      # about 56 MB of WB2 store chunks; checks fields_sha256
     uv run python -m earthgym.ibtracs.data    # IBTrACS, 57.6 MB: the data-v1 release, else NCEI
     uv run python -m earthgym.ibtracs.items
@@ -41,10 +41,9 @@ items and manifest byte for byte, so `git status` shows no change at the end.
 
 Two limits (decision 0018):
 
-- While the repository is private, the `data-v1` release asset needs access to it, and
-  `earthgym.ibtracs.data` falls back to NCEI, which passes the hash check only while it still
-  serves the pinned bytes. With access, fetch the asset first:
-  `gh release download data-v1 -p ibtracs.NA.list.v04r01.csv -D data/ibtracs`.
+- The `data-v1` release asset needs no account since the repository went public on 2026-11-13
+  (decision 0027). `earthgym.ibtracs.data` tries it first and falls back to NCEI, which passes the
+  hash check only while it still serves the pinned bytes.
 - The GHCN-Daily station files come from NCEI alone. Once NCEI serves another build, the hash
   check refuses it and heat-basis-v1 cannot be rebuilt; parts 2 and 3 do not need the files.
 

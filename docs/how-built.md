@@ -14,8 +14,8 @@ These calls I made myself:
 
 - One paid model within a $20 budget, and no Vertex AI or Gemini calls (decision 0010).
 - Small open models at no API cost (decision 0022), and all GPU work on Kaggle (decision 0025).
-- The MIT License (decision 0015), the name earthgym (decision 0020), and keeping the repository
-  private until the work is done.
+- The MIT License (decision 0015), the name earthgym (decision 0020), and making the repository
+  public on 2026-11-13 (decision 0027).
 
 Claude Code proposed the other design choices and technical details, for example the ERA5 reward and
 its floor (decision 0007), no judge model for ClimaQA's cloze answers (decision 0005), ACE at one
@@ -24,7 +24,7 @@ runs I was not watching. The decision records are written in my voice, and where
 choice was not mine at the time, it says so (the floor, in `docs/log.md`, 2026-10-30).
 
 My review of this work is in progress, so read those records as drafted, not as confirmed. As of
-2026-11-06, in the sheets of `docs/human-checks/`, I have answered 0 of the 26 decision records and
+2026-11-13, in the sheets of `docs/human-checks/`, I have answered 0 of the 27 decision records and
 checked 0 of the 30 ClimaQA items and 0 of the 56 leak pairs. This page changes as those fill in.
 
 ## How it was checked
@@ -40,7 +40,10 @@ checked 0 of the 30 ClimaQA items and 0 of the 56 leak pairs. This page changes 
   findings was checked against the code (13 confirmed, 2 partly, none wrong). Fix batch 1 acted on
   14 of them (`docs/log.md`). The fifteenth asked for a second computation of the keys: a separate
   AI agent (Claude Fable 5.1) wrote one for heat and storm from the prompts alone, and all 600 keys
-  match (decision 0026). ERA5's archived references are still on the roadmap.
+  match (decision 0026). For ERA5, the forecast grader reproduces all 18 of WeatherBench 2's
+  published global RMSE, ACC and bias values for both variables at all three leads
+  (`reports/era5/2026-11-13-wb2-reproduction-leads-and-t2m.md`).
 - Every published number re-renders from the committed per-item results
-  (`tests/test_published_numbers.py`, decision 0019), and a weekly CI job rebuilds the items from
-  their pinned sources (`docs/reproduce.md`).
+  (`tests/test_published_numbers.py`, decision 0019), and a weekly CI job rebuilds the ERA5 and
+  IBTrACS items from their pinned sources (`docs/reproduce.md`); heat's NCEI files changed by
+  2026-11-02, so its rebuild only warns.

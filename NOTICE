@@ -14,5 +14,7 @@ IBTrACS v04r01, "full and open access": the items in
 environments/ibtracs_storm_v1/ibtracs_storm_v1/, and the pinned file on the data-v1 release. The
 citations are in environments/ibtracs_storm_v1/ibtracs_storm_v1/NOTICE.
 
-GHCN-Daily, for which NOAA names no licence: the items in environments/heat_basis_v1/heat_basis_v1/.
+GHCN-Daily, for which NCEI's own pages name no licence (decision 0027): the items in
+environments/heat_basis_v1/heat_basis_v1/, and counts computed from the same station data in
+reports/heat/, tests/test_heat_reproduction.py and docs/reviews/phase-5-heat-basis.md.
 The citations and NOAA's disclaimer are in environments/heat_basis_v1/heat_basis_v1/NOTICE.

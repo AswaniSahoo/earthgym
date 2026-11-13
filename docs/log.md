@@ -2,6 +2,37 @@
 
 Newest first. One entry per working session: what changed, what I learned, what is next.
 
+## 2026-11-13: the repository is public
+
+- On 2026-11-13 I made the repository public, the heat items with it; my choice was "flip".
+  Decision 0027 records what is public (the 300 heat items, which carry four stations' GHCN-Daily
+  daily maxima for 40 station-seasons in whole degrees F) and what is not (the raw station files),
+  with NOAA's two citations. It amends 0018: the `data-v1` asset now downloads without an account.
+- Of the list meant to come before going public, done by now: my decision on the heat items, a
+  README that leads with the claim, the results and the three findings (in place since
+  2026-11-06), and, after the flip, the last ERA5 samples and ERA5's archived references (both
+  below). The rest stays on the roadmap under a new heading.
+- The phase reviews no longer name paths on this machine: four places in the phase 1 and 2 reviews
+  now say the repository's working tree, a scratch directory or file outside the repository, or
+  `<repo root>`. What the reviews found is unchanged.
+- Kaggle: the pushes armed for 2026-11-07 never ran, because the laptop was off at the push time
+  (its boot list). On 2026-11-13 the Kaggle CLI did not start either: kaggle 2.2.5 imports `six` and
+  its tool environment had none, so I reinstalled it with `six`. Both kernels equalled fresh builds
+  from HEAD and went up at 15:51:58 and 15:52:00 UTC, with 30.00 GPU hours left in the week.
+- ERA5 (decision 0025, session 3): the resumed session finished Qwen3.5-2B's last 21 samples in
+  210 seconds, and the other 1,483 samples of that part came back row for row as they were. The
+  report now covers all 648 items: the mean stays 0.029, items whose reward varies 0.352, not
+  0.357. The GRPO pick does not change; ERA5's inputs to it in decision 0024 now use all 546 train
+  items.
+- Archived references for ERA5, the rest of the Codex review's finding 8: beside MSLP at 72 h, the
+  forecast grader now reproduces WeatherBench 2's published RMSE, ACC and bias for 2 m temperature
+  and for the 24 and 48 h leads, 18 values in all, to float32 precision, with no change to the
+  scores code (`reports/era5/2026-11-13-wb2-reproduction-leads-and-t2m.md`). Each variable and
+  lead has its own pinned subset.
+- What I learned: a push scheduled from this laptop needs the laptop on at that time, and a tool
+  that worked last week needs a check before the run that depends on it.
+- Next: the GRPO resample's result, then my review and hand checks.
+
 ## 2026-11-06, later: a second computation of the keys
 
 - Decision 0026: `tests/key_oracle.py` recomputes every bundled heat and storm key from the rendered

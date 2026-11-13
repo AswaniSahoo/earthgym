@@ -1,7 +1,8 @@
 # 0026: a second computation of the bundled heat and storm keys
 
-Date: 2026-11-06. Status: accepted for heat and storm, 2026-11-06. ERA5's archived references stay
-on the roadmap.
+Date: 2026-11-06. Status: accepted for heat and storm, 2026-11-06. ERA5's archived references
+followed on 2026-11-13: the forecast grader reproduces WeatherBench 2's published scores for both
+variables at 24, 48 and 72 h (`reports/era5/2026-11-13-wb2-reproduction-leads-and-t2m.md`).
 
 Context: the Codex review's finding 8, as `docs/roadmap.md` recorded it: the heat and storm item
 tests rebuild the items with the same code that made them, "which proves consistency, not

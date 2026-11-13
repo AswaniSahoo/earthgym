@@ -4,7 +4,7 @@ uv run python -m earthgym.heat.data   # about 1.5 MB a station over anonymous HT
 
 NCEI publishes no checksum and rewrites the by_station files daily, so each pin is our own
 sha256 of the copy we fetched, with its size and Last-Modified, and that copy under data/ is
-the one we keep; a newer build fails the pin. NOAA names no licence; cite GHCN-Daily,
+the one we keep; a newer build fails the pin. NCEI's pages name no licence; cite GHCN-Daily,
 doi:10.7289/V5D21VHZ (docs/radar.md).
 """
 

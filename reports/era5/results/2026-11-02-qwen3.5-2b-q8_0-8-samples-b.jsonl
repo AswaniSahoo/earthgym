@@ -1,4 +1,4 @@
-{"task": "era5_forecast", "task_args": {"path": null}, "model": "openai-api/llamacpp/qwen3.5-2b-q8_0", "items_sha256": "b0ae4063f42307db66d0e10fdb76bb2468ea0fccc70cbcd4738948ba6050758e", "created": "2026-11-03T01:00:49+00:00", "started": "2026-11-03T01:00:49+00:00", "completed": "2026-11-03T04:02:53+00:00", "commit": "e74bb0c", "settings": {"max_connections": 32, "max_tokens": 4096, "top_p": 0.8, "temperature": 0.7, "extra_body": {"top_k": 20, "chat_template_kwargs": {"enable_thinking": false}}}, "inspect_ai": "0.3.286", "tokens": {"input": 704660, "cache_write": 0, "cache_read": 74, "output": 3866772, "reasoning": 0}, "log": "2026-11-03T01-00-49-00-00_era5-forecast_9huBJptYg6ECPtbYuMnbYZ.eval", "log_dir": "logs/2026-11-02-small-models-kaggle-2/logs/2026-11-02-era5-qwen3.5-2b-q8_0-8-b", "status": "cancelled", "epochs": 8}
+{"task": "era5_forecast", "task_args": {"path": null}, "model": "openai-api/llamacpp/qwen3.5-2b-q8_0", "items_sha256": "b0ae4063f42307db66d0e10fdb76bb2468ea0fccc70cbcd4738948ba6050758e", "created": "2026-11-13T15:58:13+00:00", "started": "2026-11-13T15:58:13+00:00", "completed": "2026-11-13T16:01:30+00:00", "commit": "e74bb0c", "settings": {"max_connections": 32, "max_tokens": 4096, "top_p": 0.8, "temperature": 0.7, "extra_body": {"top_k": 20, "chat_template_kwargs": {"enable_thinking": false}}}, "inspect_ai": "0.3.286", "tokens": {"input": 714638, "cache_write": 0, "cache_read": 74, "output": 3919299, "reasoning": 0}, "log": "2026-11-13T15-58-13-00-00_era5-forecast_9huBJptYg6ECPtbYuMnbYZ.eval", "log_dir": "logs/2026-11-02-small-models-kaggle-3/logs/2026-11-02-era5-qwen3.5-2b-q8_0-8-b", "epochs": 8}
 {"id": "2m_temperature/2020-01-07T00/72h/8-20", "answer": "285.06", "reward": 0.0, "tokens": [477, 0, 0, 1364, 0], "epoch": 1}
 {"id": "2m_temperature/2020-01-13T00/48h/11-42", "answer": "", "reward": 0.0, "tokens": [474, 0, 0, 4096, 0], "epoch": 1}
 {"id": "2m_temperature/2020-01-15T00/48h/7-14", "answer": "277.2", "reward": 0.0, "tokens": [476, 0, 0, 974, 0], "epoch": 1}
@@ -1318,15 +1318,15 @@
 {"id": "2m_temperature/2020-01-07T00/72h/8-20", "answer": "285.06", "reward": 0.0, "tokens": [477, 0, 0, 1645, 0], "epoch": 8}
 {"id": "2m_temperature/2020-01-13T00/48h/11-42", "answer": "297.15", "reward": 0.0, "tokens": [474, 0, 0, 701, 0], "epoch": 8}
 {"id": "2m_temperature/2020-01-15T00/48h/7-14", "answer": "", "reward": 0.0, "tokens": [476, 0, 0, 4096, 0], "epoch": 8}
-{"id": "2m_temperature/2020-01-15T00/72h/15-18", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
-{"id": "2m_temperature/2020-01-15T00/72h/21-47", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-01-15T00/72h/15-18", "answer": "303.09", "reward": 0.0, "tokens": [476, 0, 0, 2023, 0], "epoch": 8}
+{"id": "2m_temperature/2020-01-15T00/72h/21-47", "answer": "", "reward": 0.0, "tokens": [477, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-01-15T00/72h/24-13", "answer": "265.27", "reward": 0.0, "tokens": [475, 0, 0, 2472, 0], "epoch": 8}
 {"id": "2m_temperature/2020-01-16T00/72h/12-37", "answer": "", "reward": 0.0, "tokens": [477, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-01-16T12/48h/6-1", "answer": "275.5", "reward": 0.0, "tokens": [472, 0, 0, 2204, 0], "epoch": 8}
 {"id": "2m_temperature/2020-01-18T00/48h/12-29", "answer": "", "reward": 0.0, "tokens": [475, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-01-23T00/72h/28-33", "answer": "248.73", "reward": 0.21694915254237665, "tokens": [475, 0, 0, 3839, 0], "epoch": 8}
 {"id": "2m_temperature/2020-01-24T00/48h/22-40", "answer": "289.1", "reward": 0.0, "tokens": [477, 0, 0, 1100, 0], "epoch": 8}
-{"id": "2m_temperature/2020-01-27T12/72h/9-30", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-01-27T12/72h/9-30", "answer": "", "reward": 0.0, "tokens": [472, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-02-01T12/48h/8-21", "answer": "284.87", "reward": 0.0, "tokens": [476, 0, 0, 448, 0], "epoch": 8}
 {"id": "2m_temperature/2020-02-05T12/48h/28-30", "answer": "241.15", "reward": 0.0, "tokens": [476, 0, 0, 1127, 0], "epoch": 8}
 {"id": "2m_temperature/2020-02-08T12/72h/11-46", "answer": "", "reward": 0.0, "tokens": [475, 0, 0, 4096, 0], "epoch": 8}
@@ -1341,7 +1341,7 @@
 {"id": "2m_temperature/2020-03-02T00/48h/28-62", "answer": "274.87", "reward": 0.6666666666666666, "tokens": [477, 0, 0, 3423, 0], "epoch": 8}
 {"id": "2m_temperature/2020-03-02T00/48h/30-63", "answer": "", "reward": 0.0, "tokens": [476, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-03-06T00/48h/8-14", "answer": "", "reward": 0.0, "tokens": [474, 0, 0, 4096, 0], "epoch": 8}
-{"id": "2m_temperature/2020-03-07T00/72h/4-44", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-03-07T00/72h/4-44", "answer": "", "reward": 0.0, "tokens": [475, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-03-11T00/72h/31-16", "answer": "249.65", "reward": 0.0, "tokens": [475, 0, 0, 1420, 0], "epoch": 8}
 {"id": "2m_temperature/2020-03-13T12/48h/7-43", "answer": "287.08", "reward": 0.0, "tokens": [477, 0, 0, 2848, 0], "epoch": 8}
 {"id": "2m_temperature/2020-03-14T00/48h/23-23", "answer": "267.74", "reward": 0.4756097560975483, "tokens": [475, 0, 0, 495, 0], "epoch": 8}
@@ -1358,18 +1358,18 @@
 {"id": "2m_temperature/2020-03-25T12/48h/30-15", "answer": "261.3", "reward": 0.0, "tokens": [474, 0, 0, 333, 0], "epoch": 8}
 {"id": "2m_temperature/2020-03-28T00/48h/25-48", "answer": "", "reward": 0.0, "tokens": [476, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-03-30T00/48h/10-54", "answer": "", "reward": 0.0, "tokens": [476, 0, 0, 4096, 0], "epoch": 8}
-{"id": "2m_temperature/2020-03-31T00/72h/10-15", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-03-31T00/72h/10-15", "answer": "293.67", "reward": 0.0, "tokens": [476, 0, 0, 1433, 0], "epoch": 8}
 {"id": "2m_temperature/2020-04-03T00/72h/27-17", "answer": "280.54", "reward": 0.0, "tokens": [473, 0, 0, 1077, 0], "epoch": 8}
 {"id": "2m_temperature/2020-04-05T12/48h/18-49", "answer": "", "reward": 0.0, "tokens": [476, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-04-05T12/72h/6-13", "answer": "275.3", "reward": 0.0, "tokens": [473, 0, 0, 566, 0], "epoch": 8}
 {"id": "2m_temperature/2020-04-07T12/72h/20-31", "answer": "293.92", "reward": 0.0, "tokens": [476, 0, 0, 1567, 0], "epoch": 8}
-{"id": "2m_temperature/2020-04-10T12/72h/16-39", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
-{"id": "2m_temperature/2020-04-11T00/72h/1-27", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-04-10T12/72h/16-39", "answer": "299.53", "reward": 0.0, "tokens": [475, 0, 0, 4012, 0], "epoch": 8}
+{"id": "2m_temperature/2020-04-11T00/72h/1-27", "answer": "230.46", "reward": 0.0, "tokens": [475, 0, 0, 401, 0], "epoch": 8}
 {"id": "2m_temperature/2020-04-11T12/72h/30-62", "answer": "256.79", "reward": 0.0, "tokens": [476, 0, 0, 1474, 0], "epoch": 8}
 {"id": "2m_temperature/2020-04-12T00/48h/6-36", "answer": "", "reward": 0.0, "tokens": [477, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-04-14T00/72h/8-28", "answer": "286.14", "reward": 0.0, "tokens": [477, 0, 0, 745, 0], "epoch": 8}
 {"id": "2m_temperature/2020-04-21T00/48h/12-44", "answer": "", "reward": 0.0, "tokens": [476, 0, 0, 4096, 0], "epoch": 8}
-{"id": "2m_temperature/2020-04-21T00/72h/28-20", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-04-21T00/72h/28-20", "answer": "268.9", "reward": 0.16883116883116692, "tokens": [475, 0, 0, 578, 0], "epoch": 8}
 {"id": "2m_temperature/2020-04-21T00/72h/29-58", "answer": "250.19", "reward": 0.0, "tokens": [475, 0, 0, 542, 0], "epoch": 8}
 {"id": "2m_temperature/2020-04-21T12/72h/15-51", "answer": "", "reward": 0.0, "tokens": [473, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-04-22T00/48h/24-31", "answer": "", "reward": 0.0, "tokens": [475, 0, 0, 4096, 0], "epoch": 8}
@@ -1382,7 +1382,7 @@
 {"id": "2m_temperature/2020-05-04T00/72h/26-56", "answer": "275.9", "reward": 0.0, "tokens": [475, 0, 0, 1920, 0], "epoch": 8}
 {"id": "2m_temperature/2020-05-04T12/72h/4-62", "answer": "269.88", "reward": 0.052980132450320905, "tokens": [477, 0, 0, 1357, 0], "epoch": 8}
 {"id": "2m_temperature/2020-05-06T00/48h/5-13", "answer": "271.92", "reward": 0.0, "tokens": [474, 0, 0, 1826, 0], "epoch": 8}
-{"id": "2m_temperature/2020-05-07T00/72h/6-30", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-05-07T00/72h/6-30", "answer": "280.14", "reward": 0.0, "tokens": [476, 0, 0, 1354, 0], "epoch": 8}
 {"id": "2m_temperature/2020-05-08T12/48h/13-22", "answer": "300.58", "reward": 0.0, "tokens": [476, 0, 0, 857, 0], "epoch": 8}
 {"id": "2m_temperature/2020-05-08T12/72h/13-56", "answer": "287.04", "reward": 0.0, "tokens": [475, 0, 0, 950, 0], "epoch": 8}
 {"id": "2m_temperature/2020-05-09T12/48h/26-53", "answer": "", "reward": 0.0, "tokens": [475, 0, 0, 4096, 0], "epoch": 8}
@@ -1400,7 +1400,7 @@
 {"id": "2m_temperature/2020-06-07T00/48h/22-24", "answer": "", "reward": 0.0, "tokens": [475, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-06-07T12/72h/8-36", "answer": "285.89", "reward": 0.0, "tokens": [477, 0, 0, 645, 0], "epoch": 8}
 {"id": "2m_temperature/2020-06-08T12/48h/20-35", "answer": "", "reward": 0.0, "tokens": [475, 0, 0, 4096, 0], "epoch": 8}
-{"id": "2m_temperature/2020-06-16T12/72h/28-19", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-06-16T12/72h/28-19", "answer": "284.94", "reward": 0.0, "tokens": [475, 0, 0, 545, 0], "epoch": 8}
 {"id": "2m_temperature/2020-06-18T00/48h/23-49", "answer": "297.03", "reward": 0.0, "tokens": [476, 0, 0, 863, 0], "epoch": 8}
 {"id": "2m_temperature/2020-06-20T00/48h/4-46", "answer": "273.01", "reward": 0.0, "tokens": [476, 0, 0, 564, 0], "epoch": 8}
 {"id": "2m_temperature/2020-06-21T12/48h/24-31", "answer": "", "reward": 0.0, "tokens": [476, 0, 0, 4096, 0], "epoch": 8}
@@ -1411,18 +1411,18 @@
 {"id": "2m_temperature/2020-06-27T12/72h/30-54", "answer": "273.53", "reward": 0.0, "tokens": [476, 0, 0, 3540, 0], "epoch": 8}
 {"id": "2m_temperature/2020-06-29T00/72h/16-39", "answer": "301.41", "reward": 0.0, "tokens": [474, 0, 0, 1437, 0], "epoch": 8}
 {"id": "2m_temperature/2020-07-02T00/72h/25-30", "answer": "282.43", "reward": 0.0, "tokens": [475, 0, 0, 545, 0], "epoch": 8}
-{"id": "2m_temperature/2020-07-03T12/72h/29-44", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-07-03T12/72h/29-44", "answer": "", "reward": 0.0, "tokens": [475, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-07-04T00/48h/9-24", "answer": "286.6", "reward": 0.0, "tokens": [473, 0, 0, 2868, 0], "epoch": 8}
 {"id": "2m_temperature/2020-07-04T00/72h/20-3", "answer": "", "reward": 0.0, "tokens": [473, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-07-04T12/48h/24-21", "answer": "296.44", "reward": 0.0, "tokens": [475, 0, 0, 510, 0], "epoch": 8}
-{"id": "2m_temperature/2020-07-05T12/72h/28-38", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
-{"id": "2m_temperature/2020-07-08T12/72h/24-12", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-07-05T12/72h/28-38", "answer": "277.36", "reward": 0.0, "tokens": [477, 0, 0, 2161, 0], "epoch": 8}
+{"id": "2m_temperature/2020-07-08T12/72h/24-12", "answer": "", "reward": 0.0, "tokens": [474, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-07-10T00/72h/26-30", "answer": "", "reward": 0.0, "tokens": [476, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-07-13T00/72h/7-2", "answer": "273.05", "reward": 0.0, "tokens": [475, 0, 0, 1824, 0], "epoch": 8}
 {"id": "2m_temperature/2020-07-13T12/72h/22-38", "answer": "293.76", "reward": 0.0, "tokens": [476, 0, 0, 406, 0], "epoch": 8}
 {"id": "2m_temperature/2020-07-20T00/72h/21-45", "answer": "300.29", "reward": 0.7567567567567585, "tokens": [476, 0, 0, 1603, 0], "epoch": 8}
 {"id": "2m_temperature/2020-07-21T00/48h/21-37", "answer": "296.32", "reward": 0.0, "tokens": [476, 0, 0, 963, 0], "epoch": 8}
-{"id": "2m_temperature/2020-07-23T00/72h/2-14", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-07-23T00/72h/2-14", "answer": "", "reward": 0.0, "tokens": [472, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-07-23T12/72h/15-0", "answer": "", "reward": 0.0, "tokens": [474, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-07-25T00/72h/10-44", "answer": "", "reward": 0.0, "tokens": [475, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-07-27T12/72h/28-53", "answer": "275.37", "reward": 0.0, "tokens": [476, 0, 0, 2540, 0], "epoch": 8}
@@ -1452,12 +1452,12 @@
 {"id": "2m_temperature/2020-09-23T00/72h/22-35", "answer": "294.18", "reward": 0.0, "tokens": [475, 0, 0, 3698, 0], "epoch": 8}
 {"id": "2m_temperature/2020-09-25T00/72h/31-44", "answer": "270.8", "reward": 0.7813411078717205, "tokens": [476, 0, 0, 788, 0], "epoch": 8}
 {"id": "2m_temperature/2020-09-27T12/72h/14-13", "answer": "", "reward": 0.0, "tokens": [475, 0, 0, 4096, 0], "epoch": 8}
-{"id": "2m_temperature/2020-10-03T00/72h/13-63", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-10-03T00/72h/13-63", "answer": "", "reward": 0.0, "tokens": [476, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-10-03T12/48h/13-54", "answer": "", "reward": 0.0, "tokens": [476, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-10-03T12/48h/24-6", "answer": "", "reward": 0.0, "tokens": [475, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-10-05T00/72h/1-2", "answer": "225.42", "reward": 0.0, "tokens": [475, 0, 0, 1699, 0], "epoch": 8}
 {"id": "2m_temperature/2020-10-05T00/72h/1-54", "answer": "232.7", "reward": 0.0, "tokens": [473, 0, 0, 1024, 0], "epoch": 8}
-{"id": "2m_temperature/2020-10-05T00/72h/12-26", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-10-05T00/72h/12-26", "answer": "298.21", "reward": 0.0, "tokens": [476, 0, 0, 1187, 0], "epoch": 8}
 {"id": "2m_temperature/2020-10-06T00/72h/18-7", "answer": "290.8", "reward": 0.0, "tokens": [474, 0, 0, 3869, 0], "epoch": 8}
 {"id": "2m_temperature/2020-10-07T12/72h/8-3", "answer": "281.6", "reward": 0.0, "tokens": [475, 0, 0, 299, 0], "epoch": 8}
 {"id": "2m_temperature/2020-10-12T12/48h/2-23", "answer": "222.19", "reward": 0.0, "tokens": [474, 0, 0, 479, 0], "epoch": 8}
@@ -1474,10 +1474,10 @@
 {"id": "2m_temperature/2020-10-22T12/72h/1-61", "answer": "", "reward": 0.0, "tokens": [477, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-10-25T12/72h/24-37", "answer": "288.8", "reward": 0.0, "tokens": [475, 0, 0, 1084, 0], "epoch": 8}
 {"id": "2m_temperature/2020-10-26T00/72h/27-12", "answer": "274.42", "reward": 0.0, "tokens": [475, 0, 0, 3197, 0], "epoch": 8}
-{"id": "2m_temperature/2020-10-28T00/72h/9-58", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-10-28T00/72h/9-58", "answer": "289.26", "reward": 0.0, "tokens": [475, 0, 0, 1072, 0], "epoch": 8}
 {"id": "2m_temperature/2020-10-28T12/72h/5-13", "answer": "", "reward": 0.0, "tokens": [474, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-10-29T00/72h/30-34", "answer": "", "reward": 0.0, "tokens": [476, 0, 0, 4096, 0], "epoch": 8}
-{"id": "2m_temperature/2020-11-02T12/72h/19-46", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-11-02T12/72h/19-46", "answer": "", "reward": 0.0, "tokens": [475, 0, 0, 391, 0], "epoch": 8}
 {"id": "2m_temperature/2020-11-05T00/72h/17-10", "answer": "299.38", "reward": 0.0, "tokens": [472, 0, 0, 1112, 0], "epoch": 8}
 {"id": "2m_temperature/2020-11-07T12/48h/4-47", "answer": "", "reward": 0.0, "tokens": [476, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-11-08T00/72h/8-36", "answer": "285.77", "reward": 0.0, "tokens": [474, 0, 0, 498, 0], "epoch": 8}
@@ -1488,15 +1488,15 @@
 {"id": "2m_temperature/2020-11-16T12/48h/7-35", "answer": "282.89", "reward": 0.0, "tokens": [476, 0, 0, 420, 0], "epoch": 8}
 {"id": "2m_temperature/2020-11-17T12/72h/15-47", "answer": "293.9", "reward": 0.8888888888886783, "tokens": [476, 0, 0, 1548, 0], "epoch": 8}
 {"id": "2m_temperature/2020-11-20T00/72h/31-23", "answer": "263.66", "reward": 0.0, "tokens": [476, 0, 0, 904, 0], "epoch": 8}
-{"id": "2m_temperature/2020-11-22T12/72h/29-21", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
-{"id": "2m_temperature/2020-11-25T00/72h/23-38", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-11-22T12/72h/29-21", "answer": "", "reward": 0.0, "tokens": [477, 0, 0, 4096, 0], "epoch": 8}
+{"id": "2m_temperature/2020-11-25T00/72h/23-38", "answer": "287.11", "reward": 0.0, "tokens": [477, 0, 0, 2520, 0], "epoch": 8}
 {"id": "2m_temperature/2020-11-26T12/72h/11-1", "answer": "291.22", "reward": 0.0, "tokens": [473, 0, 0, 1058, 0], "epoch": 8}
 {"id": "2m_temperature/2020-11-28T00/48h/13-53", "answer": "0.0", "reward": 0.0, "tokens": [476, 0, 0, 2199, 0], "epoch": 8}
 {"id": "2m_temperature/2020-11-28T00/72h/26-37", "answer": "269.7", "reward": 0.0, "tokens": [476, 0, 0, 1187, 0], "epoch": 8}
 {"id": "2m_temperature/2020-11-29T12/48h/12-20", "answer": "297.52", "reward": 0.0, "tokens": [476, 0, 0, 3990, 0], "epoch": 8}
 {"id": "2m_temperature/2020-12-02T00/48h/30-8", "answer": "", "reward": 0.0, "tokens": [473, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-12-04T12/72h/27-39", "answer": "", "reward": 0.0, "tokens": [477, 0, 0, 4096, 0], "epoch": 8}
-{"id": "2m_temperature/2020-12-09T12/72h/23-1", "error": true, "tokens": [0, 0, 0, 0, 0], "epoch": 8}
+{"id": "2m_temperature/2020-12-09T12/72h/23-1", "answer": "282.55", "reward": 0.0, "tokens": [472, 0, 0, 2082, 0], "epoch": 8}
 {"id": "2m_temperature/2020-12-10T00/48h/11-39", "answer": "", "reward": 0.0, "tokens": [476, 0, 0, 4096, 0], "epoch": 8}
 {"id": "2m_temperature/2020-12-12T00/48h/23-62", "answer": "288.67", "reward": 0.0, "tokens": [475, 0, 0, 3415, 0], "epoch": 8}
 {"id": "2m_temperature/2020-12-27T00/72h/5-58", "answer": "273.55", "reward": 0.0, "tokens": [475, 0, 0, 445, 0], "epoch": 8}

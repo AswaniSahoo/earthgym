@@ -1,8 +1,10 @@
 # 0018: the pinned IBTrACS build as a release asset; the GHCN-Daily files stay local
 
-Date: 2026-11-02. Status: accepted, 2026-11-02. From the Codex review's finding 1, with my rule
-for fix batch 1: publish the pinned NOAA files as a GitHub release asset if their terms allow
-redistribution, and if the terms are unclear, do not upload and document the limitation.
+Date: 2026-11-02. Status: accepted, 2026-11-02; amended by 0027 on 2026-11-13, when the repository
+went public with the heat items and without the station files. From the Codex review's finding 1,
+with my rule for fix batch 1: publish the pinned NOAA files as a GitHub release asset if their
+terms allow redistribution, and if the terms are unclear, do not upload and document the
+limitation.
 
 Context: NCEI publishes no checksum and overwrites its files in place, so my pins are my own
 sha256s, and a stranger can rebuild the items only while NCEI still serves the bytes I pinned.
@@ -49,7 +51,8 @@ Consequences:
 - The repository is private, so only accounts with access to it can download the asset:
   anonymously its URL returns 404, and fetch falls back to NCEI. Collaborators and CI use
   `gh release download data-v1 -p ibtracs.NA.list.v04r01.csv -D data/ibtracs`. If the
-  repository becomes public, the plain fetch works for anyone.
+  repository becomes public, the plain fetch works for anyone. It became public on 2026-11-13
+  (decision 0027).
 - heat-basis-v1 can be rebuilt only while NCEI serves the pinned station builds (their sha256s
   are in `earthgym.heat.data.STATIONS`). Once NCEI rewrites a file with new data, the hash check
   refuses it, and the items cannot be rebuilt from public sources. The published heat numbers
