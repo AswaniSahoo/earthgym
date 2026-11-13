@@ -20,14 +20,14 @@ The repository went public on 2026-11-13 (decision 0027). What the list before t
   `.github/workflows/reproduce.yml` once a run shows the anonymous fetch works in CI.
 - Tools mode for `ibtracs-storm-v1` (decision 0023): its Sonnet run stopped at 225 of 300 items on
   2026-11-02, when the API account's credit ran out, with the ledger at $12.2793 of the $20 budget
-  (`reports/spend.md`). It waits for credit on that account.
+  (`reports/spend.md`). It stays unfinished until I add API credit to that account myself.
 
 ## After that
 
 - The drafts for distribution under `docs/release/`, written on 2026-11-02, stay there until I
   decide on each: the issue for the ClimaQA maintainers, the eval logs as a release asset, notes
   for an inspect_evals Register entry for ClimaQA, notes for the Prime Intellect Hub, and a Hugging
-  Face dataset card, which still needs my decision on whether it carries the heat items.
+  Face dataset card, which carries the heat items with the two facts of decision 0027.
 
 ## Open questions
 

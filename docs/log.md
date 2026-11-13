@@ -29,6 +29,11 @@ Newest first. One entry per working session: what changed, what I learned, what 
   and for the 24 and 48 h leads, 18 values in all, to float32 precision, with no change to the
   scores code (`reports/era5/2026-11-13-wb2-reproduction-leads-and-t2m.md`). Each variable and
   lead has its own pinned subset.
+- My answers to what stayed open, "yes for all": the heat items' terms are two facts and nothing
+  more (NCEI names no licence and asks for two citations; NOAA's NODD listing gives CC0-1.0, and
+  whether that covers files fetched from NCEI directly is unknown), the draft dataset card carries
+  the heat items, the reviewer agent moves to Claude Fable 5.2, and tools mode waits until I add
+  API credit myself.
 - What I learned: a push scheduled from this laptop needs the laptop on at that time, and a tool
   that worked last week needs a check before the run that depends on it.
 - Next: the GRPO resample's result, then my review and hand checks.

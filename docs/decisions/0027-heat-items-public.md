@@ -4,12 +4,24 @@ Date: 2026-11-13. Status: accepted, 2026-11-13. Amends 0018.
 
 Context: decision 0018 kept the GHCN-Daily station files unpublished, because the NCEI sources it
 read (the product page, the readme and the ISO metadata) name no licence for GHCN-Daily and say
-nothing about redistribution. The heat items still show those stations'
-values, so making the repository public would publish data derived from them. The roadmap listed
+nothing about redistribution. The heat items still show those stations' values, so making the
+repository public would publish data derived from them. The roadmap listed
 that as my decision to make, before the repository went public.
 
 Decision: on 2026-11-13 my choice was "flip", and the repository went public that day with the heat
 items in it. My choice; the record gives no further reason.
+
+Later on 2026-11-13 I answered the questions that left open with "yes for all": the heat items'
+terms are stated as the two facts below and nothing more, and the draft Hugging Face card in
+`docs/release/dataset-card.md` carries the heat items. The card stays a draft; nothing is published
+to Hugging Face.
+
+The two facts:
+
+- NCEI's metadata page for GHCN-Daily (gov.noaa.ncdc:C00861) names no licence and asks for the two
+  citations below.
+- NOAA's NODD entry in the Registry of Open Data on AWS lists GHCN-Daily as CC0-1.0 (quoted below).
+  Whether that covers files fetched from NCEI directly, as these were, is UNKNOWN.
 
 What is public now, in the tree:
 
@@ -63,5 +75,5 @@ Consequences:
   pinned station file (`docs/reproduce.md`), and on 2026-11-13 all four files differed from their
   pins (`docs/reviews/2026-11-13-go-public.md`). The published heat numbers do not need a rebuild;
   they can be recomputed from the committed items and per-item results.
-- The draft Hugging Face card (`docs/release/dataset-card.md`) is a separate distribution, and
-  whether it carries heat is still open.
+- The draft Hugging Face card (`docs/release/dataset-card.md`) carries the heat items, with the
+  same two facts and both citations. It is a draft; publishing it is a separate decision.
