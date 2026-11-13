@@ -38,3 +38,29 @@ def test_content_hash_changes_with_any_value():
     arrays = {"forecast": np.zeros(3, dtype="f4")}
     changed = {"forecast": np.array([0, 0, 1e-3], dtype="f4")}
     assert data.content_sha256(arrays) != data.content_sha256(changed)
+
+
+def test_load_checks_the_pin_it_is_given(tmp_path):
+    path = tmp_path / "subset.npz"
+    arrays = {"forecast": np.arange(4, dtype="f4")}
+    np.savez(path, **arrays)
+    with pytest.raises(ValueError, match="does not match"):
+        data.load(path, data.SUBSET_SHA256)
+    assert data.load(path, data.content_sha256(arrays))["forecast"].tolist() == [0.0, 1.0, 2.0, 3.0]
+
+
+def test_fetch_writes_a_subset_only_on_its_pin_and_main_writes_each_one(tmp_path, monkeypatch):
+    arrays = {"forecast": np.arange(4, dtype="f4")}
+    monkeypatch.setattr(data, "build", lambda variable, lead_hours: arrays)
+    path = tmp_path / "pinned.npz"
+    monkeypatch.setattr(data, "SUBSETS", {("v", 24): (path, "0" * 64)})
+    with pytest.raises(ValueError, match="no longer give the pinned pinned.npz"):
+        data.fetch("v", 24)
+    assert not path.exists()
+    monkeypatch.setattr(data, "SUBSETS", {("v", 24): (path, data.content_sha256(arrays))})
+    elsewhere = tmp_path / "elsewhere" / "x.npz"
+    assert data.fetch("v", 24, elsewhere) == elsewhere and elsewhere.exists()
+    assert not path.exists()
+    monkeypatch.setattr("sys.argv", ["data", "--dir", str(tmp_path / "dir")])
+    data.main()
+    assert data.load(tmp_path / "dir" / "pinned.npz", data.content_sha256(arrays))
