@@ -38,7 +38,8 @@ From the repo root, with a model behind an OpenAI-compatible server for `vf-eval
     uv run python -m earthgym.era5.baselines                        # the baseline rows
     uv run python -m earthgym.era5.items                            # rebuild the items
 
-The rebuild reads about 55 MB over anonymous HTTPS. The store metadata is pinned by sha256, and
+The rebuild reads about 56 MB over anonymous HTTPS (55,607,515 bytes on 2026-11-19: 1,159 store
+chunks and the three stores' metadata). The store metadata is pinned by sha256, and
 `reports/era5/items_v1_manifest.json` holds the file's sha256 and `fields_sha256`, a hash of every
 array the builder reads, which a rebuild checks first. Baseline rows for these items, IFS HRES
 included, are in `reports/era5/items_v1_baselines.md`.

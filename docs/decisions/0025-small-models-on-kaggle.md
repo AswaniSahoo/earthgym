@@ -2,6 +2,10 @@
 
 Date: 2026-11-02. Status: done, 2026-11-13 (session 3 below).
 
+Status note, 2026-11-19: the `qwen-rest` plan now asks for 8,192 cache tokens a slot
+(`src/earthgym/kaggle/samples_kernel.py:145-146`). Session 2 asked for 10,240, as below; commit
+a75cea3 changed the request to 8,192 on 2026-11-06, before session 3.
+
 Context: decision 0022 ran the two small open models on this laptop's GPU. On 2026-11-02 I took that
 GPU back for my own work: from then on no model runs on this machine, and every GPU job goes to
 Kaggle. I stopped the laptop run then, with Qwen3.5-2B's ClimaQA done and its ERA5 at 1,280 of 5,184

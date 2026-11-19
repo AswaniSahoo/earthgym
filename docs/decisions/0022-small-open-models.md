@@ -2,6 +2,14 @@
 
 Date: 2026-11-02. Status: accepted, 2026-11-02.
 
+Status note, 2026-11-19: decision 0025 moved these runs to Kaggle's T4s, and every reported
+small-model run is from there (`reports/*/2026-11-02-small-models.md:7`): one llama-server a GPU
+with 32 slots and a 131,072-token cache (`-c 131072 -np 32`; 262,144 for the `qwen-rest` plan),
+and Inspect at `--max-connections 32` with `--retry-on-error 3 --fail-on-error 0.05
+--retry-attempts 3` (`src/earthgym/kaggle/samples_kernel.py:23,86-92,96-102,145-146`). The laptop
+settings below describe the first run, which was stopped; the Kaggle reruns replaced its results
+(decision 0024).
+
 Context: one paid model and one draw per item cannot show whether an environment gives a
 training signal. GRPO-style training compares several samples of the same item, so it learns
 only from items whose reward varies across samples. On 2026-11-02 I allowed local open models

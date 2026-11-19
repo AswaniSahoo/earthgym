@@ -4,6 +4,15 @@ Date: 2026-11-06. Status: accepted for heat and storm, 2026-11-06. ERA5's archiv
 followed on 2026-11-13: the forecast grader reproduces WeatherBench 2's published scores for both
 variables at 24, 48 and 72 h (`reports/era5/2026-11-13-wb2-reproduction-leads-and-t2m.md`).
 
+Status note, 2026-11-19: two corrections to the text below. The roadmap passage the Context quotes
+left `docs/roadmap.md` in the commit that recorded this decision, f08b649; it is at lines 20-22 of
+that file at c1363fe. And Deer Valley 2019 is not the only index season with gaps: Deer Valley
+2017 (16 items) and Scottsdale 2022 (11 items) each miss one day, which changes no key, so the
+missing-value keys counted below are all Deer Valley 2019's (counted on 2026-11-19 over
+`heat_basis_v1.taskset.records()` with `earthgym.heat.report.careless`). The WeatherBench 2
+reproduction above runs `earthgym.era5.scores` on the pinned subsets; the ERA5 reward is the
+clipped skill score in `environments/era5_forecast_v1/era5_forecast_v1/contract.py:56-70`.
+
 Context: the Codex review's finding 8, as `docs/roadmap.md` recorded it: the heat and storm item
 tests rebuild the items with the same code that made them, "which proves consistency, not
 correctness". The review itself is not in this repo. A bug in that code would make a wrong key, the

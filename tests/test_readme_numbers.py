@@ -50,6 +50,8 @@ HEADLINES = [  # as the README says it, the report, as the report says it
         "| mcq | 222 | 8 | 0.584 |",
     ),
     ("0.020 cloze", f"{R}/climaqa/2026-11-02-small-models.md", "| cloze | 128 | 8 | 0.020 |"),
+    ("21 near matches", "environments/climaqa_v1/climaqa_v1/near_matches.json", '"n": 21'),
+    ("strict variant of 329 items", f"{R}/climaqa/2026-11-02-small-models.md", "| 329 | 8 |"),
     ("0.1277", f"{ERA5}/2026-11-01-claude-sonnet-5-5.json", '"reward": 0.1277'),
     ("0.1175", f"{ERA5}/items_v1_baselines.md", "| midpoint | 648 | 0.1175 |"),
     ("+0.0102 (SE 0.0085)", f"{ERA5}/{SONNET}", "+0.0102 (SE 0.0085)"),

@@ -1,4 +1,4 @@
-"""era5-forecast-v1 as a verifiers v1 taskset: 720 forecast items, rewarded by the contract."""
+"""era5-forecast-v1 as a verifiers v1 taskset: 648 forecast items, rewarded by the contract."""
 
 import json
 from importlib.resources import files

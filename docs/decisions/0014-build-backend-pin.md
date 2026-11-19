@@ -2,6 +2,9 @@
 
 Date: 2026-11-01. Status: accepted, 2026-11-01, from the Phase 4 review (L6).
 
+Status note, 2026-11-19: CI builds all four wheels on every push to `main` and every pull request
+(`.github/workflows/ci.yml:3-6,24,32,42,47`).
+
 Context: the four environment packages (`climaqa-v1`, `era5-forecast-v1`, `ibtracs-storm-v1`,
 `heat-basis-v1`) declared `requires = ["hatchling"]`, so each wheel was built with whatever
 hatchling was newest at the time, and no decision record named the dependency. CLAUDE.md asks to

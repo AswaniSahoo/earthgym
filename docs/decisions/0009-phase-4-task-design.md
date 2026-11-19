@@ -3,6 +3,12 @@
 Date: 2026-11-01. Status: accepted 2026-11-01: option 1, for three reasons: a distinct skill
 from Phase 3, an exact verifier, and real traps.
 
+Status note, 2026-11-19: decision 0011 records the design as built. The prompt shows no position,
+only each row's time, status, wind and pressure
+(`environments/ibtracs_storm_v1/ibtracs_storm_v1/contract.py:43-52`), and the questions are ACE,
+peak category and hours at hurricane strength, with no major-hurricane question
+(`contract.py:15-37`).
+
 Context: stage 1 gave reference code that reproduces NCEI's published North Atlantic season
 numbers from a pinned IBTrACS file (`reports/ibtracs/2026-11-01-ncei-reproduction.md`). The
 radar found no environment that grades exact answers computed from IBTrACS; the nearest

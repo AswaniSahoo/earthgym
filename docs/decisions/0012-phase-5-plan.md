@@ -3,6 +3,13 @@
 Date: 2026-11-01. Status: accepted, 2026-11-01: my plan for Phase 5, checked by the Phase 5
 review.
 
+Status note, 2026-11-19: the reproduction and the keys are separate code over one reader. The NWS
+counts come from `stats.days_at_or_above`, `stats.longest_run` and `stats.highest`
+(`tests/test_heat_reproduction.py:23-45`), the keys from `policy.trigger_days`, `policy.events`
+and `policy.missed_days` (`src/earthgym/heat/items.py:66-70`). Both read the station files with
+`data.read` (`items.py:121`) and turn thresholds into GHCN-Daily's unit with `stats.tenths`
+(`src/earthgym/heat/policy.py:29,35,44`).
+
 Goal: an environment that asks what a parametric heat policy pays and where it misses the
 heat a policyholder had (basis risk), with every answer computed exactly from station data by
 reference code that first reproduces published NWS Phoenix heat counts.

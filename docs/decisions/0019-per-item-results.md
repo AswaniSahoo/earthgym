@@ -4,6 +4,20 @@ Date: 2026-11-02. Status: accepted, 2026-11-02. From the Codex review's finding 
 for fix batch 1: commit compact per-item results for every reported run, so a stranger can
 recompute every published number without new runs, and keep them lean.
 
+Status note, 2026-11-19: the results are now 33 JSONL files, 4,528,573 bytes, under
+`reports/<env>/results/`, and three GRPO metrics files, 692,001 bytes, in `reports/grpo/results/`.
+Run lines also hold `created`, `status` (the stopped tools-loop run) and `epochs`, which
+`src/earthgym/results.py:119` writes for every run line; 15 committed files carry it, the
+small-model runs and the four 2026-11-02 tools-mode files. Item lines of the small-model runs also
+hold `epoch`. The tools-react run, the tool-loop probe and the stopped tool-loop run add `bare`,
+`limit`, `queries` and `query_errors`, and the stopped run also `tool_turns` and `error`;
+`2026-11-02-ibtracs-tools-claude-sonnet-5-5-probe.jsonl` has none of these. The Jev file has one
+line per call (decision 0008). `tests/test_published_numbers.py` also re-renders the tools-react
+run, the three-run report, the Jev report and the GRPO and small-model reports, and checks the
+GRPO pick and the heat missing-value counts. The ERA5 baselines, the ClimaQA audit
+(`reports/climaqa/findings.json` and `SUMMARY.md`) and the reproductions of published references
+are not in it (`docs/reproduce.md`).
+
 Context: the Inspect logs are not in git, so until now no one else could check a published
 number short of running the models again.
 

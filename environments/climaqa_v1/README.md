@@ -5,8 +5,10 @@ ClimaQA clean set v1 as a verifiers v1 taskset.
 ## What an item asks
 
 One question from ClimaQA's expert-validated Gold split: 222 multiple choice and 128 cloze. The set
-leaves out items found verbatim in Silver (the paper's fine-tuning set), defective items and items
-that give their answer away.
+leaves out items found verbatim in Silver (the paper's fine-tuning set), defective items, items
+that give their answer away, and multiple choice items with an "all of the above" or "none of the
+above" option, which loses its meaning once the options are shuffled (`EXCLUDING_FLAGS` in
+`src/earthgym/climaqa/clean.py`; 2 items in `reports/climaqa/clean_v1_manifest.json`).
 
 The held-out split goes by item, since ClimaQA gives no source passage to group by:
 `ClimaqaConfig(split="train")` loads 269 items and `split="test"` 81 (decision 0017).

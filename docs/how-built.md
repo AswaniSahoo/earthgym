@@ -29,8 +29,14 @@ checked 0 of the 30 ClimaQA items and 0 of the 56 leak pairs. This page changes 
 
 ## How it was checked
 
-- The forecast, cyclone and heat graders reproduce published numbers before they pay a reward
-  (`reports/*/2026-*-reproduction.md`).
+- The code behind the forecast, cyclone and heat items reproduces published numbers on the same
+  pinned data (`reports/*/2026-*-reproduction.md`): WeatherBench 2's scores through
+  `earthgym.era5.scores`, NOAA NCEI's season figures through `earthgym.ibtracs.stats`, which also
+  computes the cyclone keys, and NWS Phoenix's counts through `earthgym.heat.stats`, whose station
+  reader and threshold conversion the heat keys in `earthgym.heat.policy` share. The heat check
+  reads only Phoenix Sky Harbor, an insured site; the two index stations, which every heat key
+  reads, are checked against no published number (`tests/test_heat_reproduction.py:11`,
+  `src/earthgym/heat/items.py:14`). The rewards are each package's `contract.py`, not this code.
 - A separate reviewer agent (`.claude/agents/reviewer.md`; Claude Fable 5.1, and 5.2 from
   2026-11-13) reviews each phase before it closes: it runs the tests and the pipeline, checks
   results against the raw data and lists what is missing (`docs/reviews/`). Its findings were fixed
@@ -40,10 +46,16 @@ checked 0 of the 30 ClimaQA items and 0 of the 56 leak pairs. This page changes 
   findings was checked against the code (13 confirmed, 2 partly, none wrong). Fix batch 1 acted on
   14 of them (`docs/log.md`). The fifteenth asked for a second computation of the keys: a separate
   AI agent (Claude Fable 5.1) wrote one for heat and storm from the prompts alone, and all 600 keys
-  match (decision 0026). For ERA5, the forecast grader reproduces all 18 of WeatherBench 2's
+  match (decision 0026). For ERA5, `earthgym.era5.scores` reproduces all 18 of WeatherBench 2's
   published global RMSE, ACC and bias values for both variables at all three leads
   (`reports/era5/2026-11-13-wb2-reproduction-leads-and-t2m.md`).
-- Every published number re-renders from the committed per-item results
-  (`tests/test_published_numbers.py`, decision 0019), and a weekly CI job rebuilds the ERA5 and
-  IBTrACS items from their pinned sources (`docs/reproduce.md`); heat's NCEI files changed by
-  2026-11-02, so its rebuild only warns.
+- Every model-run report re-renders from the committed per-item results, with the pair,
+  comparison, GRPO and small-model reports (`tests/test_published_numbers.py`, decision 0019).
+  Three sets of published numbers sit outside that test: the ERA5 baselines
+  (`reports/era5/items_v1_baselines.md`), which `earthgym.era5.baselines` rewrites from the bundled
+  items; the ClimaQA audit (`reports/climaqa/findings.json` and `SUMMARY.md`), which
+  `earthgym.climaqa.audit` rewrites from the pinned download; and the reproductions above, whose
+  tests skip without the pinned data. On 2026-11-19 both wrote those files byte for byte as
+  committed (`docs/reproduce.md`). A weekly CI job rebuilds the ERA5 and IBTrACS items from their
+  pinned sources and runs their reproductions; heat's NCEI files changed by 2026-11-02, so its
+  rebuild only warns.

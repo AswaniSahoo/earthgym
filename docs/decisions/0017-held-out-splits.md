@@ -3,6 +3,12 @@
 Date: 2026-11-02. Status: accepted, 2026-11-02. From the Codex review's finding 2, which I took
 up in fix batch 1.
 
+Status note, 2026-11-19: results in this repo now come from the split. The GRPO run (decision
+0024) trains on the `train` split of climaqa-v1's MCQ items and samples 52 `train` and 52 `test`
+items before and after (`src/earthgym/grpo/kernel.py:79-88,95-102`,
+`src/earthgym/grpo/train_kernel.py:164-168,217-220`, `reports/grpo/2026-11-13-resample.md:15-18`),
+and the ERA5 baselines fit the mixture weight on `train` (`src/earthgym/era5/baselines.py:72`).
+
 Context: items that share their data (one storm's track, one season's station readings, one
 week's weather) make a random split leak, since a policy trained on one item can learn what
 another item asks. The tasksets had no split at all, so no held-out evaluation was possible.

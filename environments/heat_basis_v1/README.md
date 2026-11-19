@@ -52,4 +52,5 @@ are public with the repository since 2026-11-13. The raw station files are not p
 Saturated for a strong model with the rules shown: I keep that version as the control for the
 terms-only ablation and for small-model curricula
 (`reports/heat/2026-11-01-rules-shown-vs-terms-only.md`). The missing-value rules change a key only
-at Deer Valley in 2019, the one index season with gaps.
+at Deer Valley in 2019 (9 items), the index season with the most gaps, 21 missing days in the cover
+window. Deer Valley in 2017 and Scottsdale in 2022 miss one day each, which changes no key.

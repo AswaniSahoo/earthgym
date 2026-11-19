@@ -5,6 +5,11 @@ again under one stop set on 2026-11-13 (the rerun below), and
 `reports/grpo/2026-11-02-phase-7-writeup.md` reports them. A first attempt was stopped after about
 26 minutes when the plan changed (the change below).
 
+Status note, 2026-11-19: the roadmap item the Context cites, "A small GRPO run with a small open
+model on one environment, with the reward on the train split and on the held-out split, reported
+whether or not it moves" (`docs/roadmap.md:27-28` at ef28311), left the roadmap in c435e9d on
+2026-11-06, when this record first closed.
+
 Context: Phase 7 asks whether an earthgym environment gives a small open model a signal it can learn
 from: GRPO-style training on the train split, with the reward on the train and the held-out split
 before and after (`docs/roadmap.md`). GRPO learns only from items whose reward varies across a group

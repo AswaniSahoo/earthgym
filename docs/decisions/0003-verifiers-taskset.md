@@ -2,6 +2,13 @@
 
 Date: 2026-10-30. Status: accepted.
 
+Status note, 2026-11-19: the `env` group holds `climaqa-v1`, `era5-forecast-v1` and
+`verifiers==0.4.0` (`pyproject.toml:22-26`). All four packages are editable workspace members
+(`pyproject.toml:50-62`), and the `eval` group lists all four (`pyproject.toml:32-39`). Each reward
+is an async `@vf.reward` method of the task class that calls plain functions in the package's
+`contract.py` (for example `environments/heat_basis_v1/heat_basis_v1/taskset.py:27-29`), and the
+tests call those functions directly (`tests/test_contract.py`, `tests/test_*_contract.py`).
+
 Context: the environments in this repo are meant for RL training and the Prime Intellect Hub.
 verifiers 0.4.0 (2026-10-12) replaced its old API with `verifiers.v1` tasksets.
 

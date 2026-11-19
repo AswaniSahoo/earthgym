@@ -2,6 +2,14 @@
 
 Date: 2026-11-01. Status: accepted, 2026-11-01.
 
+Status note, 2026-11-19: no reported small-model run used my own GPU. Decision 0025 moved them to
+Kaggle's T4s, and every committed small-model result comes from a Kaggle session
+(`reports/*/2026-11-02-small-models.md:7` and the `log_dir` of each
+`reports/*/results/2026-11-02-*-8-samples*.jsonl`). CI runs more than the list below, still with
+no paid call: `ruff format --check`, five `vf-validate` runs, four Inspect evals on
+`mockllm/model`, the four wheel builds and a check that the ClimaQA wheel carries its licence
+files (`.github/workflows/ci.yml:18-47`).
+
 Context: the ERA5 baseline was approved on Gemini 3.8 Flash on Vertex AI with a guard of 1.5
 million tokens. The 10-item probe (`logs/2026-11-01-era5-probe/`, all MSLP at 24 h) projected
 1,731,960 tokens for the 720 items, so the full run stopped (docs/log.md, 2026-11-01).

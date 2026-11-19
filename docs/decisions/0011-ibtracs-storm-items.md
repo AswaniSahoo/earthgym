@@ -3,6 +3,10 @@
 Date: 2026-11-01. Status: accepted, 2026-11-01: my design under decision 0009, checked by the
 Phase 4 review.
 
+Status note, 2026-11-19: the built prompt puts the status legend before the rule: the rows, the
+legend, the rule, then the question with the answer line
+(`environments/ibtracs_storm_v1/ibtracs_storm_v1/contract.py:43-52`).
+
 Context: 0009 chose per-storm analytics with the counting rules in the prompt. The reference
 code reproduces NCEI's published North Atlantic numbers (`tests/test_ibtracs_reproduction.py`:
 season counts, ACE, and 2024's two category 5 hurricanes from NCEI's 202413 summary table).

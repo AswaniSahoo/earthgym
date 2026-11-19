@@ -2,6 +2,9 @@
 
 Date: 2026-11-02. Status: accepted, 2026-11-02.
 
+Status note, 2026-11-19: the repository is public since 2026-11-13 (decision 0027);
+`gh api repos/AswaniSahoo/earthgym` gave `"visibility": "public"` on 2026-11-19.
+
 Context: the repository and its Python package were called rlenv. That name is taken on PyPI:
 on 2026-11-02 `https://pypi.org/pypi/rlenv/json` returned rlenv 1.1.dev2, "Accenta.AI Gym
 Environement", so the package could never be published under it, and the name says nothing

@@ -6,6 +6,11 @@ with my rule for fix batch 1: publish the pinned NOAA files as a GitHub release 
 terms allow redistribution, and if the terms are unclear, do not upload and document the
 limitation.
 
+Status note, 2026-11-19: no one needs `gh release download` now. The asset answers without an
+account (HTTP 200 on 2026-11-19), the `reproduce` workflow fetches it with `curl` and no token
+(`.github/workflows/reproduce.yml:31-36`), and `earthgym.ibtracs.data` tries the release before
+NCEI (`src/earthgym/ibtracs/data.py:36-42`).
+
 Context: NCEI publishes no checksum and overwrites its files in place, so my pins are my own
 sha256s, and a stranger can rebuild the items only while NCEI still serves the bytes I pinned.
 On 2026-11-02 NCEI served `ibtracs.NA.list.v04r01.csv` with `Last-Modified: Sun, 01 Nov 2026

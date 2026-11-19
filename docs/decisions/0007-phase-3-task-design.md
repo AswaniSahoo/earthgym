@@ -2,6 +2,11 @@
 
 Date: 2026-10-30. Status: accepted, 2026-10-30: option 1, with my reward rule below.
 
+Status note, 2026-11-19: the data is now six WeatherBench 2 subsets, one per variable and lead,
+107,986,620 bytes in `data/era5/` (`earthgym.era5.data`; `.github/workflows/reproduce.yml:20`),
+more than the 100 MB below. The item rebuild reads another 55,607,515 bytes of store chunks and
+metadata.
+
 Context: stage 1 gave a grader that reproduces two published WeatherBench 2 scores exactly
 (IFS HRES MSLP at 72 h, 2020: RMSE 133.890547 Pa and ACC 0.981878;
 `reports/era5/2026-10-30-wb2-reproduction.md`). The README says Phase 3 is "graded against

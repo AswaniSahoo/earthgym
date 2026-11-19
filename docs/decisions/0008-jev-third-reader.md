@@ -4,6 +4,10 @@ Date: 2026-10-31. Status: accepted, 2026-10-31: I chose this study. Amended 2026
 provider, below); run 2026-11-18 (UTC), reported in
 `reports/climaqa/runs/2026-10-31-jev-third-reader.md`.
 
+Status note, 2026-11-19: with `JEV_BASE_URL` unset, the gateway is the fallback only when
+`JEV_API_KEY` is set; with neither key set, `provider()` raises before any call
+(`src/earthgym/climaqa/jev.py:170-179`).
+
 Context: two sorts of the 2026-10-30 Gemini 3.8 Flash misses exist: the first, made with Claude Code
 (the two miss notes), and the Phase 2 reviewer's blind sort of the 33 cloze misses
 (`docs/reviews/phase-2-climaqa-port.md`, Baseline review, section 3). The expert review sheet

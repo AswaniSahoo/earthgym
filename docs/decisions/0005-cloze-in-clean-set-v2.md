@@ -5,6 +5,16 @@ of the flagged items is ready for that expert (`reports/climaqa/expert_review_v2
 the expert writes accepted answers. The v1 contract (0004) and clean set v1
 stay as they are until the review is done.
 
+Status note, 2026-11-19: the GRPO run (decision 0024) did not follow Proposal 5. It trained on
+every train-split MCQ item (`src/earthgym/grpo/kernel.py:95-102`,
+`src/earthgym/grpo/train_kernel.py:217-220`), and all 9 flawed or source-only misses are in
+`train` under decision 0017's split; its pick of task counted cloze as a candidate
+(`tests/test_published_numbers.py:201-207`). Proposal 3's checks are not built and stay pending:
+`src/earthgym/climaqa/checks.py` has none for questions about the source document or for keys
+that are a parenthesised abbreviation, and its `duplicates` (lines 117-132) finds exact repeats
+only. `src/earthgym/climaqa/expert_sheet.py` builds the review sheet from the two miss notes and
+two items listed by hand, with 20 hits sampled with seed 20261030 (lines 16-28).
+
 Context: the first baseline (Gemini 3.8 Flash on clean set v1) has two miss notes, each one
 reader's sort:
 
