@@ -27,8 +27,6 @@ The repository went public on 2026-11-13 (decision 0027). What the list before t
 
 - Who reviews the cloze items as a domain expert (decision 0005). The sheet is ready:
   `reports/climaqa/expert_review_v2.csv`.
-- The Jev third-reader study (decision 0008) is built and tested with its HTTP call mocked, but
-  it runs only with a TypeSafe key, which I do not have.
 - The GHCN-Daily station files stay unpublished unless NCEI states that they may be
   redistributed (decisions 0018 and 0027). NOAA's NODD listing of GHCN-Daily on the AWS open data
   registry gives CC0-1.0 for data disseminated through NODD; whether that covers NCEI's own files,

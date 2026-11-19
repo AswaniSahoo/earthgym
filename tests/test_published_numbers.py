@@ -11,7 +11,7 @@ from heat_basis_v1.taskset import records as heat_items
 from ibtracs_storm_v1.taskset import records as ibtracs_items
 
 from earthgym import results, samples, spend
-from earthgym.climaqa import compare
+from earthgym.climaqa import compare, jev, third_reader
 from earthgym.climaqa import report as climaqa_report
 from earthgym.era5 import report as era5_report
 from earthgym.grpo import pick
@@ -91,6 +91,45 @@ def test_the_climaqa_comparison_re_renders_from_the_results():
     assert compare.render(rows, levels, dirs, strict) == out.with_suffix(".md").read_text("utf-8")
     record = json.dumps({"rows": rows, "strict": strict, "levels": levels}, indent=1, default=str)
     assert record == out.with_suffix(".json").read_text("utf-8")
+
+
+JEV = "2026-10-31-jev-third-reader"
+
+
+def test_the_jev_third_reader_report_re_renders_from_the_results():
+    path = R / "climaqa/results" / f"{JEV}.jsonl"
+    head, rows = results.read(path)
+    ids = {r["id"] for r in rows}
+    sent = [row for row in third_reader.sheet() if row["id"] in ids]
+    assert head["items_sha256"] == third_reader.items_sha256(sent)  # what its requests sent
+    answered = [r for r in rows if "error" not in r]
+    sums = {k: sum(r[f"{k}_tokens"] for r in answered) for k in ("input", "output")}
+    assert head["tokens"] == sums
+    assert (head["planned"], head["answered"], head["complete"]) == (626, 626, True)
+    a = third_reader.analyse(rows, third_reader.mine(), third_reader.blind_sort())
+    text = third_reader.render(a, head, path)
+    assert text == (R / "climaqa/runs" / f"{JEV}.md").read_text("utf-8")
+
+
+def test_the_estimate_of_each_jev_call_is_above_the_input_tokens_it_reported():
+    _, rows = results.read(R / "climaqa/results" / f"{JEV}.jsonl")
+    items = {row["id"]: row for row in third_reader.sheet()}
+    answered = [r for r in rows if "error" not in r]
+    bodies = [
+        jev.request(r["task"], third_reader.state(items[r["id"]]), r["order"], r["model_requested"])
+        for r in answered
+    ]
+    under = [
+        r["id"]
+        for r, b in zip(answered, bodies, strict=True)
+        if jev.estimate(b) < r["input_tokens"]
+    ]
+    assert len(answered) == 626 and under == []
+    ratios = [
+        len(json.dumps(b, ensure_ascii=False)) / r["input_tokens"]
+        for r, b in zip(answered, bodies, strict=True)
+    ]
+    assert min(ratios) - jev.CHARS_PER_TOKEN >= 0.2  # the margin the divisor keeps
 
 
 def test_every_ledger_row_has_the_tokens_of_its_committed_results():

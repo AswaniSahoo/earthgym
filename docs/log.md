@@ -2,6 +2,35 @@
 
 Newest first. One entry per working session: what changed, what I learned, what is next.
 
+## 2026-11-19: Jev reads the misses, through the gateway
+
+- The Jev third-reader study (decision 0008) ran: 626 calls through the Experiential Labs gateway
+  from 2026-11-18T20:38:49Z to 21:56:57Z, 0 retries, 332,326 input tokens, $0.0140 at TypeSafe's
+  list price, every reply naming `jev-latest`. The report,
+  `reports/climaqa/runs/2026-10-31-jev-third-reader.md`, renders from the committed per-item results
+  `reports/climaqa/results/2026-10-31-jev-third-reader.jsonl` (decision 0019) and is pinned by
+  `tests/test_published_numbers.py`.
+- Jev agrees with the first sort at kappa 0.418 (61 items) and with the reviewer's blind sort at
+  0.487 (33 items), while those two sorts agree with each other at 0.914. It picked the first-listed
+  option in 0.313 of rotated calls against 0.282 if order did not matter, and all 5 fixed-order
+  calls agreed on 70 of 83 items. It does not replace the expert review of 0005.
+- The provider decision is in the 0008 amendment: unless `JEV_BASE_URL` names one, TypeSafe direct
+  whenever a TypeSafe key is set, else the gateway. On my account the gateway stores content, and
+  its terms of 2026-11-17 license free-plan content for model training, so this run's items and
+  replies are in that program.
+- Code: provider choice and fallback, each key bound to its provider, failed calls logged and
+  charged, a lock file, resume, monotonic pacing, request ids, answer checks, no redirects for
+  either provider, no automatic retries through the gateway, and a `results` step. Five EGM-lite
+  Goldfish reviews (`docs/reviews/2026-11-19-jev-provider.md`): the first raised 15 findings, 14
+  fixed (8 in code, test-first, and 6 in the docs) with 2 points withdrawn (finding 3 and the
+  single-call half of finding 9); the second raised 14, the third 8 and the fourth 10, all fixed,
+  and the fifth, limited to material issues, 3, all fixed; two narrow checks of those fixes found a
+  P1 and a test gap, both fixed. 702 tests pass.
+- The code that ran was the first version of this change set, uncommitted: git reflog shows HEAD at
+  `2ed5f18` from 2026-11-14 through the run. The review fixes change later runs and how the report
+  is rendered, not the calls; the report renders from the committed results alone.
+- Next: the expert review of 0005.
+
 ## 2026-11-14: the GRPO samplings again, under one stop set
 
 - The resample kernel (`aswanisahoo/earthgym-grpo-resample`, version 1) finished on Kaggle in

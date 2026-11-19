@@ -10,5 +10,9 @@ the ratings describe the state before those fixes.
 `2026-11-13-go-public.md` is not a phase review: it covers the change set that recorded the
 repository going public, and its session reported its model as Claude Fable 5.2.
 
+`2026-11-19-jev-provider.md` is not a phase review either: it is an EGM-lite Goldfish diff review
+of the Jev provider change (the 2026-11-19 amendment to 0008), by an agent of Google's
+Elephant-Goldfish Model plugin, not by `.claude/agents/reviewer.md`.
+
 The reviews cite files and line numbers as they were at the time. `WORKBOARD.md`, which several
 of them cite, was later removed; its open items are in `docs/roadmap.md`.

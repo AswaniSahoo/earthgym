@@ -57,8 +57,10 @@ run (model, settings, tokens, the sha256 of the items it was scored on) and one 
 (id, parsed answer, reward, tokens), described in decision 0019. The test builds every report
 and its JSON from these files alone, with the same code that builds them from the logs, and
 compares them byte for byte with the committed ones: the two ClimaQA run reports and their
-comparison, ERA5, both IBTrACS runs and their pair, and both heat runs and their pair. It also
-checks every row of `reports/spend.md` against the tokens in the results.
+comparison, ERA5, both IBTrACS runs and their pair, both heat runs and their pair, and the Jev
+third-reader report (decision 0008), whose results file holds one line per Jev call, with its
+bucket choice and probabilities and no reward. It also checks every row of `reports/spend.md`
+against the tokens in the results.
 
 One number by hand, the heat accuracy with the rules shown:
 
